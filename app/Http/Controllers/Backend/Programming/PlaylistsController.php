@@ -15,7 +15,16 @@ class PlaylistsController extends Controller
    */
   public function index()
   {
-    //
+    $playlists = Playlist::search(request(['search', 'roadmap', 'status']))
+      ->select(['id', 'roadmap_id', 'spl', 'image', 'name', 'status_id', 'url'])
+      ->orderby('sr', 'asc')
+      ->paginate(10)
+      ->withQueryString();
+
+    return view('backend.programming.playlists.index', [
+      'title' => 'Semua data playlists',
+      'playlists' => $playlists
+    ]);
   }
 
   /**
@@ -64,5 +73,22 @@ class PlaylistsController extends Controller
   public function destroy(Playlist $playlist)
   {
     //
+  }
+
+  /**
+   * Display a listing of the resource.
+   */
+  public function draft()
+  {
+    $playlists = Playlist::draft(request(['search', 'roadmap', 'status']))
+      ->select(['id', 'roadmap_id', 'spl', 'image', 'name', 'status_id', 'url'])
+      ->orderby('sr', 'asc')
+      ->paginate(10)
+      ->withQueryString();
+
+    return view('backend.programming.playlists.draft', [
+      'title' => 'Semua data draft playlists',
+      'playlists' => $playlists
+    ]);
   }
 }
