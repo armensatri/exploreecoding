@@ -22,6 +22,13 @@ use Database\Seeders\Pivot\{
   RoleHasPermissionSeeder,
 };
 
+use Database\Seeders\Programming\{
+  PathSeeder,
+  PlaylistSeeder,
+  PostSeeder,
+  RoadmapSeeder,
+};
+
 class DatabaseSeeder extends Seeder
 {
   public function run(): void
@@ -36,7 +43,11 @@ class DatabaseSeeder extends Seeder
       PermissionSeeder::class,
       RoleHasPermissionSeeder::class,
       StatusSeeder::class,
-      ProgrammingSeeder::class,
+      PathSeeder::class,
+      RoadmapSeeder::class,
+      PlaylistSeeder::class,
+      PostSeeder::class,
+      // ProgrammingSeeder::class,
     ]);
   }
 }

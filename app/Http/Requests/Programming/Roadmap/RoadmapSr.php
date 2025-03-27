@@ -41,10 +41,6 @@ class RoadmapSr extends FormRequest
         'required'
       ],
 
-      'description' => [
-        'required'
-      ],
-
       'image' => [
         'image',
         'max:2048'
@@ -72,10 +68,8 @@ class RoadmapSr extends FormRequest
 
       'status_id.required' => 'Roadmap..status! harus di isi',
 
-      'description.required' => 'Roadmap..description! harus di isi',
-
-      'image.image' => 'Roadmap..image! yang di upload bukan image',
-      'image.max' => 'Roadmap..image! ukuran maksimal 2 mb',
+      'image.image' => 'Roadmap..image! file yang di upload bukan image',
+      'image.max' => 'Roadmap..image! ukuran image maksimal 2 mb',
     ];
   }
 }

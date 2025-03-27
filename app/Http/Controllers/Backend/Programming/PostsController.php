@@ -15,7 +15,17 @@ class PostsController extends Controller
    */
   public function index()
   {
-    //
+    $posts = Post::search(request(['search', 'playlist', 'status']))
+      ->select(['id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
+      ->with(['playlist', 'status', 'user'])
+      ->orderby('playlist_id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
+
+    return view('backend.programming.posts.index', [
+      'title' => 'Semua data posts',
+      'posts' => $posts
+    ]);
   }
 
   /**
@@ -64,5 +74,23 @@ class PostsController extends Controller
   public function destroy(Post $post)
   {
     //
+  }
+
+  /**
+   * Display a listing of the resource.
+   */
+  public function draft()
+  {
+    $posts = Post::draft(request(['search', 'playlist']))
+      ->select(['id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
+      ->with(['playlist', 'status', 'user'])
+      ->orderby('playlist_id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
+
+    return view('backend.programming.posts.draft', [
+      'title' => 'Semua data draft posts',
+      'posts' => $posts
+    ]);
   }
 }

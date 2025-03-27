@@ -24,7 +24,7 @@ class RoadmapsController extends Controller
     $roadmaps = Roadmap::search(request(['search', 'status', 'path']))
       ->select(['id', 'path_id', 'sr', 'image', 'name', 'status_id', 'url'])
       ->with(['path', 'playlists', 'status'])
-      ->orderby('sp', 'asc')
+      ->orderby('path_id', 'asc')
       ->paginate(10)
       ->withQueryString();
 
@@ -204,7 +204,7 @@ class RoadmapsController extends Controller
     $roadmaps = Roadmap::draft(request(['search', 'path']))
       ->select(['id', 'path_id', 'sr', 'image', 'name', 'status_id', 'url'])
       ->with(['path', 'playlists', 'status'])
-      ->orderby('sp', 'asc')
+      ->orderby('path_id', 'asc')
       ->paginate(10)
       ->withQueryString();
 

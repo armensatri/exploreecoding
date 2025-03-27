@@ -23,43 +23,31 @@
                 <div class="overflow-hidden app-table-border">
                   <div class="grid app-table-grid">
                     <x-description
-                      table-name="Playlists"
-                      :page-data="$playlists"
+                      table-name="Posts"
+                      :page-data="$posts"
                     />
 
                     <div class="table-header">
                       <div class="inline-flex items-center gap-x-2">
                         <div class="refresh">
                           <x-refresh
-                            :route="route('playlists.index')"
+                            :route="route('posts.draft')"
                           />
                         </div>
 
                         <div class="search">
-                          <form action="/playlists">
+                          <form action="/posts/draft">
                             <x-search
-                              search="playlists"
-                              placeholder="Search data playlists"
+                              search="posts"
+                              placeholder="Search data posts"
                             />
                           </form>
                         </div>
 
-                        <div class="backup">
-                          <x-backup
-                            table-name="playlists"
-                          />
-                        </div>
-
-                        <div class="draft">
-                          <x-draft
-                            :route="route('playlists.draft')"
-                          />
-                        </div>
-
-                        <div class="button-create">
-                          <x-button-create
-                            :route="route('playlists.create')"
-                            button-name="playlist"
+                        <div class="indexs">
+                          <x-indexs
+                            :route="route('posts.index')"
+                            name="back to posts"
                           />
                         </div>
                       </div>
@@ -76,29 +64,26 @@
                           name="id"
                         />
                         <x-th
-                          name="roadmap"
+                          name="playlist"
                         />
                         <x-th
-                          name="spl"
+                          name="sp"
                         />
                         <x-th
                           name="image"
                         />
                         <x-th
-                          name="name"
+                          name="title"
                         />
                         <x-th
                           name="status"
-                        />
-                        <x-th
-                          name="url"
                         />
                         <x-th-action/>
                       </tr>
                     </thead>
 
                     <tbody class="tbody">
-                      @foreach ($playlists as $playlist)
+                      @foreach ($posts as $post)
                         <tr>
                           <td class="h-px whitespace-nowrap">
                             <div class="center">
@@ -111,22 +96,22 @@
                           <td class="h-px whitespace-nowrap">
                             <div class="center">
                               <x-td-var
-                                :var="$playlist->id"
+                                :var="$post->id"
                               />
                             </div>
                           </td>
 
                           <td class="h-px w-48 min-w-48">
                             <x-td-var-width
-                              :var="$playlist->roadmap->name"
-                              :tooltip="$playlist->roadmap->name"
+                              :var="$post->playlist->name"
+                              :tooltip="$post->playlist->name"
                             />
                           </td>
 
                           <td class="h-px whitespace-nowrap">
                             <div class="center">
                               <x-td-var
-                                :var="$playlist->spl"
+                                :var="$post->sp"
                               />
                             </div>
                           </td>
@@ -134,7 +119,7 @@
                           <td class="size-px whitespace-nowrap">
                             <div class="center">
                               <x-td-image
-                                :asset="$playlist->image"
+                                :asset="$post->image"
                                 asset-default="/image/default.png"
                               />
                             </div>
@@ -142,39 +127,33 @@
 
                           <td class="h-px w-48 min-w-48">
                             <x-td-var-width
-                              :var="$playlist->name"
-                              :tooltip="$playlist->name"
+                              :var="$post->title"
+                              :tooltip="$post->title"
                             />
                           </td>
 
                           <td class="h-px whitespace-nowrap">
                             <x-td-var-bg
-                              :bg="$playlist->status->bg"
-                              :text="$playlist->status->text"
-                              :var="$playlist->status->name"
-                            />
-                          </td>
-
-                          <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$playlist->url"
+                              :bg="$post->status->bg"
+                              :text="$post->status->text"
+                              :var="$post->status->name"
                             />
                           </td>
 
                           <td class="size-px whitespace-nowrap">
                             <x-td-action
-                              :id="$playlist->id"
+                              :id="$post->id"
 
                               :show="route(
-                                'playlists.show', $playlist->url
+                                'posts.show', $post->slug
                               )"
 
                               :edit="route(
-                                'playlists.edit', $playlist->url
+                                'posts.edit', $post->slug
                                 )"
 
                               :delete="route(
-                                'playlists.destroy', $playlist->url
+                                'posts.destroy', $post->slug
                               )"
                             />
                           </td>
@@ -184,9 +163,9 @@
                   </table>
 
                   <div class="grid app-table-footer">
-                    @if ($playlists->lastPage() > 1)
+                    @if ($posts->lastPage() > 1)
                       <x-pagination
-                        :pagination="$playlists"
+                        :pagination="$posts"
                       />
                     @endif
                   </div>

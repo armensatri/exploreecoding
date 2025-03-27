@@ -3,7 +3,7 @@
     <span class="inline-flex items-center text-gray-600 line-clamp-1
       text-[15px] hs-tooltip-toggle cursor-pointer">
 
-      <span class="line-clamp-1 hover:text-blue-700">
+      <span class="line-clamp-1 hover:text-blue-700 text-[15px] leading-normal">
         {{ $var }}
       </span>
 
