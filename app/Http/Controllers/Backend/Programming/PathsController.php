@@ -65,7 +65,7 @@ class PathsController extends Controller
       );
     }
 
-    $dataupdate['status_id'] = $request->status_id;
+    $datastore['status_id'] = $request->status_id;
 
     Path::create($datastore);
 
@@ -73,6 +73,10 @@ class PathsController extends Controller
       'success',
       'Data path! berhasil di tambahkan.'
     );
+
+    if ($datastore['status_id'] === 1) {
+      return redirect()->route('paths.draft');
+    }
 
     return redirect()->route('paths.index');
   }
@@ -148,6 +152,10 @@ class PathsController extends Controller
       'success',
       'Data path! berhasil di update.'
     );
+
+    if ($dataupdate['status_id'] === 1) {
+      return redirect()->route('paths.draft');
+    }
 
     return redirect()->route('paths.index');
   }

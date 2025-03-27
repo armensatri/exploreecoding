@@ -14,6 +14,7 @@ use App\View\Components\Backend\Button\{
 
 use App\View\Components\Backend\Input\{
   Input,
+  InputEditor,
   InputImage,
   InputImagePreview,
   InputSelect,
@@ -70,6 +71,7 @@ class BackendServiceProvider extends ServiceProvider
 
     // INPUT
     Blade::component('input', Input::class);
+    Blade::component('input-editor', InputEditor::class);
     Blade::component('input-image', InputImage::class);
     Blade::component('input-image-preview', InputImagePreview::class);
     Blade::component('input-select', InputSelect::class);

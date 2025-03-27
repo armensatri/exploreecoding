@@ -71,7 +71,7 @@ class RoadmapsController extends Controller
       );
     }
 
-    $dataupdate['status_id'] = $request->status_id;
+    $datastore['status_id'] = $request->status_id;
 
     Roadmap::create($datastore);
 
@@ -79,6 +79,10 @@ class RoadmapsController extends Controller
       'success',
       'Data roadmap! berhasil di tambahkan.'
     );
+
+    if ($datastore['status_id'] === 1) {
+      return redirect()->route('roadmaps.draft');
+    }
 
     return redirect()->route('roadmaps.index');
   }
@@ -159,6 +163,10 @@ class RoadmapsController extends Controller
       'success',
       'Data roadmap! berhasil di update.'
     );
+
+    if ($dataupdate['status_id'] === 1) {
+      return redirect()->route('roadmaps.draft');
+    }
 
     return redirect()->route('roadmaps.index');
   }

@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Backend\Programming;
 
 use Illuminate\Http\Request;
 use App\Models\Programming\Post;
+use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
+use App\Models\Programming\Playlist;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\Programming\Post\PostSr;
 use App\Http\Requests\Programming\Post\PostUr;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class PostsController extends Controller
 {
@@ -31,9 +35,22 @@ class PostsController extends Controller
   /**
    * Show the form for creating a new resource.
    */
-  public function create()
+  public function create(Post $post)
   {
-    //
+    $playlists = Playlist::select('id', 'name')
+      ->orderby('spl', 'asc')
+      ->get();
+
+    $statuses = Status::select('id', 'name')
+      ->orderby('ss', 'asc')
+      ->get();
+
+    return view('backend.programming.posts.create', [
+      'title' => 'Create data post',
+      'post' => $post,
+      'playlists' => $playlists,
+      'statuses' => $statuses
+    ]);
   }
 
   /**
@@ -41,7 +58,28 @@ class PostsController extends Controller
    */
   public function store(PostSr $request)
   {
-    //
+    $datastore = $request->validated();
+
+    if ($request->hasFile('image')) {
+      $datastore['image'] = $request->file('image')->store(
+        '/programming/posts'
+      );
+    }
+
+    $datastore['status_id'] = $request->status_id;
+
+    Post::create($datastore);
+
+    Alert::success(
+      'success',
+      'Data post! berhasil di tambahkan.'
+    );
+
+    if ($datastore['status_id'] === 1) {
+      return redirect()->route('posts.draft');
+    }
+
+    return redirect()->route('posts.index');
   }
 
   /**
@@ -74,6 +112,20 @@ class PostsController extends Controller
   public function destroy(Post $post)
   {
     //
+  }
+
+  /**
+   * Generate resource slug otomatis.
+   */
+  public function slug(Request $request)
+  {
+    $slug = SlugService::createSlug(
+      Post::class,
+      'slug',
+      $request->title
+    );
+
+    return response()->json(['slug' => $slug]);
   }
 
   /**

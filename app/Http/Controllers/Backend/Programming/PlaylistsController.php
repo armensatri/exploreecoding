@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Backend\Programming;
 
 use App\Helpers\RandomUrl;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Programming\Playlist\PlaylistSr;
-use App\Http\Requests\Programming\Playlist\PlaylistUr;
-use App\Models\Programming\Playlist;
-use App\Models\Programming\Roadmap;
-use App\Models\Published\Status;
-use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
+use App\Models\Published\Status;
+use App\Models\Programming\Roadmap;
+use App\Http\Controllers\Controller;
+use App\Models\Programming\Playlist;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+use App\Http\Requests\Programming\Playlist\PlaylistSr;
+use App\Http\Requests\Programming\Playlist\PlaylistUr;
 
 class PlaylistsController extends Controller
 {
@@ -71,7 +71,7 @@ class PlaylistsController extends Controller
       );
     }
 
-    $dataupdate['status_id'] = $request->status_id;
+    $datastore['status_id'] = $request->status_id;
 
     Playlist::create($datastore);
 
@@ -79,6 +79,10 @@ class PlaylistsController extends Controller
       'success',
       'Data playlist! berhasil di tambahkan.'
     );
+
+    if ($datastore['status_id'] === 1) {
+      return redirect()->route('playlists.draft');
+    }
 
     return redirect()->route('playlists.index');
   }
@@ -159,6 +163,10 @@ class PlaylistsController extends Controller
       'success',
       'Data playlist! berhasil di update.'
     );
+
+    if ($dataupdate['status_id'] === 1) {
+      return redirect()->route('playlists.draft');
+    }
 
     return redirect()->route('playlists.index');
   }
