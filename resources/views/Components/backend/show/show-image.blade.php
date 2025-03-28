@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <div class="md:col-span-6">
+  <div class="md:col-span-9">
     <div class="inline-block">
       <img src="{{ $asset ? asset(
         'storage/' . $asset

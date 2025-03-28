@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <div class="md:col-span-6">
+  <div class="md:col-span-9">
     <div class="inline-block {{ $text }} {{ $bg }} px-2 py-0.5 rounded-full text-sm tracking-wide">
       {{ $var }}
     </div>

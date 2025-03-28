@@ -60,3 +60,13 @@
 .center {
   @apply flex justify-center;
 }
+
+/** tulisan merah markdown span -> #editor */
+.x {
+  @apply text-[#ca473f] text-[15px] px-1 tracking-wider rounded-md inline-flex items-center bg-gray-100;
+}
+
+/** link for markdown tag a -> #editor */
+.xa {
+  @apply text-blue-600 text-[17px] px-0.5 tracking-wide inline-flex items-center underline underline-offset-1 hover:bg-blue-500 hover:rounded-[7px] hover:text-white decoration-1 hover:no-underline hover:px-1.5 hover:text-base hover:shadow-sm font-semibold  hover:font-medium cursor-pointer;
+}

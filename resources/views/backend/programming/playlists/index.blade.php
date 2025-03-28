@@ -116,7 +116,7 @@
                             </div>
                           </td>
 
-                          <td class="h-px w-48 min-w-48">
+                          <td class="w-48 h-px min-w-48">
                             <x-td-var-width
                               :var="$playlist->roadmap->name"
                               :tooltip="$playlist->roadmap->name"
@@ -140,7 +140,7 @@
                             </div>
                           </td>
 
-                          <td class="h-px w-48 min-w-48">
+                          <td class="w-48 h-px min-w-48">
                             <x-td-var-width
                               :var="$playlist->name"
                               :tooltip="$playlist->name"

@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <div class="md:col-span-6">
+  <div class="md:col-span-9">
     <div class="inline-block">
       <div class="inline-flex items-center gap-x-2.5">
         <div>

@@ -24,7 +24,7 @@ class PostSeeder extends Seeder
         ",
 
         'content' => "
-          welcome back guys !!
+          welcome back guys
             ini adalah flatform belajar online programming yang bernama
             'explorecoding', nama flatform ini terinspirasi dari pesatnya perkambangan teknologi web, android, desktop, artificial intelligence dan masih banyak lagi.
 

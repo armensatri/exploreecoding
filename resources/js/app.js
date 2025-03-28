@@ -13,7 +13,7 @@ Alpine.start();
 // TOAS UI EDITOR MARKDOWN
 const editor = new Editor({
   el: document.querySelector("#editor"),
-  height: "350px",
+  height: "500px",
   previewStyle: "vertical",
   initialEditType: "markdown",
 });
