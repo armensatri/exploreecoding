@@ -5,18 +5,23 @@ namespace App\Http\Controllers\Backend\Access;
 use Illuminate\Http\Request;
 use App\Models\Managemenu\Menu;
 use App\Models\Manageuser\Role;
+use App\Models\Managemenu\Submenu;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Managemenu\Submenu;
 use App\Models\Manageuser\Permission;
+use Illuminate\Support\Facades\Cache;
 
 class AccessController extends Controller
 {
   public function amenu($id)
   {
-    $role = Role::with(['menus' => function ($query) {
-      $query->select('menus.id');
-    }])->findOrFail($id);
+    $cacheKey = "access_role_menus_{$id}";
+
+    $role = Cache::remember($cacheKey, 60, function () use ($id) {
+      return Role::with(['menus' => function ($query) {
+        $query->select('menus.id');
+      }])->findOrFail($id);
+    });
 
     $assignedMenuIds = $role->menus->pluck('id')->toArray();
 
@@ -57,6 +62,8 @@ class AccessController extends Controller
       $message = 'Data menu! berhasil ditambahkan!';
     }
 
+    Cache::forget("access_role_menus_{$roleId}");
+
     return response()->json([
       'success' => true,
       'message' => $message
@@ -65,9 +72,13 @@ class AccessController extends Controller
 
   public function asubmenu($id)
   {
-    $role = Role::with(['submenus' => function ($query) {
-      $query->select('submenus.id');
-    }])->findOrFail($id);
+    $cacheKey = "access_role_submenus_{$id}";
+
+    $role = Cache::remember($cacheKey, 60, function () use ($id) {
+      return Role::with(['submenus' => function ($query) {
+        $query->select('submenus.id');
+      }])->findOrFail($id);
+    });
 
     $assignedSubmenuIds = $role->submenus->pluck('id')->toArray();
 
@@ -108,6 +119,8 @@ class AccessController extends Controller
       $message = 'Data submenu! berhasil ditambahkan!';
     }
 
+    Cache::forget("access_role_submenus_{$roleId}");
+
     return response()->json([
       'success' => true,
       'message' => $message
@@ -116,9 +129,13 @@ class AccessController extends Controller
 
   public function apermission($id)
   {
-    $role = Role::with(['permissions' => function ($query) {
-      $query->select('permissions.id');
-    }])->findOrFail($id);
+    $cacheKey = "access_role_permissions_{$id}";
+
+    $role = Cache::remember($cacheKey, 60, function () use ($id) {
+      return Role::with(['permissions' => function ($query) {
+        $query->select('permissions.id');
+      }])->findOrFail($id);
+    });
 
     $assignedPermissionIds = $role->permissions->pluck('id')->toArray();
 
@@ -165,6 +182,8 @@ class AccessController extends Controller
       DB::table('role_has_permission')->insert($data);
       $message = 'Data permission! berhasil ditambahkan!';
     }
+
+    Cache::forget("access_role_permissions_{$roleId}");
 
     return response()->json([
       'success' => true,

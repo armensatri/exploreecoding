@@ -289,7 +289,7 @@ Route::group(
 |---------------------------------------------------------------*/
 
 Route::group(
-  ['middleware' => ['auth']],
+  ['middleware' => ['auth', 'permission']],
   function () {
     Route::resource('/statuses', StatusesController::class);
   }
@@ -300,7 +300,7 @@ Route::group(
 |---------------------------------------------------------------*/
 
 Route::group(
-  ['middleware' => ['auth']],
+  ['middleware' => ['auth', 'permission']],
   function () {
     Route::resources([
       '/paths' => PathsController::class,

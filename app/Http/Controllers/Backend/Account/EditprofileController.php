@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Backend\Account;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Controllers\Controller;
 use App\Helpers\Submenuaccess;
 use App\Models\Manageuser\User;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\Account\Editprofile\EditprofileUr;
 
@@ -19,7 +20,12 @@ class EditprofileController extends Controller
 
   public function edit()
   {
-    $user = Auth::user();
+    $userId = Auth::id();
+    $cacheKey = "edit_profile_{$userId}";
+
+    $user = Cache::remember($cacheKey, 300, function () {
+      return Auth::user();
+    });
 
     return view('backend.account.edit-profile', [
       'title' => 'Edit profile ' . $user->username,
@@ -44,6 +50,8 @@ class EditprofileController extends Controller
     }
 
     Auth::user()->update($dataupdate);
+
+    Cache::forget("edit_profile_{$user->id}");
 
     Alert::success(
       'success',
