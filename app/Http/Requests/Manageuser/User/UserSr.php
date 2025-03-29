@@ -23,7 +23,7 @@ class UserSr extends FormRequest
       'username' => [
         'required',
         'min:3',
-        'max:15',
+        'max:25',
         'regex:/^[a-z]+$/',
         'unique:users,username'
       ],
@@ -67,7 +67,7 @@ class UserSr extends FormRequest
 
       'username.required' => 'User..username! harus di isi',
       'username.min' => 'User..username! minimal 3 karakter',
-      'username.max' => 'User..username! maksimal 15 karakter',
+      'username.max' => 'User..username! maksimal 25 karakter',
       'username.regex' => 'User..username! harus huruf kecil tanpa spasi',
       'username.unique' => 'User..username! sudah terdaptar',
 

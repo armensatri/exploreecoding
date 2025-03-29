@@ -14,6 +14,7 @@ class RoleHasMenuSeeder extends Seeder
       'owner',
       'superadmin',
       'admin',
+      'concreat',
       'member'
     ])->get()->keyBy('name');
 
@@ -21,13 +22,14 @@ class RoleHasMenuSeeder extends Seeder
       'owner',
       'superadmin',
       'admin',
+      'concreat',
       'member',
       'account',
       'manageaccess',
       'managedata',
       'manageuser',
       'managemenu',
-      'published',
+      'publish',
       'programming',
       'comments'
     ])->get()->keyBy('name');
@@ -40,7 +42,7 @@ class RoleHasMenuSeeder extends Seeder
         'managedata',
         'manageuser',
         'managemenu',
-        'published',
+        'publish',
         'programming',
         'comments'
       ],
@@ -52,7 +54,7 @@ class RoleHasMenuSeeder extends Seeder
         'managedata',
         'manageuser',
         'managemenu',
-        'published',
+        'publish',
         'programming',
         'comments'
       ],
@@ -60,11 +62,18 @@ class RoleHasMenuSeeder extends Seeder
       'admin' => [
         'admin',
         'account',
+        'programming',
+      ],
+
+      'concreat' => [
+        'concreat',
+        'account',
+        'programming',
       ],
 
       'member' => [
         'member',
-        'account'
+        'account',
       ],
     ];
 

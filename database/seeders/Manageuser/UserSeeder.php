@@ -35,11 +35,19 @@ class UserSeeder extends Seeder
       ],
 
       [
+        'name' => 'Content Creator',
+        'username' => 'contentcreator',
+        'email' => 'contentcreator@gmail.com',
+        'password' => bcrypt('123qwe'),
+        'role_id' => 4
+      ],
+
+      [
         'name' => 'Member',
         'username' => 'member',
         'email' => 'member@gmail.com',
         'password' => bcrypt('123qwe'),
-        'role_id' => 4
+        'role_id' => 5
       ],
     ];
 

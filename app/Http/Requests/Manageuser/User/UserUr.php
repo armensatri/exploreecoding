@@ -23,13 +23,13 @@ class UserUr extends FormRequest
       'username' => [
         'required',
         'min:3',
-        'max:15',
+        'max:25',
         'regex:/^[a-z]+$/',
       ],
 
       'email' => [
         'required',
-        'email:dns',
+        'email',
       ],
 
       'image' => [
@@ -52,7 +52,7 @@ class UserUr extends FormRequest
 
       'username.required' => 'User..username! harus di isi',
       'username.min' => 'User..username! minimal 3 karakter',
-      'username.max' => 'User..username! maksimal 15 karakter',
+      'username.max' => 'User..username! maksimal 25 karakter',
       'username.regex' => 'User..username! harus huruf kecil tanpa spasi',
 
       'email.required' => 'User..email! harus di isi',

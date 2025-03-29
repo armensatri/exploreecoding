@@ -30,56 +30,62 @@ class MenuSeeder extends Seeder
 
       [
         'sm' => 4,
+        'name' => 'concreat',
+        'description' => 'menu dashboard content creator'
+      ],
+
+      [
+        'sm' => 5,
         'name' => 'member',
         'description' => 'menu dashboard member'
       ],
 
       [
-        'sm' => 5,
+        'sm' => 6,
         'name' => 'account',
         'description' => 'menu account'
       ],
 
       [
-        'sm' => 6,
+        'sm' => 7,
         'name' => 'manageaccess',
         'description' => 'menu manage access'
       ],
 
       [
-        'sm' => 7,
+        'sm' => 8,
         'name' => 'managedata',
         'description' => 'menu monitoring data'
       ],
 
       [
-        'sm' => 8,
+        'sm' => 9,
         'name' => 'manageuser',
         'description' => 'menu access user'
       ],
 
       [
-        'sm' => 9,
+        'sm' => 10,
         'name' => 'managemenu',
         'description' => 'menu access menu'
       ],
 
       [
-        'sm' => 10,
-        'name' => 'published',
-        'description' => 'menu published content'
+        'sm' => 11,
+        'name' => 'publish',
+        'description' => 'menu publish content'
       ],
 
       [
-        'sm' => 11,
+        'sm' => 12,
         'name' => 'programming',
         'description' => 'menu content programming'
       ],
 
       [
-        'sm' => 12,
+        'sm' => 13,
         'name' => 'comments',
-        'description' => 'menu comments'
+        'description' => 'menu comment'
       ],
     ];
 

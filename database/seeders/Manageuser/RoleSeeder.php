@@ -39,6 +39,15 @@ class RoleSeeder extends Seeder
 
       [
         'sr' => 4,
+        'name' => 'concreat',
+        'slug' => 'concreat',
+        'bg' => 'bg-sky-200',
+        'text' => 'text-sky-800',
+        'description' => 'content creator system'
+      ],
+
+      [
+        'sr' => 5,
         'name' => 'member',
         'slug' => 'member',
         'bg' => 'bg-slate-200',

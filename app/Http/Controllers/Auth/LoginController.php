@@ -40,7 +40,8 @@ class LoginController extends Controller
         'owner' => 'owner',
         'superadmin' => 'superadmin',
         'admin' => 'admin',
-        'member' => 'member'
+        'concreat' => 'concreat',
+        'member' => 'member',
       ];
 
       $role = Auth::user()->role->name ?? '';

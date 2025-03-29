@@ -17,7 +17,7 @@
 
       <section class="w-full px-4 mt-8 mb-5">
         <div class="w-full">
-          <form action="{{ route('password.update') }}"
+          <form action="{{ route('change.password.update') }}"
             method="POST">
             @method('PATCH')
             @csrf

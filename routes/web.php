@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\{
 
 use App\Http\Controllers\Backend\Dashboard\{
   AdminController,
+  ConcreatController,
   MemberController,
   OwnerController,
   SuperadminController,
@@ -30,6 +31,7 @@ use App\Http\Controllers\Backend\Manageuser\{
 };
 
 use App\Http\Controllers\Backend\Account\{
+  ChangepasswordController,
   ProfileController,
   EditprofileController,
 };
@@ -186,6 +188,9 @@ Route::group(
       ->name('profile.edit');
     Route::put('/profile/update', [EditprofileController::class, 'update'])
       ->name('profile.update');
+
+    Route::get('/change/password/edit', [ChangepasswordController::class, 'edit'])->name('change.password.edit');
+    Route::patch('/change/password/edit', [ChangepasswordController::class, 'update'])->name('change.password.update');
   }
 );
 
@@ -215,6 +220,9 @@ Route::group(
 
     Route::get('/member', [MemberController::class, 'index'])
       ->name('member');
+
+    Route::get('/concreat', [ConcreatController::class, 'index'])
+      ->name('concreat');
   }
 );
 

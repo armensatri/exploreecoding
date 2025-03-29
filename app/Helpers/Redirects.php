@@ -19,7 +19,8 @@ class Redirects
       'owner' => 'owner',
       'superadmin' => 'superadmin',
       'admin' => 'admin',
-      'member' => 'member'
+      'concreat' => 'concreat',
+      'member' => 'member',
     ];
 
     return $routes[$user->role->name] ?? route('home');

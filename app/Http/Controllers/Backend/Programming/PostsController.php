@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Programming;
 
 use Illuminate\Http\Request;
+use App\Helpers\Submenuaccess;
 use App\Models\Programming\Post;
 use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
@@ -16,6 +17,11 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class PostsController extends Controller
 {
+  public function __construct()
+  {
+    Submenuaccess::Submenu();
+  }
+
   /**
    * Display a listing of the resource.
    */

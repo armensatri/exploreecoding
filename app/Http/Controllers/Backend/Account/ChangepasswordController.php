@@ -12,15 +12,13 @@ use App\Http\Requests\Account\Changepassword\ChangepasswordUr;
 
 class ChangepasswordController extends Controller
 {
-  public function __construct()
+  public function edit()
   {
-    Submenuaccess::Submenu();
-  }
+    $user = Auth::user();
 
-  public function index()
-  {
     return view('backend.account.change-password', [
-      'title' => 'Change password'
+      'title' => 'Change password ' . $user->username,
+      'user' => $user
     ]);
   }
 
@@ -35,6 +33,6 @@ class ChangepasswordController extends Controller
       'Change password! berhasil di update.'
     );
 
-    return redirect()->route('change.password');
+    return redirect()->route('change.password.edit');
   }
 }

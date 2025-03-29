@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Backend\Programming;
 
 use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
-use App\Models\Published\Status;
+use App\Helpers\Submenuaccess;
 use App\Models\Programming\Path;
+use App\Models\Published\Status;
 use App\Models\Programming\Roadmap;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -16,6 +17,11 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class RoadmapsController extends Controller
 {
+  public function __construct()
+  {
+    Submenuaccess::Submenu();
+  }
+
   /**
    * Display a listing of the resource.
    */

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Published;
 
 use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
+use App\Helpers\Submenuaccess;
 use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -12,6 +13,11 @@ use App\Http\Requests\Published\Status\StatusUr;
 
 class StatusesController extends Controller
 {
+  public function __construct()
+  {
+    Submenuaccess::Submenu();
+  }
+
   /**
    * Display a listing of the resource.
    */
