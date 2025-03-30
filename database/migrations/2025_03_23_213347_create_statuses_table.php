@@ -17,6 +17,8 @@ return new class extends Migration
       $table->string('text');
       $table->text('description')->default('-');
       $table->timestamps();
+
+      $table->index('ss');
     });
   }
 

@@ -17,11 +17,7 @@ class ProfileController extends Controller
 
   public function show()
   {
-    $cacheKey = "profile_" . Auth::id();
-
-    $user = Cache::remember($cacheKey, 300, function () {
-      return Auth::user();
-    });
+    $user = Auth::user();
 
     return view('backend.account.profile', [
       'title' => 'User profile ' . $user->username,

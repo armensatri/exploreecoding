@@ -24,6 +24,8 @@ return new class extends Migration
       $table->string('image')->nullable();
       $table->text('description')->default('-');
       $table->timestamps();
+
+      $table->index('ssm');
     });
   }
 

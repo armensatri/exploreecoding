@@ -28,6 +28,10 @@ return new class extends Migration
       $table->text('description')->default('-');
       $table->string('image')->nullable();
       $table->timestamps();
+
+      $table->index('sr');
+      $table->index('views');
+      $table->index(['path_id', 'status_id']);
     });
   }
 

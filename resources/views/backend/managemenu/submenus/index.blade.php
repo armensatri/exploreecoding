@@ -82,18 +82,6 @@
                           name="name"
                         />
                         <x-th
-                          name="route"
-                        />
-                        <x-th
-                          name="active"
-                        />
-                        <x-th
-                          name="routename"
-                        />
-                        <x-th
-                          name="description"
-                        />
-                        <x-th
                           name="url"
                         />
                         <x-th-action/>
@@ -145,30 +133,6 @@
                           <td class="h-px whitespace-nowrap">
                             <x-td-var
                               :var="$submenu->name"
-                            />
-                          </td>
-
-                          <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$submenu->route"
-                            />
-                          </td>
-
-                          <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$submenu->active"
-                            />
-                          </td>
-
-                          <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$submenu->routename"
-                            />
-                          </td>
-
-                          <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$submenu->description"
                             />
                           </td>
 

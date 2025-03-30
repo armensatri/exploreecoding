@@ -18,6 +18,9 @@ return new class extends Migration
       $table->text('description');
       $table->string('guard_name')->default('web');
       $table->timestamps();
+
+      $table->index('sr');
+      $table->index('guard_name');
     });
   }
 

@@ -33,6 +33,11 @@ return new class extends Migration
         ->onUpdate('cascade');
       $table->string('image')->nullable();
       $table->timestamps();
+
+      $table->index('sp');
+      $table->index('title');
+      $table->index('views');
+      $table->index(['user_id', 'playlist_id', 'status_id']);
     });
   }
 

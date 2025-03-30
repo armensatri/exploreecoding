@@ -20,6 +20,8 @@ return new class extends Migration
         ->on('menus')
         ->onDelete('cascade')
         ->onUpdate('cascade');
+
+      $table->index(['role_id', 'menu_id']);
     });
   }
 

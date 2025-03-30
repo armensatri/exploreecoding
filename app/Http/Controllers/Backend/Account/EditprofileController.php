@@ -20,12 +20,7 @@ class EditprofileController extends Controller
 
   public function edit()
   {
-    $userId = Auth::id();
-    $cacheKey = "edit_profile_{$userId}";
-
-    $user = Cache::remember($cacheKey, 300, function () {
-      return Auth::user();
-    });
+    $user = Auth::user();
 
     return view('backend.account.edit-profile', [
       'title' => 'Edit profile ' . $user->username,
@@ -50,8 +45,6 @@ class EditprofileController extends Controller
     }
 
     Auth::user()->update($dataupdate);
-
-    Cache::forget("edit_profile_{$user->id}");
 
     Alert::success(
       'success',

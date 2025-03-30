@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Helpers\Submenuaccess;
 use App\Models\Managemenu\Menu;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\Managemenu\Menu\MenuSr;
 use App\Http\Requests\Managemenu\Menu\MenuUr;
@@ -24,18 +23,12 @@ class MenusController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'menus_index_' . hash('sha256', json_encode(
-      request()->all()
-    ));
-
-    $menus = Cache::remember($cacheKey, 300, function () {
-      return Menu::search(request(['search']))
-        ->select(['id', 'sm', 'name', 'description', 'url'])
-        ->with(['roles', 'submenus'])
-        ->orderBy('sm', 'asc')
-        ->paginate(10)
-        ->withQueryString();
-    });
+    $menus = Menu::search(request(['search']))
+      ->select(['id', 'sm', 'name', 'description', 'url'])
+      ->with(['roles', 'submenus'])
+      ->orderBy('sm', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.managemenu.menus.index', [
       'title' => 'Semua data menu',
@@ -135,6 +128,7 @@ class MenusController extends Controller
       'admin',
       'member',
       'account',
+      'manageaccess',
       'managedata',
       'manageuser',
       'managemenu'

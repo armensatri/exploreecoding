@@ -20,6 +20,8 @@ return new class extends Migration
         ->on('permissions')
         ->onDelete('cascade')
         ->onUpdate('cascade');
+
+      $table->index(['role_id', 'permission_id']);
     });
   }
 

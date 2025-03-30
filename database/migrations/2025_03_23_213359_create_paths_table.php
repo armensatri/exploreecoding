@@ -23,6 +23,9 @@ return new class extends Migration
       $table->text('description')->default('-');
       $table->string('image')->nullable();
       $table->timestamps();
+
+      $table->index('sp');
+      $table->index('views');
     });
   }
 

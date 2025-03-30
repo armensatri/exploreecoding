@@ -24,7 +24,7 @@ class UsersController extends Controller
    */
   public function index()
   {
-    $users = User::search(request(['search']))
+    $users = User::search(request(['search', 'role']))
       ->select(['id', 'image', 'name', 'email', 'role_id', 'is_active', 'username'])
       ->with(['role'])
       ->orderby('role_id', 'asc')

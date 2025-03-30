@@ -14,6 +14,8 @@ return new class extends Migration
       $table->string('url', 5)->unique();
       $table->string('guard_name')->default('web');
       $table->timestamps();
+
+      $table->index('guard_name');
     });
   }
 
