@@ -43,6 +43,7 @@ use App\Http\Controllers\Backend\Manageaccess\{
 };
 
 use App\Http\Controllers\Backend\Published\{
+  AuthorController,
   StatusesController,
 };
 
@@ -200,6 +201,7 @@ Route::group(
 
 Route::get('/blocked', [BlockedController::class, 'blocked'])
   ->name('blocked');
+
 Route::get('/permission-blocked', [BlockedController::class, 'blockedpermission'])->name('blocked-permission');
 
 /*---------------------------------------------------------------
@@ -249,7 +251,7 @@ Route::group(
 |---------------------------------------------------------------*/
 
 Route::group(
-  ['middleware' => ['auth']],
+  ['middleware' => ['auth', 'permission']],
   function () {
     //
   }
@@ -289,8 +291,13 @@ Route::group(
 |---------------------------------------------------------------*/
 
 Route::group(
-  ['middleware' => ['auth', 'permission']],
+  ['middleware' => ['auth']],
   function () {
+    Route::get('/author', [AuthorController::class, 'index'])
+      ->name('author');
+    Route::get('/author/posts/{user:username}', [AuthorController::class, 'posts'])
+      ->name('author.posts');
+
     Route::resource('/statuses', StatusesController::class);
   }
 );
@@ -316,7 +323,7 @@ Route::group(
 |---------------------------------------------------------------*/
 
 Route::group(
-  ['middleware' => ['auth']],
+  ['middleware' => ['auth', 'permission']],
   function () {
     //
   }

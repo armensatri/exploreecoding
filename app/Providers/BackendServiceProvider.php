@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use App\View\Components\Backend\Pagination\Pagination;
 
 use App\View\Components\Backend\Button\{
+  Button,
   ButtonCreate,
   ButtonCreateData,
   ButtonEditData,
@@ -65,6 +66,7 @@ class BackendServiceProvider extends ServiceProvider
   public function boot(): void
   {
     // BUTTON
+    Blade::component('button', Button::class);
     Blade::component('button-create', ButtonCreate::class);
     Blade::component('button-create-data', ButtonCreateData::class);
     Blade::component('button-edit-data', ButtonEditData::class);

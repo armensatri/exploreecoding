@@ -76,6 +76,9 @@
                           name="id"
                         />
                         <x-th
+                          name="user"
+                        />
+                        <x-th
                           name="playlist"
                         />
                         <x-th
@@ -111,6 +114,13 @@
                                 :var="$post->id"
                               />
                             </div>
+                          </td>
+
+                          <td class="w-6 h-px min-w-6">
+                            <x-td-var-width
+                              :var="$post->user->name"
+                              :tooltip="$post->user->name"
+                            />
                           </td>
 
                           <td class="w-48 h-px min-w-48">

@@ -23,44 +23,25 @@
                 <div class="overflow-hidden app-table-border">
                   <div class="grid app-table-grid">
                     <x-description
-                      table-name="Roadmaps"
-                      :page-data="$roadmaps"
+                      table-name="Author"
+                      :page-data="$users"
                     />
 
                     <div class="table-header">
                       <div class="inline-flex items-center gap-x-2">
                         <div class="refresh">
                           <x-refresh
-                            :route="route('roadmaps.index')"
+                            :route="route('author')"
                           />
                         </div>
 
                         <div class="search">
-                          <form action="/roadmaps">
+                          <form action="/author">
                             <x-search
-                              search="roadmaps"
-                              placeholder="Search data roadmaps"
+                              search="users"
+                              placeholder="Search data users"
                             />
                           </form>
-                        </div>
-
-                        <div class="backup">
-                          <x-backup
-                            table-name="roadmaps"
-                          />
-                        </div>
-
-                        <div class="draft">
-                          <x-draft
-                            :route="route('roadmaps.draft')"
-                          />
-                        </div>
-
-                        <div class="button-create">
-                          <x-button-create
-                            :route="route('roadmaps.create')"
-                            button-name="roadmap"
-                          />
                         </div>
                       </div>
                     </div>
@@ -76,29 +57,26 @@
                           name="id"
                         />
                         <x-th
-                          name="path"
-                        />
-                        <x-th
-                          name="sr"
-                        />
-                        <x-th
                           name="image"
                         />
                         <x-th
                           name="name"
                         />
                         <x-th
-                          name="status"
+                          name="role"
                         />
                         <x-th
-                          name="url"
+                          name="posts"
+                        />
+                        <x-th
+                          name="draft"
                         />
                         <x-th-action/>
                       </tr>
                     </thead>
 
                     <tbody class="tbody">
-                      @foreach ($roadmaps as $roadmap)
+                      @foreach ($users as $user)
                         <tr>
                           <td class="h-px whitespace-nowrap">
                             <div class="center">
@@ -111,22 +89,7 @@
                           <td class="h-px whitespace-nowrap">
                             <div class="center">
                               <x-td-var
-                                :var="$roadmap->id"
-                              />
-                            </div>
-                          </td>
-
-                          <td class="w-40 h-px min-w-40">
-                            <x-td-var-width
-                              :var="$roadmap->path->name"
-                              :tooltip="$roadmap->path->name"
-                            />
-                          </td>
-
-                          <td class="h-px whitespace-nowrap">
-                            <div class="center">
-                              <x-td-var
-                                :var="$roadmap->sr"
+                                :var="$user->id"
                               />
                             </div>
                           </td>
@@ -134,49 +97,48 @@
                           <td class="size-px whitespace-nowrap">
                             <div class="center">
                               <x-td-image
-                                :asset="$roadmap->image"
+                                :asset="$user->image"
                                 asset-default="/image/default.png"
                               />
                             </div>
                           </td>
 
-                          <td class="w-48 h-px min-w-48">
-                            <x-td-var-width
-                              :var="$roadmap->name"
-                              :tooltip="$roadmap->name"
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var
+                              :var="$user->name"
                             />
                           </td>
 
                           <td class="h-px whitespace-nowrap">
                             <x-td-var-bg
-                              :bg="$roadmap->status->bg"
-                              :text="$roadmap->status->text"
-                              :var="$roadmap->status->name"
+                              :bg="$user->role->bg"
+                              :text="$user->role->text"
+                              :var="$user->role->name"
                             />
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$roadmap->url"
-                            />
+                            <div class="center">
+                              <x-td-var
+                                :var="$user->posts_count"
+                              />
+                            </div>
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <div class="center">
+                              <x-td-var
+                                :var="$user->draft_posts_count"
+                              />
+                            </div>
                           </td>
 
                           <td class="size-px whitespace-nowrap">
-                            <x-td-action
-                              :id="$roadmap->id"
-
-                              :show="route(
-                                'roadmaps.show', $roadmap->url
-                              )"
-
-                              :edit="route(
-                                'roadmaps.edit', $roadmap->url
-                                )"
-
-                              :delete="route(
-                                'roadmaps.destroy', $roadmap->url
-                              )"
-                            />
+                            <div class="center">
+                              <x-button
+                                :route="route('author.posts', $user->username)"
+                              />
+                            </div>
                           </td>
                         </tr>
                       @endforeach
@@ -184,9 +146,9 @@
                   </table>
 
                   <div class="grid app-table-footer">
-                    @if ($roadmaps->lastPage() > 1)
+                    @if ($users->lastPage() > 1)
                       <x-pagination
-                        :pagination="$roadmaps"
+                        :pagination="$users"
                       />
                     @endif
                   </div>

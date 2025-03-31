@@ -27,13 +27,25 @@ class PostsController extends Controller
    */
   public function index()
   {
-    $posts = Post::search(request(['search', 'playlist', 'status']))
-      ->select(['id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
-      ->where('user_id', Auth::user()->id)
-      ->with(['playlist', 'status', 'user'])
-      ->orderby('playlist_id', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $user = Auth::user();
+
+    if ($user->role_id == 1 || $user->role_id == 2) {
+      $posts = Post::search(request(['search', 'playlist', 'status']))
+        ->select(['id', 'user_id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
+        ->with(['playlist', 'status', 'user'])
+        ->orderBy('playlist_id', 'asc')
+        ->paginate(10)
+        ->withQueryString();
+    } else {
+      $posts = Post::search(request(['search', 'playlist', 'status']))
+        ->select(['id', 'user_id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
+        ->where('user_id', $user->id)
+        ->with(['playlist', 'status', 'user'])
+        ->orderby('playlist_id', 'asc')
+        ->paginate(10)
+        ->withQueryString();
+    }
+
 
     return view('backend.programming.posts.index', [
       'title' => 'Semua data posts',
@@ -211,13 +223,24 @@ class PostsController extends Controller
    */
   public function draft()
   {
-    $posts = Post::draft(request(['search', 'playlist']))
-      ->select(['id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
-      ->where('user_id', Auth::user()->id)
-      ->with(['playlist', 'status', 'user'])
-      ->orderby('playlist_id', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $user = Auth::user();
+
+    if ($user->role_id == 1 || $user->role_id == 2) {
+      $posts = Post::draft(request(['search', 'playlist']))
+        ->select(['id', 'user_id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
+        ->with(['playlist', 'status', 'user'])
+        ->orderBy('playlist_id', 'asc')
+        ->paginate(10)
+        ->withQueryString();
+    } else {
+      $posts = Post::draft(request(['search', 'playlist']))
+        ->select(['id', 'user_id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
+        ->where('user_id', $user->id)
+        ->with(['playlist', 'status'])
+        ->orderBy('playlist_id', 'asc')
+        ->paginate(10)
+        ->withQueryString();
+    }
 
     return view('backend.programming.posts.draft', [
       'title' => 'Semua data draft posts',

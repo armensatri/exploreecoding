@@ -84,6 +84,8 @@ class RoleHasPermissionSeeder extends Seeder
         'permissions.update',
         'permissions.destroy',
 
+        'author',
+
         'statuses.index',
         'statuses.create',
         'statuses.store',
@@ -186,6 +188,8 @@ class RoleHasPermissionSeeder extends Seeder
         'permissions.edit',
         'permissions.update',
         'permissions.destroy',
+
+        'author',
 
         'statuses.index',
         'statuses.create',

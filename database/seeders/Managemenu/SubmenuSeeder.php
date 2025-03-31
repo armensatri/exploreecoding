@@ -224,6 +224,15 @@ class SubmenuSeeder extends Seeder
       [
         'menu_id' => 11,
         'ssm' => 1,
+        'name' => 'author',
+        'route' => '/author',
+        'active' => 'author',
+        'routename' => '/author',
+        'description' => 'submenu data author'
+      ],
+      [
+        'menu_id' => 11,
+        'ssm' => 2,
         'name' => 'statuses',
         'route' => '/statuses',
         'active' => 'statuses',

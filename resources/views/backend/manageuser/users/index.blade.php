@@ -39,7 +39,7 @@
                           <form action="/users">
                             <x-search
                               search="users"
-                              placeholder=""
+                              placeholder="Search data users"
                             />
                           </form>
                         </div>
