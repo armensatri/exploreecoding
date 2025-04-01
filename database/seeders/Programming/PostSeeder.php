@@ -11,7 +11,6 @@ class PostSeeder extends Seeder
   {
     $posts = [
       [
-        'user_id' => 1,
         'playlist_id' => 1,
         'sp' => 1,
         'title' => 'memulai explorecoding',
@@ -51,7 +50,6 @@ class PostSeeder extends Seeder
       ],
 
       [
-        'user_id' => 2,
         'playlist_id' => 2,
         'sp' => 1,
         'title' => 'sejarah algoritma',
@@ -91,7 +89,6 @@ class PostSeeder extends Seeder
       ],
 
       [
-        'user_id' => 3,
         'playlist_id' => 3,
         'sp' => 1,
         'title' => 'sejarah struktur data',
@@ -131,7 +128,6 @@ class PostSeeder extends Seeder
       ],
 
       [
-        'user_id' => 4,
         'playlist_id' => 4,
         'sp' => 1,
         'title' => 'sejarah pemograman',

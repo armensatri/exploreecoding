@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Backend\Programming;
 
+use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Helpers\Submenuaccess;
 use App\Models\Programming\Post;
 use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
 use App\Models\Programming\Playlist;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\Programming\Post\PostSr;
@@ -27,25 +27,12 @@ class PostsController extends Controller
    */
   public function index()
   {
-    $user = Auth::user();
-
-    if ($user->role_id == 1 || $user->role_id == 2) {
-      $posts = Post::search(request(['search', 'playlist', 'status']))
-        ->select(['id', 'user_id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
-        ->with(['playlist', 'status', 'user'])
-        ->orderBy('playlist_id', 'asc')
-        ->paginate(10)
-        ->withQueryString();
-    } else {
-      $posts = Post::search(request(['search', 'playlist', 'status']))
-        ->select(['id', 'user_id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
-        ->where('user_id', $user->id)
-        ->with(['playlist', 'status', 'user'])
-        ->orderby('playlist_id', 'asc')
-        ->paginate(10)
-        ->withQueryString();
-    }
-
+    $posts = Post::search(request(['search', 'playlist', 'status']))
+      ->select(['id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'url'])
+      ->with(['playlist', 'status'])
+      ->orderby('playlist_id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.programming.posts.index', [
       'title' => 'Semua data posts',
@@ -81,14 +68,16 @@ class PostsController extends Controller
   {
     $datastore = $request->validated();
 
+    $datastore['url'] = $request->input('url')
+      ?: RandomUrl::GenerateUrl();
+
     if ($request->hasFile('image')) {
       $datastore['image'] = $request->file('image')->store(
         '/programming/posts'
       );
     }
 
-    $datastore['status_id'] = $request->status_id;
-    $datastore['user_id'] = Auth::user()->id;
+    $datastore['status_id'] = 1;
 
     Post::create($datastore);
 
@@ -97,11 +86,7 @@ class PostsController extends Controller
       'Data post! berhasil di tambahkan.'
     );
 
-    if ($datastore['status_id'] === 1) {
-      return redirect()->route('posts.draft');
-    }
-
-    return redirect()->route('posts.index');
+    return redirect()->route('posts.draft');
   }
 
   /**
@@ -169,18 +154,12 @@ class PostsController extends Controller
       $post->status_id = $dataupdate['status_id'];
     }
 
-    $dataupdate['user_id'] = Auth::user()->id;
-
     $post->update($dataupdate);
 
     Alert::success(
       'success',
       'Data post! berhasil di update.'
     );
-
-    if ($dataupdate['status_id'] === 1) {
-      return redirect()->route('posts.draft');
-    }
 
     return redirect()->route('posts.index');
   }
@@ -223,24 +202,12 @@ class PostsController extends Controller
    */
   public function draft()
   {
-    $user = Auth::user();
-
-    if ($user->role_id == 1 || $user->role_id == 2) {
-      $posts = Post::draft(request(['search', 'playlist']))
-        ->select(['id', 'user_id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
-        ->with(['playlist', 'status', 'user'])
-        ->orderBy('playlist_id', 'asc')
-        ->paginate(10)
-        ->withQueryString();
-    } else {
-      $posts = Post::draft(request(['search', 'playlist']))
-        ->select(['id', 'user_id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'slug'])
-        ->where('user_id', $user->id)
-        ->with(['playlist', 'status'])
-        ->orderBy('playlist_id', 'asc')
-        ->paginate(10)
-        ->withQueryString();
-    }
+    $posts = Post::draft(request(['search', 'playlist']))
+      ->select(['id', 'playlist_id', 'sp', 'image', 'title', 'status_id', 'url'])
+      ->with(['playlist', 'status'])
+      ->orderBy('playlist_id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.programming.posts.draft', [
       'title' => 'Semua data draft posts',

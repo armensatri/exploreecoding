@@ -40,7 +40,6 @@ class RoleHasSubmenuSeeder extends Seeder
       'menus',
       'submenus',
 
-      'author',
       'statuses',
 
       'paths',
@@ -74,7 +73,6 @@ class RoleHasSubmenuSeeder extends Seeder
         'menus',
         'submenus',
 
-        'author',
         'statuses',
 
         'paths',
@@ -107,7 +105,6 @@ class RoleHasSubmenuSeeder extends Seeder
         'menus',
         'submenus',
 
-        'author',
         'statuses',
 
         'paths',
@@ -134,9 +131,6 @@ class RoleHasSubmenuSeeder extends Seeder
         'edit profile',
         'change password',
 
-        'paths',
-        'roadmaps',
-        'playlists',
         'posts',
       ],
 

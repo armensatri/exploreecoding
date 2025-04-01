@@ -13,7 +13,7 @@
 
       <section class="w-full px-4 mt-8 mb-5">
         <div class="w-full">
-          <form action="{{ route('posts.update', $post->slug) }}"
+          <form action="{{ route('posts.update', $post->url) }}"
             method="POST"
             id="edit-editor"
             enctype="multipart/form-data">

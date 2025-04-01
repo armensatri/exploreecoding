@@ -84,7 +84,7 @@ class MenuSeeder extends Seeder
 
       [
         'sm' => 13,
-        'name' => 'comments',
+        'name' => 'comment',
         'description' => 'menu comment'
       ],
     ];

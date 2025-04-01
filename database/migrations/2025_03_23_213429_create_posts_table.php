@@ -10,11 +10,6 @@ return new class extends Migration
   {
     Schema::create('posts', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('user_id')
-        ->references('id')
-        ->on('users')
-        ->onDelete('cascade')
-        ->onUpdate('cascade');
       $table->foreignId('playlist_id')
         ->references('id')
         ->on('playlists')
@@ -23,6 +18,7 @@ return new class extends Migration
       $table->integer('sp');
       $table->string('title');
       $table->string('slug')->unique();
+      $table->string('url', 5)->unique();
       $table->text('excerpt');
       $table->text('content');
       $table->unsignedInteger('views')->default(0);

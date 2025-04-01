@@ -41,11 +41,6 @@
             />
 
             <x-show-data
-              name="Author"
-              :var="$post->user->name"
-            />
-
-            <x-show-data
               name="Playlist"
               :var="$post->playlist->name"
             />
@@ -63,6 +58,11 @@
             <x-show-data
               name="Slug"
               :var="$post->slug"
+            />
+
+            <x-show-data
+              name="Url"
+              :var="$post->url"
             />
 
             <x-show-data
@@ -109,8 +109,8 @@
 
             <x-show-action
               name="Action"
-              :edit="route('posts.edit', $post->slug)"
-              :delete="route('posts.destroy', $post->slug)"
+              :edit="route('posts.edit', $post->url)"
+              :delete="route('posts.destroy', $post->url)"
             />
           </div>
         </div>

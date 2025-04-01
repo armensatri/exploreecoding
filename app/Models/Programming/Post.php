@@ -2,8 +2,8 @@
 
 namespace App\Models\Programming;
 
+use App\Helpers\RandomUrl;
 use App\Helpers\Searching;
-use App\Models\Manageuser\User;
 use App\Models\Published\Status;
 use App\Models\Programming\Playlist;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +18,6 @@ class Post extends Model
   protected $table = 'posts';
 
   protected $fillable = [
-    'user_id',
     'playlist_id',
     'sp',
     'title',
@@ -32,7 +31,7 @@ class Post extends Model
 
   public function getRouteKeyName()
   {
-    return 'slug';
+    return 'url';
   }
 
   public function sluggable(): array
@@ -54,9 +53,19 @@ class Post extends Model
     return $this->belongsTo(Status::class);
   }
 
-  public function user()
+  protected static function boot()
   {
-    return $this->belongsTo(User::class);
+    parent::boot();
+
+    static::saving(function ($post) {
+      if (empty($post->url)) {
+        do {
+          $url = RandomUrl::GenerateUrl();
+        } while (Post::where('url', $url)->exists());
+
+        $post->url = $url;
+      }
+    });
   }
 
   public function scopeSearch(Builder $query, array $filters): void

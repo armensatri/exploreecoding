@@ -291,13 +291,8 @@ Route::group(
 |---------------------------------------------------------------*/
 
 Route::group(
-  ['middleware' => ['auth']],
+  ['middleware' => ['auth', 'permission']],
   function () {
-    Route::get('/author', [AuthorController::class, 'index'])
-      ->name('author');
-    Route::get('/author/posts/{user:username}', [AuthorController::class, 'posts'])
-      ->name('author.posts');
-
     Route::resource('/statuses', StatusesController::class);
   }
 );
