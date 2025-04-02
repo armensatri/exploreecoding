@@ -10,7 +10,7 @@
 
 /** content-backend -> section pertama */
 .app-content-title {
-  @apply px-8 py-1 text-xl font-normal tracking-wide text-white bg-green-700 rounded-full drop-shadow-sm;
+  @apply px-8 py-1 text-base sm:text-xl font-normal tracking-wide text-white bg-green-700 rounded-full drop-shadow-sm;
 }
 
 /** inputan login register app-auth-inputan */
