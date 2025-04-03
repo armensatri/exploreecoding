@@ -146,9 +146,9 @@ class SubmenuSeeder extends Seeder
         'menu_id' => 8,
         'ssm' => 3,
         'name' => 'silabus',
-        'route' => '-',
-        'active' => '-',
-        'routename' => '-',
+        'route' => '/silabus',
+        'active' => 'silabus',
+        'routename' => '/silabus',
         'description' => 'submenu data silabus'
       ],
       [

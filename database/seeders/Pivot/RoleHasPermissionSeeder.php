@@ -44,6 +44,12 @@ class RoleHasPermissionSeeder extends Seeder
         'submenu',
         'permission',
 
+        'device',
+        'visitor',
+        'silabus',
+        'statistik',
+        'countdata',
+
         'menus.index',
         'menus.create',
         'menus.store',
@@ -146,6 +152,12 @@ class RoleHasPermissionSeeder extends Seeder
         'menu',
         'submenu',
         'permission',
+
+        'device',
+        'visitor',
+        'silabus',
+        'statistik',
+        'countdata',
 
         'menus.index',
         'menus.create',

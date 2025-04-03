@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\Home\HomeController;
 use App\Http\Controllers\Backend\Access\AccessController;
 use App\Http\Controllers\Backend\Blocked\BlockedController;
+use App\Http\Controllers\Backend\Published\StatusesController;
 
 use App\Http\Controllers\Auth\{
   LoginController,
@@ -42,16 +43,19 @@ use App\Http\Controllers\Backend\Manageaccess\{
   PermissionController,
 };
 
-use App\Http\Controllers\Backend\Published\{
-  AuthorController,
-  StatusesController,
-};
-
 use App\Http\Controllers\Backend\Programming\{
   PathsController,
   RoadmapsController,
   PlaylistsController,
   PostsController,
+};
+
+use App\Http\Controllers\Backend\Managedata\{
+  CountdataController,
+  DeviceController,
+  SilabusController,
+  StatistikController,
+  VisitorController,
 };
 
 /*---------------------------------------------------------------
@@ -251,9 +255,18 @@ Route::group(
 |---------------------------------------------------------------*/
 
 Route::group(
-  ['middleware' => ['auth', 'permission']],
+  ['middleware' => ['auth']],
   function () {
-    //
+    Route::get('/device', [DeviceController::class, 'index'])
+      ->name('device');
+    Route::get('/visitor', [VisitorController::class, 'index'])
+      ->name('visitor');
+    Route::get('/silabus', [SilabusController::class, 'index'])
+      ->name('silabus');
+    Route::get('/statistik', [StatistikController::class, 'index'])
+      ->name('statistik');
+    Route::get('/count-data', [CountdataController::class, 'index'])
+      ->name('countdata');
   }
 );
 
