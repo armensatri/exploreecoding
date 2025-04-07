@@ -88,9 +88,6 @@
               :edit="route('paths.edit', $path->url)"
               :delete="route('paths.destroy', $path->url)"
             />
-
-            <p>Total Kunjungan: {{ $totalVisits }}</p>
-<p>Pengunjung Unik: {{ $uniqueVisitors }}</p>
           </div>
         </div>
       </section>

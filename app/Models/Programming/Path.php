@@ -6,7 +6,6 @@ use App\Helpers\RandomUrl;
 use App\Helpers\Searching;
 use App\Models\Published\Status;
 use App\Models\Programming\Roadmap;
-use Shetabit\Visitor\Traits\Visitable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -14,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Path extends Model
 {
-  use Sluggable, HasFactory, Visitable;
+  use Sluggable, HasFactory;
 
   protected $table = 'paths';
 

@@ -47,6 +47,7 @@ class RoleHasPermissionSeeder extends Seeder
         'device',
         'visitor',
         'silabus',
+        'silabus.show',
         'statistik',
         'countdata',
 
@@ -156,6 +157,7 @@ class RoleHasPermissionSeeder extends Seeder
         'device',
         'visitor',
         'silabus',
+        'silabus.show',
         'statistik',
         'countdata',
 

@@ -12,6 +12,11 @@ class SilabusController extends Controller
 {
   public function index()
   {
+    return view('back');
+  }
+
+  public function show()
+  {
     $paths = Path::with([
       'status',
       'roadmaps' => function ($query) {

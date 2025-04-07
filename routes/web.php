@@ -259,12 +259,18 @@ Route::group(
   function () {
     Route::get('/device', [DeviceController::class, 'index'])
       ->name('device');
+
     Route::get('/visitor', [VisitorController::class, 'index'])
       ->name('visitor');
+
     Route::get('/silabus', [SilabusController::class, 'index'])
       ->name('silabus');
+    Route::get('/silabus/{path:slug}', [SilabusController::class, 'show'])
+      ->name('silabus.show');
+
     Route::get('/statistik', [StatistikController::class, 'index'])
       ->name('statistik');
+
     Route::get('/count-data', [CountdataController::class, 'index'])
       ->name('countdata');
   }

@@ -92,17 +92,9 @@ class PathsController extends Controller
    */
   public function show(Path $path)
   {
-    visitor()->visit($path);
-
-    // Hitung total kunjungan dan pengunjung unik
-    $totalVisits = $path->visitLogs()->count();
-    $uniqueVisitors = $path->visitLogs()->distinct('ip')->count('ip');
-
     return view('backend.programming.paths.show', [
       'title' => 'Detail data paths',
       'path' => $path,
-      'totalVisits' => $totalVisits,
-      'uniqueVisitors' => $uniqueVisitors
     ]);
   }
 
