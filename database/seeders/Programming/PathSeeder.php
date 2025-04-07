@@ -15,7 +15,7 @@ class PathSeeder extends Seeder
         'name' => 'Getstarted',
         'slug' => 'getstarted',
         'status_id' => 1,
-        'description' => 'Memulia explore coding'
+        'description' => 'exploreecoding adalah platform pembelajaran coding yang menawarkan berbagai kursus dan seri terbaru untuk meningkatkan keterampilan pemrograman Anda'
       ],
 
       [

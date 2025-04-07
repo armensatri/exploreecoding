@@ -13,22 +13,72 @@
 
       <section class="w-full px-4 mt-8 mb-5">
         <div class="app-cse-border">
-          <div class="flex gap-4">
-            <div class="p-4 border rounded-lg shadow-md card w-80">
-              <div class="flex items-center justify-between mb-2 text-gray-500 card-header">
-                <span class="play-icon">▷</span>
-                <span class="text-sm duration">36 menit</span>
-              </div>
+          <div class="flex items-center">
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+              @foreach ($paths as $path)
+                <div class="w-full p-8 border shadow rounded-3xl">
+                  <div class="flex items-center justify-between mb-2 text-gray-500">
+                    <div>
+                      <img src="{{ $path->image ? asset(
+                          'storage/' . $path->image
+                        ) : '/image/default.png' }}"
+                        alt="path"
+                        class="rounded-md size-12"
+                      />
+                    </div>
 
-              <div class="card-body">
-                <h3 class="mb-1 text-lg font-semibold card-title">Laravel Wayfinder</h3>
-                <p class="text-sm text-gray-700 card-description">Kita akan mempelajari bagaimana menggunakan wayfinder serta mempelajari juga best practice nya.</p>
-              </div>
+                    <span class="text-sm">
+                      <span class="font-serif tracking-wide">
+                        Path
+                      </span>
 
-              <div class="flex items-center mt-3 card-footer">
-                <span class="px-2 py-1 mr-1 text-xs text-gray-800 bg-gray-100 rounded-md tag">Laravel</span>
-                <span class="text-xs text-gray-500 episode">2 eps</span>
-              </div>
+                      {{ $path->sp }}
+                    </span>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="py-1 mb-1 text-lg font-semibold tracking-normal">
+                      {{ $path->name }}
+                    </div>
+
+                    <p class="text-[15px] tracking-wide text-gray-700 line-clamp-2">
+                      {{ $path->description }}
+                    </p>
+                  </div>
+
+                  <div class="hidden gap-4 mt-3 xl:items-center xl:flex xl:flex-row">
+                    <div class="flex items-center gap-2">
+                      <div class="px-1.5 text-sm tracking-wide text-gray-800 bg-gray-100 rounded-lg">
+                        roadmaps
+                      </div>
+
+                      <div class="text-xs tracking-wide text-blue-600 ">
+                        {{-- {{ $path->roadmaps->count() }} --}} 20
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                      <div class="px-1.5 text-sm tracking-wide text-gray-800 bg-gray-100 rounded-lg">
+                        playlists
+                      </div>
+
+                      <div class="text-xs tracking-wide text-blue-600">
+                        {{-- {{ $path->roadmaps->count() }} --}} 40
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                      <div class="px-1.5 text-sm tracking-wide text-gray-800 bg-gray-100 rounded-lg">
+                        posts
+                      </div>
+
+                      <div class="text-xs tracking-wide text-blue-600">
+                        {{-- {{ $path->roadmaps->count() }} --}} 120
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
             </div>
           </div>
         </div>
