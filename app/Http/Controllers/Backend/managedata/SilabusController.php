@@ -13,33 +13,27 @@ class SilabusController extends Controller
   public function index()
   {
     $paths = Path::with([
-      'status',
       'roadmaps' => function ($query) {
-        $query->with('status')
-          ->orderBy('sr', 'asc')->with([
-            'playlists' => function ($q) {
-              $q->with('status')
-                ->orderBy('spl', 'asc')->with([
-                  'posts' => function ($p) {
-                    $p->with('status')
-                      ->orderBy('sp', 'asc');
-                  }
-                ]);
-            }
-          ]);
+        $query->with([
+          'playlists' => function ($q) {
+            $q->with([
+              'posts' // Tetap load relasi posts tanpa status
+            ]);
+          }
+        ]);
       }
     ])->orderBy('sp', 'asc')->get();
 
     return view('backend.managedata.silabus.index', [
-      'title' => 'Semu data silabus',
+      'title' => 'Semua data silabus',
       'paths' => $paths
     ]);
   }
 
-  public function show()
+
+  public function show($slug)
   {
-    $paths = Path::with([
-      'status',
+    $paths = Path::where('slug', $slug)->with([
       'roadmaps' => function ($query) {
         $query->with('status')
           ->orderBy('sr', 'asc')->with([
@@ -57,7 +51,7 @@ class SilabusController extends Controller
     ])->orderBy('sp', 'asc')->get();
 
     return view('backend.managedata.silabus.show', [
-      'title' => 'Data silabus content',
+      'title' => 'Data silabus',
       'paths' => $paths,
     ]);
   }

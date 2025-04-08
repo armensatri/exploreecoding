@@ -11,35 +11,43 @@ class PlaylistSeeder extends Seeder
   {
     $playlists = [
       [
-        'roadmap_id' => 1,
+        'roadmap_id' => 0,
         'spl' => 1,
         'name' => 'intro getstarted',
         'slug' => 'intro-getstarted',
-        'status_id' => 2,
+        'status_id' => 0,
       ],
 
       [
-        'roadmap_id' => 2,
+        'roadmap_id' => 0,
         'spl' => 1,
-        'name' => 'intro algoritma',
-        'slug' => 'intro-algoritma',
-        'status_id' => 3,
+        'name' => 'intro getstarted',
+        'slug' => 'intro-getstarted',
+        'status_id' => 0,
       ],
 
       [
-        'roadmap_id' => 3,
+        'roadmap_id' => 0,
         'spl' => 1,
-        'name' => 'intro struktur data',
-        'slug' => 'intro-struktur-data',
-        'status_id' => 4,
+        'name' => 'intro getstarted',
+        'slug' => 'intro-getstarted',
+        'status_id' => 0,
       ],
 
       [
-        'roadmap_id' => 4,
+        'roadmap_id' => 0,
         'spl' => 1,
-        'name' => 'intro pemograman',
-        'slug' => 'intro-pemograman',
-        'status_id' => 1,
+        'name' => 'intro getstarted',
+        'slug' => 'intro-getstarted',
+        'status_id' => 0,
+      ],
+
+      [
+        'roadmap_id' => 0,
+        'spl' => 1,
+        'name' => 'intro getstarted',
+        'slug' => 'intro-getstarted',
+        'status_id' => 0,
       ],
     ];
 

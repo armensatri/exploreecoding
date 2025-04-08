@@ -20,7 +20,7 @@ return new class extends Migration
         ->on('statuses')
         ->onDelete('cascade')
         ->onUpdate('cascade');
-      $table->text('description')->default('-');
+      $table->text('description')->default('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit reprehenderit neque dolorum fugiat deleniti nulla nihil possimus aliquid, nesciunt commodi');
       $table->string('image')->nullable();
       $table->timestamps();
 

@@ -37,45 +37,63 @@
                   </div>
 
                   <div class="card-body">
-                    <div class="py-1 mb-1 text-lg font-semibold tracking-normal">
+                    <div class="py-1 mb-1 font-sans text-lg font-bold tracking-normal text-gray-800">
                       {{ $path->name }}
                     </div>
 
-                    <p class="text-[15px] tracking-wide text-gray-700 line-clamp-2">
+                    <p class="text-sm tracking-wide text-gray-700 line-clamp-2">
                       {{ $path->description }}
                     </p>
                   </div>
 
                   <div class="hidden gap-4 mt-3 xl:items-center xl:flex xl:flex-row">
                     <div class="flex items-center gap-2">
-                      <div class="px-1.5 text-sm tracking-wide text-gray-800 bg-gray-100 rounded-lg">
+                      <div class="px-1.5 text-sm tracking-wide text-gray-800 bg-gray-100 rounded-md">
                         roadmaps
                       </div>
 
                       <div class="text-xs tracking-wide text-blue-600 ">
-                        {{-- {{ $path->roadmaps->count() }} --}} 20
+                        {{ $path->roadmaps->count() }}
                       </div>
                     </div>
 
                     <div class="flex items-center gap-2">
-                      <div class="px-1.5 text-sm tracking-wide text-gray-800 bg-gray-100 rounded-lg">
+                      <div class="px-1.5 text-sm tracking-wide text-gray-800 bg-gray-100 rounded-md">
                         playlists
                       </div>
 
                       <div class="text-xs tracking-wide text-blue-600">
-                        {{-- {{ $path->roadmaps->count() }} --}} 40
+                        {{
+                          $path->roadmaps->sum(function($r) {
+                            return $r->playlists->count();
+                          })
+                        }}
                       </div>
                     </div>
 
                     <div class="flex items-center gap-2">
-                      <div class="px-1.5 text-sm tracking-wide text-gray-800 bg-gray-100 rounded-lg">
+                      <div class="px-1.5 text-sm tracking-wide text-gray-800 bg-gray-100 rounded-md">
                         posts
                       </div>
 
                       <div class="text-xs tracking-wide text-blue-600">
-                        {{-- {{ $path->roadmaps->count() }} --}} 120
+                        {{
+                          $path->roadmaps->sum(function($r) {
+                            return $r->playlists->sum(function($p) {
+                              return $p->posts->count();
+                            });
+                          })
+                        }}
                       </div>
                     </div>
+                  </div>
+
+                  <div class="flex items-center gap-4 mt-8">
+                    <a href="{{ route('silabus.show', $path->slug) }}">
+                      <div class="shadow inline-flex items-center px-2.5 py-[5px] text-sm text-black bg-blue-200 rounded-xl hover:bg-blue-600 hover:text-white tracking-wide gap-x-2 border border-gray-400 cursor-pointer">
+                        show silabus
+                      </div>
+                    </a>
                   </div>
                 </div>
               @endforeach

@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
       RoleHasPermissionSeeder::class,
       StatusSeeder::class,
       PathSeeder::class,
-      // RoadmapSeeder::class,
+      RoadmapSeeder::class,
       // PlaylistSeeder::class,
       // PostSeeder::class,
       // ProgrammingSeeder::class,

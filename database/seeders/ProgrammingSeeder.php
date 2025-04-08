@@ -21,7 +21,7 @@ class ProgrammingSeeder extends Seeder
             Playlist::factory(4)
               ->recycle(Playlist::all())
               ->has(
-                Post::factory(10)
+                Post::factory(5)
                   ->recycle(Post::all())
               )
           )

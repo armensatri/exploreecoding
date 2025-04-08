@@ -22,7 +22,7 @@ class PathSeeder extends Seeder
         'sp' => 2,
         'name' => 'Algoritma',
         'slug' => 'algoritma',
-        'status_id' => 1,
+        'status_id' => 2,
         'description' => 'algoritma adalah langkah-langkah sistematis untuk menyelesaikan masalah atau tugas, sering digunakan dalam pemrograman dan analisis data'
       ],
 
@@ -30,7 +30,7 @@ class PathSeeder extends Seeder
         'sp' => 3,
         'name' => 'Struktur Data',
         'slug' => 'struktur-data',
-        'status_id' => 1,
+        'status_id' => 3,
         'description' => 'struktur data adalah cara mengorganisir dan menyimpan data untuk efisiensi akses dan pengolahan dalam pemrograman'
       ],
 
@@ -38,7 +38,7 @@ class PathSeeder extends Seeder
         'sp' => 4,
         'name' => 'Programming',
         'slug' => 'programming',
-        'status_id' => 1,
+        'status_id' => 4,
         'description' => 'programming adalah proses menulis kode untuk membuat perangkat lunak, aplikasi, atau sistem yang menjalankan tugas tertentu'
       ],
 
@@ -46,7 +46,7 @@ class PathSeeder extends Seeder
         'sp' => 5,
         'name' => 'Frontend',
         'slug' => 'frontend',
-        'status_id' => 1,
+        'status_id' => 5,
         'description' => 'frontend adalah bagian antarmuka pengguna dari aplikasi web, mencakup desain, interaksi, dan pengalaman pengguna yang terlihat'
       ],
 
