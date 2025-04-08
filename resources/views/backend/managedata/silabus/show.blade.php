@@ -85,13 +85,23 @@
                           {{ $roadmap->sr }}
                         </span>
 
+                        <span class="absolute flex items-center justify-center w-6 h-6 -ml-10 text-xs bg-gray-200 rounded-full -start-3 ring-2">
+                          ahaha
+                        </span>
+
                         <div class="flex items-center gap-2">
                           <span class="text-sm tracking-wide font-medium px-2.5 py-0.5 rounded-xl border border-gray-400 bg-yellow-200 text-yellow-800">
                             Roadmap {{ $roadmap->name }}
                           </span>
                         </div>
 
-                        <div class="flex items-center gap-2 mt-1 ml-0.5">
+                        <div class="flex items-center gap-2 mt-1 ml-1">
+                          <div>
+                            <span class="text-sm text-gray-700">
+                              Status :
+                            </span>
+                          </div>
+
                           <div>
                             <span class="text-xs tracking-wide font-medium
                               rounded-lg px-2 py-0.5 border border-gray-400
