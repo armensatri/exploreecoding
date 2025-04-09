@@ -15,10 +15,10 @@ class ProgrammingSeeder extends Seeder
     Path::factory(4)
       ->recycle(Path::all())
       ->has(
-        Roadmap::factory(2)
+        Roadmap::factory(8)
           ->recycle(Roadmap::all())
           ->has(
-            Playlist::factory(4)
+            Playlist::factory(3)
               ->recycle(Playlist::all())
               ->has(
                 Post::factory(5)

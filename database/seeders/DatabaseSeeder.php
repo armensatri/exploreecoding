@@ -45,9 +45,8 @@ class DatabaseSeeder extends Seeder
       StatusSeeder::class,
       PathSeeder::class,
       RoadmapSeeder::class,
-      // PlaylistSeeder::class,
-      // PostSeeder::class,
-      // ProgrammingSeeder::class,
+      PlaylistSeeder::class,
+      PostSeeder::class,
     ]);
   }
 }
