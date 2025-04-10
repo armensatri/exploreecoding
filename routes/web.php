@@ -255,7 +255,7 @@ Route::group(
 |---------------------------------------------------------------*/
 
 Route::group(
-  ['middleware' => ['auth']],
+  ['middleware' => ['auth', 'permission']],
   function () {
     Route::get('/device', [DeviceController::class, 'index'])
       ->name('device');

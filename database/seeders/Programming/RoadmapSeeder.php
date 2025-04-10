@@ -23,7 +23,7 @@ class RoadmapSeeder extends Seeder
         'sr' => 1,
         'name' => 'Algoritma Introduction',
         'slug' => 'algoritma-introduction',
-        'status_id' => 2
+        'status_id' => 1
       ],
 
       [

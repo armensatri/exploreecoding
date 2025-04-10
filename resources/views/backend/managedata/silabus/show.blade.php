@@ -13,8 +13,42 @@
 
       <section class="w-full px-4 mt-8 mb-5">
         <div class="bg-white border border-gray-200 p-14 drop-shadow-sm rounded-3xl">
+          <div class="mb-8">
+            <div>
+              Note disclaimer path :
+            </div>
+
+            <div class="flex items-center max-w-xl mt-2 ml-3">
+              <div>
+                <span class="mr-1.5 text-[15px] text-gray-700">
+                  Relations :
+                </span>
+
+                <span class="text-[15px] text-gray-700">
+                  path --> roadmaps --> playlists --> posts
+                </span>
+              </div>
+            </div>
+
+            <div class="flex items-center max-w-xl mt-2 ml-3">
+              <div>
+                <span class="mr-1.5 text-[15px] text-gray-700">
+                  Disclaimer :
+                </span>
+
+                <span class="text-[15px] text-gray-700">
+                  Path ini bersifat dinamis dan dapat berubah sewaktu-waktu tanpa pemberitahuan. Path dapat di update, bertambah, atau berubah sesuai kebutuhan.
+                  <span class="x">
+                    Harap periksa pembaruan secara berkala.
+                  </span>
+                  Terima kasih atas pengertiannya!
+                </span>
+              </div>
+            </div>
+          </div>
+
           <div>
-            <ol class="relative border-red-100 border-s">
+            <ol class="relative border-gray-200 border-s">
               @foreach ($paths as $path)
                 <li class="mb-10 ms-6">
                   <span class="absolute flex items-center justify-center w-6 h-6 text-xs bg-gray-200 rounded-full -start-3 ring-2">
@@ -22,7 +56,7 @@
                   </span>
 
                   <div class="flex items-center">
-                    <span class="text-sm tracking-wide font-medium px-2.5 py-0.5 rounded-xl border border-gray-400 bg-red-200 text-red-800">
+                    <span class="text-[15px] tracking-wide font-medium px-2.5 py-0.5 rounded-xl border border-gray-400 bg-red-200 text-red-800">
                       Path {{ $path->name }}
                     </span>
                   </div>
@@ -41,7 +75,21 @@
 
                   <div class="flex items-center gap-2 mt-2 ml-1">
                     <div>
-                      <span class="text-sm text-gray-700">
+                      <span class="text-[15px] text-gray-700">
+                        Nama path :
+                      </span>
+                    </div>
+
+                    <div>
+                      <span class="text-[15px] tracking-wide text-gray-700">
+                        {{ $path->name }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-2 mt-2 ml-1">
+                    <div>
+                      <span class="text-[15px] text-gray-700">
                         Status :
                       </span>
                     </div>
@@ -56,7 +104,7 @@
                     </div>
 
                     <div>
-                      <span class="text-sm text-gray-700">
+                      <span class="text-[15px] text-gray-700">
                         {{ $path->status->description }}
                       </span>
                     </div>
@@ -64,11 +112,11 @@
 
                   <div class="flex items-center max-w-md mt-2 ml-1">
                     <div>
-                      <span class="mr-1.5 text-sm text-gray-700">
+                      <span class="mr-1.5 text-[15px] text-gray-700">
                         Description :
                       </span>
 
-                      <span class="text-sm text-gray-700">
+                      <span class="text-[15px] text-gray-700">
                         {{ $path->description }}
                       </span>
                     </div>
@@ -78,7 +126,7 @@
                     Roadmaps
                   </div>
 
-                  <ol class="relative mt-4 ml-16 border-yellow-100 border-s">
+                  <ol class="relative mt-4 ml-16 border-gray-200 border-s">
                     @foreach ($path->roadmaps as $roadmap)
                       <li class="mb-10 ms-6">
                         <span class="absolute flex items-center justify-center w-6 h-6 text-xs bg-gray-200 rounded-full -start-3 ring-2">
@@ -101,7 +149,7 @@
 
                         <div class="flex items-center gap-2 mt-1 ml-1">
                           <div>
-                            <span class="text-sm text-gray-700">
+                            <span class="text-[15px] text-gray-700">
                               Status :
                             </span>
                           </div>
@@ -116,7 +164,7 @@
                           </div>
 
                           <div>
-                            <span class="text-sm text-gray-700">
+                            <span class="text-[15px] text-gray-700">
                               {{ $roadmap->status->description }}
                             </span>
                           </div>
@@ -126,7 +174,7 @@
                           Playlists
                         </div>
 
-                        <ol class="relative mt-4 ml-16 border-green-100 border-s">
+                        <ol class="relative mt-4 ml-16 border-gray-200 border-s">
                           @foreach ($roadmap->playlists as $playlist)
                             <li class="mb-10 ms-6">
                               <span class="absolute flex items-center justify-center w-6 h-6 text-xs bg-gray-200 rounded-full -start-3 ring-2">
@@ -149,7 +197,7 @@
 
                               <div class="flex items-center gap-2 mt-1 ml-1">
                                 <div>
-                                  <span class="text-sm text-gray-700">
+                                  <span class="text-[15px] text-gray-700">
                                     Status :
                                   </span>
                                 </div>
@@ -164,7 +212,7 @@
                                 </div>
 
                                 <div>
-                                  <span class="text-sm text-gray-700">
+                                  <span class="text-[15px] text-gray-700">
                                     {{ $playlist->status->description }}
                                   </span>
                                 </div>
@@ -174,7 +222,7 @@
                                 Postingan
                               </div>
 
-                              <ol class="relative mt-4 ml-16 border-slate-100 border-s">
+                              <ol class="relative mt-4 ml-16 border-gray-200 border-s">
                                 @foreach ($playlist->posts as $post)
                                   <li class="mb-10 ms-6">
                                     <span class="absolute flex items-center justify-center w-6 h-6 text-xs bg-gray-200 rounded-full -start-3 ring-2">
@@ -190,14 +238,14 @@
                                     </div>
 
                                     <div class="flex items-center ml-1">
-                                      <span class="text-base font-normal tracking-wide text-gray-700">
+                                      <span class="text-base font-normal tracking-wide text-gray-800">
                                         {{ $post->title }}
                                       </span>
                                     </div>
 
                                     <div class="flex items-center gap-2 mt-1 ml-1">
                                       <div>
-                                        <span class="text-sm text-gray-700">
+                                        <span class="text-[15px] text-gray-700">
                                           Status :
                                         </span>
                                       </div>
@@ -212,7 +260,7 @@
                                       </div>
 
                                       <div>
-                                        <span class="text-sm text-gray-700">
+                                        <span class="text-[15px] text-gray-700">
                                           {{ $post->status->description }}
                                         </span>
                                       </div>

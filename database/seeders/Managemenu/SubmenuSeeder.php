@@ -137,9 +137,9 @@ class SubmenuSeeder extends Seeder
         'menu_id' => 8,
         'ssm' => 2,
         'name' => 'visitor',
-        'route' => '-',
-        'active' => '-',
-        'routename' => '-',
+        'route' => '/visitor',
+        'active' => 'visitor',
+        'routename' => '/visitor',
         'description' => 'submenu data visitor'
       ],
       [

@@ -17,7 +17,7 @@ class AccessController extends Controller
   {
     $cacheKey = "access_role_menus_{$id}";
 
-    $role = Cache::remember($cacheKey, 60, function () use ($id) {
+    $role = Cache::remember($cacheKey, 5 * 60, function () use ($id) {
       return Role::with(['menus' => function ($query) {
         $query->select('menus.id');
       }])->findOrFail($id);
@@ -74,7 +74,7 @@ class AccessController extends Controller
   {
     $cacheKey = "access_role_submenus_{$id}";
 
-    $role = Cache::remember($cacheKey, 60, function () use ($id) {
+    $role = Cache::remember($cacheKey, 5 * 60, function () use ($id) {
       return Role::with(['submenus' => function ($query) {
         $query->select('submenus.id');
       }])->findOrFail($id);
@@ -131,7 +131,7 @@ class AccessController extends Controller
   {
     $cacheKey = "access_role_permissions_{$id}";
 
-    $role = Cache::remember($cacheKey, 60, function () use ($id) {
+    $role = Cache::remember($cacheKey, 5 * 60, function () use ($id) {
       return Role::with(['permissions' => function ($query) {
         $query->select('permissions.id');
       }])->findOrFail($id);

@@ -22,7 +22,7 @@ class PathSeeder extends Seeder
         'sp' => 2,
         'name' => 'Algoritma',
         'slug' => 'algoritma',
-        'status_id' => 2,
+        'status_id' => 1,
         'description' => 'algoritma adalah langkah-langkah sistematis untuk menyelesaikan masalah atau tugas, sering digunakan dalam pemrograman dan analisis data'
       ],
 

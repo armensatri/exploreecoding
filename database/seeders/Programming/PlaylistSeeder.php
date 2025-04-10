@@ -23,7 +23,7 @@ class PlaylistSeeder extends Seeder
         'spl' => 1,
         'name' => 'Intro Algoritma',
         'slug' => 'intro-algoritma',
-        'status_id' => 4,
+        'status_id' => 1,
       ],
 
       [

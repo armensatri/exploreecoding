@@ -23,7 +23,7 @@
                 <div class="overflow-hidden app-table-border">
                   <div class="grid app-table-grid">
                     <x-description
-                      table-name="Users"
+                      table-name="Visitor"
                       :page-data="$users"
                     />
 
@@ -31,30 +31,17 @@
                       <div class="inline-flex items-center gap-x-2">
                         <div class="refresh">
                           <x-refresh
-                            :route="route('users.index')"
+                            :route="route('visitor')"
                           />
                         </div>
 
                         <div class="search">
-                          <form action="/users">
+                          <form action="/visitor">
                             <x-search
-                              search="users"
-                              placeholder="Search data users"
+                              search="visitor"
+                              placeholder="Search data visitor"
                             />
                           </form>
-                        </div>
-
-                        <div class="backup">
-                          <x-backup
-                            table-name="users"
-                          />
-                        </div>
-
-                        <div class="button-create">
-                          <x-button-create
-                            :route="route('users.create')"
-                            button-name="user"
-                          />
                         </div>
                       </div>
                     </div>
@@ -74,9 +61,6 @@
                         />
                         <x-th
                           name="name"
-                        />
-                        <x-th
-                          name="email"
                         />
                         <x-th
                           name="role"
@@ -116,12 +100,6 @@
                           <td class="h-px whitespace-nowrap">
                             <x-td-var
                               :var="$user->name"
-                            />
-                          </td>
-
-                          <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$user->email"
                             />
                           </td>
 

@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Backend\Managedata;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Helpers\Submenuaccess;
 use App\Models\Programming\Path;
-use App\Models\Programming\Playlist;
-use App\Models\Programming\Post;
+use App\Http\Controllers\Controller;
 
 class SilabusController extends Controller
 {
+  public function __construct()
+  {
+    Submenuaccess::Submenu();
+  }
+
   public function index()
   {
     $paths = Path::with([

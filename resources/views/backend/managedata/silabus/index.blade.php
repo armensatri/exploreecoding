@@ -37,7 +37,7 @@
                   </div>
 
                   <div class="card-body">
-                    <div class="py-1 mb-1 font-sans text-lg font-bold tracking-normal text-gray-800">
+                    <div class="py-1 mb-1 font-sans text-base font-bold tracking-wide text-gray-800 uppercase">
                       {{ $path->name }}
                     </div>
 

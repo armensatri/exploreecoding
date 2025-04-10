@@ -22,7 +22,6 @@ class User extends Authenticatable
     'password',
     'image',
     'role_id',
-    'is_active'
   ];
 
   protected $hidden = [
@@ -44,21 +43,6 @@ class User extends Authenticatable
   public function role()
   {
     return $this->belongsTo(Role::class);
-  }
-
-  public function active(): array
-  {
-    return $this->is_active ?
-      [
-        'bg' => 'bg-green-200',
-        'text' => 'text-green-800',
-        'active' => 'active'
-      ] :
-      [
-        'bg' => 'bg-red-200',
-        'text' => 'text-red-800',
-        'active' => '!active'
-      ];
   }
 
   public function hasPermission($permission)

@@ -20,8 +20,6 @@ return new class extends Migration
         ->on('roles')
         ->onDelete('cascade')
         ->onUpdate('cascade');
-      $table->boolean('is_active')->default(1);
-      $table->timestamp('last_seen')->nullable();
       $table->timestamps();
 
       $table->index('name');
