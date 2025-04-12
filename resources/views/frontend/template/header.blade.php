@@ -37,6 +37,26 @@
         rounded-[13px] bg-blue-200 hover:bg-blue-300 cursor-pointer">
         Home
       </a>
+      <a href="{{ route('home') }}"
+        class="tracking-wide justify-center px-3.5 py-[3px] text-base font-medium leading-6 text-black border border-gray-400
+        rounded-[13px] bg-blue-200 hover:bg-blue-300 cursor-pointer">
+        About
+      </a>
+      <a href="{{ route('home') }}"
+        class="tracking-wide justify-center px-3.5 py-[3px] text-base font-medium leading-6 text-black border border-gray-400
+        rounded-[13px] bg-blue-200 hover:bg-blue-300 cursor-pointer">
+        Course
+      </a>
+      <a href="{{ route('home') }}"
+        class="tracking-wide justify-center px-3.5 py-[3px] text-base font-medium leading-6 text-black border border-gray-400
+        rounded-[13px] bg-blue-200 hover:bg-blue-300 cursor-pointer">
+        Silabus
+      </a>
+      <a href="{{ route('home') }}"
+        class="tracking-wide justify-center px-3.5 py-[3px] text-base font-medium leading-6 text-black border border-gray-400
+        rounded-[13px] bg-blue-200 hover:bg-blue-300 cursor-pointer">
+        Sitemap
+      </a>
     </div>
 
     <!-- menu auth -->

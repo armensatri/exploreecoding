@@ -22,7 +22,7 @@ class RegisterController extends Controller
   {
     $userCount = User::count();
 
-    if ($userCount >= 100) {
+    if ($userCount >= 5) {
       Alert::warning(
         'warning',
         'Registrasi pendaftaran! masih tertutup.'

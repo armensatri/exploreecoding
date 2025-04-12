@@ -17,7 +17,7 @@ class VisitorController extends Controller
   public function index()
   {
     $users = User::search(request(['search', 'role']))
-      ->select(['id', 'image', 'name', 'role_id', 'username', 'last_seen'])
+      ->select(['id', 'image', 'name', 'role_id', 'username', 'status'])
       ->with(['role'])
       ->orderby('role_id', 'asc')
       ->paginate(10)

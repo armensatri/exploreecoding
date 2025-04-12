@@ -12,7 +12,7 @@
       </section>
 
       <section class="w-full px-4 mt-8 mb-5">
-        <div class="bg-white border border-gray-200 p-14 drop-shadow-sm rounded-3xl">
+        <div class="overflow-x-scroll bg-white border border-gray-200 lg:overflow-hidden lg:whitespace-normal whitespace-nowrap p-14 drop-shadow-sm rounded-3xl">
           <div class="mb-8">
             <div>
               Note disclaimer path :
@@ -37,7 +37,17 @@
                 </span>
 
                 <span class="text-[15px] text-gray-700">
-                  Path ini bersifat dinamis dan dapat berubah sewaktu-waktu tanpa pemberitahuan. Path dapat di update, bertambah, atau berubah sesuai kebutuhan.
+                  Path ini bersifat dinamis dan dapat berubah sewaktu-waktu tanpa pemberitahuan. Path dapat di
+                  <span class="x">
+                    update
+                  </span>,
+                  <span class="x">
+                    bertambah
+                  </span>, atau
+                  <span class="x">
+                    berubah
+                  </span>
+                  sesuai kebutuhan.
                   <span class="x">
                     Harap periksa pembaruan secara berkala.
                   </span>

@@ -65,6 +65,9 @@
                         <x-th
                           name="role"
                         />
+                        <x-th
+                          name="status"
+                        />
                         <x-th-action/>
                       </tr>
                     </thead>
@@ -109,6 +112,16 @@
                               :text="$user->role->text"
                               :var="$user->role->name"
                             />
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <div class="center">
+                              <x-td-var-bg
+                                :bg="$user->status()['bg']"
+                                :text="$user->status()['text']"
+                                :var="$user->status()['status']"
+                              />
+                            </div>
                           </td>
 
                           <td class="size-px whitespace-nowrap">

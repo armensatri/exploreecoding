@@ -22,6 +22,7 @@ class User extends Authenticatable
     'password',
     'image',
     'role_id',
+    'status',
   ];
 
   protected $hidden = [
@@ -50,9 +51,25 @@ class User extends Authenticatable
     return $this->role?->permissions->contains('name', $permission);
   }
 
+  public function status(): array
+  {
+    return $this->status ?
+      [
+        'bg' => 'bg-green-200',
+        'text' => 'text-green-800',
+        'status' => 'online'
+      ]
+      :
+      [
+        'bg' => 'bg-red-200',
+        'text' => 'text-red-800',
+        'status' => 'offline'
+      ];
+  }
+
   public function scopeSearch(Builder $query, array $fillters): void
   {
-    $fields = ['name'];
+    $fields = ['name', 'status'];
 
     $relations = [
       'role' => 'name'

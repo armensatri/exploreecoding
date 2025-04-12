@@ -14,7 +14,6 @@ return Application::configure(basePath: dirname(__DIR__))
   ->withMiddleware(function (Middleware $middleware) {
     $middleware->alias([
       'permission' => \App\Http\Middleware\PermissionMiddleware::class,
-      'useractive' => \App\Http\Middleware\UserActive::class,
     ]);
   })
 

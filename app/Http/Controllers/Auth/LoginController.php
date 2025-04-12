@@ -22,19 +22,13 @@ class LoginController extends Controller
   {
     $datastore = $request->validated();
 
-    $user = User::where('email', $datastore['email'])->first();
-
-    if ($user && $user->is_active === 0) {
-      Alert::warning(
-        'warning',
-        'Akun anda belum di aktifkan! silahkan cek email anda'
-      );
-
-      return redirect()->route('login');
-    }
-
     if (Auth::attempt($datastore)) {
       $request->session()->regenerate();
+
+      User::where(
+        'id',
+        Auth::user()->id
+      )->update(['status' => 1]);
 
       $maproutes = [
         'owner' => 'owner',
