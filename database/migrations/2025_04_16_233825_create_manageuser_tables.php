@@ -32,6 +32,7 @@ return new class extends Migration
       $table->string('bg');
       $table->string('text');
       $table->text('description');
+      $table->string('guard_name')->default('web');
       $table->timestamps();
     });
 
@@ -39,6 +40,7 @@ return new class extends Migration
       $table->id();
       $table->string('name')->unique();
       $table->string('url', 5)->unique();
+      $table->string('guard_name')->default('web');
       $table->timestamps();
     });
   }
