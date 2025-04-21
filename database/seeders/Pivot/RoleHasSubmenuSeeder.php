@@ -248,6 +248,7 @@ class RoleHasSubmenuSeeder extends Seeder
           ->filter(fn($name) => isset($submenus[$name]))
           ->map(fn($name) => $submenus[$name]->id)
           ->toArray();
+
         $roles[$roleName]->submenus()->syncWithoutDetaching($submenuIds);
       }
     }

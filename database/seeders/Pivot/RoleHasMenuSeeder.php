@@ -116,6 +116,7 @@ class RoleHasMenuSeeder extends Seeder
           ->filter(fn($menuName) => isset($menus[$menuName]))
           ->map(fn($menuName) => $menus[$menuName]->id)
           ->toArray();
+
         $roles[$roleName]->menus()->attach($menuIds);
       }
     }
