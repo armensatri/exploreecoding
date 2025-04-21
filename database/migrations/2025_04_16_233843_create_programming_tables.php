@@ -11,7 +11,7 @@ return new class extends Migration
     Schema::create('paths', function (Blueprint $table) {
       $table->id();
       $table->integer('sp');
-      $table->string('name')->unique();
+      $table->string('name');
       $table->string('slug')->unique();
       $table->string('url', 5)->unique();
       $table->unsignedInteger('views')->default(0);
@@ -33,7 +33,7 @@ return new class extends Migration
         ->onDelete('cascade')
         ->onUpdate('cascade');
       $table->integer('sr');
-      $table->string('name')->unique();
+      $table->string('name');
       $table->string('slug')->unique();
       $table->string('url', 5)->unique();
       $table->unsignedInteger('views')->default(0);
@@ -55,7 +55,7 @@ return new class extends Migration
         ->onDelete('cascade')
         ->onUpdate('cascade');
       $table->integer('spl');
-      $table->string('name')->unique();
+      $table->string('name');
       $table->string('slug')->unique();
       $table->string('url', 5)->unique();
       $table->unsignedInteger('views')->default(0);

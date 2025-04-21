@@ -11,13 +11,11 @@ return new class extends Migration
     Schema::create('role_has_menu', function (Blueprint $table) {
       $table->id();
       $table->foreignId('role_id')
-        ->references('id')
-        ->on('roles')
+        ->constrained('roles')
         ->onDelete('cascade')
         ->onUpdate('cascade');
       $table->foreignId('menu_id')
-        ->references('id')
-        ->on('menus')
+        ->constrained('menus')
         ->onDelete('cascade')
         ->onUpdate('cascade');
     });
@@ -25,31 +23,25 @@ return new class extends Migration
     Schema::create('role_has_submenu', function (Blueprint $table) {
       $table->id();
       $table->foreignId('role_id')
-        ->references('id')
-        ->on('roles')
+        ->constrained('roles')
         ->onDelete('cascade')
         ->onUpdate('cascade');
       $table->foreignId('submenu_id')
-        ->references('id')
-        ->on('submenus')
+        ->constrained('submenus')
         ->onDelete('cascade')
         ->onUpdate('cascade');
-      $table->timestamps();
     });
 
     Schema::create('role_has_permission', function (Blueprint $table) {
       $table->id();
       $table->foreignId('role_id')
-        ->references('id')
-        ->on('roles')
+        ->constrained('roles')
         ->onDelete('cascade')
         ->onUpdate('cascade');
       $table->foreignId('permission_id')
-        ->references('id')
-        ->on('permissions')
+        ->constrained('permissions')
         ->onDelete('cascade')
         ->onUpdate('cascade');
-      $table->timestamps();
     });
   }
 

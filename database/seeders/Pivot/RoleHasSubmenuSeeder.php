@@ -244,13 +244,11 @@ class RoleHasSubmenuSeeder extends Seeder
 
     foreach ($roleHasSubmenus as $roleName => $submenuNames) {
       if (isset($roles[$roleName])) {
-        $roles[$roleName]->submenus()->attach(
-          collect($submenuNames)->mapWithKeys(
-            fn($name) => [
-              $submenus[$name]->id => []
-            ]
-          )
-        );
+        $submenuIds = collect($submenuNames)
+          ->filter(fn($name) => isset($submenus[$name]))
+          ->map(fn($name) => $submenus[$name]->id)
+          ->toArray();
+        $roles[$roleName]->submenus()->syncWithoutDetaching($submenuIds);
       }
     }
   }

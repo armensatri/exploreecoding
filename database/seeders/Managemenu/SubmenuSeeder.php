@@ -57,7 +57,7 @@ class SubmenuSeeder extends Seeder
       // MENU MEMBER
       [
         'menu_id' => 5,
-        'ssm' => 0,
+        'ssm' => 1,
         'name' => 'member',
         'route' => '/member',
         'active' => 'member',
@@ -98,7 +98,7 @@ class SubmenuSeeder extends Seeder
         'ssm' => 4,
         'name' => 'change password',
         'route' => '/change/password/edit',
-        'active' => '/change/password/edit',
+        'active' => 'change/password/edit',
         'routename' => '/change/password/edit',
         'description' => 'change password pengguna'
       ],
