@@ -40,8 +40,9 @@
           </div>
         </li>
 
-        <form action="{{ route('logout') }}"
-          method="POST" class="flex justify-center">
+        <form action="{{ route('auth.logout') }}"
+          method="POST"
+          class="flex justify-center">
           @csrf
 
           <button type="submit"
@@ -57,7 +58,7 @@
       </ul>
     </div>
   @else
-    <a href=""
+    <a href="{{ route('login') }}"
       class="px-3.5 py-[3px] text-base font-semibold leading-6 text-gray-900 bg-blue-200 border border-gray-400 rounded-xl
       hover:bg-blue-300">
       Login

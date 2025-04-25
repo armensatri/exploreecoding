@@ -7,12 +7,17 @@
   />
 
   <div class="grow">
-    <div class="text-base font-bold text-gray-800 dark:text-neutral-200">
+    <div class="inline-flex items-center text-base font-bold text-gray-800 dark:text-neutral-200">
       {{ $menu }}
     </div>
 
     <div class="text-[15px] font-medium text-gray-600 dark:text-neutral-500 tracking-tight">
       {{ $description }}
+    </div>
+
+    <div class="inline-flex items-center px-2 mt-2 text-sm font-medium border border-gray-400 rounded-lg leading-1
+    {{ $bg }} {{ $text }}">
+      {{ $status }}
     </div>
   </div>
 </a>

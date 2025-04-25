@@ -15,9 +15,9 @@
         aria-expanded="false"
         aria-label="Mega Menu"
         class="flex items-center w-auto p-2 tracking-wide justify-center
-        px-3.5 py-[3px] text-base font-medium leading-6 text-black border border-gray-400 rounded-[13px] bg-blue-200 cursor-pointer hs-dropdown-toggle hover:bg-gradient-to-r hover:from-red-200 hover:to-green-200">
+        px-3.5 py-[3px] text-lg font-medium leading-6 text-black border border-gray-400 rounded-[13px] bg-blue-200 cursor-pointer hs-dropdown-toggle hover:bg-gradient-to-r hover:from-red-200 hover:to-green-200">
         Menu
-        <i class="ml-1 bi bi-arrow-down-circle"></i>
+        <i class="ml-1 text-base bi bi-arrow-down-circle"></i>
       </button>
 
       <div role="menu"
@@ -39,7 +39,7 @@
             </div>
 
             <div class="bg-sky-100 rounded-l-2xl">
-              <div class="flex flex-col p-2 h-[320px] overflow-y-scroll">
+              <div class="flex flex-col p-2 h-[334px] overflow-y-scroll">
                 <x-menu-web-header
                   name="menu utama"
                 />
@@ -60,66 +60,76 @@
 
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-home.png"
-                  menu="home"
-                  description="Bangun skill coding mu dengan belajar di exploreecoding"
+                  image="/frontend/img/fe-materi.png"
+                  menu="MATERI"
+                  description="Materi terdiri dari path, roadmap, playlist, dan post, yang akan terus di update"
                 />
+
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-home.png"
-                  menu="home"
-                  description="Bangun skill coding mu dengan belajar di exploreecoding"
+                  image="/frontend/img/fe-sitemap.png"
+                  menu="SITEMAP"
+                  description="Panduan lengkap untuk menelusuri semua peta situs konten"
                 />
+
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-home.png"
-                  menu="home"
-                  description="Bangun skill coding mu dengan belajar di exploreecoding"
+                  image="/frontend/img/fe-contact.png"
+                  menu="CONTACT"
+                  description="Hubungi kami untuk pertanyaan, saran, atau kerja sama"
                 />
+
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-home.png"
-                  menu="home"
-                  description="Bangun skill coding mu dengan belajar di exploreecoding"
+                  image="/frontend/img/fe-upnews.png"
+                  menu="UPDATE NEWS"
+                  description="Update rutin tentang materi baru dan pengumuman penting"
                 />
+
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-home.png"
-                  menu="home"
-                  description="Bangun skill coding mu dengan belajar di exploreecoding"
+                  image="/frontend/img/fe-lebo.png"
+                  menu="LEADERBOARD"
+                  description="Pengguna teratas dengan progres belajar terbaik saat ini"
                 />
+
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-home.png"
-                  menu="home"
-                  description="Bangun skill coding mu dengan belajar di exploreecoding"
+                  image="/frontend/img/fe-regtu.png"
+                  menu="REQUEST TUTORIAL"
+                  description="Punya ide tutorial ? Kirim permintaanmu sekarang juga"
                 />
+
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-home.png"
-                  menu="home"
-                  description="Bangun skill coding mu dengan belajar di exploreecoding"
+                  image="/frontend/img/fe-pp.png"
+                  menu="PRIVACY POLICY"
+                  description="Informasi lengkap tentang hak dan privasi pengunjung situs"
                 />
+
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-home.png"
-                  menu="home"
-                  description="Bangun skill coding mu dengan belajar di exploreecoding"
+                  image="/frontend/img/fe-log.png"
+                  menu="UPDATE LOGS"
+                  description="Catatan perubahan dan pembaruan platform yang terbaru"
                 />
               </div>
             </div>
 
             <div class="bg-sky-100 rounded-l-2xl">
-              <div class="flex flex-col p-2 h-[320px] overflow-y-scroll">
+              <div class="flex flex-col p-2 h-[334px] overflow-y-scroll">
                 <x-menu-web-header
                   name="explore lainnya"
                 />
 
                 <x-explore-lainnya
-                  route="#"
+                  route="/upcoming"
                   image="/frontend/img/fe-home.png"
                   menu="APP PROJECT"
-                  description="Ikuti project aplikasi kami untuk pengalaman coding nyata"
+                  bg="bg-red-200"
+                  text="text-red-800"
+                  status="upcoming"
+                  description="Explore project aplikasi kami untuk pengalaman coding nyata"
                 />
               </div>
             </div>

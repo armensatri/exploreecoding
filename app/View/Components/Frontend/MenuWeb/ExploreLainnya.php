@@ -12,17 +12,26 @@ class ExploreLainnya extends Component
   public $image;
   public $menu;
   public $description;
+  public $bg;
+  public $text;
+  public $status;
 
   public function __construct(
     $route,
     $image,
     $menu,
-    $description
+    $description,
+    $bg,
+    $text,
+    $status
   ) {
     $this->route = $route;
     $this->image = $image;
     $this->menu = $menu;
     $this->description = $description;
+    $this->bg = $bg;
+    $this->text = $text;
+    $this->status = $status;
   }
 
   public function render(): View|Closure|string
