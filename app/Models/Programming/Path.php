@@ -9,11 +9,10 @@ use App\Models\Programming\Roadmap;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Path extends Model
 {
-  use Sluggable, HasFactory;
+  use Sluggable;
 
   protected $table = 'paths';
 

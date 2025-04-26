@@ -15,7 +15,7 @@
       class="p-3 space-y-4">
       @csrf
 
-      <div>
+      <div class="w-full">
         <input type="text"
           id="email"
           name="email"
@@ -26,7 +26,7 @@
         <x-messages error="email"/>
       </div>
 
-      <div>
+      <div class="w-full">
         <input type="password"
           id="password"
           name="password"

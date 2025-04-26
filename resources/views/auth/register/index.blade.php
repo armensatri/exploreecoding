@@ -15,7 +15,7 @@
       class="p-3 space-y-4">
       @csrf
 
-      <div>
+      <div class="w-full">
         <input type="text"
           id="name"
           name="name"
@@ -26,7 +26,7 @@
         <x-messages error="name"/>
       </div>
 
-      <div>
+      <div class="w-full">
         <input type="text"
           id="username"
           name="username"
@@ -37,7 +37,7 @@
         <x-messages error="username"/>
       </div>
 
-      <div>
+      <div class="w-full">
         <input type="text"
           id="email"
           name="email"
@@ -49,7 +49,7 @@
       </div>
 
       <div class="space-y-4 md:space-y-0 md:flex md:gap-4">
-        <div>
+        <div class="w-full">
           <input type="password"
             id="password"
             name="password"
@@ -59,7 +59,7 @@
           <x-messages error="password"/>
         </div>
 
-        <div>
+        <div class="w-full">
           <input type="password"
             id="passkon"
             name="passkon"

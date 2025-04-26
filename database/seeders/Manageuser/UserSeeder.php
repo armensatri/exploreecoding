@@ -16,7 +16,6 @@ class UserSeeder extends Seeder
         'email' => 'armensatri@gmail.com',
         'password' => bcrypt('123qwe'),
         'role_id' => 1,
-        'status' => 1
       ],
 
       [
@@ -25,7 +24,6 @@ class UserSeeder extends Seeder
         'email' => 'superadmin@gmail.com',
         'password' => bcrypt('123qwe'),
         'role_id' => 2,
-        'status' => 1
       ],
 
       [
@@ -34,7 +32,6 @@ class UserSeeder extends Seeder
         'email' => 'admin@gmail.com',
         'password' => bcrypt('123qwe'),
         'role_id' => 3,
-        'status' => 1
       ],
 
       [
@@ -43,7 +40,6 @@ class UserSeeder extends Seeder
         'email' => 'contentcreator@gmail.com',
         'password' => bcrypt('123qwe'),
         'role_id' => 4,
-        'status' => 1
       ],
 
       [
@@ -52,7 +48,6 @@ class UserSeeder extends Seeder
         'email' => 'member@gmail.com',
         'password' => bcrypt('123qwe'),
         'role_id' => 5,
-        'status' => 1
       ],
     ];
 

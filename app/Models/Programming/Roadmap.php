@@ -10,11 +10,10 @@ use App\Models\Programming\Playlist;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Roadmap extends Model
 {
-  use Sluggable, HasFactory;
+  use Sluggable;
 
   protected $table = 'roadmaps';
 

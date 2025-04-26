@@ -47,7 +47,7 @@
                   </div>
                 </li>
 
-                <form action="{{ route('logout') }}"
+                <form action="{{ route('auth.logout') }}"
                   method="POST" class="flex justify-center">
                   @csrf
 
