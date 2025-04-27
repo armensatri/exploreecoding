@@ -16,45 +16,59 @@
         />
       </picture>
 
-      <span class="hidden text-[17px] font-normal tracking-wide text-black truncate sm:block">
-        <span>@</span>{{ Auth::user()->username }}
-      </span>
-
       <i class="text-base text-black bi bi-arrow-down-circle"></i>
     </div>
 
     <div id="dropdownAuth"
-      class="z-10 hidden w-48 bg-white border border-gray-400 divide-y divide-gray-100 shadow rounded-3xl">
+      class="z-10 hidden px-6 py-4 mr-8 border border-gray-400 shadow w-60 bg-sky-50 rounded-3xl">
 
       <ul aria-labelledby="dropdownHoverButton"
         class="py-2 text-sm text-gray-700 dark:text-gray-200">
-        <li>
-          <div class="p-3 dashboard">
-            <span class="block px-3 py-2 text-sm font-medium tracking-wider text-green-700 uppercase">
-              BACK TO
-            </span>
-
-            <x-route-to-dashboard
-              :route="route(\App\Helpers\Redirects::Dashboard())"
-            />
-          </div>
-        </li>
-
-        <form action="{{ route('auth.logout') }}"
-          method="POST"
-          class="flex justify-center">
-          @csrf
-
-          <button type="submit"
-            class="px-3 py-1 mt-4 mb-6 bg-red-600 shadow-sm hover:bg-red-700 rounded-xl">
-            <div class="inline-flex items-center justify-center">
-              <i class="text-white bi bi-arrow-right-circle"></i>
-              <span class="ml-1 text-base tracking-wider text-white">
-                Logout
-              </span>
+        <div class="flex items-center gap-x-3.5">
+          <picture>
+            <img class="w-11 h-11 rounded-full p-0.5 bg-white" src="/backend/img/user.png" alt="Profile Picture">
+          </picture>
+          <div class="leading-none">
+            <div class="text-base font-medium tracking-wide text-gray-900">
+              <span>@</span>{{ Auth::user()->username }}
             </div>
-          </button>
-        </form>
+            <div class="ml-1 text-sm text-gray-500">
+              role {{ Auth::user()->role->slug }}
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 space-y-4">
+          <a href="" class="inline-flex ml-3">
+            <div class="flex items-center w-full space-x-3 text-gray-700 hover:text-blue-600">
+              <i class="text-lg bi bi-person-circle"></i>
+              <span>Public Profile</span>
+            </div>
+          </a>
+          <a href="" class="inline-flex ml-3">
+            <div class="flex items-center w-full space-x-3 text-gray-700 hover:text-blue-600">
+              <i class="text-lg bi bi-person-circle"></i>
+              <span>Public Profile</span>
+            </div>
+          </a>
+          <a href="" class="inline-flex ml-3">
+            <div class="flex items-center w-full space-x-3 text-gray-700 hover:text-blue-600">
+              <i class="text-lg bi bi-person-circle"></i>
+              <span>Public Profile</span>
+            </div>
+          </a>
+          <a href="" class="inline-flex ml-3">
+            <div class="flex items-center w-full space-x-3 text-gray-700 hover:text-blue-600">
+              <i class="text-lg bi bi-person-circle"></i>
+              <span>Public Profile</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Logout Button -->
+        <button class="w-full py-2 mt-6 font-semibold text-white bg-red-600 rounded-lg hover:bg-gray-200">
+          Log out
+        </button>
       </ul>
     </div>
   @else

@@ -15,3 +15,9 @@
             </div>
           </button>
         </form>
+
+        <a href="/">
+          <button>
+            home
+          </button>
+        </a>
