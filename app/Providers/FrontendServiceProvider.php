@@ -13,6 +13,11 @@ use App\View\Components\Frontend\MenuWeb\{
   MenuWebHeader,
 };
 
+use App\View\Components\Frontend\MenuAuth\{
+  MenuAuth,
+  MenuAuthDropdown,
+};
+
 class FrontendServiceProvider extends ServiceProvider
 {
   public function register(): void
@@ -30,5 +35,9 @@ class FrontendServiceProvider extends ServiceProvider
     Blade::component('menu-web-header', MenuWebHeader::class);
     Blade::component('menu-utama', MenuUtama::class);
     Blade::component('explore-lainnya', ExploreLainnya::class);
+
+    // MENU AUTH
+    Blade::component('menu-auth', MenuAuth::class);
+    Blade::component('menu-auth-dropdown', MenuAuthDropdown::class);
   }
 }

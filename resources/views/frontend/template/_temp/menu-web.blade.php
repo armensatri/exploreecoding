@@ -46,70 +46,70 @@
 
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-home.png"
+                  image="/frontend/img/menu/home.png"
                   menu="HOME"
                   description="Bangun skill coding mu dengan belajar di exploreecoding"
                 />
 
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-about.png"
+                  image="/frontend/img/menu/about.png"
                   menu="ABOUT"
                   description="Tentang coding dan perjalanan membangun platform ini"
                 />
 
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-materi.png"
+                  image="/frontend/img/menu/materi.png"
                   menu="MATERI"
                   description="Materi terdiri dari path, roadmap, playlist, dan post, yang akan terus di update"
                 />
 
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-sitemap.png"
+                  image="/frontend/img/menu/sitemap.png"
                   menu="SITEMAP"
                   description="Panduan lengkap untuk menelusuri semua peta situs konten"
                 />
 
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-contact.png"
+                  image="/frontend/img/menu/contact.png"
                   menu="CONTACT"
                   description="Hubungi kami untuk pertanyaan, saran, atau kerja sama"
                 />
 
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-upnews.png"
+                  image="/frontend/img/menu/upnews.png"
                   menu="UPDATE NEWS"
                   description="Update rutin tentang materi baru dan pengumuman penting"
                 />
 
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-lebo.png"
+                  image="/frontend/img/menu/lebo.png"
                   menu="LEADERBOARD"
                   description="Pengguna teratas dengan progres belajar terbaik saat ini"
                 />
 
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-regtu.png"
+                  image="/frontend/img/menu/regtu.png"
                   menu="REQUEST TUTORIAL"
                   description="Punya ide tutorial ? Kirim permintaanmu sekarang juga"
                 />
 
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-pp.png"
+                  image="/frontend/img/menu/pp.png"
                   menu="PRIVACY POLICY"
                   description="Informasi lengkap tentang hak dan privasi pengunjung situs"
                 />
 
                 <x-menu-utama
                   route="#"
-                  image="/frontend/img/fe-log.png"
+                  image="/frontend/img/menu/log.png"
                   menu="UPDATE LOGS"
                   description="Catatan perubahan dan pembaruan platform yang terbaru"
                 />
@@ -124,7 +124,7 @@
 
                 <x-explore-lainnya
                   route="/upcoming"
-                  image="/frontend/img/fe-home.png"
+                  image="/frontend/img/menu/home.png"
                   menu="APP PROJECT"
                   bg="bg-red-200"
                   text="text-red-800"
