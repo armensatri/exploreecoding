@@ -16,6 +16,10 @@
         />
       </picture>
 
+      <span class="text-[17px] font-normal tracking-wide text-black truncate sm:block">
+        <span>@</span>{{ Auth::user()->username }}
+      </span>
+
       <i class="text-base text-black bi bi-arrow-down-circle"></i>
     </div>
 
@@ -46,7 +50,7 @@
         </div>
 
         <div class="mt-6 space-y-4">
-          <div class="ml-4 inline-flex items-center">
+          <div class="inline-flex items-center ml-4">
             <img src="/frontend/img/auth/account.png"
               alt="account"
               class="size-4"
@@ -59,7 +63,7 @@
                 aria-label="Dropdown"
                 aria-haspopup="menu"
                 aria-expanded="false"
-                class="ml-2 hs-dropdown-toggle flex items-center w-full space-x-3 text-gray-700 hover:text-blue-700">
+                class="flex items-center w-full ml-2 space-x-3 text-gray-700 hs-dropdown-toggle hover:text-blue-700">
                 Account
                 <i class="ml-2 text-sm text-black bi bi-arrow-down-circle"></i>
               </button>
