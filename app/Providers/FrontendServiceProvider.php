@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\View\Components\Frontend\MenuMobile\MenuMobile;
 use App\View\Components\Frontend\Header\RouteToDashboard;
 
 use App\View\Components\Frontend\MenuWeb\{
@@ -39,5 +40,8 @@ class FrontendServiceProvider extends ServiceProvider
     // MENU AUTH
     Blade::component('menu-auth', MenuAuth::class);
     Blade::component('menu-auth-dropdown', MenuAuthDropdown::class);
+
+    // MENU MOBILE
+    Blade::component('menu-mobile', MenuMobile::class);
   }
 }

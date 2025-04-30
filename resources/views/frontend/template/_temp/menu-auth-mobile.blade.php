@@ -32,7 +32,7 @@
     </div>
 
     <div id="dropdownAuthh"
-      class="z-10 hidden p-4 border border-gray-300 divide-y divide-gray-100 shadow bg-sky-50 w-60 rounded-3xl">
+      class="z-10 hidden p-4 border border-gray-300 divide-y divide-gray-100 shadow w-60 bg-sky-50 rounded-3xl">
 
       <ul aria-labelledby="dropdownHoverButton"
         class="py-2 text-sm text-gray-700 dark:text-gray-200">
@@ -135,13 +135,13 @@
 
           <x-menu-auth
             route="#"
-            image="/frontend/img/auth/upnews.png"
-            alt="show-activity"
-            menu="Show activity"
+            image="/frontend/img/auth/activity.png"
+            alt="log-activity"
+            menu="Log activity"
           />
 
           <x-menu-auth
-            route="#"
+            :route="route(\App\Helpers\Redirects::Dashboard())"
             image="/frontend/img/auth/dashboard.jpg"
             alt="dashboard"
             menu="Dashboard"

@@ -127,13 +127,13 @@
 
           <x-menu-auth
             route="#"
-            image="/frontend/img/auth/upnews.png"
-            alt="show-activity"
-            menu="Show activity"
+            image="/frontend/img/auth/activity.png"
+            alt="log-activity"
+            menu="Log activity"
           />
 
           <x-menu-auth
-            route="#"
+            :route="route(\App\Helpers\Redirects::Dashboard())"
             image="/frontend/img/auth/dashboard.jpg"
             alt="dashboard"
             menu="Dashboard"

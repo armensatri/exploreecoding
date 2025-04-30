@@ -1,23 +1,37 @@
-<h1>{{ Auth::user()->name }}</h1>
+@extends('backend.template.main')
 
-<form action="{{ route('auth.logout') }}"
-          method="POST"
-          class="flex justify-center">
-          @csrf
+@section('content-backend')
+  <div class="content">
+    <div class="p-4 mx-auto">
+      <section class="w-full px-4 mb-2">
+        <div class="app-content">
+          <div class="app-content-title">
+            {{ $title }}
+          </div>
+        </div>
+      </section>
 
-          <button type="submit"
-            class="px-3 py-1 mt-4 mb-6 bg-red-600 shadow-sm hover:bg-red-700 rounded-xl">
-            <div class="inline-flex items-center justify-center">
-              <i class="text-white bi bi-arrow-right-circle"></i>
-              <span class="ml-1 text-base tracking-wider text-white">
-                Logout
-              </span>
+      <section class="w-full px-4 mt-8 mb-5">
+        <div class="app-cse-border">
+          <div class="p-8 text-center">
+            <div class="mb-4 text-3xl font-extrabold tracking-wider text-gray-900 uppercase">
+              welcome back {{ $owner->name }}
             </div>
-          </button>
-        </form>
 
-        <a href="/">
-          <button>
-            home
-          </button>
-        </a>
+            <div class="font-light tracking-wide text-gray-600 sm:text-xl">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptatem praesentium consequuntur mollitia incidunt maiores nostrum obcaecati quas quasi ea.
+            </div>
+
+            <div class="{{ $owner->role->bg }}
+              mt-8 inline-block rounded-full tracking-wider">
+              <div class="px-3.5 py-1.5 text-sm uppercase font-medium
+                {{ $owner->role->text }}">
+                role access {{ $owner->role->name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+@endSection
