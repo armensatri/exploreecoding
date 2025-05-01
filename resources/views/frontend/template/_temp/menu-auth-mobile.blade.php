@@ -11,7 +11,7 @@
     <div id="dropdownHoverButtonn"
       data-dropdown-toggle="dropdownAuthh"
       data-dropdown-trigger="hover"
-      class="flex items-center gap-x-2 tracking-wide justify-center py-[3px] text-base font-medium rounded-[13px] cursor-pointer">
+      class="flex items-center gap-x-1 tracking-wide justify-center py-[3px] text-base font-medium rounded-[13px] cursor-pointer">
 
       <picture>
         <img src="{{ Auth::user() && Auth::user()->image ?

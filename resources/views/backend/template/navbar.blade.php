@@ -99,7 +99,7 @@
                 />
 
                 <a href="#"
-                  class="ml-1 border-t-[1px] flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[15px] text-red-600 hover:text-red-800">
+                  class="ml-1 border-t-[1px] flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-base text-red-600 hover:text-red-800">
                   <i class="text-lg text-red-600 bi bi-trash3-fill"></i>
                   Delete account
                 </a>
