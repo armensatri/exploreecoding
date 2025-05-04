@@ -14,14 +14,16 @@ Route::group(
     Route::controller(LoginController::class)->group(
       function () {
         Route::get('/auth/login', 'index')->name('login');
-        Route::post('/auth/login', 'store')->name('login.store');
+        Route::post('/auth/login', 'store')->name('login.store')
+          ->middleware('throttle:login');;
       }
     );
 
     Route::controller(RegisterController::class)->group(
       function () {
         Route::get('/auth/register', 'index')->name('register');
-        Route::post('/auth/register', 'store')->name('register.store');
+        Route::post('/auth/register', 'store')->name('register.store')
+          ->middleware('throttle:register');;
       }
     );
   }

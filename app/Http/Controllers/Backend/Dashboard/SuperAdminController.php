@@ -18,7 +18,7 @@ class SuperAdminController extends Controller
   {
     $superadmin = Auth::user();
 
-    return view('backend.dashboard.super-admin', [
+    return view('backend.dashboard.superadmin', [
       'title' => 'Dashboard superadmin',
       'superadmin' => $superadmin
     ]);

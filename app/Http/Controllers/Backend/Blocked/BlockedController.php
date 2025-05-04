@@ -7,5 +7,10 @@ use Illuminate\Http\Request;
 
 class BlockedController extends Controller
 {
-    //
+  public function blocked()
+  {
+    return view('backend.blocked.blocked', [
+      'title' => 'Access blocked'
+    ]);
+  }
 }

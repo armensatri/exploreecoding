@@ -1,27 +1,29 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Http\Middleware;
 
 use App\Models\Managemenu\Submenu;
-use Illuminate\Support\Facades\DB;
+use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 
-class Submenuaccess
+class SubmenuAccessMiddleware
 {
-  public static function Submenu()
+  public function handle(Request $request, Closure $next)
   {
     if (!Auth::check()) {
-      return Redirect::route('login')->send();
+      return redirect()->route('login');
     }
 
     $role_id = Auth::user()->role_id;
-    $submenu = request()->segment(1);
+    $submenu = $request->segment(1);
 
+    // Cek apakah submenu ada
     $querySubMenu = Submenu::where('name', $submenu)->first();
 
     if (!$querySubMenu) {
-      return Redirect::route('blocked')->send();
+      return redirect()->route('blocked');
     }
 
     $queryAccessSubMenu = DB::table('role_has_submenu')
@@ -30,7 +32,9 @@ class Submenuaccess
       ->exists();
 
     if (!$queryAccessSubMenu) {
-      return Redirect::route('blocked')->send();
+      return redirect()->route('blocked');
     }
+
+    return $next($request);
   }
 }

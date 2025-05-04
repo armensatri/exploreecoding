@@ -19,8 +19,7 @@ class UserFactory extends Factory
         $this->faker->unique()->userName()
       ) . '@gmail.com',
       'password' => Hash::make('123qwe'),
-      'role_id' => 4,
-      'is_active' => mt_rand(0, 1)
+      'role_id' => mt_rand(2, 5),
     ];
   }
 }

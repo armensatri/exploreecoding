@@ -68,7 +68,7 @@ class User extends Authenticatable
 
   public function scopeSearch(Builder $query, array $fillters): void
   {
-    $fields = ['name', 'status'];
+    $fields = ['name'];
 
     $relations = [
       'role' => 'name'

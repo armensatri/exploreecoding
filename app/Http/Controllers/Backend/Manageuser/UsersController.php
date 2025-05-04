@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Backend\Manageuser;
 
+use App\Helpers\LoginAccess;
 use Illuminate\Http\Request;
+use App\Helpers\Submenuaccess;
 use App\Models\Manageuser\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Manageuser\User\UserSr;
 use App\Http\Requests\Manageuser\User\UserUr;
+use App\Models\Manageuser\Role;
 
 class UsersController extends Controller
 {
@@ -15,7 +18,12 @@ class UsersController extends Controller
    */
   public function index()
   {
-    $users = User::with('role')->paginate(10);
+    $users = User::search(request(['search', 'role']))
+      ->select(['id', 'name', 'username', 'email', 'image', 'role_id'])
+      ->with(['role'])
+      ->orderBy('id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.manageuser.users.index', [
       'title' => 'Semua data users',
@@ -26,9 +34,17 @@ class UsersController extends Controller
   /**
    * Show the form for creating a new resource.
    */
-  public function create()
+  public function create(User $user)
   {
-    //
+    $roles = Role::select('id', 'name')
+      ->orderBy('sr', 'asc')
+      ->get();
+
+    return view('backend.manageuser.users.create', [
+      'title' => 'Create data user',
+      'user' => $user,
+      'roles' => $roles
+    ]);
   }
 
   /**
@@ -36,7 +52,7 @@ class UsersController extends Controller
    */
   public function store(UserSr $request)
   {
-    //
+    $dataStore = $request->validated();
   }
 
   /**

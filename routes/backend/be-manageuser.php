@@ -6,7 +6,8 @@ use App\Http\Controllers\Backend\Manageuser\UsersController;
 Route::group(
   [
     'middleware' => [
-      'auth'
+      'auth',
+      'submenu_access'
     ]
   ],
   function () {

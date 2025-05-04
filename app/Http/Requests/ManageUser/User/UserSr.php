@@ -6,23 +6,52 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UserSr extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
+  public function authorize(): bool
+  {
+    return true;
+  }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            //
-        ];
-    }
+  public function rules(): array
+  {
+    return [
+      'name' => [],
+
+      'username' => [],
+
+      'email' => [],
+
+      'password' => [],
+
+      'image' => [],
+
+      'role_id' => [],
+    ];
+  }
+
+  public function messages()
+  {
+    return [
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+      'name.' => 'User..name!',
+    ];
+  }
 }
