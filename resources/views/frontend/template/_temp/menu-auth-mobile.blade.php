@@ -1,6 +1,6 @@
 <a href="{{ route('home') }}"
   class="-m-1.5 p-1.5">
-  <img src="/frontend/img/logo.jpg"
+  <img src="/frontend/img/logo/logo.jpg"
     alt="logo"
     class="w-auto h-8 rounded-full"
   />

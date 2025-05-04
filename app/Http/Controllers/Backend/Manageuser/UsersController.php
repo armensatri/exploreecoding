@@ -15,7 +15,7 @@ class UsersController extends Controller
    */
   public function index()
   {
-    $users = User::all();
+    $users = User::with('role')->paginate(10);
 
     return view('backend.manageuser.users.index', [
       'title' => 'Semua data users',

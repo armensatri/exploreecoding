@@ -5,7 +5,7 @@
     class="flex items-center justify-between p-5 lg:px-8">
     <div class="flex lg:flex-1">
       <a href="{{ route('home') }}" class="-m-1.5 p-1.5">
-        <img src="/frontend/img/logo.jpg"
+        <img src="/frontend/img/logo/logo.jpg"
           alt="logo"
           class="w-auto h-8 rounded-full"
         />

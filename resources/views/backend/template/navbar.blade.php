@@ -45,7 +45,7 @@
           </div>
 
           <div aria-labelledby="hs-dropdown-hover-event"
-            class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-sky-50 shadow-md rounded-3xl p-5 mt-2 after:h-4 after:absolute after:-bottom-4 after:start-0 after:w-full before:h-4 border border-gray-400 before:absolute before:-top-4 before:start-0 before:w-full">
+            class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-slate-50 shadow-md rounded-3xl p-5 mt-2 after:h-4 after:absolute after:-bottom-4 after:start-0 after:w-full before:h-4 border border-gray-400 before:absolute before:-top-4 before:start-0 before:w-full">
 
             <div class="py-2 mb-2 first:pt-0 last:pb-0">
               <div class="flex items-center gap-x-3.5 border-b-[1px] pb-2">
@@ -69,7 +69,7 @@
                 </div>
               </div>
 
-              <div class="flex flex-col mt-6 space-y-4">
+              <div class="flex flex-col mt-6 space-y-3.5">
                 <x-menu-auth
                   route="#"
                   image="/frontend/img/auth/lebo.png"

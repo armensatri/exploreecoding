@@ -11,48 +11,162 @@
         </div>
       </section>
 
+      @if (session()->has('alert'))
+        @include('sweetalert::alert')
+      @endif
+
       <section class="w-full px-4 mt-8 mb-5">
-        <div class="p-4 overflow-x-auto bg-blue-200 rounded-lg shadow">
-          <table class="min-w-full text-sm text-left text-gray-700 border-separate border-spacing-y-2">
-            <thead class="text-xs uppercase bg-gray-50">
-              <tr>
-                <th class="px-6 py-3">Id</th>
-                <th class="px-6 py-3">Name</th>
-                <th class="px-6 py-3">Address</th>
-                <th class="px-6 py-3">Date</th>
-                <th class="px-6 py-3">Price</th>
-                <th class="px-6 py-3">Status</th>
-                <th class="px-6 py-3">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="bg-white shadow rounded-2xl">
-                <td class="px-6 py-4 font-medium rounded-l-2xl">#2632</td>
-                <td class="flex items-center gap-2 px-6 py-4">
-                  <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="avatar" class="w-8 h-8 rounded-full" />
-                  Brooklyn Zoe
-                </td>
-                <td class="px-6 py-4">302 Snider Street, RUTLAND, VT, 05701</td>
-                <td class="px-6 py-4">31 Jul 2020</td>
-                <td class="px-6 py-4">$64.00</td>
-                <td class="px-6 py-4">
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-100 text-red-600 text-xs font-semibold">
-                    <span class="inline-block w-2 h-2 bg-red-500 rounded-full"></span>
-                    Pending
-                  </span>
-                </td>
-                <td class="px-6 py-4 rounded-r-2xl">
-                  <button class="p-2 rounded hover:bg-gray-100">⚙️</button>
-                </td>
-              </tr>
-              <!-- Baris lain -->
-            </tbody>
-          </table>
+        <div class="max-w-[85rem] mx-auto">
+          <div class="flex flex-col">
+            <div class="-m-1.5 overflow-x-auto min-w-full">
+              <div class="p-1.5 inline-block xl:max-w-full align-middle leading-none">
+                <div class="overflow-hidden app-table-border">
+                  <div class="grid app-table-grid">
+                    <x-description
+                      table-name="Users"
+                      :page-data="$users"
+                    />
+
+                    <div class="table-header">
+                      <div class="inline-flex items-center gap-x-2">
+                        <div class="refresh">
+                          <x-refresh
+                            :route="route('users.index')"
+                          />
+                        </div>
+
+                        <div class="search">
+                          <form action="/users">
+                            <x-search
+                              search="users"
+                              placeholder="Search data users"
+                            />
+                          </form>
+                        </div>
+
+                        <div class="backup">
+                          <x-backup
+                            table-name="users"
+                          />
+                        </div>
+
+                        <div class="button-create">
+                          <x-button-create
+                            :route="route('users.create')"
+                            button-name="user"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-200">
+                      <tr>
+                        <x-th
+                          name="no"
+                        />
+                        <x-th
+                          name="id"
+                        />
+                        <x-th
+                          name="image"
+                        />
+                        <x-th
+                          name="name"
+                        />
+                        <x-th
+                          name="email"
+                        />
+                        <x-th
+                          name="role"
+                        />
+                        <x-th-action/>
+                      </tr>
+                    </thead>
+
+                    <tbody class="tbody">
+                      @foreach ($users as $user)
+                        <tr>
+                          <td class="h-px whitespace-nowrap">
+                            <div class="center">
+                              <x-td-var
+                                :var="$loop->iteration . '.'"
+                              />
+                            </div>
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <div class="center">
+                              <x-td-var
+                                :var="$user->id"
+                              />
+                            </div>
+                          </td>
+
+                          <td class="size-px whitespace-nowrap">
+                            <div class="center">
+                              <x-td-image
+                                :asset="$user->image"
+                                asset-default="/image/default.png"
+                              />
+                            </div>
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var
+                              :var="$user->name"
+                            />
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var
+                              :var="$user->email"
+                            />
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var-bg
+                              :bg="$user->role->bg"
+                              :text="$user->role->text"
+                              :var="$user->role->name"
+                            />
+                          </td>
+
+                          <td class="size-px whitespace-nowrap">
+                            <x-td-action
+                              :id="$user->id"
+
+                              :show="route(
+                                'users.show', $user->username
+                              )"
+
+                              :edit="route(
+                                'users.edit', $user->username
+                                )"
+
+                              :delete="route(
+                                'users.destroy', $user->username
+                              )"
+                            />
+                          </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+
+                  <div class="grid app-table-footer">
+                    @if ($users->lastPage() > 1)
+                      <x-pagination
+                        :pagination="$users"
+                      />
+                    @endif
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-
-
-
       </section>
     </div>
   </div>
