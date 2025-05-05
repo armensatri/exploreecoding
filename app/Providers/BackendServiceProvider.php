@@ -39,6 +39,7 @@ use App\View\Components\Backend\Table\{
   TdAccess,
   TdAction,
   TdImage,
+  TdImageHover,
   TdVar,
   TdVarBg,
   TdVarWidth,
@@ -97,6 +98,7 @@ class BackendServiceProvider extends ServiceProvider
     Blade::component('td-access', TdAccess::class);
     Blade::component('td-action', TdAction::class);
     Blade::component('td-image', TdImage::class);
+    Blade::component('td-image-hover', TdImageHover::class);
     Blade::component('td-var', TdVar::class);
     Blade::component('td-var-bg', TdVarBg::class);
     Blade::component('td-var-width', TdVarWidth::class);

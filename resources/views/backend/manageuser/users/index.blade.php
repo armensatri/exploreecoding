@@ -106,7 +106,7 @@
 
                           <td class="size-px whitespace-nowrap">
                             <div class="center">
-                              <x-td-image
+                              <x-td-image-hover
                                 :asset="$user->image"
                                 asset-default="/image/default.png"
                               />

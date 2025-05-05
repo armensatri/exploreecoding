@@ -42,7 +42,8 @@
               asset('storage/' . Auth::user()->image) :
               '/backend/img/user.png' }}"
               alt="profile"
-              class="w-11 h-11 rounded-full p-0.5 bg-white"
+              class="w-11 h-11 object-cover object-top
+              rounded-full p-0.5 bg-white"
             />
           </picture>
 

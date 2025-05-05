@@ -25,7 +25,12 @@ class RegisterController extends Controller
 
     if (RateLimiter::tooManyAttempts($key, 5)) {
       $seconds = RateLimiter::availableIn($key);
-      Alert::error('Terlalu banyak percobaan', "Silakan coba lagi dalam $seconds detik.");
+
+      Alert::error(
+        'Terlalu banyak percobaan',
+        "Silakan coba lagi dalam $seconds detik."
+      );
+
       return redirect()->route('register');
     }
 
@@ -40,7 +45,7 @@ class RegisterController extends Controller
       return redirect()->route('register');
     }
 
-    $dataStore = $request->validated();
+    $datastore = $request->validated();
 
     $role = Role::where('id', 5)->first();
 
@@ -49,9 +54,9 @@ class RegisterController extends Controller
       return redirect()->back();
     }
 
-    $dataStore['role_id'] = $role->id;
+    $datastore['role_id'] = $role->id;
 
-    User::create($dataStore);
+    User::create($datastore);
 
     RateLimiter::clear($key);
 

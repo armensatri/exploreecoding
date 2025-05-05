@@ -22,7 +22,7 @@ class LoginController extends Controller
 
   public function store(LoginSr $request)
   {
-    $dataStore = $request->validated();
+    $datastore = $request->validated();
 
     $key = Str::lower($request->email) . '|' . $request->ip();
 
@@ -37,7 +37,7 @@ class LoginController extends Controller
       return redirect()->route('login');
     }
 
-    if (Auth::attempt($dataStore)) {
+    if (Auth::attempt($datastore)) {
       $request->session()->regenerate();
 
       RateLimiter::clear($key);
