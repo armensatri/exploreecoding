@@ -30,8 +30,7 @@ return new class extends Migration
       $table->string('route')->default('-');
       $table->string('active')->default('-');
       $table->string('routename')->default('-');
-      $table->string('image')->nullable();
-      $table->text('description')->default('-');
+      $table->text('description');
       $table->timestamps();
     });
   }

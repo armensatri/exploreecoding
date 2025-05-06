@@ -20,7 +20,6 @@ class RoleSr extends FormRequest
       ],
 
       'name' => [
-        'string',
         'required',
         'min:3',
         'max:50',
@@ -28,7 +27,6 @@ class RoleSr extends FormRequest
       ],
 
       'slug' => [
-        'string',
         'required',
         'min:3',
         'max:50',
@@ -36,17 +34,14 @@ class RoleSr extends FormRequest
       ],
 
       'bg' => [
-        'string',
         'required'
       ],
 
       'text' => [
-        'string',
         'required'
       ],
 
       'description' => [
-        'string',
         'required'
       ],
     ];

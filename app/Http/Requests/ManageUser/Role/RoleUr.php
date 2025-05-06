@@ -20,31 +20,26 @@ class RoleUr extends FormRequest
       ],
 
       'name' => [
-        'string',
         'required',
         'min:3',
         'max:50',
       ],
 
       'slug' => [
-        'string',
         'required',
         'min:3',
         'max:50',
       ],
 
       'bg' => [
-        'string',
         'required'
       ],
 
       'text' => [
-        'string',
         'required'
       ],
 
       'description' => [
-        'string',
         'required'
       ],
     ];

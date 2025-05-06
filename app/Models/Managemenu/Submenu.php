@@ -21,7 +21,6 @@ class Submenu extends Model
     'route',
     'active',
     'routename',
-    'image',
     'description'
   ];
 
