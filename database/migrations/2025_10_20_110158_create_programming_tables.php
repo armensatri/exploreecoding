@@ -10,6 +10,11 @@ return new class extends Migration
   {
     Schema::create('paths', function (Blueprint $table) {
       $table->id();
+      $table->integer('sp');
+      $table->string('name')->unique();
+      $table->string('slug')->unique();
+      $table->text('description');
+      $table->string('url', 7)->unique();
       $table->timestamps();
     });
 

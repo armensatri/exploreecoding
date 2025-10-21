@@ -140,6 +140,42 @@ class RoleHasPermissionSeeder extends Seeder
         'statuses.edit',
         'statuses.update',
         'statuses.destroy',
+
+        // PATHS
+        'paths.index',
+        'paths.create',
+        'paths.store',
+        'paths.show',
+        'paths.edit',
+        'paths.update',
+        'paths.destroy',
+
+        // ROADMAPS
+        'roadmaps.index',
+        'roadmaps.create',
+        'roadmaps.store',
+        'roadmaps.show',
+        'roadmaps.edit',
+        'roadmaps.update',
+        'roadmaps.destroy',
+
+        // PLAYLISTS
+        'playlists.index',
+        'playlists.create',
+        'playlists.store',
+        'playlists.show',
+        'playlists.edit',
+        'playlists.update',
+        'playlists.destroy',
+
+        // PPOST
+        'posts.index',
+        'posts.create',
+        'posts.store',
+        'posts.show',
+        'posts.edit',
+        'posts.update',
+        'posts.destroy',
       ],
 
       'superadmin' => [

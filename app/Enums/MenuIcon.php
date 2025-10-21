@@ -49,6 +49,12 @@ class MenuIcon
 
       // PUBLISHED
       'statuses' => 'statuses.jpg',
+
+      // PROGRAMMING
+      'paths' => 'paths.png',
+      'roadmaps' => 'roadmaps.png',
+      'playlists' => 'playlists.png',
+      'posts' => 'posts.png'
     ];
 
     $fileName = $icons[strtolower($name)] ?? '';
