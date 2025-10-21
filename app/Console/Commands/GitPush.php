@@ -29,13 +29,13 @@ class GitPush extends Command
   {
     $message = $this->argument('message');
 
-    $this->info('Menjalankan: git add .');
+    $this->info('run: git add .');
     (new Process(['git', 'add', '.']))->run();
 
-    $this->info("Menjalankan: git commit -m \"$message\"");
+    $this->info("run: git commit -m \"$message\"");
     (new Process(['git', 'commit', '-m', $message]))->run();
 
-    $this->info('Menjalankan: git push -u origin main');
+    $this->info('run: git push -u origin main');
     (new Process(['git', 'push', '-u', 'origin', 'main']))->run();
 
     $this->info('✅ Push selesai.');
