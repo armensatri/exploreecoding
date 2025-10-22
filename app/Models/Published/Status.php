@@ -10,6 +10,13 @@ use App\Traits\Models\{
   HasSearchable
 };
 
+use App\Models\Programming\{
+  Path,
+  Roadmap,
+  Playlist,
+  Post,
+};
+
 class Status extends Model
 {
   use HasRandomUrl, HasSearchable, HasSluggable;
@@ -35,5 +42,23 @@ class Status extends Model
     return 'url';
   }
 
-  // ini lagi ya
+  public function paths()
+  {
+    return $this->hasMany(Path::class);
+  }
+
+  public function roadmaps()
+  {
+    return $this->hasMany(Roadmap::class);
+  }
+
+  public function playlists()
+  {
+    return $this->hasMany(Playlist::class);
+  }
+
+  public function posts()
+  {
+    return $this->hasMany(Post::class);
+  }
 }
