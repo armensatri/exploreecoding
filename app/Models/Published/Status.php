@@ -34,4 +34,6 @@ class Status extends Model
   {
     return 'url';
   }
+
+  // ini lagi ya
 }

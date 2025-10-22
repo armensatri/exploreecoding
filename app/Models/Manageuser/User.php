@@ -3,6 +3,7 @@
 namespace App\Models\Manageuser;
 
 use App\Models\Manageuser\Role;
+use App\Models\Programming\Post;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Traits\Models\{
@@ -56,6 +57,11 @@ class User extends Authenticatable
   public function role()
   {
     return $this->belongsTo(Role::class, 'role_id', 'id');
+  }
+
+  public function posts()
+  {
+    return $this->hasMany(Post::class);
   }
 
   public function statusOnOf()
