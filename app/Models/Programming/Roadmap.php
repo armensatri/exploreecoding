@@ -11,6 +11,11 @@ use App\Traits\Models\{
   HasSluggable,
 };
 
+use App\Models\Programming\{
+  Path,
+  Playlist
+};
+
 class Roadmap extends Model
 {
   use HasRandomUrl, HasSearchable, HasSluggable;
