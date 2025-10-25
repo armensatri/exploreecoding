@@ -15,8 +15,8 @@ return new class extends Migration
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
       $table->integer('sp');
-      $table->string('name')->unique();
-      $table->string('slug')->unique();
+      $table->string('name');
+      $table->string('slug');
       $table->text('description');
       $table->string('image')->nullable();
       $table->string('url', 7)->unique();
@@ -34,8 +34,8 @@ return new class extends Migration
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
       $table->integer('sr');
-      $table->string('name')->unique();
-      $table->string('slug')->unique();
+      $table->string('name');
+      $table->string('slug');
       $table->text('description');
       $table->string('image')->nullable();
       $table->string('url', 7)->unique();
@@ -53,8 +53,8 @@ return new class extends Migration
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
       $table->integer('spl');
-      $table->string('name')->unique();
-      $table->string('slug')->unique();
+      $table->string('name');
+      $table->string('slug');
       $table->text('description');
       $table->string('image')->nullable();
       $table->string('url', 7)->unique();
@@ -77,7 +77,7 @@ return new class extends Migration
         ->cascadeOnUpdate();
       $table->integer('sp');
       $table->string('title');
-      $table->string('slug')->unique();
+      $table->string('slug');
       $table->text('excerpt');
       $table->text('content');
       $table->string('image')->nullable();
