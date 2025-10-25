@@ -33,17 +33,6 @@
               alt="user-image"
               class="object-cover object-center rounded-full size-8"
             />
-
-            {{-- <div
-              class="absolute z-10 flex items-center justify-center invisible transition-opacity border border-gray-500 shadow-md opacity-0 bg-sky-50 rounded-3xl hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible" role="tooltip">
-
-              <img src="{{
-                $asset ? asset('storage/' . $asset) :
-                asset($assetDefault) }}"
-                alt="user-image"
-                class="p-2 h-[250px] w-[250px] rounded-3xl"
-              />
-            </div> --}}
           </div>
         </div>
       @endif
