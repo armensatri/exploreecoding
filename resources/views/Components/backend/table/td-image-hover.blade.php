@@ -1,6 +1,6 @@
-<div class="flex justify-center">
-  <div class="px-6 py-3">
-    <div class="flex items-center gap-x-2">
+<div class="flex justify-center items-center">
+  <div class="px-4 py-3">
+    <div class="">
       @if ($asset)
         <div class="hs-tooltip">
           <div class="rounded-full hs-tooltip-toggle hover:cursor-pointer">

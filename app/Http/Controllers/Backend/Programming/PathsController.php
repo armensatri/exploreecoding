@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Published\Status;
 use App\Models\Programming\Path;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Http\Requests\Programming\Path\{
   PathSr,
   PathUr
 };
-use RealRashid\SweetAlert\Facades\Alert;
 
 class PathsController extends Controller
 {
@@ -99,7 +100,15 @@ class PathsController extends Controller
    */
   public function edit(Path $path)
   {
-    // ini lagi ya
+    $statuses = Status::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
+
+    return view('backend.programming.paths.edit', [
+      'title' => 'Edit data path',
+      'path' => $path,
+      'statuses' => $statuses
+    ]);
   }
 
   /**
@@ -107,7 +116,26 @@ class PathsController extends Controller
    */
   public function update(PathUr $request, Path $path)
   {
-    //
+    $dataupdate = $request->validated();
+
+    if ($request->hasFile('image')) {
+      if (!empty($path->image)) {
+        Storage::delete($path->image);
+      }
+
+      $dataupdate['image'] = $request->file('image')->store(
+        '/programming/paths'
+      );
+    }
+
+    $path->update($dataupdate);
+
+    Alert::success(
+      'success',
+      'Data path! berhasil di update.'
+    );
+
+    return redirect()->route('paths.index');
   }
 
   /**
@@ -115,6 +143,17 @@ class PathsController extends Controller
    */
   public function destroy(Path $path)
   {
-    //
+    if ($path->image) {
+      Storage::delete($path->image);
+    }
+
+    Path::destroy($path->id);
+
+    Alert::success(
+      'success',
+      'Data path! berhasil di delete.'
+    );
+
+    return redirect()->route('paths.index');
   }
 }

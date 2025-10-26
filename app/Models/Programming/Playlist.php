@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Models\{
   HasRandomUrl,
   HasSearchable,
-  HasSluggable,
 };
 
 use App\Models\Programming\{
@@ -18,7 +17,7 @@ use App\Models\Programming\{
 
 class Playlist extends Model
 {
-  use HasRandomUrl, HasSearchable, HasSluggable;
+  use HasRandomUrl, HasSearchable;
 
   protected $table = 'playlists';
 

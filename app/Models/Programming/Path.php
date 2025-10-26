@@ -9,12 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Models\{
   HasRandomUrl,
   HasSearchable,
-  HasSluggable,
 };
 
 class Path extends Model
 {
-  use HasRandomUrl, HasSearchable, HasSluggable;
+  use HasRandomUrl, HasSearchable;
 
   protected $table = 'paths';
 
