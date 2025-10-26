@@ -68,7 +68,7 @@ class PathSr extends FormRequest
 
       'image.image' => 'Path..image! file yang di upload bukan image',
       'image.max' => 'Path..image! ukuran image maksimal 2 mb',
-      'image.mimes' => 'Path..image! type image hanya boleh png, jpg, jpeg, webp',
+      'image.mimes' => 'Path..image! type image hanya boleh png, jpg, jpeg, dan webp',
     ];
   }
 }
