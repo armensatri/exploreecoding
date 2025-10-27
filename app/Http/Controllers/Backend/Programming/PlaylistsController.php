@@ -18,7 +18,25 @@ class PlaylistsController extends Controller
    */
   public function index()
   {
-    //
+    $playlists = Playlist::query()
+      ->search(request(['search', 'roadmap']))
+      ->select([
+        'id',
+        'roadmap_id',
+        'spl',
+        'image',
+        'name',
+        'status_id',
+      ])
+      ->with(['status:id,name,bg,text', 'roadmap:id,name'])
+      ->orderBy('roadmap_id', 'asc')
+      ->paginate(15)
+      ->withQueryString();
+
+    return view('backend.programming.playlists.index', [
+      'title' => 'Semua data playlists',
+      'playlists' => $playlists
+    ]);
   }
 
   /**

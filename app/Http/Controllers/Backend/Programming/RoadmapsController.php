@@ -17,7 +17,7 @@ use App\Http\Requests\Programming\Roadmap\{
   RoadmapSr,
   RoadmapUr,
 };
-
+use Illuminate\Support\Facades\Storage;
 
 class RoadmapsController extends Controller
 {
@@ -99,7 +99,10 @@ class RoadmapsController extends Controller
    */
   public function show(Roadmap $roadmap)
   {
-    // ini lagi ya
+    return view('backend.programming.roadmaps.show', [
+      'title' => 'Detail data roadmap',
+      'roadmap' => $roadmap
+    ]);
   }
 
   /**
@@ -107,7 +110,20 @@ class RoadmapsController extends Controller
    */
   public function edit(Roadmap $roadmap)
   {
-    //
+    $statuses = Status::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
+
+    $paths = Path::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
+
+    return view('backend.programming.roadmaps.edit', [
+      'title' => 'Edit data roadmap',
+      'roadmap' => $roadmap,
+      'statuses' => $statuses,
+      'paths' => $paths
+    ]);
   }
 
   /**
@@ -115,7 +131,26 @@ class RoadmapsController extends Controller
    */
   public function update(RoadmapUr $request, Roadmap $roadmap)
   {
-    //
+    $dataupdate = $request->validated();
+
+    if ($request->hasFile('image')) {
+      if (!empty($roadmap->image)) {
+        Storage::delete($roadmap->image);
+      }
+
+      $dataupdate['image'] = $request->file('image')->store(
+        '/programming/roadmaps'
+      );
+    }
+
+    $roadmap->update($dataupdate);
+
+    Alert::success(
+      'success',
+      'Data roadmap! berhasil di update.'
+    );
+
+    return redirect()->route('roadmaps.index');
   }
 
   /**
@@ -123,6 +158,17 @@ class RoadmapsController extends Controller
    */
   public function destroy(Roadmap $roadmap)
   {
-    //
+    if ($roadmap->image) {
+      Storage::delete($roadmap->image);
+    }
+
+    Roadmap::destroy($roadmap->id);
+
+    Alert::success(
+      'success',
+      'Data roadmap! berhasil di delete.'
+    );
+
+    return redirect()->route('roadmaps.index');
   }
 }
