@@ -35,6 +35,7 @@ class MenuIcon
       'visitor' => 'visitor.jpg',
       'access' => 'access.png',
       'statistic' => 'statistic.jpg',
+      'silabus' => 'silabus.png',
 
       // MANAGEUSER
       'users' => 'users.jpg',
