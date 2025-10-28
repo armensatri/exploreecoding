@@ -73,7 +73,7 @@ class RoleHasMenuSeeder extends Seeder
         // 'editor',
         // 'member',
         'account',
-        // 'managedata',
+        'managedata',
         // 'manageuser',
         // 'managemenu',
         // 'published',

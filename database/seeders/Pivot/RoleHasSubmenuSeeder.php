@@ -48,6 +48,7 @@ class RoleHasSubmenuSeeder extends Seeder
       'visitor',
       'access',
       'statistic',
+      'silabus',
 
       // MANAGEUSER
       'users',
@@ -100,6 +101,7 @@ class RoleHasSubmenuSeeder extends Seeder
         'visitor',
         'access',
         'statistic',
+        'silabus',
 
         // MANAGEUSER
         'users',
@@ -151,6 +153,7 @@ class RoleHasSubmenuSeeder extends Seeder
         'visitor',
         'access',
         'statistic',
+        'silabus',
 
         // MANAGEUSER
         'users',
@@ -202,6 +205,7 @@ class RoleHasSubmenuSeeder extends Seeder
         // 'visitor',
         // 'access',
         // 'statistic',
+        'silabus',
 
         // MANAGEUSER
         // 'users',
@@ -253,6 +257,7 @@ class RoleHasSubmenuSeeder extends Seeder
         // 'visitor',
         // 'access',
         // 'statistic',
+        // 'silabus',
 
         // MANAGEUSER
         // 'users',
@@ -304,6 +309,7 @@ class RoleHasSubmenuSeeder extends Seeder
         // 'visitor',
         // 'access',
         // 'statistic',
+        // 'silabus',
 
         // MANAGEUSER
         // 'users',
@@ -355,6 +361,7 @@ class RoleHasSubmenuSeeder extends Seeder
         // 'visitor',
         // 'access',
         // 'statistic',
+        // 'silabus',
 
         // MANAGEUSER
         // 'users',

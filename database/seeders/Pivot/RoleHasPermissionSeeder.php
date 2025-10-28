@@ -68,6 +68,9 @@ class RoleHasPermissionSeeder extends Seeder
         // STATISTIC
         'statistic',
 
+        // SILABUS
+        'silabus',
+
         // USERS
         'users.index',
         'users.create',
@@ -219,6 +222,9 @@ class RoleHasPermissionSeeder extends Seeder
         // STATISTIC
         'statistic',
 
+        // SILABUS
+        'silabus',
+
         // USERS
         'users.index',
         'users.create',
@@ -333,6 +339,9 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         // 'statistic',
+
+        // SILABUS
+        'silabus',
 
         // USERS
         // 'users.index',
@@ -449,6 +458,9 @@ class RoleHasPermissionSeeder extends Seeder
         // STATISTIC
         // 'statistic',
 
+        // SILABUS
+        // 'silabus',
+
         // USERS
         // 'users.index',
         // 'users.create',
@@ -564,6 +576,9 @@ class RoleHasPermissionSeeder extends Seeder
         // STATISTIC
         // 'statistic',
 
+        // SILABUS
+        // 'silabus',
+
         // USERS
         // 'users.index',
         // 'users.create',
@@ -678,6 +693,9 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         // 'statistic',
+
+        // SILABUS
+        // 'silabus',
 
         // USERS
         // 'users.index',
