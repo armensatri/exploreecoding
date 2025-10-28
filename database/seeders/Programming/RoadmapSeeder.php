@@ -13,7 +13,7 @@ class RoadmapSeeder extends Seeder
     $roadmaps = [
       // PATH 1 GETSTARTED
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'path_id' => 1,
         'sr' => 1,
         'name' => 'Getstarted Introduction',
@@ -23,7 +23,7 @@ class RoadmapSeeder extends Seeder
 
       // PATH 2 ALGORITMA
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'path_id' => 2,
         'sr' => 1,
         'name' => 'Algoritma Introduction',
@@ -31,7 +31,7 @@ class RoadmapSeeder extends Seeder
         'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
       ],
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'path_id' => 2,
         'sr' => 2,
         'name' => 'Programming Pundamental',
@@ -41,7 +41,7 @@ class RoadmapSeeder extends Seeder
 
       // PATH 3 STRUKTUR DATA
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'path_id' => 3,
         'sr' => 1,
         'name' => 'Struktur Data Introduction',
@@ -49,7 +49,7 @@ class RoadmapSeeder extends Seeder
         'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
       ],
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'path_id' => 3,
         'sr' => 2,
         'name' => 'Struktur Data Basic',
@@ -59,7 +59,7 @@ class RoadmapSeeder extends Seeder
 
       // PATH 4 PEMOGRAMAN
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'path_id' => 4,
         'sr' => 1,
         'name' => 'Pemograman Introduction',
@@ -67,7 +67,7 @@ class RoadmapSeeder extends Seeder
         'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
       ],
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'path_id' => 4,
         'sr' => 2,
         'name' => 'Pengenalan Pemograman',
@@ -77,7 +77,7 @@ class RoadmapSeeder extends Seeder
 
       // PATH 5 FRONTEND
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'path_id' => 5,
         'sr' => 1,
         'name' => 'Frontend Introduction',
@@ -85,7 +85,7 @@ class RoadmapSeeder extends Seeder
         'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
       ],
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'path_id' => 5,
         'sr' => 2,
         'name' => 'Internet',

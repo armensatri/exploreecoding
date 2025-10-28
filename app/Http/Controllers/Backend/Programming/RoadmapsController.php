@@ -32,12 +32,10 @@ class RoadmapsController extends Controller
         'id',
         'path_id',
         'sr',
-        'image',
         'name',
-        'status_id',
         'url'
       ])
-      ->with(['status:id,name,bg,text', 'path:id,name'])
+      ->with(['path:id,name'])
       ->orderBy('path_id', 'asc')
       ->paginate(15)
       ->withQueryString();

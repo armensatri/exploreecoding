@@ -24,11 +24,10 @@ class PlaylistsController extends Controller
         'id',
         'roadmap_id',
         'spl',
-        'image',
         'name',
-        'status_id',
+        'url'
       ])
-      ->with(['status:id,name,bg,text', 'roadmap:id,name'])
+      ->with(['roadmap:id,name'])
       ->orderBy('roadmap_id', 'asc')
       ->paginate(15)
       ->withQueryString();

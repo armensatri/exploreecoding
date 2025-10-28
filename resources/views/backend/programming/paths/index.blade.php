@@ -75,13 +75,7 @@
                           name="sp"
                         />
                         <x-th
-                          name="image"
-                        />
-                        <x-th
                           name="name"
-                        />
-                        <x-th
-                          name="status"
                         />
                         <x-th
                           name="url"
@@ -111,24 +105,9 @@
                             />
                           </td>
 
-                          <td class="size-px whitespace-nowrap">
-                            <x-td-image-hover
-                              :asset="$path->image"
-                              asset-default="/image/default.png"
-                            />
-                          </td>
-
                           <td class="h-px whitespace-nowrap">
                             <x-td-var
                               :var="$path->name"
-                            />
-                          </td>
-
-                          <td class="h-px whitespace-nowrap">
-                            <x-td-var-bg
-                              :bg="$path->status->bg"
-                              :text="$path->status->text"
-                              :var="$path->status->name"
                             />
                           </td>
 

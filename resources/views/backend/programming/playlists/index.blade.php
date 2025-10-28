@@ -71,6 +71,15 @@
                         <x-th
                           name="id"
                         />
+                        <x-th
+                          name="roadmap"
+                        />
+                        <x-th
+                          name="spl"
+                        />
+                        <x-th
+                          name="name"
+                        />
                         <x-th-action/>
                       </tr>
                     </thead>
@@ -87,6 +96,24 @@
                           <td class="h-px whitespace-nowrap">
                             <x-td-var-center
                               :var="$playlist->id"
+                            />
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var
+                              :var="$playlist->roadmap->name"
+                            />
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var-center
+                              :var="$playlist->spl"
+                            />
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var
+                              :var="$playlist->name"
                             />
                           </td>
 

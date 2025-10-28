@@ -12,7 +12,7 @@ class PlaylistSeeder extends Seeder
     $playlists = [
       // ROADMAP GETSTRATED INTRODUCTION
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 1,
         'spl' => 1,
         'name' => 'Intro Getstarted',
@@ -22,7 +22,7 @@ class PlaylistSeeder extends Seeder
 
       // ROADMAP ALGORITMA INTRODUCTION
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 2,
         'spl' => 1,
         'name' => 'Intro Algoritma',
@@ -32,7 +32,7 @@ class PlaylistSeeder extends Seeder
 
       // ROADMAP PROGRAMMING FUNDAMENTAL
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 3,
         'spl' => 1,
         'name' => 'Intro Programming Fundamental',
@@ -40,7 +40,7 @@ class PlaylistSeeder extends Seeder
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem'
       ],
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 3,
         'spl' => 2,
         'name' => 'Language Sintax',
@@ -50,7 +50,7 @@ class PlaylistSeeder extends Seeder
 
       // ROADMAP STRUKTUR DATA INTRODUCTION
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 4,
         'spl' => 1,
         'name' => 'Intro Struktur Data',
@@ -60,7 +60,7 @@ class PlaylistSeeder extends Seeder
 
       // ROADMAP STRUKTUR DATA BASIC
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 5,
         'spl' => 1,
         'name' => 'Intro Struktur Data Basic',
@@ -68,7 +68,7 @@ class PlaylistSeeder extends Seeder
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem'
       ],
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 5,
         'spl' => 2,
         'name' => 'Array',
@@ -78,7 +78,7 @@ class PlaylistSeeder extends Seeder
 
       // ROADMAP PEMOGRAMAN INTRODUCTION
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 6,
         'spl' => 1,
         'name' => 'Intro Pemograman',
@@ -88,7 +88,7 @@ class PlaylistSeeder extends Seeder
 
       // ROADMAP PENGENALAN PEMOGRAMAN
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 7,
         'spl' => 1,
         'name' => 'Intro Pengenalan Pemograman',
@@ -98,7 +98,7 @@ class PlaylistSeeder extends Seeder
 
       // ROADMAP FRONTEND INTRODUCTION
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 8,
         'spl' => 1,
         'name' => 'Intro Frontend',
@@ -108,7 +108,7 @@ class PlaylistSeeder extends Seeder
 
       // ROADMAP INTERNET
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 9,
         'spl' => 1,
         'name' => 'Intro Internet',
@@ -116,7 +116,7 @@ class PlaylistSeeder extends Seeder
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem'
       ],
       [
-        'status_id' => mt_rand(1, 5),
+        'status_id' => mt_rand(1, 3),
         'roadmap_id' => 9,
         'spl' => 2,
         'name' => 'HTTP & HTTPS',

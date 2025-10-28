@@ -35,7 +35,7 @@ class PathSeeder extends Seeder
       ],
 
       [
-        'status_id' => 4,
+        'status_id' => 1,
         'sp' => 4,
         'name' => 'Pemograman',
         'slug' => 'pemograman',
@@ -43,7 +43,7 @@ class PathSeeder extends Seeder
       ],
 
       [
-        'status_id' => 5,
+        'status_id' => 2,
         'sp' => 5,
         'name' => 'Frontend',
         'slug' => 'frontend',
