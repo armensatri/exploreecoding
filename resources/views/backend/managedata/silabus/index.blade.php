@@ -17,53 +17,60 @@
         </div>
 
         <div class="w-full p-14 bg-gray-50 border border-gray-200
-  shadow-xs rounded-3xl">
+          shadow-xs rounded-3xl">
           <div>
             @foreach ($paths as $path)
               <div class="group relative flex gap-x-5">
-                <div class="border border-gray-200 bg-white rounded-2xl py-4 px-4 mb-4 w-full">
+                <div class="border border-gray-200 bg-white rounded-2xl
+                  py-4 px-4 mb-4 w-full">
                   <div class="grow">
                     <div class="inline-flex items-center">
-                      <div class="text-red-800 mr-2">
-                        <div class="rounded-[7px] border border-gray-400
-                        px-1.5 py-0.5 font-medium text-xs bg-red-200">
+                      <div class="text-white mr-2">
+                        <div class="rounded-[7px] border border-gray-500
+                          px-1.5 py-0.5 font-medium text-xs bg-slate-400">
                           {{ $path->sp }}
                         </div>
                       </div>
+
                       <div class="text-gray-600 font-medium mr-2">
                         Path
                       </div>
+
                       <div class="text-gray-600 tracking-wide font-medium">
                         {{ $path->name }}
                       </div>
-                      <div class=" text-gray-600 dark:text-neutral-400">
-                        <i class="bi bi-dot text-6xl {{ $path->status->text }}"></i>
-                        {{ $path->status->name }}
+
+                      <div class="ml-2">
+                        <div class="flex items-center gap-1.5">
+                          <span class="
+                            {{ $path->status->text }}
+                            {{ $path->status->bg }}
+                            text-xs rounded-md px-1 border border-gray-300">
+                            {{ $path->status->name }}
+                          </span>
+                        </div>
                       </div>
                     </div>
 
-                    <p class="ml-1 mt-3 text-[15px] text-gray-600 dark:text-neutral-400 max-w-xl">
+                    <p class="ml-1 mt-3 text-[15px] text-gray-600 dark:text-neutral-400 max-w-xl line-clamp-2 md:line-clamp-none">
                       {{ $path->description }}
                     </p>
 
-                    <ul class="list-none ms-6 mt-3 space-y-1.5">
-                      @foreach ($path->roadmaps as $roadmap)
-                        <li class="text-sm text-gray-600 dark:text-neutral-400">
-                          <div class="flex items-center w-full font-mono">
-                            <span class="whitespace-nowrap">
-                              {{ $roadmap->name }}
+                    <div class="gap-2 mt-3">
+                      <div class="flex items-center gap-2">
+                        <div>
+                          <span class="py-1 pl-2 pr-1 inline-flex
+                            items-center gap-x-1 text-sm font-medium border border-gray-400 bg-gray-200 text-slate-700 rounded-lg tracking-wide">
+                            Roadmaps .
+                            {{ $path->roadmaps->count() }}
+                            <span class="ml-2 rounded-[4px] bg-blue-700 text-xs text-white px-1.5 py-[2px] shadow">
+                              <i class="bi bi-box-arrow-up-right"></i>
+                              show
                             </span>
-                            <span
-                              class="flex-1 border-b border-dotted border-gray-400 mx-2">
-                            </span>
-                            <span
-                              class="text-xs text-gray-600 dark:text-neutral-400 {{ $roadmap->status->bg }} {{ $roadmap->status->text }} px-2 py-[2px] rounded-lg border border-gray-300">
-                              {{ $roadmap->status->name }}
-                            </span>
-                          </div>
-                        </li>
-                      @endforeach
-                    </ul>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
