@@ -78,7 +78,7 @@
                           name="name"
                         />
                         <x-th
-                          name="url"
+                          name="status"
                         />
                         <x-th-action/>
                       </tr>
@@ -112,8 +112,10 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$path->url"
+                            <x-td-var-bg
+                              :bg="$path->status->bg"
+                              :text="$path->status->text"
+                              :var="$path->status->name"
                             />
                           </td>
 

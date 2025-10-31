@@ -80,6 +80,9 @@
                         <x-th
                           name="name"
                         />
+                        <x-th
+                          name="status"
+                        />
                         <x-th-action/>
                       </tr>
                     </thead>
@@ -114,6 +117,14 @@
                           <td class="h-px whitespace-nowrap">
                             <x-td-var
                               :var="$playlist->name"
+                            />
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var-bg
+                              :bg="$playlist->status->bg"
+                              :text="$playlist->status->text"
+                              :var="$playlist->status->name"
                             />
                           </td>
 

@@ -51,6 +51,18 @@
               </div>
 
               <div class="gap-8 xl:gap-14 max-auto md:flex">
+                 <x-input-select
+                  label-for="path_id"
+                  label-name="Roadmap..path"
+                  id="path_id"
+                  name="path_id"
+                  :items="$paths"
+                  value-old="path_id"
+                  :value-default="$roadmap->path_id"
+                  error="path_id"
+                  placeholder="Select path for roadmap"
+                />
+                
                 <x-input
                   label-for="sr"
                   label-name="Roadmap..sr"
@@ -61,18 +73,6 @@
                   :value-default="$roadmap->sr"
                   error="sr"
                   placeholder="Masukkan sorting roadmap"
-                />
-
-                <x-input-select
-                  label-for="path_id"
-                  label-name="Roadmap..path"
-                  id="path_id"
-                  name="path_id"
-                  :items="$paths"
-                  value-old="path_id"
-                  :value-default="$roadmap->path_id"
-                  error="path_id"
-                  placeholder="Select path for roadmap"
                 />
               </div>
 

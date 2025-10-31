@@ -1,9 +1,9 @@
 <ol class="flex items-center gap-[5px] mb-5 ml-2">
   <x-breadcrumb-icon
-    :image="asset('backend/img/menu/users.jpg')"
+    :image="asset('backend/img/menu/posts.png')"
   />
 
   <x-slash/>
 
-  <x-breadcrumb-name name="users" class="text-blue-600"/>
+  <x-breadcrumb-name name="posts" class="text-blue-600"/>
 </ol>

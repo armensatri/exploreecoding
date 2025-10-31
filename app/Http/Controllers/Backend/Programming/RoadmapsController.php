@@ -6,6 +6,7 @@ use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Programming\{
@@ -17,7 +18,6 @@ use App\Http\Requests\Programming\Roadmap\{
   RoadmapSr,
   RoadmapUr,
 };
-use Illuminate\Support\Facades\Storage;
 
 class RoadmapsController extends Controller
 {
@@ -33,9 +33,10 @@ class RoadmapsController extends Controller
         'path_id',
         'sr',
         'name',
+        'status_id',
         'url'
       ])
-      ->with(['path:id,name'])
+      ->with(['status:id,name,bg,text', 'path:id,name'])
       ->orderBy('path_id', 'asc')
       ->paginate(15)
       ->withQueryString();

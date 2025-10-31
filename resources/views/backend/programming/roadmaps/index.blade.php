@@ -80,6 +80,9 @@
                         <x-th
                           name="name"
                         />
+                        <x-th
+                          name="status"
+                        />
                         <x-th-action/>
                       </tr>
                     </thead>
@@ -114,6 +117,14 @@
                           <td class="h-px whitespace-nowrap">
                             <x-td-var
                               :var="$roadmap->name"
+                            />
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var-bg
+                              :bg="$roadmap->status->bg"
+                              :text="$roadmap->status->text"
+                              :var="$roadmap->status->name"
                             />
                           </td>
 

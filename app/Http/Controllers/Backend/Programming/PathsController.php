@@ -28,8 +28,10 @@ class PathsController extends Controller
         'id',
         'sp',
         'name',
+        'status_id',
         'url'
       ])
+      ->with(['status:id,name,bg,text'])
       ->orderBy('sp', 'asc')
       ->paginate(15)
       ->withQueryString();

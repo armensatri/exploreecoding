@@ -50,18 +50,6 @@
               </div>
 
               <div class="gap-8 xl:gap-14 max-auto md:flex">
-                <x-input
-                  label-for="sr"
-                  label-name="Roadmap..sr"
-                  type="text"
-                  id="sr"
-                  name="sr"
-                  value-old="sr"
-                  value-default=""
-                  error="sr"
-                  placeholder="Masukkan sorting roadmap"
-                />
-
                 <x-input-select
                   label-for="path_id"
                   label-name="Roadmap..path"
@@ -72,6 +60,18 @@
                   value-default=""
                   error="path_id"
                   placeholder="Select path for roadmap"
+                />
+
+                <x-input
+                  label-for="sr"
+                  label-name="Roadmap..sr"
+                  type="text"
+                  id="sr"
+                  name="sr"
+                  value-old="sr"
+                  value-default=""
+                  error="sr"
+                  placeholder="Masukkan sorting roadmap"
                 />
               </div>
 

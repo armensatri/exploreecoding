@@ -2,9 +2,17 @@
 
 namespace App\Http\Controllers\Backend\Programming;
 
+use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
+use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
-use App\Models\Programming\Playlist;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
+
+use App\Models\Programming\{
+  Roadmap,
+  Playlist,
+};
 
 use App\Http\Requests\Programming\Playlist\{
   PlaylistSr,
@@ -25,9 +33,10 @@ class PlaylistsController extends Controller
         'roadmap_id',
         'spl',
         'name',
+        'status_id',
         'url'
       ])
-      ->with(['roadmap:id,name'])
+      ->with(['status:id,name,bg,text', 'roadmap:id,name'])
       ->orderBy('roadmap_id', 'asc')
       ->paginate(15)
       ->withQueryString();
@@ -41,9 +50,22 @@ class PlaylistsController extends Controller
   /**
    * Show the form for creating a new resource.
    */
-  public function create()
+  public function create(Playlist $playlist)
   {
-    //
+    $statuses = Status::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
+
+    $roadmaps = Roadmap::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
+
+    return view('backend.programming.playlists.create', [
+      'title' => 'Create data playlist',
+      'playlist' => $playlist,
+      'statuses' => $statuses,
+      'roadmaps' => $roadmaps
+    ]);
   }
 
   /**
@@ -51,7 +73,24 @@ class PlaylistsController extends Controller
    */
   public function store(PlaylistSr $request)
   {
-    //
+    $datastore = $request->validated();
+
+    $datastore['url'] = RandomUrl::generateUrl();
+
+    if ($request->hasFile('image')) {
+      $datastore['image'] = $request->file('image')->store(
+        '/programming/playlists'
+      );
+    }
+
+    Playlist::create($datastore);
+
+    Alert::success(
+      'success',
+      'Data playlist! berhasil di tambahkan.'
+    );
+
+    return redirect()->route('playlists.index');
   }
 
   /**
@@ -59,7 +98,10 @@ class PlaylistsController extends Controller
    */
   public function show(Playlist $playlist)
   {
-    //
+    return view('backend.programming.playlists.show', [
+      'title' => 'Detail data playlist',
+      'playlist' => $playlist
+    ]);
   }
 
   /**
@@ -67,7 +109,20 @@ class PlaylistsController extends Controller
    */
   public function edit(Playlist $playlist)
   {
-    //
+    $statuses = Status::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
+
+    $roadmaps = Roadmap::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
+
+    return view('backend.programming.playlists.edit', [
+      'title' => 'Edit data playlist',
+      'playlist' => $playlist,
+      'statuses' => $statuses,
+      'roadmaps' => $roadmaps
+    ]);
   }
 
   /**
@@ -75,7 +130,26 @@ class PlaylistsController extends Controller
    */
   public function update(PlaylistUr $request, Playlist $playlist)
   {
-    //
+    $dataupdate = $request->validated();
+
+    if ($request->hasFile('image')) {
+      if (!empty($playlist->image)) {
+        Storage::delete($playlist->image);
+      }
+
+      $dataupdate['image'] = $request->file('image')->store(
+        '/programming/playlists'
+      );
+    }
+
+    $playlist->update($dataupdate);
+
+    Alert::success(
+      'success',
+      'Data playlist! berhasil di update.'
+    );
+
+    return redirect()->route('playlists.index');
   }
 
   /**
@@ -83,6 +157,17 @@ class PlaylistsController extends Controller
    */
   public function destroy(Playlist $playlist)
   {
-    //
+    if ($playlist->image) {
+      Storage::delete($playlist->image);
+    }
+
+    Playlist::destroy($playlist->id);
+
+    Alert::success(
+      'success',
+      'Data playlist! berhasil di delete.'
+    );
+
+    return redirect()->route('playlists.index');
   }
 }

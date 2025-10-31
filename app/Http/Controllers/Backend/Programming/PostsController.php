@@ -18,7 +18,30 @@ class PostsController extends Controller
    */
   public function index()
   {
-    //
+    $posts = Post::query()
+      ->search(request(['search', 'playlist']))
+      ->select([
+        'id',
+        'user_id',
+        'status_id',
+        'playlist_id',
+        'sp',
+        'title',
+        'url'
+      ])
+      ->with([
+        'user:id,username',
+        'status:id,name,bg,text',
+        'playlist:id,name'
+      ])
+      ->orderBy('playlist_id', 'asc')
+      ->paginate(15)
+      ->withQueryString();
+
+    return view('backend.programming.posts.index', [
+      'title' => 'Semua data posts',
+      'posts' => $posts
+    ]);
   }
 
   /**

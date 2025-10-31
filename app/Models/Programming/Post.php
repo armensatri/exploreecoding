@@ -2,6 +2,7 @@
 
 namespace App\Models\Programming;
 
+use App\Models\Manageuser\User;
 use App\Models\Published\Status;
 use App\Models\Programming\Playlist;
 use Illuminate\Database\Eloquent\Model;
@@ -51,5 +52,10 @@ class Post extends Model
   public function playlist()
   {
     return $this->belongsTo(Playlist::class);
+  }
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
   }
 }
