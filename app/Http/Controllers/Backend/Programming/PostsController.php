@@ -10,6 +10,8 @@ use App\Http\Requests\Programming\Post\{
   PostSr,
   PostUr,
 };
+use App\Models\Programming\Playlist;
+use App\Models\Published\Status;
 
 class PostsController extends Controller
 {
@@ -47,9 +49,22 @@ class PostsController extends Controller
   /**
    * Show the form for creating a new resource.
    */
-  public function create()
+  public function create(Post $post)
   {
-    //
+    $statuses = Status::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
+
+    $playlists = Playlist::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
+
+    return view('backend.programming.posts.create', [
+      'title' => 'Create data post',
+      'post' => $post,
+      'statuses' => $statuses,
+      'playlists' => $playlists
+    ]);
   }
 
   /**
