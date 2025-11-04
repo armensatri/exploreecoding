@@ -27,7 +27,7 @@ class PostSeeder extends Seeder
 
         Jadi, programming adalah suatu proses atau kegiatan menulis dan menguji (pemrograman) agar program dapat dibuat, dan hasilnya sesuai apa yang diinginkan.
 
-        Bagaimana, sudah mulai paham kan apa itu programming?'
+        Bagaimana, sudah mulai paham kan apa itu programming?',
       ]
     ];
 

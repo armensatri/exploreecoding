@@ -49,6 +49,7 @@ use App\View\Components\Backend\Input\{
   InputImagePreview,
   InputSelect,
   InputTextarea,
+  InputEditorCreate,
 };
 
 use App\View\Components\Backend\Show\{
@@ -106,6 +107,7 @@ class BackendServiceProvider extends ServiceProvider
     Blade::component('input-image', InputImage::class);
     Blade::component('input-image-preview', InputImagePreview::class);
     Blade::component('input-textarea', InputTextarea::class);
+    Blade::component('input-editor-create', InputEditorCreate::class);
 
     // SHOW
     Blade::component('show-var', ShowVar::class);

@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers\Backend\Programming;
 
+use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
-use App\Models\Programming\Post;
+use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+
+use App\Models\Programming\{
+  Post,
+  Playlist
+};
 
 use App\Http\Requests\Programming\Post\{
   PostSr,
   PostUr,
 };
-use App\Models\Programming\Playlist;
-use App\Models\Published\Status;
 
 class PostsController extends Controller
 {
@@ -72,7 +78,16 @@ class PostsController extends Controller
    */
   public function store(PostSr $request)
   {
-    //
+    $datastore = $request->validated();
+
+    $datastore['user_id'] = Auth::user()->id;
+    $datastore['url'] = RandomUrl::generateUrl();
+
+    if ($request->hasFile('image')) {
+      $datastore['image'] = $request->file('image')->store(
+        '/programming/posts'
+      );
+    }
   }
 
   /**

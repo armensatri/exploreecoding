@@ -74,7 +74,7 @@ class PlaylistSr extends FormRequest
 
       'image.image' => 'Playlist..image! file yang di upload bukan image',
       'image.max' => 'Playlist..image! ukuran image maksimal 2 mb',
-      'image.mimes' => 'Playlist..image! type image hanya boleh png, jpg png, dan webp',
+      'image.mimes' => 'Playlist..image! type image hanya boleh png, jpg, png, dan webp',
     ];
   }
 }
