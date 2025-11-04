@@ -88,6 +88,15 @@ class PostsController extends Controller
         '/programming/posts'
       );
     }
+
+    Post::create($datastore);
+
+    Alert::success(
+      'success',
+      'Data post! berhasil di tambahkan.'
+    );
+
+    return redirect()->route('posts.index');
   }
 
   /**
@@ -95,7 +104,10 @@ class PostsController extends Controller
    */
   public function show(Post $post)
   {
-    //
+    return view('backend.programming.posts.show', [
+      'title' => 'Detail data post',
+      'post' => $post,
+    ]);
   }
 
   /**

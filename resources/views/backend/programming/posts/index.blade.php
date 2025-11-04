@@ -112,7 +112,7 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var-center
+                            <x-td-var
                               :var="$post->playlist->name"
                             />
                           </td>
@@ -124,7 +124,7 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var-center
+                            <x-td-var
                               :var="$post->title"
                             />
                           </td>
