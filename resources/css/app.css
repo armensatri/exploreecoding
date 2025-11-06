@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@plugin "@tailwindcss/typography";
+
 @import "flowbite/src/themes/default";
 @import "../../node_modules/preline/variants.css";
 
@@ -20,8 +22,8 @@
 }
 
 /* FONT INTRUMENTS SANS */
-/* @layer base {
-  body {
+/* @layer utilities {
+  .font-instrument {
     font-family: "Instrument Sans", sans-serif;
   }
 } */

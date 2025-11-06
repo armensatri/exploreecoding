@@ -57,9 +57,9 @@
               </div>
 
               <div class="md:col-span-9">
-                <div class="text-gray-800 bg-gray-50
+                <div class="text-gray-800 bg-slate-50
                   px-2.5 py-0.5 rounded-md text-base tracking-wide">
-                  <article class="max-w-max prose lg:prose-xl">
+                  <article class="font-inter max-w-max prose lg:prose-[18px]">
                     <x-markdown>
                       {!! $post->content !!}
                     </x-markdown>
