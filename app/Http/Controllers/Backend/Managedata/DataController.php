@@ -19,6 +19,13 @@ use App\Models\Managemenu\{
   Navigation,
 };
 
+use App\Models\Programming\{
+  Path,
+  Post,
+  Roadmap,
+  Playlist,
+};
+
 class DataController extends Controller
 {
   public function index()
@@ -32,7 +39,11 @@ class DataController extends Controller
       'submenus' => Submenu::count(),
       'explores' => Explore::count(),
       'navigations' => Navigation::count(),
-      'statuses' => Status::count()
+      'statuses' => Status::count(),
+      'paths' => Path::count(),
+      'roadmaps' => Roadmap::count(),
+      'playlists' => Playlist::count(),
+      'posts' => Post::count(),
     ]);
   }
 }

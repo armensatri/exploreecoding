@@ -16,27 +16,25 @@
           @include('backend.sbreadcrumb.silabus.index')
         </div>
 
-        <div class="w-full p-14 bg-gray-50 border border-gray-200
-          shadow-xs rounded-3xl">
+        <div class="w-full border border-gray-200 shadow-xs p-14 bg-gray-50 rounded-3xl">
           <div>
             @foreach ($paths as $path)
-              <div class="group relative flex gap-x-5">
-                <div class="border border-gray-200 bg-white rounded-2xl
-                  py-4 px-4 mb-4 w-full">
+              <div class="relative flex group gap-x-5">
+                <div class="w-full px-4 py-4 mb-4 bg-white border border-gray-200 rounded-2xl">
                   <div class="grow">
                     <div class="inline-flex items-center">
-                      <div class="text-white mr-2">
+                      <div class="mr-2 text-white">
                         <div class="rounded-[7px] border border-gray-500
                           px-1.5 py-0.5 font-medium text-xs bg-slate-400">
                           {{ $path->sp }}
                         </div>
                       </div>
 
-                      <div class="text-gray-600 font-medium mr-2">
+                      <div class="mr-2 font-medium text-gray-600">
                         Path
                       </div>
 
-                      <div class="text-gray-600 tracking-wide font-medium">
+                      <div class="font-medium tracking-wide text-gray-600">
                         {{ $path->name }}
                       </div>
 
@@ -59,14 +57,15 @@
                     <div class="gap-2 mt-3">
                       <div class="flex items-center gap-2">
                         <div>
-                          <span class="py-1 pl-2 pr-1 inline-flex
-                            items-center gap-x-1 text-sm font-medium border border-gray-400 bg-gray-200 text-slate-700 rounded-lg tracking-wide">
-                            Roadmaps .
+                          <span class="inline-flex items-center py-1 pl-2 pr-1 text-sm font-medium tracking-wide bg-gray-200 border border-gray-400 rounded-lg gap-x-1 text-slate-700">
+                            jumlah roadmaps .
                             {{ $path->roadmaps->count() }}
-                            <span class="ml-2 rounded-[4px] bg-blue-700 text-xs text-white px-1.5 py-[2px] shadow">
-                              <i class="bi bi-box-arrow-up-right"></i>
-                              show
-                            </span>
+                            <a href="/paths/{name}/roadmaps">
+                              <span class="ml-2 rounded-sm bg-blue-700 text-xs text-white px-1.5 py-0.5 shadow">
+                                <i class="bi bi-box-arrow-up-right"></i>
+                                show
+                              </span>
+                            </a>
                           </span>
                         </div>
                       </div>

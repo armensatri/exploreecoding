@@ -34,4 +34,6 @@ Route::group(
     Route::get('/silabus', [SilabusController::class, 'index'])
       ->name('silabus');
   }
+
+  // menambahkan subsilabus
 );

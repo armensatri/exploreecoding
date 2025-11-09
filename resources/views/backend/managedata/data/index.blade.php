@@ -31,7 +31,7 @@
           <div class="max-w-6xl mx-auto">
             <div class="mt-16">
               <div class="content">
-                <div class="max-w-screen-xl px-4 mx-auto text-center">
+                <div class="px-4 mx-auto text-center max-w-7xl">
                   <div class="grid gap-8 lg:gap-16 sm:grid-cols-2 xl:grid-cols-3">
                     <x-data-card-count
                       hover="users"
@@ -103,6 +103,42 @@
                       alt="statuses"
                       data-name="Data statuses"
                       :data-count="$statuses"
+                    />
+
+                    <x-data-card-count
+                      hover="paths"
+                      :route="route('paths.index')"
+                      img="/backend/img/menu/paths.png"
+                      alt="paths"
+                      data-name="Data paths"
+                      :data-count="$paths"
+                    />
+
+                    <x-data-card-count
+                      hover="roadmaps"
+                      :route="route('roadmaps.index')"
+                      img="/backend/img/menu/roadmaps.png"
+                      alt="roadmaps"
+                      data-name="Data roadmaps"
+                      :data-count="$roadmaps"
+                    />
+
+                    <x-data-card-count
+                      hover="playlists"
+                      :route="route('playlists.index')"
+                      img="/backend/img/menu/playlists.png"
+                      alt="playlists"
+                      data-name="Data playlists"
+                      :data-count="$playlists"
+                    />
+
+                    <x-data-card-count
+                      hover="posts"
+                      :route="route('posts.index')"
+                      img="/backend/img/menu/posts.png"
+                      alt="posts"
+                      data-name="Data posts"
+                      :data-count="$posts"
                     />
                   </div>
                 </div>
