@@ -18,6 +18,7 @@ return new class extends Migration
         ->constrained('menus')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
+      $table->index(['role_id', 'menu_id']);
     });
 
     Schema::create('role_has_submenu', function (Blueprint $table) {
@@ -30,6 +31,7 @@ return new class extends Migration
         ->constrained('submenus')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
+      $table->index(['role_id', 'submenu_id']);
     });
 
     Schema::create('role_has_permission', function (Blueprint $table) {
@@ -42,6 +44,7 @@ return new class extends Migration
         ->constrained('permissions')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
+      $table->index(['role_id', 'permission_id']);
     });
   }
 

@@ -6,12 +6,16 @@ use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Programming\{
   Post,
   Playlist
+};
+
+use Illuminate\Support\Facades\{
+  Auth,
+  Storage
 };
 
 use App\Http\Requests\Programming\Post\{
@@ -115,7 +119,20 @@ class PostsController extends Controller
    */
   public function edit(Post $post)
   {
-    //
+    $statuses = Status::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
+
+    $playlists = Playlist::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
+
+    return view('backend.programming.posts.edit', [
+      'title' => 'Edit data post',
+      'post' => $post,
+      'statuses' => $statuses,
+      'playlists' => $playlists
+    ]);
   }
 
   /**
@@ -123,7 +140,28 @@ class PostsController extends Controller
    */
   public function update(PostUr $request, Post $post)
   {
-    //
+    $dataupdate = $request->validated();
+
+    $dataupdate['user_id'] = Auth::user()->id;
+
+    if ($request->hasFile('image')) {
+      if (!empty($post->image)) {
+        Storage::delete($post->image);
+      }
+
+      $dataupdate['image'] = $request->file('image')->store(
+        '/programming/posts'
+      );
+    }
+
+    $post->update($dataupdate);
+
+    Alert::success(
+      'success',
+      'Data post! berhasil di update.'
+    );
+
+    return redirect()->route('posts.index');
   }
 
   /**
@@ -131,6 +169,17 @@ class PostsController extends Controller
    */
   public function destroy(Post $post)
   {
-    //
+    if ($post->image) {
+      Storage::delete($post->image);
+    }
+
+    Post::destroy($post->id);
+
+    Alert::success(
+      'success',
+      'Data post! berhasil di delete.'
+    );
+
+    return redirect()->route('posts.index');
   }
 }

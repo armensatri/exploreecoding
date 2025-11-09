@@ -10,7 +10,7 @@ return new class extends Migration
   {
     Schema::create('statuses', function (Blueprint $table) {
       $table->id();
-      $table->integer('ss');
+      $table->integer('ss')->index();
       $table->string('name')->unique();
       $table->string('slug')->unique();
       $table->string('bg');

@@ -10,7 +10,7 @@ return new class extends Migration
   {
     Schema::create('users', function (Blueprint $table) {
       $table->id();
-      $table->string('name');
+      $table->string('name')->index();
       $table->string('username')->unique();
       $table->string('email')->unique();
       $table->string('password');
@@ -19,8 +19,8 @@ return new class extends Migration
         ->constrained('roles')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
-      $table->boolean('status_on_of')->default(0);
-      $table->timestamp('last_seen')->nullable();
+      $table->boolean('status_on_of')->default(0)->index();
+      $table->timestamp('last_seen')->nullable()->index();
       $table->boolean('status')->default(true)->after('email');
       $table->string('url', 7)->unique();
       $table->timestamps();
@@ -28,13 +28,13 @@ return new class extends Migration
 
     Schema::create('roles', function (Blueprint $table) {
       $table->id();
-      $table->integer('sr');
+      $table->integer('sr')->index();
       $table->string('name')->unique();
       $table->string('slug')->unique();
       $table->string('bg');
       $table->string('text');
       $table->text('description');
-      $table->string('guard_name')->default('web');
+      $table->string('guard_name')->default('web')->index();
       $table->string('url', 7)->unique();
       $table->timestamps();
     });
@@ -43,7 +43,7 @@ return new class extends Migration
       $table->id();
       $table->string('name')->unique();
       $table->string('slug')->unique();
-      $table->string('guard_name')->default('web');
+      $table->string('guard_name')->default('web')->index();
       $table->string('url', 7)->unique();
       $table->timestamps();
     });

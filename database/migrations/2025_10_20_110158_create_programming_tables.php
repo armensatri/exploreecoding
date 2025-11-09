@@ -14,7 +14,7 @@ return new class extends Migration
         ->constrained('statuses')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
-      $table->integer('sp');
+      $table->integer('sp')->index();
       $table->string('name');
       $table->string('slug');
       $table->text('description');
@@ -33,7 +33,7 @@ return new class extends Migration
         ->constrained('paths')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
-      $table->integer('sr');
+      $table->integer('sr')->index();
       $table->string('name');
       $table->string('slug');
       $table->text('description');
@@ -52,7 +52,7 @@ return new class extends Migration
         ->constrained('roadmaps')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
-      $table->integer('spl');
+      $table->integer('spl')->index();
       $table->string('name');
       $table->string('slug');
       $table->text('description');
@@ -75,7 +75,7 @@ return new class extends Migration
         ->constrained('playlists')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
-      $table->integer('sp');
+      $table->integer('sp')->index();
       $table->string('title');
       $table->string('slug');
       $table->text('excerpt');

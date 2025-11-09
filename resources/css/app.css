@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
-@plugin "@tailwindcss/typography";
-
+@import "@fontsource/jetbrains-mono";
 @import "flowbite/src/themes/default";
 @import "../../node_modules/preline/variants.css";
 
 @plugin "flowbite/plugin";
+@plugin "@tailwindcss/typography";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -68,4 +68,19 @@
 .x-border {
   @apply w-full p-14 bg-white border border-gray-200
   shadow-xs rounded-3xl;
+}
+
+/* markdown font prose pre and code */
+@layer components {
+  .prose pre,
+  .prose code {
+    font-family: "JetBrains Mono", monospace;
+  }
+}
+
+/* markdown inline code */
+.x {
+  @apply text-red-700 bg-red-50 rounded-lg px-2 inline-flex
+  items-center text-sm;
+  font-family: "JetBrains Mono", monospace;
 }

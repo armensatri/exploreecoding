@@ -10,7 +10,7 @@ return new class extends Migration
   {
     Schema::create('menus', function (Blueprint $table) {
       $table->id();
-      $table->integer('sm');
+      $table->integer('sm')->index();
       $table->string('name')->unique();
       $table->string('slug')->unique();
       $table->text('description');
@@ -23,13 +23,14 @@ return new class extends Migration
       $table->foreignId('menu_id')
         ->constrained('menus')
         ->cascadeOnDelete()
-        ->cascadeOnUpdate();
+        ->cascadeOnUpdate()
+        ->index();
       $table->integer('ssm');
       $table->string('name')->unique();
       $table->string('slug')->unique();
       $table->string('route');
-      $table->string('active');
-      $table->string('routename');
+      $table->string('active')->index();
+      $table->string('routename')->index();
       $table->text('description');
       $table->string('url', 7)->unique();
       $table->timestamps();
@@ -37,10 +38,10 @@ return new class extends Migration
 
     Schema::create('explores', function (Blueprint $table) {
       $table->id();
-      $table->integer('se');
+      $table->integer('se')->index();
       $table->string('name')->unique();
       $table->string('slug')->unique();
-      $table->string('routee')->nullable();
+      $table->string('routee')->nullable()->index();
       $table->string('button_name');
       $table->text('description');
       $table->string('url', 7)->unique();
@@ -49,10 +50,10 @@ return new class extends Migration
 
     Schema::create('navigations', function (Blueprint $table) {
       $table->id();
-      $table->integer('sn');
+      $table->integer('sn')->index();
       $table->string('name')->unique();
       $table->string('slug')->unique();
-      $table->string('routee')->nullable();
+      $table->string('routee')->nullable()->index();
       $table->string('button_name');
       $table->text('description');
       $table->string('url', 7)->unique();
