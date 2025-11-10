@@ -157,16 +157,6 @@ class SubmenuSeeder extends Seeder
         'routename' => '/statistic',
         'description' => 'data statistic system'
       ],
-      [
-        'menu_id' => 8,
-        'ssm' => 5,
-        'name' => 'silabus',
-        'slug' => 'silabus',
-        'route' => '/silabus',
-        'active' => 'silabus',
-        'routename' => '/silabus',
-        'description' => 'data silabus programming'
-      ],
 
       // ID 9 MANAGEUSER
       [

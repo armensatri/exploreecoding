@@ -7,7 +7,6 @@ use App\Http\Controllers\Backend\Managedata\{
   VisitorController,
   AccessController,
   StatisticController,
-  SilabusController,
 };
 
 Route::group(
@@ -30,10 +29,6 @@ Route::group(
 
     Route::get('/statistic', [StatisticController::class, 'index'])
       ->name('statistic');
-
-    Route::get('/silabus', [SilabusController::class, 'index'])
-      ->name('silabus');
   }
 
-  // menambahkan subsilabus
 );
