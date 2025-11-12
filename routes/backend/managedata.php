@@ -30,5 +30,4 @@ Route::group(
     Route::get('/statistic', [StatisticController::class, 'index'])
       ->name('statistic');
   }
-
 );

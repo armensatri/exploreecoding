@@ -5,9 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Dashboard\{
   OwnerController,
   SuperadminController,
-  AdminController,
-  WritingController,
-  EditorController,
+  CreatorController,
   MemberController,
 };
 
@@ -26,14 +24,8 @@ Route::group(
     Route::get('/superadmin', [SuperadminController::class, 'index'])
       ->name('superadmin');
 
-    Route::get('/admin', [AdminController::class, 'index'])
-      ->name('admin');
-
-    Route::get('/writing', [WritingController::class, 'index'])
-      ->name('writing');
-
-    Route::get('/editor', [EditorController::class, 'index'])
-      ->name('editor');
+    Route::get('/creator', [CreatorController::class, 'index'])
+      ->name('creator');
 
     Route::get('/member', [MemberController::class, 'index'])
       ->name('member');

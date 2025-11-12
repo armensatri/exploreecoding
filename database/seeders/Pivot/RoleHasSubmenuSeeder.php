@@ -13,9 +13,7 @@ class RoleHasSubmenuSeeder extends Seeder
     $roles = Role::whereIn('name', [
       'owner',
       'superadmin',
-      'admin',
-      'writing',
-      'editor',
+      'creator',
       'member',
     ])->get()->keyBy('name');
 
@@ -26,14 +24,8 @@ class RoleHasSubmenuSeeder extends Seeder
       // SUPERADMIN
       'superadmin',
 
-      // ADMIN
-      'admin',
-
-      // WRITING
-      'writing',
-
-      // EDITOR
-      'editor',
+      // CREATOR
+      'creator',
 
       // MEMBER
       'member',
@@ -78,14 +70,8 @@ class RoleHasSubmenuSeeder extends Seeder
         // SUPERADMIN
         // 'superadmin',
 
-        // ADMIN
-        // 'admin',
-
-        // WRITING
-        // 'writing',
-
-        // EDITOR
-        // 'editor',
+        // CREATOR
+        // 'creator',
 
         // MEMBER
         // 'member',
@@ -129,14 +115,8 @@ class RoleHasSubmenuSeeder extends Seeder
         // SUPERADMIN
         'superadmin',
 
-        // ADMIN
-        // 'admin',
-
-        // WRITING
-        // 'writing',
-
-        // EDITOR
-        // 'editor',
+        // CREATOR
+        // 'creator',
 
         // MEMBER
         // 'member',
@@ -173,123 +153,15 @@ class RoleHasSubmenuSeeder extends Seeder
         'posts',
       ],
 
-      'admin' => [
+      'creator' => [
         // OWNER
         // 'owner',
 
         // SUPERADMIN
         // 'superadmin',
 
-        // ADMIN
-        'admin',
-
-        // WRITING
-        // 'writing',
-
-        // EDITOR
-        // 'editor',
-
-        // MEMBER
-        // 'member',
-
-        // ACCOUNT
-        'profile',
-        'personal',
-        'changepassword',
-
-        // MANAGEDATA
-        // 'data',
-        // 'visitor',
-        // 'access',
-        // 'statistic',
-
-        // MANAGEUSER
-        // 'users',
-        // 'roles',
-        // 'permissions',
-
-        // MANAGEMENU
-        // 'menus',
-        // 'submenus',
-        // 'explores',
-        // 'navigations',
-
-        // PIBLISHED
-        // 'statuses',
-
-        // PROGRAMMING
-        'paths',
-        'roadmaps',
-        'playlists',
-        'posts',
-      ],
-
-      'writing' => [
-        // OWNER
-        // 'owner',
-
-        // SUPERADMIN
-        // 'superadmin',
-
-        // ADMIN
-        // 'admin',
-
-        // WRITING
-        'writing',
-
-        // EDITOR
-        // 'editor',
-
-        // MEMBER
-        // 'member',
-
-        // ACCOUNT
-        'profile',
-        'personal',
-        'changepassword',
-
-        // MANAGEDATA
-        // 'data',
-        // 'visitor',
-        // 'access',
-        // 'statistic',
-
-        // MANAGEUSER
-        // 'users',
-        // 'roles',
-        // 'permissions',
-
-        // MANAGEMENU
-        // 'menus',
-        // 'submenus',
-        // 'explores',
-        // 'navigations',
-
-        // PIBLISHED
-        // 'statuses',
-
-        // PROGRAMMING
-        // 'paths',
-        // 'roadmaps',
-        // 'playlists',
-        'posts',
-      ],
-
-      'editor' => [
-        // OWNER
-        // 'owner',
-
-        // SUPERADMIN
-        // 'superadmin',
-
-        // ADMIN
-        // 'admin',
-
-        // WRITING
-        // 'writing',
-
-        // EDITOR
-        'editor',
+        // CREATOR
+        'creator',
 
         // MEMBER
         // 'member',
@@ -333,14 +205,8 @@ class RoleHasSubmenuSeeder extends Seeder
         // SUPERADMIN
         // 'superadmin',
 
-        // ADMIN
-        // 'admin',
-
-        // WRITING
-        // 'writing',
-
-        // EDITOR
-        // 'editor',
+        // CREATOR
+        // 'creator',
 
         // MEMBER
         'member',

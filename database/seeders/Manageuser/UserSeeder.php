@@ -27,27 +27,11 @@ class UserSeeder extends Seeder
       ],
 
       [
-        'name' => 'Admin',
-        'username' => 'admin',
-        'email' => 'admin@gmail.com',
+        'name' => 'Creator',
+        'username' => 'creator',
+        'email' => 'creator@gmail.com',
         'password' => bcrypt('Coba123#'),
         'role_id' => 3,
-      ],
-
-      [
-        'name' => 'Writing',
-        'username' => 'writing',
-        'email' => 'writing@gmail.com',
-        'password' => bcrypt('Coba123#'),
-        'role_id' => 4,
-      ],
-
-      [
-        'name' => 'Editor',
-        'username' => 'editor',
-        'email' => 'editor@gmail.com',
-        'password' => bcrypt('Coba123#'),
-        'role_id' => 5,
       ],
 
       [
@@ -55,7 +39,7 @@ class UserSeeder extends Seeder
         'username' => 'member',
         'email' => 'member@gmail.com',
         'password' => bcrypt('Coba123#'),
-        'role_id' => 6,
+        'role_id' => 4,
       ],
     ];
 

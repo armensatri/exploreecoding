@@ -30,33 +30,15 @@ class RoleSeeder extends Seeder
 
       [
         'sr' => 3,
-        'name' => 'admin',
-        'slug' => 'admin',
+        'name' => 'creator',
+        'slug' => 'creator',
         'bg' => 'bg-green-200',
         'text' => 'text-green-800',
-        'description' => 'pengatur operasional data',
-      ],
-
-      [
-        'sr' => 4,
-        'name' => 'writing',
-        'slug' => 'writing',
-        'bg' => 'bg-sky-200',
-        'text' => 'text-sky-800',
         'description' => 'penulis content',
       ],
 
       [
-        'sr' => 5,
-        'name' => 'editor',
-        'slug' => 'editor',
-        'bg' => 'bg-orange-200',
-        'text' => 'text-orange-800',
-        'description' => 'pengedit content',
-      ],
-
-      [
-        'sr' => 6,
+        'sr' => 4,
         'name' => 'member',
         'slug' => 'member',
         'bg' => 'bg-slate-200',

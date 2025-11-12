@@ -129,7 +129,7 @@ class MenusController extends Controller
     if (in_array($menu->name, [
       'owner',
       'superadmin',
-      'admin',
+      'creator',
       'member',
       'account',
       'managedata',

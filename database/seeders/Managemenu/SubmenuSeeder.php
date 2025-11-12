@@ -38,41 +38,17 @@ class SubmenuSeeder extends Seeder
       [
         'menu_id' => 3,
         'ssm' => 1,
-        'name' => 'admin',
-        'slug' => 'admin',
-        'route' => '/admin',
-        'active' => 'admin',
-        'routename' => '/admin',
-        'description' => 'dashboard admin'
+        'name' => 'creator',
+        'slug' => 'creator',
+        'route' => '/creator',
+        'active' => 'creator',
+        'routename' => '/creator',
+        'description' => 'dashboard creator'
       ],
 
-      // ID 4 WRITING
+      // ID 4 MEMBER
       [
         'menu_id' => 4,
-        'ssm' => 1,
-        'name' => 'writing',
-        'slug' => 'writing',
-        'route' => '/writing',
-        'active' => 'writing',
-        'routename' => '/writing',
-        'description' => 'dashboard writing'
-      ],
-
-      // ID 5 EDITOR
-      [
-        'menu_id' => 5,
-        'ssm' => 1,
-        'name' => 'editor',
-        'slug' => 'editor',
-        'route' => '/editor',
-        'active' => 'editor',
-        'routename' => '/editor',
-        'description' => 'dashboard editor'
-      ],
-
-      // ID 6 MEMBER
-      [
-        'menu_id' => 6,
         'ssm' => 1,
         'name' => 'member',
         'slug' => 'member',
@@ -82,9 +58,9 @@ class SubmenuSeeder extends Seeder
         'description' => 'dashboard admin'
       ],
 
-      // ID 7 ACCOUNT
+      // ID 5 ACCOUNT
       [
-        'menu_id' => 7,
+        'menu_id' => 5,
         'ssm' => 1,
         'name' => 'profile',
         'slug' => 'profile',
@@ -95,7 +71,7 @@ class SubmenuSeeder extends Seeder
       ],
 
       [
-        'menu_id' => 7,
+        'menu_id' => 5,
         'ssm' => 2,
         'name' => 'personal',
         'slug' => 'personal',
@@ -106,7 +82,7 @@ class SubmenuSeeder extends Seeder
       ],
 
       [
-        'menu_id' => 7,
+        'menu_id' => 5,
         'ssm' => 3,
         'name' => 'changepassword',
         'slug' => 'changepassword',
@@ -116,9 +92,9 @@ class SubmenuSeeder extends Seeder
         'description' => 'change password user'
       ],
 
-      // ID 8 MANAGEDATA
+      // ID 6 MANAGEDATA
       [
-        'menu_id' => 8,
+        'menu_id' => 6,
         'ssm' => 1,
         'name' => 'data',
         'slug' => 'data',
@@ -128,7 +104,7 @@ class SubmenuSeeder extends Seeder
         'description' => 'data system'
       ],
       [
-        'menu_id' => 8,
+        'menu_id' => 6,
         'ssm' => 2,
         'name' => 'visitor',
         'slug' => 'visitor',
@@ -138,7 +114,7 @@ class SubmenuSeeder extends Seeder
         'description' => 'data user visitor'
       ],
       [
-        'menu_id' => 8,
+        'menu_id' => 6,
         'ssm' => 3,
         'name' => 'access',
         'slug' => 'access',
@@ -148,7 +124,7 @@ class SubmenuSeeder extends Seeder
         'description' => 'data access system'
       ],
       [
-        'menu_id' => 8,
+        'menu_id' => 6,
         'ssm' => 4,
         'name' => 'statistic',
         'slug' => 'statistic',
@@ -158,9 +134,9 @@ class SubmenuSeeder extends Seeder
         'description' => 'data statistic system'
       ],
 
-      // ID 9 MANAGEUSER
+      // ID 7 MANAGEUSER
       [
-        'menu_id' => 9,
+        'menu_id' => 7,
         'ssm' => 1,
         'name' => 'users',
         'slug' => 'users',
@@ -170,7 +146,7 @@ class SubmenuSeeder extends Seeder
         'description' => 'data users'
       ],
       [
-        'menu_id' => 9,
+        'menu_id' => 7,
         'ssm' => 2,
         'name' => 'roles',
         'slug' => 'roles',
@@ -180,7 +156,7 @@ class SubmenuSeeder extends Seeder
         'description' => 'data roles'
       ],
       [
-        'menu_id' => 9,
+        'menu_id' => 7,
         'ssm' => 3,
         'name' => 'permissions',
         'slug' => 'permissions',
@@ -190,9 +166,9 @@ class SubmenuSeeder extends Seeder
         'description' => 'data permissions'
       ],
 
-      // ID 10 MANAGEMENU
+      // ID 8 MANAGEMENU
       [
-        'menu_id' => 10,
+        'menu_id' => 8,
         'ssm' => 1,
         'name' => 'menus',
         'slug' => 'menus',
@@ -202,7 +178,7 @@ class SubmenuSeeder extends Seeder
         'description' => 'data menus'
       ],
       [
-        'menu_id' => 10,
+        'menu_id' => 8,
         'ssm' => 2,
         'name' => 'submenus',
         'slug' => 'submenus',
@@ -212,7 +188,7 @@ class SubmenuSeeder extends Seeder
         'description' => 'data submenus'
       ],
       [
-        'menu_id' => 10,
+        'menu_id' => 8,
         'ssm' => 3,
         'name' => 'explores',
         'slug' => 'explores',
@@ -222,7 +198,7 @@ class SubmenuSeeder extends Seeder
         'description' => 'data explores'
       ],
       [
-        'menu_id' => 10,
+        'menu_id' => 8,
         'ssm' => 4,
         'name' => 'navigations',
         'slug' => 'navigations',
@@ -232,9 +208,9 @@ class SubmenuSeeder extends Seeder
         'description' => 'data navigations'
       ],
 
-      // ID 11 PUBLISHED
+      // ID 9 PUBLISHED
       [
-        'menu_id' => 11,
+        'menu_id' => 9,
         'ssm' => 1,
         'name' => 'statuses',
         'slug' => 'statuses',
@@ -244,9 +220,9 @@ class SubmenuSeeder extends Seeder
         'description' => 'data statuses'
       ],
 
-      // ID 12 PROGRAMMING
+      // ID 10 PROGRAMMING
       [
-        'menu_id' => 12,
+        'menu_id' => 10,
         'ssm' => 1,
         'name' => 'paths',
         'slug' => 'paths',
@@ -257,7 +233,7 @@ class SubmenuSeeder extends Seeder
       ],
 
       [
-        'menu_id' => 12,
+        'menu_id' => 10,
         'ssm' => 2,
         'name' => 'roadmaps',
         'slug' => 'roadmaps',
@@ -268,7 +244,7 @@ class SubmenuSeeder extends Seeder
       ],
 
       [
-        'menu_id' => 12,
+        'menu_id' => 10,
         'ssm' => 3,
         'name' => 'playlists',
         'slug' => 'playlists',
@@ -279,7 +255,7 @@ class SubmenuSeeder extends Seeder
       ],
 
       [
-        'menu_id' => 12,
+        'menu_id' => 10,
         'ssm' => 4,
         'name' => 'posts',
         'slug' => 'posts',

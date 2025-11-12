@@ -6,15 +6,15 @@ use App\Models\Manageuser\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class WritingController extends Controller
+class CreatorController extends Controller
 {
   public function index()
   {
-    $writing = User::find(Auth::id());
+    $creator = User::find(Auth::id());
 
-    return view('backend.dashboard.writing', [
+    return view('backend.dashboard.creator', [
       'title' => 'Dashboard',
-      'writing' => $writing
+      'creator' => $creator
     ]);
   }
 }

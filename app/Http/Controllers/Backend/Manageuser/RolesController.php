@@ -129,7 +129,7 @@ class RolesController extends Controller
    */
   public function destroy(Role $role)
   {
-    if (in_array($role->name, ['owner', 'superadmin', 'admin'])) {
+    if (in_array($role->name, ['owner', 'superadmin'])) {
       Alert::warning(
         'Oops...',
         'Data role! tidak bisa di delete.'

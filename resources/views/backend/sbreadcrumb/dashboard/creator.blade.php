@@ -4,7 +4,7 @@
 
   <x-slash />
 
-  <x-breadcrumb-name :name="$admin->role->name"
+  <x-breadcrumb-name :name="$creator->role->name"
     class="text-blue-600"
   />
 </ol>

@@ -13,18 +13,14 @@ class RoleHasMenuSeeder extends Seeder
     $roles = Role::whereIn('name', [
       'owner',
       'superadmin',
-      'admin',
-      'writing',
-      'editor',
+      'creator',
       'member'
     ])->get()->keyBy('name');
 
     $menus = Menu::whereIn('name', [
       'owner',
       'superadmin',
-      'admin',
-      'writing',
-      'editor',
+      'creator',
       'member',
       'account',
       'managedata',
@@ -38,9 +34,7 @@ class RoleHasMenuSeeder extends Seeder
       'owner' => [
         'owner',
         // 'superadmin',
-        // 'admin',
-        // 'writing',
-        // 'editor',
+        // 'creator',
         // 'member',
         'account',
         'managedata',
@@ -53,9 +47,7 @@ class RoleHasMenuSeeder extends Seeder
       'superadmin' => [
         // 'owner',
         'superadmin',
-        // 'admin',
-        // 'writing',
-        // 'editor',
+        // 'creator',
         // 'member',
         'account',
         'managedata',
@@ -65,42 +57,10 @@ class RoleHasMenuSeeder extends Seeder
         'programming',
       ],
 
-      'admin' => [
+      'creator' => [
         // 'owner',
         // 'superadmin',
-        'admin',
-        // 'writing',
-        // 'editor',
-        // 'member',
-        'account',
-        'managedata',
-        // 'manageuser',
-        // 'managemenu',
-        // 'published',
-        'programming',
-      ],
-
-      'writing' => [
-        // 'owner',
-        // 'superadmin',
-        // 'admin',
-        'writing',
-        // 'editor',
-        // 'member',
-        'account',
-        // 'managedata',
-        // 'manageuser',
-        // 'managemenu',
-        // 'published',
-        'programming',
-      ],
-
-      'editor' => [
-        // 'owner',
-        // 'superadmin',
-        // 'admin',
-        // 'writing',
-        'editor',
+        'creator',
         // 'member',
         'account',
         // 'managedata',
@@ -113,9 +73,7 @@ class RoleHasMenuSeeder extends Seeder
       'member' => [
         // 'owner',
         // 'superadmin',
-        // 'admin',
-        // 'writing',
-        // 'editor',
+        // 'creator',
         'member',
         'account',
         // 'managedata',

@@ -54,9 +54,7 @@ class LoginController extends Controller
       $routeMap = [
         'owner' => 'owner',
         'superadmin' => 'superadmin',
-        'admin' => 'admin',
-        'writing' => 'writing',
-        'editor' => 'editor',
+        'creator' => 'creator',
         'member' => 'member'
       ];
 

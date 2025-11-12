@@ -13,14 +13,8 @@ class MenuIcon
       // SUPERADMIN
       'superadmin' => 'dashboard.jpg',
 
-      // ADMIN
-      'admin' => 'dashboard.jpg',
-
-      // WRITING
-      'writing' => 'dashboard.jpg',
-
-      // EDITOR
-      'editor' => 'dashboard.jpg',
+      // CREATOR
+      'creator' => 'creator.jpg',
 
       // MEMBER
       'member' => 'dashboard.jpg',

@@ -27,7 +27,7 @@ class RegisterController extends Controller
     }
 
     $datastore = $request->validated();
-    $assignrole = Role::where('id', 6)->first();
+    $assignrole = Role::where('id', 4)->first();
 
     if (!$assignrole) {
       Alert::warning('Oops...', 'registrasi! masih tertutup');

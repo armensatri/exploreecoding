@@ -13,9 +13,7 @@ class RoleHasPermissionSeeder extends Seeder
     $roles = [
       'owner',
       'superadmin',
-      'admin',
-      'writing',
-      'editor',
+      'creator',
       'member'
     ];
 
@@ -31,9 +29,7 @@ class RoleHasPermissionSeeder extends Seeder
         // DASHBOARD
         'owner',
         // 'superadmin',
-        // 'admin',
-        // 'writing',
-        // 'editor',
+        // 'creator',
         // 'member',
 
         // PROFILE
@@ -67,9 +63,6 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         'statistic',
-
-        // SILABUS
-        'silabus',
 
         // USERS
         'users.index',
@@ -171,7 +164,7 @@ class RoleHasPermissionSeeder extends Seeder
         'playlists.update',
         'playlists.destroy',
 
-        // PPOST
+        // POST
         'posts.index',
         'posts.create',
         'posts.store',
@@ -185,9 +178,7 @@ class RoleHasPermissionSeeder extends Seeder
         // DASHBOARD
         // 'owner',
         'superadmin',
-        // 'admin',
-        // 'writing',
-        // 'editor',
+        // 'creator',
         // 'member',
 
         // PROFILE
@@ -221,9 +212,6 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         'statistic',
-
-        // SILABUS
-        'silabus',
 
         // USERS
         'users.index',
@@ -297,15 +285,49 @@ class RoleHasPermissionSeeder extends Seeder
         'statuses.edit',
         'statuses.update',
         'statuses.destroy',
+
+        // PATHS
+        'paths.index',
+        'paths.create',
+        'paths.store',
+        'paths.show',
+        'paths.edit',
+        'paths.update',
+        'paths.destroy',
+
+        // ROADMAPS
+        'roadmaps.index',
+        'roadmaps.create',
+        'roadmaps.store',
+        'roadmaps.show',
+        'roadmaps.edit',
+        'roadmaps.update',
+        'roadmaps.destroy',
+
+        // PLAYLISTS
+        'playlists.index',
+        'playlists.create',
+        'playlists.store',
+        'playlists.show',
+        'playlists.edit',
+        'playlists.update',
+        'playlists.destroy',
+
+        // POST
+        'posts.index',
+        'posts.create',
+        'posts.store',
+        'posts.show',
+        'posts.edit',
+        'posts.update',
+        'posts.destroy',
       ],
 
-      'admin' => [
+      'creator' => [
         // DASHBOARD
         // 'owner',
         // 'superadmin',
-        'admin',
-        // 'writing',
-        // 'editor,
+        'creator',
         // 'member',
 
         // PROFILE
@@ -339,9 +361,6 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         // 'statistic',
-
-        // SILABUS
-        'silabus',
 
         // USERS
         // 'users.index',
@@ -415,251 +434,49 @@ class RoleHasPermissionSeeder extends Seeder
         // 'statuses.edit',
         // 'statuses.update',
         // 'statuses.destroy',
-      ],
 
-      'writing' => [
-        // DASHBOARD
-        // 'owner',
-        // 'superadmin',
-        // 'admin',
-        'writing',
-        // 'editor,
-        // 'member',
+        // PATHS
+        // 'paths.index',
+        // 'paths.create',
+        // 'paths.store',
+        // 'paths.show',
+        // 'paths.edit',
+        // 'paths.update',
+        // 'paths.destroy',
 
-        // PROFILE
-        'profile',
-        'profile.edit',
-        'profile.update',
+        // ROADMAPS
+        // 'roadmaps.index',
+        // 'roadmaps.create',
+        // 'roadmaps.store',
+        // 'roadmaps.show',
+        // 'roadmaps.edit',
+        // 'roadmaps.update',
+        // 'roadmaps.destroy',
 
-        // PERSONAL PUBLIC
-        'personal',
+        // PLAYLISTS
+        // 'playlists.index',
+        // 'playlists.create',
+        // 'playlists.store',
+        // 'playlists.show',
+        // 'playlists.edit',
+        // 'playlists.update',
+        // 'playlists.destroy',
 
-        // CHANGE PASSWORD
-        'changepassword',
-        'changepassword.edit',
-        'changepassword.update',
-
-        // DATA
-        // 'data',
-
-        // VISITOR
-        // 'visitor',
-        // 'visitor.banned',
-
-        // ACCESS
-        // 'access',
-        // 'access.menu',
-        // 'access.up.menu',
-        // 'access.submenu',
-        // 'access.up.submenu',
-        // 'access.permission',
-        // 'access.up.permission',
-
-        // STATISTIC
-        // 'statistic',
-
-        // SILABUS
-        // 'silabus',
-
-        // USERS
-        // 'users.index',
-        // 'users.create',
-        // 'users.store',
-        // 'users.show',
-        // 'users.edit',
-        // 'users.update',
-        // 'users.destroy',
-        // 'users.change.status',
-
-        // ROLES
-        // 'roles.index',
-        // 'roles.create',
-        // 'roles.store',
-        // 'roles.show',
-        // 'roles.edit',
-        // 'roles.update',
-        // 'roles.destroy',
-
-        // PERMISSIONS
-        // 'permissions.index',
-        // 'permissions.create',
-        // 'permissions.store',
-        // 'permissions.show',
-        // 'permissions.edit',
-        // 'permissions.update',
-        // 'permissions.destroy',
-
-        // MENUS
-        // 'menus.index',
-        // 'menus.create',
-        // 'menus.store',
-        // 'menus.show',
-        // 'menus.edit',
-        // 'menus.update',
-        // 'menus.destroy',
-
-        // SUBMENUS
-        // 'submenus.index',
-        // 'submenus.create',
-        // 'submenus.store',
-        // 'submenus.show',
-        // 'submenus.edit',
-        // 'submenus.update',
-        // 'submenus.destroy',
-
-        // EXPLORES
-        // 'explores.index',
-        // 'explores.create',
-        // 'explores.store',
-        // 'explores.show',
-        // 'explores.edit',
-        // 'explores.update',
-        // 'explores.destroy',
-
-        // NAVIGATIONS
-        // 'navigations.index',
-        // 'navigations.create',
-        // 'navigations.store',
-        // 'navigations.show',
-        // 'navigations.edit',
-        // 'navigations.update',
-        // 'navigations.destroy',
-
-        // STATUSES
-        // 'statuses.index',
-        // 'statuses.create',
-        // 'statuses.store',
-        // 'statuses.show',
-        // 'statuses.edit',
-        // 'statuses.update',
-        // 'statuses.destroy',
-      ],
-
-      'editor' => [
-        // DASHBOARD
-        // 'owner',
-        // 'superadmin',
-        // 'admin',
-        // 'writing',
-        'editor',
-        // 'member',
-
-        // PROFILE
-        'profile',
-        'profile.edit',
-        'profile.update',
-
-        // PERSONAL PUBLIC
-        'personal',
-
-        // CHANGE PASSWORD
-        'changepassword',
-        'changepassword.edit',
-        'changepassword.update',
-
-        // DATA
-        // 'data',
-
-        // VISITOR
-        // 'visitor',
-        // 'visitor.banned',
-
-        // ACCESS
-        // 'access',
-        // 'access.menu',
-        // 'access.up.menu',
-        // 'access.submenu',
-        // 'access.up.submenu',
-        // 'access.permission',
-        // 'access.up.permission',
-
-        // STATISTIC
-        // 'statistic',
-
-        // SILABUS
-        // 'silabus',
-
-        // USERS
-        // 'users.index',
-        // 'users.create',
-        // 'users.store',
-        // 'users.show',
-        // 'users.edit',
-        // 'users.update',
-        // 'users.destroy',
-        // 'users.change.status',
-
-        // ROLES
-        // 'roles.index',
-        // 'roles.create',
-        // 'roles.store',
-        // 'roles.show',
-        // 'roles.edit',
-        // 'roles.update',
-        // 'roles.destroy',
-
-        // PERMISSIONS
-        // 'permissions.index',
-        // 'permissions.create',
-        // 'permissions.store',
-        // 'permissions.show',
-        // 'permissions.edit',
-        // 'permissions.update',
-        // 'permissions.destroy',
-
-        // MENUS
-        // 'menus.index',
-        // 'menus.create',
-        // 'menus.store',
-        // 'menus.show',
-        // 'menus.edit',
-        // 'menus.update',
-        // 'menus.destroy',
-
-        // SUBMENUS
-        // 'submenus.index',
-        // 'submenus.create',
-        // 'submenus.store',
-        // 'submenus.show',
-        // 'submenus.edit',
-        // 'submenus.update',
-        // 'submenus.destroy',
-
-        // EXPLORES
-        // 'explores.index',
-        // 'explores.create',
-        // 'explores.store',
-        // 'explores.show',
-        // 'explores.edit',
-        // 'explores.update',
-        // 'explores.destroy',
-
-        // NAVIGATIONS
-        // 'navigations.index',
-        // 'navigations.create',
-        // 'navigations.store',
-        // 'navigations.show',
-        // 'navigations.edit',
-        // 'navigations.update',
-        // 'navigations.destroy',
-
-        // STATUSES
-        // 'statuses.index',
-        // 'statuses.create',
-        // 'statuses.store',
-        // 'statuses.show',
-        // 'statuses.edit',
-        // 'statuses.update',
-        // 'statuses.destroy',
+        // POST
+        'posts.index',
+        'posts.create',
+        'posts.store',
+        'posts.show',
+        'posts.edit',
+        'posts.update',
+        'posts.destroy',
       ],
 
       'member' => [
         // DASHBOARD
         // 'owner',
         // 'superadmin',
-        // 'admin',
-        // 'writing',
-        // 'editor,
+        // 'creator',
         'member',
 
         // PROFILE
@@ -694,9 +511,6 @@ class RoleHasPermissionSeeder extends Seeder
         // STATISTIC
         // 'statistic',
 
-        // SILABUS
-        // 'silabus',
-
         // USERS
         // 'users.index',
         // 'users.create',
@@ -769,6 +583,42 @@ class RoleHasPermissionSeeder extends Seeder
         // 'statuses.edit',
         // 'statuses.update',
         // 'statuses.destroy',
+
+        // PATHS
+        // 'paths.index',
+        // 'paths.create',
+        // 'paths.store',
+        // 'paths.show',
+        // 'paths.edit',
+        // 'paths.update',
+        // 'paths.destroy',
+
+        // ROADMAPS
+        // 'roadmaps.index',
+        // 'roadmaps.create',
+        // 'roadmaps.store',
+        // 'roadmaps.show',
+        // 'roadmaps.edit',
+        // 'roadmaps.update',
+        // 'roadmaps.destroy',
+
+        // PLAYLISTS
+        // 'playlists.index',
+        // 'playlists.create',
+        // 'playlists.store',
+        // 'playlists.show',
+        // 'playlists.edit',
+        // 'playlists.update',
+        // 'playlists.destroy',
+
+        // POST
+        // 'posts.index',
+        // 'posts.create',
+        // 'posts.store',
+        // 'posts.show',
+        // 'posts.edit',
+        // 'posts.update',
+        // 'posts.destroy',
       ],
     ];
 
