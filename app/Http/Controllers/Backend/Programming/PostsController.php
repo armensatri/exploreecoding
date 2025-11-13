@@ -31,6 +31,7 @@ class PostsController extends Controller
   public function index()
   {
     $posts = Post::query()
+      ->AccessPosts(Auth::user())
       ->search(request(['search', 'playlist']))
       ->select([
         'id',

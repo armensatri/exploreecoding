@@ -58,4 +58,16 @@ class Post extends Model
   {
     return $this->belongsTo(User::class);
   }
+
+  public function scopeAccessPosts($query, $user)
+  {
+    return $query
+      ->when(
+        $user->role->name === 'creator',
+        fn($q) => $q->where('user_id', $user->id)
+      )->when(
+        $user->role->name === 'member',
+        fn($q) => $q->whereNull('id')
+      );
+  }
 }

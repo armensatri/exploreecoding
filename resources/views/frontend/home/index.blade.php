@@ -11,7 +11,7 @@
           </span>
         </div>
 
-        <div class="mt-6 leading-8 text-lg font-normal tracking-wide text-gray-800">
+        <div class="mt-6 text-lg font-normal leading-8 tracking-wide text-gray-800">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur similique non quisquam mollitia magnam vero omnis debitis cupiditate nobis deleniti doloremque aliquam neque expedita laudantium blanditiis ipsum porro autem,
         </div>
       </div>

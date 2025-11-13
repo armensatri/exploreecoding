@@ -14,7 +14,7 @@ class MenuIcon
       'superadmin' => 'dashboard.jpg',
 
       // CREATOR
-      'creator' => 'creator.jpg',
+      'creator' => 'dashboard.jpg',
 
       // MEMBER
       'member' => 'dashboard.jpg',

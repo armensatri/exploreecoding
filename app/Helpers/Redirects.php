@@ -18,6 +18,7 @@ class Redirects
     $routes = [
       'owner' => 'owner',
       'superadmin' => 'superadmin',
+      'creator' => 'creator',
       'member' => 'member',
     ];
 
