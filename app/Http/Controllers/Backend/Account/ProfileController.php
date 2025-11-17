@@ -10,6 +10,7 @@ use App\Http\Requests\Account\Profile\ProfileUr;
 
 use Illuminate\Support\Facades\{
   Auth,
+  Cache,
   Storage
 };
 
@@ -17,7 +18,16 @@ class ProfileController extends Controller
 {
   public function index()
   {
-    $user = User::find(Auth::id());
+    $userId = Auth::id();
+    $cacheKey = "account_profile_{$userId}";
+
+    $user = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(5),
+      function () use ($userId) {
+        return User::find($userId);
+      }
+    );
 
     return view('backend.account.profile.index', [
       'title' => 'My profile',
@@ -27,7 +37,16 @@ class ProfileController extends Controller
 
   public function edit()
   {
-    $user = User::find(Auth::id());
+    $userId = Auth::id();
+    $cacheKey = "account_profile_edit_{$userId}";
+
+    $user = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(5),
+      function () use ($userId) {
+        return User::find($userId);
+      }
+    );
 
     return view('backend.account.profile.edit', [
       'title' => 'Profile edit',
