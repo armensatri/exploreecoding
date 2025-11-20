@@ -5,13 +5,17 @@ namespace App\Http\Controllers\Backend\Manageuser;
 use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Traits\Controllers\ValidationUnique;
 
 use App\Models\Manageuser\{
   Role,
   User
+};
+
+use Illuminate\Support\Facades\{
+  Cache,
+  Storage,
 };
 
 use App\Http\Requests\Manageuser\User\{
@@ -28,20 +32,31 @@ class UsersController extends Controller
    */
   public function index()
   {
-    $users = User::query()
-      ->search(request(['search', 'role']))
-      ->select([
-        'id',
-        'image',
-        'name',
-        'email',
-        'role_id',
-        'url'
-      ])
-      ->with(['role:id,name,bg,text'])
-      ->orderby('id', 'asc')
-      ->paginate(15)
-      ->withQueryString();
+    $cacheKey =
+      'manageuser_users_page_' . request()->get('page', 1) .
+      '_search_' . request('search') .
+      '_role_' . request('role');
+
+    $users = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(5),
+      function () {
+        return User::query()
+          ->search(request(['search', 'role']))
+          ->select([
+            'id',
+            'image',
+            'name',
+            'email',
+            'role_id',
+            'url'
+          ])
+          ->with(['role:id,name,bg,text'])
+          ->orderby('id', 'asc')
+          ->paginate(15)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.manageuser.users.index', [
       'title' => 'Semua data users',

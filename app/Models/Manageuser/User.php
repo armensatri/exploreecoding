@@ -2,15 +2,18 @@
 
 namespace App\Models\Manageuser;
 
+use App\Observers\UserObserver;
 use App\Models\Manageuser\Role;
 use App\Models\Programming\Post;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
 use App\Traits\Models\{
   HasRandomUrl,
   HasSearchable
 };
 
+#[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
   use HasRandomUrl, HasSearchable;

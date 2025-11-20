@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Dashboard;
 
-use Illuminate\Support\Carbon;
 use App\Models\Manageuser\User;
 use App\Http\Controllers\Controller;
 
@@ -20,7 +19,7 @@ class MemberController extends Controller
 
     $member = Cache::remember(
       $cacheKey,
-      Carbon::now()->addMinutes(5),
+      now()->addMinutes(5),
       function () use ($userId) {
         return User::find($userId);
       }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend\Account;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use App\Models\Manageuser\User;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -24,7 +23,7 @@ class ProfileController extends Controller
 
     $user = Cache::remember(
       $cacheKey,
-      Carbon::now()->addMinutes(5),
+      now()->addMinutes(5),
       function () use ($userId) {
         return User::find($userId);
       }
@@ -43,7 +42,7 @@ class ProfileController extends Controller
 
     $user = Cache::remember(
       $cacheKey,
-      Carbon::now()->addMinutes(5),
+      now()->addMinutes(5),
       function () use ($userId) {
         return User::find($userId);
       }
