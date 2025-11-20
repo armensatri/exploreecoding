@@ -7,12 +7,29 @@ use Illuminate\Support\Facades\Cache;
 
 class UserObserver
 {
+  private function clearCache(User $user)
+  {
+    $keys = [
+      "dashboard_owner_{$user->id}",
+      "dashboard_superadmin_{$user->id}",
+      "dashboard_creator_{$user->id}",
+      "dashboard_member_{$user->id}",
+
+      "account_profile_{$user->id}",
+      "account_profile_edit_{$user->id}",
+    ];
+
+    foreach ($keys as $key) {
+      Cache::forget($key);
+    }
+  }
+
   /**
    * Handle the User "created" event.
    */
   public function created(User $user): void
   {
-    //
+    $this->clearCache($user);
   }
 
   /**
@@ -20,13 +37,7 @@ class UserObserver
    */
   public function updated(User $user): void
   {
-    Cache::forget("dashboard_owner_{$user->id}");
-    Cache::forget("dashboard_superadmin_{$user->id}");
-    Cache::forget("dashboard_creator_{$user->id}");
-    Cache::forget("dashboard_member_{$user->id}");
-
-    Cache::forget("account_profile_{$user->id}");
-    Cache::forget("account_profile_edit_{$user->id}");
+    $this->clearCache($user);
   }
 
   /**
@@ -34,13 +45,7 @@ class UserObserver
    */
   public function deleted(User $user): void
   {
-    Cache::forget("dashboard_owner_{$user->id}");
-    Cache::forget("dashboard_superadmin_{$user->id}");
-    Cache::forget("dashboard_creator_{$user->id}");
-    Cache::forget("dashboard_member_{$user->id}");
-
-    Cache::forget("account_profile_{$user->id}");
-    Cache::forget("account_profile_edit_{$user->id}");
+    $this->clearCache($user);
   }
 
   /**
