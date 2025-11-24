@@ -48,7 +48,7 @@ class PostsController extends Controller
         'playlist:id,name'
       ])
       ->orderBy('playlist_id', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.programming.posts.index', [

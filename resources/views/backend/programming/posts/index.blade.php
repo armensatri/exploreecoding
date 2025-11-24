@@ -106,14 +106,16 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
+                            <x-td-var-width
                               :var="'@' . $post->user->username"
+                              :tooltip="'@' . $post->user->username"
                             />
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
+                            <x-td-var-width
                               :var="$post->playlist->name"
+                              :tooltip="$post->playlist->name"
                             />
                           </td>
 
@@ -124,8 +126,9 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
+                            <x-td-var-width
                               :var="$post->title"
+                              :tooltip="$post->title"
                             />
                           </td>
 

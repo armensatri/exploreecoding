@@ -83,6 +83,9 @@
                         <x-th
                           name="status"
                         />
+                        <x-th
+                          name="url"
+                        />
                         <x-th-action/>
                       </tr>
                     </thead>
@@ -103,8 +106,9 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
+                            <x-td-var-width
                               :var="$roadmap->path->name"
+                              :tooltip="$roadmap->path->name"
                             />
                           </td>
 
@@ -115,22 +119,10 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <div class="flex items-center px-6 py-3 gap-x-3">
-                              <div class="hs-tooltip [--placement:auto]">
-                                <div class="relative hs-tooltip-toggle
-                                w-[120px] text-[15px] text-gray-600 truncate">
-                                  {{ $roadmap->name }}
-                                  <span
-                                    class="hs-tooltip-content absolute z-10 invisible opacity-0
-                                          hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible
-                                          bg-gray-900 text-white text-xs font-medium rounded-md
-                                          shadow-2xs px-2 py-1 w-max max-w-[200px]
-                                          dark:bg-neutral-700">
-                                    {{ $roadmap->name }}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
+                            <x-td-var-width
+                              :var="$roadmap->name"
+                              :tooltip="$roadmap->name"
+                            />
                           </td>
 
                           <td class="h-px whitespace-nowrap">
@@ -138,6 +130,12 @@
                               :bg="$roadmap->status->bg"
                               :text="$roadmap->status->text"
                               :var="$roadmap->status->name"
+                            />
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var
+                              :var="$roadmap->url"
                             />
                           </td>
 

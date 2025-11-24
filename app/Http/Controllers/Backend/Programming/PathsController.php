@@ -33,7 +33,7 @@ class PathsController extends Controller
       ])
       ->with(['status:id,name,bg,text'])
       ->orderBy('sp', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.programming.paths.index', [

@@ -38,7 +38,7 @@ class PlaylistsController extends Controller
       ])
       ->with(['status:id,name,bg,text', 'roadmap:id,name'])
       ->orderBy('roadmap_id', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.programming.playlists.index', [

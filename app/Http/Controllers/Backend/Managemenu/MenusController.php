@@ -34,7 +34,7 @@ class MenusController extends Controller
         'url'
       ])
       ->orderBy('sm', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.managemenu.menus.index', [

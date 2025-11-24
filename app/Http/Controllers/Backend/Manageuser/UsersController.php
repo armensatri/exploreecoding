@@ -32,31 +32,20 @@ class UsersController extends Controller
    */
   public function index()
   {
-    $cacheKey =
-      'manageuser_users_page_' . request()->get('page', 1) .
-      '_search_' . request('search') .
-      '_role_' . request('role');
-
-    $users = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(5),
-      function () {
-        return User::query()
-          ->search(request(['search', 'role']))
-          ->select([
-            'id',
-            'image',
-            'name',
-            'email',
-            'role_id',
-            'url'
-          ])
-          ->with('role:id,name,bg,text')
-          ->orderby('id', 'asc')
-          ->paginate(15)
-          ->withQueryString();
-      }
-    );
+    $users = User::query()
+      ->search(request(['search', 'role']))
+      ->select([
+        'id',
+        'image',
+        'name',
+        'email',
+        'role_id',
+        'url'
+      ])
+      ->with('role:id,name,bg,text')
+      ->orderby('id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.manageuser.users.index', [
       'title' => 'Semua data users',

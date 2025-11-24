@@ -33,7 +33,7 @@ class PermissionsController extends Controller
         'guard_name',
       ])
       ->orderBy('id', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.manageuser.permissions.index', [

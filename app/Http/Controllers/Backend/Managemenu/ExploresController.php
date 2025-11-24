@@ -35,7 +35,7 @@ class ExploresController extends Controller
         'url'
       ])
       ->orderBy('se', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.managemenu.explores.index', [

@@ -80,6 +80,9 @@
                         <x-th
                           name="status"
                         />
+                        <x-th
+                          name="url"
+                        />
                         <x-th-action/>
                       </tr>
                     </thead>
@@ -119,6 +122,13 @@
                               :var="$path->status->name"
                             />
                           </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var
+                              :var="$path->url"
+                            />
+                          </td>
+
 
                           <td class="size-px whitespace-nowrap">
                             <x-td-action

@@ -40,7 +40,7 @@ class SubmenusController extends Controller
       ])
       ->with(['menu:id,name'])
       ->orderBy('menu_id', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.managemenu.submenus.index', [

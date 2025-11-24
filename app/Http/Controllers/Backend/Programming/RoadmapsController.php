@@ -38,7 +38,7 @@ class RoadmapsController extends Controller
       ])
       ->with(['status:id,name,bg,text', 'path:id,name'])
       ->orderBy('path_id', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.programming.roadmaps.index', [

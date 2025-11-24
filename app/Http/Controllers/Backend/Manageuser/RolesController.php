@@ -37,7 +37,7 @@ class RolesController extends Controller
         'url',
       ])
       ->orderBy('sr', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.manageuser.roles.index', [

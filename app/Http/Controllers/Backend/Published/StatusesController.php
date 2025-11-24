@@ -36,7 +36,7 @@ class StatusesController extends Controller
         'description'
       ])
       ->orderBy('id', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.published.statuses.index', [

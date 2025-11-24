@@ -35,7 +35,7 @@ class NavigationsController extends Controller
         'url'
       ])
       ->orderBy('sn', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.managemenu.navigations.index', [

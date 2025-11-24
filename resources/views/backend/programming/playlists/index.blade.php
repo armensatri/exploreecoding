@@ -18,7 +18,7 @@
       </div>
 
       <section class="w-full px-3 mt-8 mb-5">
-        <div class="max-w-[85rem] mx-auto">
+        <div class="mx-auto max-w-340">
           <div class="flex flex-col">
             <div class="-m-1.5 overflow-x-auto min-w-full">
               <div class="p-1.5 inline-block xl:max-w-full">
@@ -83,6 +83,9 @@
                         <x-th
                           name="status"
                         />
+                        <x-th
+                          name="url"
+                        />
                         <x-th-action/>
                       </tr>
                     </thead>
@@ -103,8 +106,9 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
+                            <x-td-var-width
                               :var="$playlist->roadmap->name"
+                              :tooltip="$playlist->roadmap->name"
                             />
                           </td>
 
@@ -115,8 +119,9 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
+                            <x-td-var-width
                               :var="$playlist->name"
+                              :tooltip="$playlist->name"
                             />
                           </td>
 
@@ -125,6 +130,12 @@
                               :bg="$playlist->status->bg"
                               :text="$playlist->status->text"
                               :var="$playlist->status->name"
+                            />
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
+                            <x-td-var
+                              :var="$playlist->url"
                             />
                           </td>
 
