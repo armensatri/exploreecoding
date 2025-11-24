@@ -24,7 +24,7 @@ class VisitorController extends Controller
       ->with(['role:id,name,bg,text'])
       ->orderby('id', 'asc')
       ->where('status', 1)
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.managedata.visitor.index', [
@@ -46,7 +46,7 @@ class VisitorController extends Controller
       ->with(['role:id,name,bg,text'])
       ->orderby('id', 'asc')
       ->where('status', 0)
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.managedata.visitor.banned', [

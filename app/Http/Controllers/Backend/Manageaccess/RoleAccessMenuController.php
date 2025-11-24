@@ -18,7 +18,7 @@ class RoleAccessMenuController extends Controller
     $menus = Menu::query()
       ->select(['id', 'sm', 'name', 'url'])
       ->orderBy('sm', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.manageaccess.menu.index', [

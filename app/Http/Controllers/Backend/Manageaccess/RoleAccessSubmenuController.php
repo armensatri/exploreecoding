@@ -18,7 +18,7 @@ class RoleAccessSubmenuController extends Controller
     $submenus = Submenu::query()
       ->select(['id', 'ssm', 'name', 'url'])
       ->orderBy('sm', 'asc')
-      ->paginate(15)
+      ->paginate(10)
       ->withQueryString();
 
     return view('backend.manageaccess.submenu.index', [
