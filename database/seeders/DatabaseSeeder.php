@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Programming\Path;
+use App\Models\Programming\Playlist;
+use App\Models\Programming\Post;
+use App\Models\Programming\Roadmap;
 use Illuminate\Database\Seeder;
 use Database\Seeders\Published\StatusSeeder;
 
@@ -47,10 +51,25 @@ class DatabaseSeeder extends Seeder
       StatusSeeder::class,
       ExploreSeeder::class,
       NavigationSeeder::class,
-      PathSeeder::class,
-      RoadmapSeeder::class,
-      PlaylistSeeder::class,
-      PostSeeder::class,
+      // PathSeeder::class,
+      // RoadmapSeeder::class,
+      // PlaylistSeeder::class,
+      // PostSeeder::class,
     ]);
+
+    Path::factory()
+      ->count(5)
+      ->has(
+        Roadmap::factory()
+          ->count(4)
+          ->has(
+            Playlist::factory()
+              ->count(3)
+              ->has(
+                Post::factory()->count(10)
+              )
+          )
+      )
+      ->create();
   }
 }

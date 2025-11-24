@@ -51,7 +51,7 @@ class UsersController extends Controller
             'role_id',
             'url'
           ])
-          ->with(['role:id,name,bg,text'])
+          ->with('role:id,name,bg,text')
           ->orderby('id', 'asc')
           ->paginate(15)
           ->withQueryString();

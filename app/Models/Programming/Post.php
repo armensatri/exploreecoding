@@ -6,6 +6,7 @@ use App\Models\Manageuser\User;
 use App\Models\Published\Status;
 use App\Models\Programming\Playlist;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use App\Traits\Models\{
   HasRandomUrl,
@@ -14,7 +15,7 @@ use App\Traits\Models\{
 
 class Post extends Model
 {
-  use HasRandomUrl, HasSearchable;
+  use HasRandomUrl, HasSearchable, HasFactory;
 
   protected $table = 'posts';
 
@@ -36,7 +37,8 @@ class Post extends Model
   ];
 
   protected $sRelations = [
-    'playlist' => 'name'
+    'playlist' => 'name',
+    'user' => 'username'
   ];
 
   public function getRouteKeyName()

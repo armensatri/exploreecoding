@@ -31,7 +31,7 @@
             </div>
 
             <section class="w-full px-3 mt-12 mb-5 xl:flex xl:justify-center">
-              <div class="max-w-[85rem] mx-auto">
+              <div class="mx-auto max-w-340">
                 <div class="flex flex-col">
                   <div class="-m-1.5 overflow-x-auto min-w-full">
                     <div class="p-1.5 inline-block xl:max-w-full">

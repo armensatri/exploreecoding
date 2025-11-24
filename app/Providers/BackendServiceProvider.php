@@ -41,6 +41,7 @@ use App\View\Components\Backend\Table\{
   TdImageHover,
   TdVarBg,
   TdAction,
+  TdVarWidth,
 };
 
 use App\View\Components\Backend\Input\{
@@ -100,6 +101,7 @@ class BackendServiceProvider extends ServiceProvider
     Blade::component('td-image-hover', TdImageHover::class);
     Blade::component('td-var-bg', TdVarBg::class);
     Blade::component('td-action', TdAction::class);
+    Blade::component('td-var-width', TdVarWidth::class);
 
     // INPUT
     Blade::component('input', Input::class);

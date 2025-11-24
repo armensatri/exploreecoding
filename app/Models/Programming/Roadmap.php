@@ -4,6 +4,7 @@ namespace App\Models\Programming;
 
 use App\Models\Published\Status;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use App\Traits\Models\{
   HasRandomUrl,
@@ -17,7 +18,7 @@ use App\Models\Programming\{
 
 class Roadmap extends Model
 {
-  use HasRandomUrl, HasSearchable;
+  use HasRandomUrl, HasSearchable, HasFactory;
 
   protected $table = 'roadmaps';
 

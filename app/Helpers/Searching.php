@@ -18,12 +18,9 @@ class Searching
       }
 
       foreach ($relations as $relation => $relationField) {
-        $query->orWhereHas(
-          $relation,
-          function ($query) use ($search, $relationField) {
-            $query->where($relationField, 'like', '%' . $search . '%');
-          }
-        );
+        $query->orWhereHas($relation, function ($query) use ($search, $relationField) {
+          $query->where($relationField, 'like', '%' . $search . '%');
+        });
       }
     });
   }

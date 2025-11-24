@@ -22,8 +22,9 @@ class RegisterController extends Controller
   {
     $usercount = User::count();
 
-    if ($usercount >= 100) {
-      return Redirect::route('registrasi.di.batasi');
+    if ($usercount >= 1000) {
+      Alert::warning('Oops...', 'pendaftaran! masih terbatas');
+      return Redirect::route('register');
     }
 
     $datastore = $request->validated();

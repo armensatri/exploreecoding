@@ -2,9 +2,7 @@
 
 namespace App\Models\Manageuser;
 
-use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
 use App\Traits\Models\{
   HasRandomUrl,
@@ -22,7 +20,6 @@ use App\Models\Managemenu\{
   Submenu
 };
 
-#[ObservedBy([UserObserver::class])]
 class Role extends Model
 {
   use HasRandomUrl, HasSearchable, HasSluggable;

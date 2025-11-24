@@ -32,7 +32,7 @@ class PostsController extends Controller
   {
     $posts = Post::query()
       ->AccessPosts(Auth::user())
-      ->search(request(['search', 'playlist']))
+      ->search(request(['search', 'playlist', 'user']))
       ->select([
         'id',
         'user_id',

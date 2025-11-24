@@ -14,16 +14,7 @@ class MemberController extends Controller
 {
   public function index()
   {
-    $userId = Auth::id();
-    $cacheKey = "dashboard_member_{$userId}";
-
-    $member = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(5),
-      function () use ($userId) {
-        return User::find($userId);
-      }
-    );
+    $member = User::find(Auth::id());
 
     return view('backend.dashboard.member', [
       'title' => 'Dashboard',

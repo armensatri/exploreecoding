@@ -10,9 +10,7 @@ trait HasSearchable
   public function scopeSearch(Builder $query, array $filters): void
   {
     if (!property_exists($this, 'sFields')) {
-      throw new \Exception(
-        'Property $sFields harus didefinisikan di model.'
-      );
+      throw new \Exception('Property $sFields harus didefinisikan di model.');
     }
 
     $fields = $this->sFields;
@@ -21,7 +19,7 @@ trait HasSearchable
     $query->when(
       $filters['search'] ?? false,
       function (Builder $query, $search) use ($fields, $relations) {
-        Searching::applySearch($query, $search, $fields, $relations);
+        Searching::ApplySearch($query, $search, $fields, $relations);
       }
     );
   }

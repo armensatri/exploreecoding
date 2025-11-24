@@ -16,16 +16,7 @@ class PersonalController extends Controller
 {
   public function index()
   {
-    $userId = Auth::id();
-    $cacheKey = "account_personal_{$userId}";
-
-    $user = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(5),
-      function () use ($userId) {
-        return User::find($userId);
-      }
-    );
+    $user = User::find(Auth::id());
 
     return view('backend.account.personal.index', [
       'title' => 'Personal',

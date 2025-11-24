@@ -18,7 +18,7 @@
       </div>
 
       <section class="w-full px-3 mt-8 mb-5">
-        <div class="max-w-[85rem] mx-auto">
+        <div class="mx-auto max-w-340">
           <div class="flex flex-col">
             <div class="-m-1.5 overflow-x-auto min-w-full">
               <div class="p-1.5 inline-block xl:max-w-full">
@@ -115,9 +115,22 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$roadmap->name"
-                            />
+                            <div class="flex items-center px-6 py-3 gap-x-3">
+                              <div class="hs-tooltip [--placement:auto]">
+                                <div class="relative hs-tooltip-toggle
+                                w-[120px] text-[15px] text-gray-600 truncate">
+                                  {{ $roadmap->name }}
+                                  <span
+                                    class="hs-tooltip-content absolute z-10 invisible opacity-0
+                                          hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible
+                                          bg-gray-900 text-white text-xs font-medium rounded-md
+                                          shadow-2xs px-2 py-1 w-max max-w-[200px]
+                                          dark:bg-neutral-700">
+                                    {{ $roadmap->name }}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
                           </td>
 
                           <td class="h-px whitespace-nowrap">

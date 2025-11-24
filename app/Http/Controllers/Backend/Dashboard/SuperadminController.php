@@ -14,16 +14,7 @@ class SuperadminController extends Controller
 {
   public function index()
   {
-    $userId = Auth::id();
-    $cacheKey = "dashboard_superadmin_{$userId}";
-
-    $superadmin = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(5),
-      function () use ($userId) {
-        return User::find($userId);
-      }
-    );
+    $superadmin = User::find(Auth::id());
 
     return view('backend.dashboard.superadmin', [
       'title' => 'Dashboard',

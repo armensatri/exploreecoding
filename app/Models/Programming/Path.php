@@ -5,6 +5,7 @@ namespace App\Models\Programming;
 use App\Models\Published\Status;
 use App\Models\Programming\Roadmap;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use App\Traits\Models\{
   HasRandomUrl,
@@ -13,7 +14,7 @@ use App\Traits\Models\{
 
 class Path extends Model
 {
-  use HasRandomUrl, HasSearchable;
+  use HasRandomUrl, HasSearchable, HasFactory;
 
   protected $table = 'paths';
 
