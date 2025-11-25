@@ -3,7 +3,7 @@
 
   <img src="{{ $img }}"
     alt="{{ $alt }}"
-    class="size-[20px]"
+    class="size-5"
   />
 
   <span class="tracking-wide font-medium text-[15px]">

@@ -38,7 +38,7 @@
           />
         </div>
 
-        <div class="space-y-0.5 mt-3 border-t-[1px] border-t-gray-200
+        <div class="space-y-0.5 mt-3 border-t- border-t-gray-200
           mx-7 p-3 flex justify-center">
           <form action="{{ route('logout') }}"
             method="POST">

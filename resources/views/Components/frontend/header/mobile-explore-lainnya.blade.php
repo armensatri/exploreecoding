@@ -1,6 +1,6 @@
 <div class="py-1.5">
   <div class="flex px-5 py-3 rounded-2xl gap-x-4
-    hover:bg-gradient-to-r hover:from-red-200 hover:to-green-200">
+    hover:bg-linear-to-r hover:from-red-200 hover:to-green-200">
     <img src="{{ $image }}"
       alt="exp"
       class="size-5"

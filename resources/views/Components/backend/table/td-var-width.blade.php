@@ -2,10 +2,7 @@
   <div class="hs-tooltip [--placement:auto]">
     <div class="relative hs-tooltip-toggle w-[120px] text-[15px] text-gray-600 truncate cursor-pointer">
       {{ $var }}
-      <span class="hs-tooltip-content absolute z-10 invisible
-        hs-tooltip-shown:visible max-w-max bg-blue-200 text-slate-900
-        text-sm tracking-wide px-2 py-0.5 rounded-lg border
-        border-blue-300">
+      <span class="absolute z-10 invisible px-2 py-px text-sm tracking-wide text-black bg-blue-200 border border-blue-300 rounded-lg hs-tooltip-content hs-tooltip-shown:visible max-w-max">
         {{ $tooltip }}
       </span>
     </div>
