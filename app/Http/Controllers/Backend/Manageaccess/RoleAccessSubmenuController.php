@@ -5,22 +5,37 @@ namespace App\Http\Controllers\Backend\Manageaccess;
 use Illuminate\Http\Request;
 use App\Models\Manageuser\Role;
 use App\Models\Managemenu\Submenu;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Support\Facades\{
+  DB,
+  Cache
+};
 
 class RoleAccessSubmenuController extends Controller
 {
   public function accessSubmenu($url)
   {
-    $role = Role::query()->where('url', $url)
-      ->firstOrFail();
+    $cacheKey = 'roleaccesssubmenu.accessSubmenu.' . $url . '.' . md5(
+      json_encode(
+        request()->all()
+      )
+    );
 
-    $submenus = Submenu::query()
-      ->select(['id', 'ssm', 'name', 'url'])
-      ->orderBy('sm', 'asc')
-      ->paginate(10)
-      ->withQueryString();
-
+    [$role, $submenus] = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () use ($url) {
+        $role = Role::query()->where('url', $url)
+          ->firstOrFail();
+        $submenus = Submenu::query()
+          ->select(['id', 'ssm', 'name', 'url'])
+          ->orderBy('sm', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+        return [$role, $submenus];
+      }
+    );
     return view('backend.manageaccess.submenu.index', [
       'title' => 'Access submenu',
       'role' => $role,

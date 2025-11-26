@@ -14,7 +14,15 @@ class CreatorController extends Controller
 {
   public function index()
   {
-    $creator = User::find(Auth::id());
+    $userId = Auth::id();
+
+    $cacheKey = 'creator.user.' . $userId;
+
+    $creator = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => User::find($userId)
+    );
 
     return view('backend.dashboard.creator', [
       'title' => 'Dashboard',

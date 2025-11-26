@@ -6,14 +6,15 @@ use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Models\Managemenu\Menu;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Traits\Controllers\ValidationUnique;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 use App\Http\Requests\Managemenu\Menu\{
   MenuSr,
   MenuUr,
 };
-use App\Traits\Controllers\ValidationUnique;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class MenusController extends Controller
 {
@@ -24,18 +25,26 @@ class MenusController extends Controller
    */
   public function index()
   {
-    $menus = Menu::query()
-      ->search(request(['search']))
-      ->select([
-        'id',
-        'sm',
-        'name',
-        'description',
-        'url'
-      ])
-      ->orderBy('sm', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'menus.index.' . md5(json_encode(request()->all()));
+
+    $menus = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return Menu::query()
+          ->search(request(['search']))
+          ->select([
+            'id',
+            'sm',
+            'name',
+            'description',
+            'url'
+          ])
+          ->orderBy('sm', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.managemenu.menus.index', [
       'title' => 'Semua data menus',
@@ -77,9 +86,17 @@ class MenusController extends Controller
    */
   public function show(Menu $menu)
   {
+    $cacheKey = 'menus.show.' . $menu->id;
+
+    $menuData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => $menu
+    );
+
     return view('backend.managemenu.menus.show', [
       'title' => 'Detail data menu',
-      'menu' => $menu
+      'menu' => $menuData
     ]);
   }
 

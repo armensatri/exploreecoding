@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Managemenu;
 use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Traits\Controllers\ValidationUnique;
 use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -28,20 +29,28 @@ class SubmenusController extends Controller
    */
   public function index()
   {
-    $submenus = Submenu::query()
-      ->search(request(['search', 'menu']))
-      ->select([
-        'id',
-        'menu_id',
-        'ssm',
-        'name',
-        'description',
-        'url'
-      ])
-      ->with(['menu:id,name'])
-      ->orderBy('menu_id', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'submenus.index.' . md5(json_encode(request()->all()));
+
+    $submenus = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return Submenu::query()
+          ->search(request(['search', 'menu']))
+          ->select([
+            'id',
+            'menu_id',
+            'ssm',
+            'name',
+            'description',
+            'url'
+          ])
+          ->with(['menu:id,name'])
+          ->orderBy('menu_id', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.managemenu.submenus.index', [
       'title' => 'Semua data submenus',
@@ -88,9 +97,17 @@ class SubmenusController extends Controller
    */
   public function show(Submenu $submenu)
   {
+    $cacheKey = 'submenus.show.' . $submenu->id;
+
+    $submenuData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => $submenu
+    );
+
     return view('backend.managemenu.submenus.show', [
       'title' => 'Detail data submenu',
-      'submenu' => $submenu
+      'submenu' => $submenuData
     ]);
   }
 

@@ -3,23 +3,40 @@
 namespace App\Http\Controllers\Backend\Manageaccess;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Managemenu\Menu;
 use App\Models\Manageuser\Role;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Support\Facades\{
+  DB,
+  Cache
+};
 
 class RoleAccessMenuController extends Controller
 {
   public function accessMenu($url)
   {
-    $role = Role::query()->where('url', $url)
-      ->firstOrFail();
+    $cacheKey = 'roleaccessmenu.accessMenu.' . $url . '.' . md5(
+      json_encode(
+        request()->all()
+      )
+    );
 
-    $menus = Menu::query()
-      ->select(['id', 'sm', 'name', 'url'])
-      ->orderBy('sm', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    [$role, $menus] = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () use ($url) {
+        $role = Role::query()->where('url', $url)
+          ->firstOrFail();
+        $menus = Menu::query()
+          ->select(['id', 'sm', 'name', 'url'])
+          ->orderBy('sm', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+
+        return [$role, $menus];
+      }
+    );
 
     return view('backend.manageaccess.menu.index', [
       'title' => 'Access menu',

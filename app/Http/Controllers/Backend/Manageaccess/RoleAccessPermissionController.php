@@ -3,27 +3,46 @@
 namespace App\Http\Controllers\Backend\Manageaccess;
 
 use Illuminate\Http\Request;
-use App\Models\Manageuser\Role;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Manageuser\Permission;
+
+use App\Models\Manageuser\{
+  Role,
+  Permission
+};
+
+use Illuminate\Support\Facades\{
+  DB,
+  Cache
+};
 
 class RoleAccessPermissionController extends Controller
 {
   public function accessPermission($url)
   {
-    $role = Role::query()->where('url', $url)
-      ->firstOrFail();
+    $cacheKey = 'roleaccesspermission.accessPermission.' . $url . '.' . md5(
+      json_encode(
+        request()->all()
+      )
+    );
 
-    $permissions = Permission::query()
-      ->select(['id', 'name'])
-      ->orderBy('id', 'asc')
-      ->get();
+    [$role, $groupper] = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () use ($url) {
+        $role = Role::query()->where('url', $url)
+          ->firstOrFail();
+        $permissions = Permission::query()
+          ->select(['id', 'name'])
+          ->orderBy('id', 'asc')
+          ->get();
+        $groupper = $permissions->sortBy('id')->groupBy(
+          function ($permission) {
+            $controller = explode('.', $permission->name)[0];
+            return ucfirst($controller);
+          }
+        );
 
-    $groupper = $permissions->sortBy('id')->groupBy(
-      function ($permission) {
-        $controller = explode('.', $permission->name)[0];
-        return ucfirst($controller);
+        return [$role, $groupper];
       }
     );
 

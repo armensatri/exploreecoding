@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Backend\Manageuser;
 
+
 use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Models\Manageuser\Role;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Traits\Controllers\ValidationUnique;
 use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -18,27 +20,34 @@ use App\Http\Requests\Manageuser\Role\{
 class RolesController extends Controller
 {
   use ValidationUnique;
-
   /**
    * Display a listing of the resource.
    */
   public function index()
   {
-    $roles = Role::query()
-      ->search(request(['search']))
-      ->select([
-        'id',
-        'sr',
-        'name',
-        'bg',
-        'text',
-        'guard_name',
-        'description',
-        'url',
-      ])
-      ->orderBy('sr', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'roles.index.' . md5(json_encode(request()->all()));
+
+    $roles = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return Role::query()
+          ->search(request(['search']))
+          ->select([
+            'id',
+            'sr',
+            'name',
+            'bg',
+            'text',
+            'guard_name',
+            'description',
+            'url',
+          ])
+          ->orderBy('sr', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.manageuser.roles.index', [
       'title' => 'Semua data roles',
@@ -80,9 +89,17 @@ class RolesController extends Controller
    */
   public function show(Role $role)
   {
+    $cacheKey = 'roles.show.' . $role->id;
+
+    $roleData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => $role
+    );
+
     return view('backend.manageuser.roles.show', [
       'title' => 'Detail data role',
-      'role' => $role
+      'role' => $roleData
     ]);
   }
 

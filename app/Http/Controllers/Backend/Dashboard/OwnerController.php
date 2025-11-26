@@ -14,7 +14,15 @@ class OwnerController extends Controller
 {
   public function index()
   {
-    $owner = User::find(Auth::id());
+    $userId = Auth::id();
+
+    $cacheKey = 'owner.user.' . $userId;
+
+    $owner = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => User::find($userId)
+    );
 
     return view('backend.dashboard.owner', [
       'title' => 'Dashboard',

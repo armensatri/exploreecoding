@@ -18,7 +18,15 @@ class ProfileController extends Controller
 {
   public function index()
   {
-    $user = User::find(Auth::id());
+    $userId = Auth::id();
+
+    $cacheKey = 'profile.user.' . $userId;
+
+    $user = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => User::find($userId)
+    );
 
     return view('backend.account.profile.index', [
       'title' => 'My profile',
@@ -28,7 +36,15 @@ class ProfileController extends Controller
 
   public function edit()
   {
-    $user = User::find(Auth::id());
+    $userId = Auth::id();
+
+    $cacheKey = 'profile.user.' . $userId;
+
+    $user = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => User::find($userId)
+    );
 
     return view('backend.account.profile.edit', [
       'title' => 'Profile edit',

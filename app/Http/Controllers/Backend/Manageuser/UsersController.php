@@ -32,20 +32,28 @@ class UsersController extends Controller
    */
   public function index()
   {
-    $users = User::query()
-      ->search(request(['search', 'role']))
-      ->select([
-        'id',
-        'image',
-        'name',
-        'email',
-        'role_id',
-        'url'
-      ])
-      ->with('role:id,name,bg,text')
-      ->orderby('id', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'users.index.' . md5(json_encode(request()->all()));
+
+    $users = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return User::query()
+          ->search(request(['search', 'role']))
+          ->select([
+            'id',
+            'image',
+            'name',
+            'email',
+            'role_id',
+            'url'
+          ])
+          ->with('role:id,name,bg,text')
+          ->orderby('id', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.manageuser.users.index', [
       'title' => 'Semua data users',
@@ -101,9 +109,17 @@ class UsersController extends Controller
    */
   public function show(User $user)
   {
+    $cacheKey = 'users.show.' . $user->id;
+
+    $userData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => $user
+    );
+
     return view('backend.manageuser.users.show', [
       'title' => 'Detail data user',
-      'user' => $user
+      'user' => $userData
     ]);
   }
 

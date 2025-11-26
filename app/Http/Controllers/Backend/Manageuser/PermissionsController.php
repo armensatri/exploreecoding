@@ -6,6 +6,8 @@ use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Manageuser\Permission;
+use Illuminate\Support\Facades\Cache;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Traits\Controllers\ValidationUnique;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -13,7 +15,6 @@ use App\Http\Requests\Manageuser\Permission\{
   PermissionSr,
   PermissionUr,
 };
-use RealRashid\SweetAlert\Facades\Alert;
 
 class PermissionsController extends Controller
 {
@@ -24,17 +25,25 @@ class PermissionsController extends Controller
    */
   public function index()
   {
-    $permissions = Permission::query()
-      ->search(request(['search']))
-      ->select([
-        'id',
-        'name',
-        'url',
-        'guard_name',
-      ])
-      ->orderBy('id', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'permissions.index.' . md5(json_encode(request()->all()));
+
+    $permissions = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return Permission::query()
+          ->search(request(['search']))
+          ->select([
+            'id',
+            'name',
+            'url',
+            'guard_name',
+          ])
+          ->orderBy('id', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.manageuser.permissions.index', [
       'title' => 'Semua data permissions',
@@ -76,9 +85,17 @@ class PermissionsController extends Controller
    */
   public function show(Permission $permission)
   {
+    $cacheKey = 'permissions.show.' . $permission->id;
+
+    $permissionData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => $permission
+    );
+
     return view('backend.manageuser.permissions.show', [
       'title' => 'Detail data permission',
-      'permission' => $permission
+      'permission' => $permissionData
     ]);
   }
 
