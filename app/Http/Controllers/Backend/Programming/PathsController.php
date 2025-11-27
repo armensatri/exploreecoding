@@ -23,31 +23,37 @@ class PathsController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'paths.index.' . md5(
+    $cacheKey = 'paths.index.ids.' . md5(
       json_encode(
         request(['search'])
       )
     );
 
-    $paths = Cache::remember(
+    $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
       function () {
         return Path::query()
           ->search(request(['search']))
-          ->select([
-            'id',
-            'sp',
-            'name',
-            'status_id',
-            'url'
-          ])
-          ->with(['status:id,name,bg,text'])
           ->orderBy('sp', 'asc')
-          ->paginate(10)
-          ->withQueryString();
+          ->pluck('id')
+          ->toArray();
       }
     );
+
+    $paths = Path::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'sp',
+        'name',
+        'status_id',
+        'url'
+      ])
+      ->with(['status:id,name,bg,text'])
+      ->orderBy('sp', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.programming.paths.index', [
       'title' => 'Semua data paths',

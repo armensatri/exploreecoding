@@ -31,39 +31,45 @@ class PostsController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'posts.index.' . md5(json_encode([
+    $cacheKey = 'posts.index.ids.' . md5(json_encode([
       'user_id' => Auth::id(),
       'search' => request('search'),
       'playlist' => request('playlist'),
       'user' => request('user')
     ]));
 
-    $posts = Cache::remember(
+    $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
       function () {
         return Post::query()
           ->AccessPosts(Auth::user())
           ->search(request(['search', 'playlist', 'user']))
-          ->select([
-            'id',
-            'user_id',
-            'status_id',
-            'playlist_id',
-            'sp',
-            'title',
-            'url'
-          ])
-          ->with([
-            'user:id,username',
-            'status:id,name,bg,text',
-            'playlist:id,name'
-          ])
           ->orderBy('playlist_id', 'asc')
-          ->paginate(10)
-          ->withQueryString();
+          ->pluck('id')
+          ->toArray();
       }
     );
+
+    $posts = Post::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'user_id',
+        'status_id',
+        'playlist_id',
+        'sp',
+        'title',
+        'url'
+      ])
+      ->with([
+        'user:id,username',
+        'status:id,name,bg,text',
+        'playlist:id,name'
+      ])
+      ->orderBy('playlist_id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.programming.posts.index', [
       'title' => 'Semua data posts',

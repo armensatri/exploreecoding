@@ -27,32 +27,38 @@ class RoadmapsController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'roadmaps.index.' . md5(
+    $cacheKey = 'roadmaps.index.ids.' . md5(
       json_encode(
         request(['search', 'path'])
       )
     );
 
-    $roadmaps = Cache::remember(
+    $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
       function () {
         return Roadmap::query()
           ->search(request(['search', 'path']))
-          ->select([
-            'id',
-            'path_id',
-            'sr',
-            'name',
-            'status_id',
-            'url'
-          ])
-          ->with(['status:id,name,bg,text', 'path:id,name'])
           ->orderBy('path_id', 'asc')
-          ->paginate(10)
-          ->withQueryString();
+          ->pluck('id')
+          ->toArray();
       }
     );
+
+    $roadmaps = Roadmap::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'path_id',
+        'sr',
+        'name',
+        'status_id',
+        'url'
+      ])
+      ->with(['status:id,name,bg,text', 'path:id,name'])
+      ->orderBy('path_id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.programming.roadmaps.index', [
       'title' => 'Semua data roadmaps',

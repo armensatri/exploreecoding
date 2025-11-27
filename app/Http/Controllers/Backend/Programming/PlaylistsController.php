@@ -27,32 +27,38 @@ class PlaylistsController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'playlists.index.' . md5(
+    $cacheKey = 'playlists.index.ids.' . md5(
       json_encode(
         request(['search', 'roadmap'])
       )
     );
 
-    $playlists = Cache::remember(
+    $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
       function () {
         return Playlist::query()
           ->search(request(['search', 'roadmap']))
-          ->select([
-            'id',
-            'roadmap_id',
-            'spl',
-            'name',
-            'status_id',
-            'url'
-          ])
-          ->with(['status:id,name,bg,text', 'roadmap:id,name'])
           ->orderBy('roadmap_id', 'asc')
-          ->paginate(10)
-          ->withQueryString();
+          ->pluck('id')
+          ->toArray();
       }
     );
+
+    $playlists = Playlist::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'roadmap_id',
+        'spl',
+        'name',
+        'status_id',
+        'url'
+      ])
+      ->with(['status:id,name,bg,text', 'roadmap:id,name'])
+      ->orderBy('roadmap_id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.programming.playlists.index', [
       'title' => 'Semua data playlists',
