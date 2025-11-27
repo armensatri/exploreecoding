@@ -6,6 +6,7 @@ use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Programming\{
@@ -30,26 +31,39 @@ class PostsController extends Controller
    */
   public function index()
   {
-    $posts = Post::query()
-      ->AccessPosts(Auth::user())
-      ->search(request(['search', 'playlist', 'user']))
-      ->select([
-        'id',
-        'user_id',
-        'status_id',
-        'playlist_id',
-        'sp',
-        'title',
-        'url'
-      ])
-      ->with([
-        'user:id,username',
-        'status:id,name,bg,text',
-        'playlist:id,name'
-      ])
-      ->orderBy('playlist_id', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'posts.index.' . md5(json_encode([
+      'user_id' => Auth::id(),
+      'search' => request('search'),
+      'playlist' => request('playlist'),
+      'user' => request('user')
+    ]));
+
+    $posts = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return Post::query()
+          ->AccessPosts(Auth::user())
+          ->search(request(['search', 'playlist', 'user']))
+          ->select([
+            'id',
+            'user_id',
+            'status_id',
+            'playlist_id',
+            'sp',
+            'title',
+            'url'
+          ])
+          ->with([
+            'user:id,username',
+            'status:id,name,bg,text',
+            'playlist:id,name'
+          ])
+          ->orderBy('playlist_id', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.programming.posts.index', [
       'title' => 'Semua data posts',
@@ -109,9 +123,19 @@ class PostsController extends Controller
    */
   public function show(Post $post)
   {
+    $cacheKey = 'posts.show.' . $post->id;
+
+    $postData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () use ($post) {
+        return $post;
+      }
+    );
+
     return view('backend.programming.posts.show', [
       'title' => 'Detail data post',
-      'post' => $post,
+      'post' => $postData,
     ]);
   }
 

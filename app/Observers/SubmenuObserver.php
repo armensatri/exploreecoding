@@ -36,7 +36,6 @@ class SubmenuObserver
    */
   protected function clearSubmenuCache(?int $submenuId = null): void
   {
-    // Fallback: clear the default index key (may not clear all filtered variants)
     Cache::forget('submenus.index');
 
     if ($submenuId) {

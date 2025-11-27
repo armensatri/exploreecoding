@@ -32,7 +32,11 @@ class UsersController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'users.index.' . md5(json_encode(request()->all()));
+    $cacheKey = 'users.index.' . md5(
+      json_encode(
+        request()->all()
+      )
+    );
 
     $users = Cache::remember(
       $cacheKey,

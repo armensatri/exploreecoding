@@ -36,9 +36,6 @@ class UserObserver
    */
   protected function clearUserCache(?int $userId = null): void
   {
-    // If using Redis or Memcached, you can use Cache::keys. For file cache, must clear known keys only.
-    // Fallback: clear the default index key (may not clear all filtered variants)
-    // Limitation: If using file or array cache, cannot clear all filtered index keys
     Cache::forget('users.index');
 
     if ($userId) {

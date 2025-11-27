@@ -33,6 +33,7 @@ class RoleAccessSubmenuController extends Controller
           ->orderBy('sm', 'asc')
           ->paginate(10)
           ->withQueryString();
+
         return [$role, $submenus];
       }
     );

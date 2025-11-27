@@ -36,7 +36,6 @@ class PermissionObserver
    */
   protected function clearPermissionCache(?int $permissionId = null): void
   {
-    // Fallback: clear the default index key (may not clear all filtered variants)
     Cache::forget('permissions.index');
 
     if ($permissionId) {

@@ -36,7 +36,6 @@ class MenuObserver
    */
   protected function clearMenuCache(?int $menuId = null): void
   {
-    // Fallback: clear the default index key (may not clear all filtered variants)
     Cache::forget('menus.index');
 
     if ($menuId) {

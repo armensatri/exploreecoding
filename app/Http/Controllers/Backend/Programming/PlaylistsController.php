@@ -13,6 +13,7 @@ use App\Models\Programming\{
   Roadmap,
   Playlist,
 };
+use Illuminate\Support\Facades\Cache;
 
 use App\Http\Requests\Programming\Playlist\{
   PlaylistSr,
@@ -26,20 +27,32 @@ class PlaylistsController extends Controller
    */
   public function index()
   {
-    $playlists = Playlist::query()
-      ->search(request(['search', 'roadmap']))
-      ->select([
-        'id',
-        'roadmap_id',
-        'spl',
-        'name',
-        'status_id',
-        'url'
-      ])
-      ->with(['status:id,name,bg,text', 'roadmap:id,name'])
-      ->orderBy('roadmap_id', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'playlists.index.' . md5(
+      json_encode(
+        request(['search', 'roadmap'])
+      )
+    );
+
+    $playlists = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return Playlist::query()
+          ->search(request(['search', 'roadmap']))
+          ->select([
+            'id',
+            'roadmap_id',
+            'spl',
+            'name',
+            'status_id',
+            'url'
+          ])
+          ->with(['status:id,name,bg,text', 'roadmap:id,name'])
+          ->orderBy('roadmap_id', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.programming.playlists.index', [
       'title' => 'Semua data playlists',
@@ -98,9 +111,19 @@ class PlaylistsController extends Controller
    */
   public function show(Playlist $playlist)
   {
+    $cacheKey = 'playlists.show.' . $playlist->id;
+
+    $playlistData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () use ($playlist) {
+        return $playlist;
+      }
+    );
+
     return view('backend.programming.playlists.show', [
       'title' => 'Detail data playlist',
-      'playlist' => $playlist
+      'playlist' => $playlistData
     ]);
   }
 

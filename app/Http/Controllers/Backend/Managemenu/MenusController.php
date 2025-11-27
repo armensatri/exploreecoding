@@ -25,7 +25,11 @@ class MenusController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'menus.index.' . md5(json_encode(request()->all()));
+    $cacheKey = 'menus.index.' . md5(
+      json_encode(
+        request()->all()
+      )
+    );
 
     $menus = Cache::remember(
       $cacheKey,

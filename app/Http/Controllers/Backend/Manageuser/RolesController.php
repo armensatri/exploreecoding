@@ -25,7 +25,11 @@ class RolesController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'roles.index.' . md5(json_encode(request()->all()));
+    $cacheKey = 'roles.index.' . md5(
+      json_encode(
+        request()->all()
+      )
+    );
 
     $roles = Cache::remember(
       $cacheKey,

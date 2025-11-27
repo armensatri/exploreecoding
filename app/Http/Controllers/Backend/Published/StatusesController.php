@@ -6,8 +6,9 @@ use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
-use App\Traits\Controllers\ValidationUnique;
+use Illuminate\Support\Facades\Cache;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Traits\Controllers\ValidationUnique;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 use App\Http\Requests\Published\Status\{
@@ -24,20 +25,32 @@ class StatusesController extends Controller
    */
   public function index()
   {
-    $statuses = Status::query()
-      ->search(request(['search']))
-      ->select([
-        'id',
-        'ss',
-        'name',
-        'bg',
-        'text',
-        'url',
-        'description'
-      ])
-      ->orderBy('id', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'statuses.index.' . md5(
+      json_encode(
+        request(['search'])
+      )
+    );
+
+    $statuses = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return Status::query()
+          ->search(request(['search']))
+          ->select([
+            'id',
+            'ss',
+            'name',
+            'bg',
+            'text',
+            'url',
+            'description'
+          ])
+          ->orderBy('id', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.published.statuses.index', [
       'title' => 'Semua data statuses',
@@ -79,9 +92,19 @@ class StatusesController extends Controller
    */
   public function show(Status $status)
   {
+    $cacheKey = 'statuses.show.' . $status->id;
+
+    $statusData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () use ($status) {
+        return $status;
+      }
+    );
+
     return view('backend.published.statuses.show', [
       'title' => 'Detail data status',
-      'status' => $status
+      'status' => $statusData
     ]);
   }
 

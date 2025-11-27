@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Managemenu;
 
 use App\Helpers\RandomUrl;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use App\Models\Managemenu\Explore;
 use App\Http\Controllers\Controller;
@@ -24,19 +25,30 @@ class ExploresController extends Controller
    */
   public function index()
   {
-    $explores = Explore::query()
-      ->select(request(['search']))
-      ->select([
-        'id',
-        'se',
-        'name',
-        'routee',
-        'button_name',
-        'url'
-      ])
-      ->orderBy('se', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'explores.index.' . md5(
+      json_encode(
+        request(['search'])
+      )
+    );
+
+    $explores = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return Explore::query()
+          ->select([
+            'id',
+            'se',
+            'name',
+            'routee',
+            'button_name',
+            'url'
+          ])
+          ->orderBy('se', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.managemenu.explores.index', [
       'title' => 'Semua data explores',
@@ -78,9 +90,19 @@ class ExploresController extends Controller
    */
   public function show(Explore $explore)
   {
+    $cacheKey = 'explores.show.' . $explore->id;
+
+    $exploreData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () use ($explore) {
+        return $explore;
+      }
+    );
+
     return view('backend.managemenu.explores.show', [
       'title' => 'Detail data explore',
-      'explore' => $explore
+      'explore' => $exploreData
     ]);
   }
 

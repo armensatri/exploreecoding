@@ -6,6 +6,7 @@ use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Managemenu\Navigation;
+use Illuminate\Support\Facades\Cache;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Traits\Controllers\ValidationUnique;
 use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -24,19 +25,31 @@ class NavigationsController extends Controller
    */
   public function index()
   {
-    $navigations = Navigation::query()
-      ->search(request(['search']))
-      ->select([
-        'id',
-        'sn',
-        'name',
-        'routee',
-        'button_name',
-        'url'
-      ])
-      ->orderBy('sn', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'navigations.index.' . md5(
+      json_encode(
+        request(['search'])
+      )
+    );
+
+    $navigations = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return Navigation::query()
+          ->search(request(['search']))
+          ->select([
+            'id',
+            'sn',
+            'name',
+            'routee',
+            'button_name',
+            'url'
+          ])
+          ->orderBy('sn', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.managemenu.navigations.index', [
       'title' => 'Semua data navigations',
@@ -78,9 +91,19 @@ class NavigationsController extends Controller
    */
   public function show(Navigation $navigation)
   {
+    $cacheKey = 'navigations.show.' . $navigation->id;
+
+    $navigationData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () use ($navigation) {
+        return $navigation;
+      }
+    );
+
     return view('backend.managemenu.navigations.show', [
       'title' => 'Detail data navigation',
-      'navigation' => $navigation
+      'navigation' => $navigationData
     ]);
   }
 

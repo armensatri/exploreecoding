@@ -13,6 +13,7 @@ use App\Models\Programming\{
   Path,
   Roadmap,
 };
+use Illuminate\Support\Facades\Cache;
 
 use App\Http\Requests\Programming\Roadmap\{
   RoadmapSr,
@@ -26,20 +27,32 @@ class RoadmapsController extends Controller
    */
   public function index()
   {
-    $roadmaps = Roadmap::query()
-      ->search(request(['search', 'path']))
-      ->select([
-        'id',
-        'path_id',
-        'sr',
-        'name',
-        'status_id',
-        'url'
-      ])
-      ->with(['status:id,name,bg,text', 'path:id,name'])
-      ->orderBy('path_id', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'roadmaps.index.' . md5(
+      json_encode(
+        request(['search', 'path'])
+      )
+    );
+
+    $roadmaps = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return Roadmap::query()
+          ->search(request(['search', 'path']))
+          ->select([
+            'id',
+            'path_id',
+            'sr',
+            'name',
+            'status_id',
+            'url'
+          ])
+          ->with(['status:id,name,bg,text', 'path:id,name'])
+          ->orderBy('path_id', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.programming.roadmaps.index', [
       'title' => 'Semua data roadmaps',
@@ -98,9 +111,19 @@ class RoadmapsController extends Controller
    */
   public function show(Roadmap $roadmap)
   {
+    $cacheKey = 'roadmaps.show.' . $roadmap->id;
+
+    $roadmapData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () use ($roadmap) {
+        return $roadmap;
+      }
+    );
+
     return view('backend.programming.roadmaps.show', [
       'title' => 'Detail data roadmap',
-      'roadmap' => $roadmap
+      'roadmap' => $roadmapData
     ]);
   }
 

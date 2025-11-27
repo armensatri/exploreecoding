@@ -6,6 +6,7 @@ use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Models\Published\Status;
 use App\Models\Programming\Path;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -22,19 +23,31 @@ class PathsController extends Controller
    */
   public function index()
   {
-    $paths = Path::query()
-      ->search(request(['search']))
-      ->select([
-        'id',
-        'sp',
-        'name',
-        'status_id',
-        'url'
-      ])
-      ->with(['status:id,name,bg,text'])
-      ->orderBy('sp', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+    $cacheKey = 'paths.index.' . md5(
+      json_encode(
+        request(['search'])
+      )
+    );
+
+    $paths = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () {
+        return Path::query()
+          ->search(request(['search']))
+          ->select([
+            'id',
+            'sp',
+            'name',
+            'status_id',
+            'url'
+          ])
+          ->with(['status:id,name,bg,text'])
+          ->orderBy('sp', 'asc')
+          ->paginate(10)
+          ->withQueryString();
+      }
+    );
 
     return view('backend.programming.paths.index', [
       'title' => 'Semua data paths',
@@ -88,9 +101,19 @@ class PathsController extends Controller
    */
   public function show(Path $path)
   {
+    $cacheKey = 'paths.show.' . $path->id;
+
+    $pathData = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      function () use ($path) {
+        return $path;
+      }
+    );
+
     return view('backend.programming.paths.show', [
       'title' => 'Detail data path',
-      'path' => $path
+      'path' => $pathData
     ]);
   }
 

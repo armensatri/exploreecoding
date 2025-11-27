@@ -29,7 +29,11 @@ class SubmenusController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'submenus.index.' . md5(json_encode(request()->all()));
+    $cacheKey = 'submenus.index.' . md5(
+      json_encode(
+        request()->all()
+      )
+    );
 
     $submenus = Cache::remember(
       $cacheKey,

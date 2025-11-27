@@ -25,7 +25,11 @@ class PermissionsController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'permissions.index.' . md5(json_encode(request()->all()));
+    $cacheKey = 'permissions.index.' . md5(
+      json_encode(
+        request()->all()
+      )
+    );
 
     $permissions = Cache::remember(
       $cacheKey,
