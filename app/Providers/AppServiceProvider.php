@@ -13,7 +13,13 @@ use App\Observers\{
   RoleObserver,
   PermissionObserver,
   DataSummaryObserver,
-  ExploreObserver
+  ExploreObserver,
+  NavigationObserver,
+  PathObserver,
+  PlaylistObserver,
+  PostObserver,
+  RoadmapObserver,
+  StatusObserver
 };
 
 use App\Models\Managemenu\{
@@ -28,7 +34,11 @@ use App\Models\Manageuser\{
   Role,
   Permission,
 };
-
+use App\Models\Programming\Path;
+use App\Models\Programming\Playlist;
+use App\Models\Programming\Post;
+use App\Models\Programming\Roadmap;
+use App\Models\Published\Status;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -50,27 +60,30 @@ class AppServiceProvider extends ServiceProvider
     Menu::observe(MenuObserver::class);
     Submenu::observe(SubmenuObserver::class);
     Explore::observe(ExploreObserver::class);
-    Navigation::observe(\App\Observers\NavigationObserver::class);
+    Navigation::observe(NavigationObserver::class);
 
-    \App\Models\Programming\Path::observe(\App\Observers\PathObserver::class);
-    \App\Models\Programming\Roadmap::observe(\App\Observers\RoadmapObserver::class);
-    \App\Models\Programming\Playlist::observe(\App\Observers\PlaylistObserver::class);
-    \App\Models\Programming\Post::observe(\App\Observers\PostObserver::class);
-    \App\Models\Published\Status::observe(\App\Observers\StatusObserver::class);
+    Status::observe(StatusObserver::class);
 
-    // Register DataSummaryObserver for dashboard summary cache clearing
-    \App\Models\Manageuser\User::observe(DataSummaryObserver::class);
-    \App\Models\Manageuser\Role::observe(DataSummaryObserver::class);
-    \App\Models\Manageuser\Permission::observe(DataSummaryObserver::class);
-    \App\Models\Managemenu\Menu::observe(DataSummaryObserver::class);
-    \App\Models\Managemenu\Submenu::observe(DataSummaryObserver::class);
-    \App\Models\Managemenu\Explore::observe(DataSummaryObserver::class);
-    \App\Models\Managemenu\Navigation::observe(DataSummaryObserver::class);
-    \App\Models\Published\Status::observe(DataSummaryObserver::class);
-    \App\Models\Programming\Path::observe(DataSummaryObserver::class);
-    \App\Models\Programming\Roadmap::observe(DataSummaryObserver::class);
-    \App\Models\Programming\Playlist::observe(DataSummaryObserver::class);
-    \App\Models\Programming\Post::observe(DataSummaryObserver::class);
+    Path::observe(PathObserver::class);
+    Roadmap::observe(RoadmapObserver::class);
+    Playlist::observe(PlaylistObserver::class);
+    Post::observe(PostObserver::class);
+
+    User::observe(DataSummaryObserver::class);
+    Role::observe(DataSummaryObserver::class);
+    Permission::observe(DataSummaryObserver::class);
+
+    Menu::observe(DataSummaryObserver::class);
+    Submenu::observe(DataSummaryObserver::class);
+    Explore::observe(DataSummaryObserver::class);
+    Navigation::observe(DataSummaryObserver::class);
+
+    Status::observe(DataSummaryObserver::class);
+
+    Path::observe(DataSummaryObserver::class);
+    Roadmap::observe(DataSummaryObserver::class);
+    Playlist::observe(DataSummaryObserver::class);
+    Post::observe(DataSummaryObserver::class);
 
     View::composer([
       'frontend.template.header.web',
