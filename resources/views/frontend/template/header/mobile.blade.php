@@ -6,7 +6,7 @@
         route="/"
         :img="asset('image/default.png')"
         alt="logo-app-content"
-        description="Platform belajar pemrograman untuk menguasai coding dari dasar sampai mahir"
+        description="Platform belajar pemrograman untuk menguasai coding dari dasar"
       />
     </div>
   </div>
@@ -18,15 +18,13 @@
       </div>
     </div>
 
-    @foreach ($navigations as $navigation)
-      <x-mobile-menu-utama
-        :route="$navigation->routee"
-        :image="\App\Enums\NavigationIcon::get($navigation->name)"
-        :menu="$navigation->name"
-        :description="$navigation->description"
-        :button-name="$navigation->button_name"
-      />
-    @endforeach
+    <x-mobile-menu-utama
+      :route="route('home')"
+      :image="url('frontend/img/navigation/home.png')"
+      menu="home"
+      description="Welcome back exploreecoding belajar pemograman terstruktur dan gratis"
+      button-name="home"
+    />
   </div>
 
   <div class="-my-2">

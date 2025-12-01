@@ -36,7 +36,7 @@ class PathObserver
    */
   protected function clearPathCache(?int $pathId = null): void
   {
-    Cache::forget('paths.index');
+    Cache::forget('paths.index.ids');
 
     if ($pathId) {
       Cache::forget('paths.show.' . $pathId);

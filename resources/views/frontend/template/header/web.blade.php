@@ -34,7 +34,7 @@
                   route="/"
                   :img="asset('image/default.png')"
                   alt="logo-app-content"
-                  description="Platform belajar pemrograman untuk menguasai coding dari dasar sampai mahir"
+                  description="Platform belajar pemrograman untuk menguasai coding dari dasar"
                 />
               </div>
             </div>

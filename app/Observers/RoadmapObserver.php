@@ -36,7 +36,7 @@ class RoadmapObserver
    */
   protected function clearRoadmapCache(?int $roadmapId = null): void
   {
-    Cache::forget('roadmaps.index');
+    Cache::forget('roadmaps.index.ids');
 
     if ($roadmapId) {
       Cache::forget('roadmaps.show.' . $roadmapId);

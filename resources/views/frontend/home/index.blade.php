@@ -2,24 +2,25 @@
 
 @section('content-frontend')
   <div class="relative px-6 bg-sky-100 isolate pt-14 lg:px-8">
-    <div class="max-w-2xl mx-auto mt-20">
-      <div class="text-center">
-        <div class="text-2xl font-bold tracking-wide uppercase text-slate-900 sm:text-3xl">
-          Halaman
-          <span class="text-blue-600">
-            Home
-          </span>
-        </div>
-
-        <div class="mt-6 text-lg font-normal leading-8 tracking-wide text-gray-800">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur similique non quisquam mollitia magnam vero omnis debitis cupiditate nobis deleniti doloremque aliquam neque expedita laudantium blanditiis ipsum porro autem,
-        </div>
-      </div>
-    </div>
-
     <div class="py-20">
-      <!-- start content frontend -->
-      start content
+      <section class="relative px-4 text-center mt-14 lg:px-0">
+        <h1 class="text-3xl font-bold leading-tight tracking-normal text-gray-900 lg:text-5xl">
+          <span class="text-transparent bg-linear-to-r from-blue-500 to-sky-300 bg-clip-text">Welcomeback Exploreecoding</span><br>
+          <span class="text-gray-800">
+            platform belajar pemrograman untuk menguasai coding dari dasar
+          </span>
+        </h1>
+
+        <p class="max-w-2xl mx-auto mt-10 text-lg text-gray-600">
+          Kuasai technologi programming melalui latihan konsisten proyek nyata serta pembelajaran coding yang terarah
+        </p>
+
+        <a href="{{ route('path') }}">
+          <button class="py-4 mt-8 text-lg font-semibold text-black bg-blue-200 border border-gray-400 cursor-pointer px-7 rounded-2xl hover:bg-blue-300">
+            Belajar Sekarang
+          </button>
+        </a>
+      </section>
     </div>
   </div>
 @endsection

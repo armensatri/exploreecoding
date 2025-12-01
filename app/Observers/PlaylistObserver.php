@@ -36,7 +36,7 @@ class PlaylistObserver
    */
   protected function clearPlaylistCache(?int $playlistId = null): void
   {
-    Cache::forget('playlists.index');
+    Cache::forget('playlists.index.ids');
 
     if ($playlistId) {
       Cache::forget('playlists.show.' . $playlistId);

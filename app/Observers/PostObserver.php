@@ -36,7 +36,7 @@ class PostObserver
    */
   protected function clearPostCache(?int $postId = null): void
   {
-    Cache::forget('posts.index');
+    Cache::forget('posts.index.ids');
 
     if ($postId) {
       Cache::forget('posts.show.' . $postId);

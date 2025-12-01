@@ -5,6 +5,7 @@ require __DIR__ . '/auth/auth.php';
 
 // FRONTEND
 require __DIR__ . '/frontend/home.php';
+require __DIR__ . '/frontend/course.php';
 
 // BACKEND
 require __DIR__ . '/backend/account.php';
