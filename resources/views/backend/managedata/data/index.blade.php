@@ -79,24 +79,6 @@
                     />
 
                     <x-data-card-count
-                      hover="explores"
-                      :route="route('explores.index')"
-                      img="/backend/img/menu/explores.png"
-                      alt="explores"
-                      data-name="Data explores"
-                      :data-count="$explores"
-                    />
-
-                    <x-data-card-count
-                      hover="navigations"
-                      :route="route('navigations.index')"
-                      img="/backend/img/menu/navigations.png"
-                      alt="navigations"
-                      data-name="Data navigations"
-                      :data-count="$navigations"
-                    />
-
-                    <x-data-card-count
                       hover="statuses"
                       :route="route('statuses.index')"
                       img="/backend/img/menu/statuses.jpg"

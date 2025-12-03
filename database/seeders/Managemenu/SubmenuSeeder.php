@@ -187,26 +187,6 @@ class SubmenuSeeder extends Seeder
         'routename' => '/submenus',
         'description' => 'data submenus'
       ],
-      [
-        'menu_id' => 8,
-        'ssm' => 3,
-        'name' => 'explores',
-        'slug' => 'explores',
-        'route' => '/explores',
-        'active' => 'explores',
-        'routename' => '/explores',
-        'description' => 'data explores'
-      ],
-      [
-        'menu_id' => 8,
-        'ssm' => 4,
-        'name' => 'navigations',
-        'slug' => 'navigations',
-        'route' => '/navigations',
-        'active' => 'navigations',
-        'routename' => '/navigations',
-        'description' => 'data navigations'
-      ],
 
       // ID 9 PUBLISHED
       [

@@ -13,8 +13,6 @@ use App\Observers\{
   RoleObserver,
   PermissionObserver,
   DataSummaryObserver,
-  ExploreObserver,
-  NavigationObserver,
   PathObserver,
   PlaylistObserver,
   PostObserver,
@@ -23,9 +21,7 @@ use App\Observers\{
 };
 
 use App\Models\Managemenu\{
-  Explore,
   Menu,
-  Navigation,
   Submenu,
 };
 
@@ -51,16 +47,12 @@ class AppServiceProvider extends ServiceProvider
   {
     Model::preventLazyLoading(! app()->isProduction());
 
-
-    // Register User, Role, Permission, Menu, Submenu observers for cache clearing
     User::observe(UserObserver::class);
     Role::observe(RoleObserver::class);
     Permission::observe(PermissionObserver::class);
 
     Menu::observe(MenuObserver::class);
     Submenu::observe(SubmenuObserver::class);
-    Explore::observe(ExploreObserver::class);
-    Navigation::observe(NavigationObserver::class);
 
     Status::observe(StatusObserver::class);
 
@@ -75,8 +67,6 @@ class AppServiceProvider extends ServiceProvider
 
     Menu::observe(DataSummaryObserver::class);
     Submenu::observe(DataSummaryObserver::class);
-    Explore::observe(DataSummaryObserver::class);
-    Navigation::observe(DataSummaryObserver::class);
 
     Status::observe(DataSummaryObserver::class);
 
@@ -84,15 +74,5 @@ class AppServiceProvider extends ServiceProvider
     Roadmap::observe(DataSummaryObserver::class);
     Playlist::observe(DataSummaryObserver::class);
     Post::observe(DataSummaryObserver::class);
-
-    View::composer([
-      'frontend.template.header.web',
-      'frontend.template.header.mobile',
-    ], function ($view) {
-      $view->with([
-        'explores' => Explore::all(),
-        'navigations' => Navigation::all(),
-      ]);
-    });
   }
 }

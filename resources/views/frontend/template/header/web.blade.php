@@ -46,15 +46,13 @@
                   menu utama
                 </span>
 
-                @foreach ($navigations as $navigation)
-                  <x-web-menu-utama
-                    :route="$navigation->routee"
-                    :image="\App\Enums\NavigationIcon::get($navigation->name)"
-                    :menu="$navigation->name"
-                    :description="$navigation->description"
-                    :button-name="$navigation->button_name"
-                  />
-                @endforeach
+                <x-web-menu-utama
+                  :route="route('home')"
+                  :image="asset('frontend/img/navigation/home.png')"
+                  menu="Home"
+                  description="Welcome back exploreecoding belajar pemograman terstruktur dan gratis"
+                  button-name="Home"
+                />
               </div>
             </div>
 
@@ -65,15 +63,13 @@
                   explore lainnya
                 </span>
 
-                @foreach ($explores as $explore)
-                  <x-web-explore-lainnya
-                    :route="$explore->routee"
-                    :image="\App\Enums\ExploreIcon::get($explore->name)"
-                    :menu="$explore->name"
-                    :description="$explore->description"
-                    :button-name="$explore->button_name"
-                  />
-                @endforeach
+                <x-web-explore-lainnya
+                  :route="url('https://laravel.com')"
+                  :image="asset('frontend/img/explore/app-laravel.png')"
+                  menu="App Laravel"
+                  description="Laravel php framework dengan syntax elegan dan powerfull"
+                  button-name="Laravel"
+                />
               </div>
             </div>
           </div>

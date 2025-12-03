@@ -20,10 +20,10 @@
 
     <x-mobile-menu-utama
       :route="route('home')"
-      :image="url('frontend/img/navigation/home.png')"
-      menu="home"
+      :image="asset('frontend/img/navigation/home.png')"
+      menu="Home"
       description="Welcome back exploreecoding belajar pemograman terstruktur dan gratis"
-      button-name="home"
+      button-name="Home"
     />
   </div>
 
@@ -34,14 +34,12 @@
       </div>
     </div>
 
-    @foreach ($explores as $explore)
-      <x-mobile-explore-lainnya
-        :route="$explore->routee"
-        :image="\App\Enums\ExploreIcon::get($explore->name)"
-        :menu="$explore->name"
-        :description="$explore->description"
-        :button-name="$explore->button_name"
-      />
-    @endforeach
+    <x-mobile-explore-lainnya
+      :route="url('https://laravel.com')"
+      :image="asset('frontend/img/explore/app-laravel.png')"
+      menu="App Laravel"
+      description="Laravel php framework dengan syntax elegan dan powerfull"
+      button-name="Laravel"
+    />
   </div>
 </div>

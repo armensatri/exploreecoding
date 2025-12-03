@@ -110,24 +110,6 @@ class RoleHasPermissionSeeder extends Seeder
         'submenus.update',
         'submenus.destroy',
 
-        // EXPLORES
-        'explores.index',
-        'explores.create',
-        'explores.store',
-        'explores.show',
-        'explores.edit',
-        'explores.update',
-        'explores.destroy',
-
-        // NAVIGATIONS
-        'navigations.index',
-        'navigations.create',
-        'navigations.store',
-        'navigations.show',
-        'navigations.edit',
-        'navigations.update',
-        'navigations.destroy',
-
         // STATUSES
         'statuses.index',
         'statuses.create',
@@ -258,24 +240,6 @@ class RoleHasPermissionSeeder extends Seeder
         'submenus.edit',
         'submenus.update',
         'submenus.destroy',
-
-        // EXPLORES
-        'explores.index',
-        'explores.create',
-        'explores.store',
-        'explores.show',
-        'explores.edit',
-        'explores.update',
-        'explores.destroy',
-
-        // NAVIGATIONS
-        'navigations.index',
-        'navigations.create',
-        'navigations.store',
-        'navigations.show',
-        'navigations.edit',
-        'navigations.update',
-        'navigations.destroy',
 
         // STATUSES
         'statuses.index',
@@ -408,24 +372,6 @@ class RoleHasPermissionSeeder extends Seeder
         // 'submenus.update',
         // 'submenus.destroy',
 
-        // EXPLORES
-        // 'explores.index',
-        // 'explores.create',
-        // 'explores.store',
-        // 'explores.show',
-        // 'explores.edit',
-        // 'explores.update',
-        // 'explores.destroy',
-
-        // NAVIGATIONS
-        // 'navigations.index',
-        // 'navigations.create',
-        // 'navigations.store',
-        // 'navigations.show',
-        // 'navigations.edit',
-        // 'navigations.update',
-        // 'navigations.destroy',
-
         // STATUSES
         // 'statuses.index',
         // 'statuses.create',
@@ -556,24 +502,6 @@ class RoleHasPermissionSeeder extends Seeder
         // 'submenus.edit',
         // 'submenus.update',
         // 'submenus.destroy',
-
-        // EXPLORES
-        // 'explores.index',
-        // 'explores.create',
-        // 'explores.store',
-        // 'explores.show',
-        // 'explores.edit',
-        // 'explores.update',
-        // 'explores.destroy',
-
-        // NAVIGATIONS
-        // 'navigations.index',
-        // 'navigations.create',
-        // 'navigations.store',
-        // 'navigations.show',
-        // 'navigations.edit',
-        // 'navigations.update',
-        // 'navigations.destroy',
 
         // STATUSES
         // 'statuses.index',

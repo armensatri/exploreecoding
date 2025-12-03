@@ -2,12 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\Programming\Path;
-use App\Models\Programming\Playlist;
-use App\Models\Programming\Post;
-use App\Models\Programming\Roadmap;
 use Illuminate\Database\Seeder;
 use Database\Seeders\Published\StatusSeeder;
+
+use App\Models\Programming\{
+  Path,
+  Playlist,
+  Post,
+  Roadmap
+};
 
 use Database\Seeders\Manageuser\{
   UserSeeder,
@@ -18,8 +21,6 @@ use Database\Seeders\Manageuser\{
 use Database\Seeders\Managemenu\{
   MenuSeeder,
   SubmenuSeeder,
-  ExploreSeeder,
-  NavigationSeeder,
 };
 
 use Database\Seeders\Pivot\{
@@ -49,8 +50,6 @@ class DatabaseSeeder extends Seeder
       PermissionSeeder::class,
       RoleHasPermissionSeeder::class,
       StatusSeeder::class,
-      ExploreSeeder::class,
-      NavigationSeeder::class,
       // PathSeeder::class,
       // RoadmapSeeder::class,
       // PlaylistSeeder::class,

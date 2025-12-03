@@ -16,8 +16,6 @@ use App\Models\Manageuser\{
 use App\Models\Managemenu\{
   Menu,
   Submenu,
-  Explore,
-  Navigation,
 };
 
 use App\Models\Programming\{
@@ -43,8 +41,6 @@ class DataController extends Controller
           'permissions' => Permission::count(),
           'menus' => Menu::count(),
           'submenus' => Submenu::count(),
-          'explores' => Explore::count(),
-          'navigations' => Navigation::count(),
           'statuses' => Status::count(),
           'paths' => Path::count(),
           'roadmaps' => Roadmap::count(),

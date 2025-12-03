@@ -49,8 +49,6 @@ class RoleHasSubmenuSeeder extends Seeder
       // MANAGEMENU
       'menus',
       'submenus',
-      'explores',
-      'navigations',
 
       // PIBLISHED
       'statuses',
@@ -95,8 +93,6 @@ class RoleHasSubmenuSeeder extends Seeder
         // MANAGEMENU
         'menus',
         'submenus',
-        'explores',
-        'navigations',
 
         // PIBLISHED
         'statuses',
@@ -140,8 +136,6 @@ class RoleHasSubmenuSeeder extends Seeder
         // MANAGEMENU
         'menus',
         'submenus',
-        'explores',
-        'navigations',
 
         // PIBLISHED
         'statuses',
@@ -185,8 +179,6 @@ class RoleHasSubmenuSeeder extends Seeder
         // MANAGEMENU
         // 'menus',
         // 'submenus',
-        // 'explores',
-        // 'navigations',
 
         // PIBLISHED
         // 'statuses',
@@ -230,8 +222,6 @@ class RoleHasSubmenuSeeder extends Seeder
         // MANAGEMENU
         // 'menus',
         // 'submenus',
-        // 'explores',
-        // 'navigations',
 
         // PIBLISHED
         // 'statuses',

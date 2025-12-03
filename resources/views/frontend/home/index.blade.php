@@ -7,7 +7,7 @@
         <h1 class="text-3xl font-bold leading-tight tracking-normal text-gray-900 lg:text-5xl">
           <span class="text-transparent bg-linear-to-r from-blue-500 to-sky-300 bg-clip-text">Welcomeback Exploreecoding</span><br>
           <span class="text-gray-800">
-            platform belajar pemrograman untuk menguasai coding dari dasar
+            Platform belajar pemrograman untuk menguasai coding dari dasar
           </span>
         </h1>
 

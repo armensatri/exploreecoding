@@ -35,37 +35,11 @@ return new class extends Migration
       $table->string('url', 7)->unique();
       $table->timestamps();
     });
-
-    Schema::create('explores', function (Blueprint $table) {
-      $table->id();
-      $table->integer('se')->index();
-      $table->string('name')->unique();
-      $table->string('slug')->unique();
-      $table->string('routee')->nullable()->index();
-      $table->string('button_name');
-      $table->text('description');
-      $table->string('url', 7)->unique();
-      $table->timestamps();
-    });
-
-    Schema::create('navigations', function (Blueprint $table) {
-      $table->id();
-      $table->integer('sn')->index();
-      $table->string('name')->unique();
-      $table->string('slug')->unique();
-      $table->string('routee')->nullable()->index();
-      $table->string('button_name');
-      $table->text('description');
-      $table->string('url', 7)->unique();
-      $table->timestamps();
-    });
   }
 
   public function down(): void
   {
     Schema::dropIfExists('menus');
     Schema::dropIfExists('submenus');
-    Schema::dropIfExists('explores');
-    Schema::dropIfExists('navigations');
   }
 };
