@@ -14,7 +14,7 @@ class PlaylistFactory extends Factory
       'status_id' => mt_rand(1, 3),
       'roadmap_id' => Roadmap::factory(),
       'spl' => $this->faker->numberBetween(1, 100),
-      'name' => $this->faker->sentence(3),
+      'name' => $this->faker->sentence(2, false),
       'slug' => $this->faker->slug(),
       'description' => $this->faker->paragraph(),
       'image' => $this->faker->imageUrl(),

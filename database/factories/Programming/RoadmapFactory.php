@@ -14,7 +14,7 @@ class RoadmapFactory extends Factory
       'status_id' => mt_rand(1, 3),
       'path_id' => Path::factory(),
       'sr' => $this->faker->numberBetween(1, 100),
-      'name' => $this->faker->sentence(3),
+      'name' => $this->faker->sentence(2, false),
       'slug' => $this->faker->slug(),
       'description' => $this->faker->paragraph(),
       'image' => $this->faker->imageUrl(),

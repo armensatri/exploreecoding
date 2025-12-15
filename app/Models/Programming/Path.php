@@ -2,6 +2,7 @@
 
 namespace App\Models\Programming;
 
+use Illuminate\Support\Str;
 use App\Models\Published\Status;
 use App\Models\Programming\Roadmap;
 use Illuminate\Database\Eloquent\Model;
@@ -45,5 +46,10 @@ class Path extends Model
   public function roadmaps()
   {
     return $this->hasMany(Roadmap::class);
+  }
+
+  public function shortDescription(int $words = 8): string
+  {
+    return Str::words($this->description, $words);
   }
 }
