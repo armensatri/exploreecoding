@@ -39,7 +39,7 @@
                       <div class="flex gap-4 mx-auto mt-5">
                         <div>
                           <span class="shadow-sm inline-flex items-center gap-x-1.5 py-0.75 px-3 rounded-[10px] text-sm font-medium {{ $path->status->text }} {{ $path->status->bg }} dark:bg-white dark:text-neutral-800 border border-gray-500">
-                            status {{ $path->status->name }}
+                            {{ $path->status->name }}
                           </span>
                         </div>
                         <div>

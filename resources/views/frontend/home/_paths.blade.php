@@ -1,9 +1,9 @@
 <section class="px-6 mt-32">
         <div class="max-w-6xl mx-auto text-center">
           <h2 class="text-2xl font-bold text-gray-800 uppercase md:text-3xl">
-            all
+            paths
             <span class="text-transparent bg-linear-to-r from-blue-500 to-sky-300 bg-clip-text">
-              paths course
+              course
             </span>
           </h2>
 
@@ -20,7 +20,7 @@
           <div class="overflow-hidden hs-carousel">
             <div class="relative mt-10 mb-10">
               <div class="flex transition-transform duration-700 hs-carousel-body gap-x-6">
-                @foreach ($paths as $path)
+                @foreach ($paths->take(5) as $path)
                   <div class="w-full hs-carousel-slide">
                     <div class="flex flex-col justify-center h-full p-8 text-center bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
                       <div class="flex items-center justify-center mx-auto bg-blue-100 border border-gray-600 rounded-full size-14">
@@ -39,7 +39,7 @@
                       <div class="flex gap-4 mx-auto mt-5">
                         <div>
                           <span class="shadow-sm inline-flex items-center gap-x-1.5 py-0.75 px-3 rounded-[10px] text-sm font-medium {{ $path->status->text }} {{ $path->status->bg }} dark:bg-white dark:text-neutral-800 border border-gray-500">
-                            status {{ $path->status->name }}
+                            {{ $path->status->name }}
                           </span>
                         </div>
                         <div>
@@ -90,6 +90,15 @@
           </button>
 
           <!-- DOTS -->
-          <div class="flex justify-center mt-4 hs-carousel-pagination gap-x-2">1</div>
+          <div class="flex justify-center mt-4 hs-carousel-pagination gap-x-2"></div>
+
+          <!-- DOTS -->
+          <div class="flex justify-center mt-5">
+            <a href="{{ route('path') }}">
+              <button class="px-5 py-2 text-base font-semibold tracking-wide text-black bg-blue-300 border border-gray-400 shadow-sm cursor-pointer rounded-[14px] hover:bg-blue-600 hover:text-white">
+                Semua path course
+              </button>
+            </a>
+          </div>
         </div>
       </section>

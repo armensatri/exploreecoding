@@ -1,5 +1,5 @@
 <footer class="antialiased bg-sky-100">
-  <div class="max-w-screen-xl p-4 mx-auto text-center md:p-8 lg:p-10">
+  <div class="p-4 mx-auto text-center max-w-7xl md:p-8 lg:p-10">
     <div class="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
       <div>
         <h2 class="mb-6 text-base font-bold text-black uppercase">
@@ -116,7 +116,7 @@
         <span class="text-base font-medium tracking-wide text-blue-600">
           <a href="#"
             class="underline underline-offset-2">
-            explorecoding™
+            exploreecoding™
           </a>
         </span>
 

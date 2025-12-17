@@ -17,7 +17,7 @@
         </p>
 
         <a href="{{ route('path') }}">
-          <button class="py-4 mt-8 text-lg font-semibold text-black bg-blue-300 border border-gray-400 cursor-pointer px-7 rounded-2xl hover:bg-blue-600 shadow-2xs hover:text-white">
+          <button class="py-4 mt-8 text-lg font-semibold text-black bg-blue-300 border border-gray-400 shadow-sm cursor-pointer px-7 rounded-[20px] hover:bg-blue-600 hover:text-white">
             Explore Sekarang
           </button>
         </a>
