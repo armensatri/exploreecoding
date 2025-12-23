@@ -8,7 +8,7 @@
           </h2>
 
           <p class="mt-3 text-[17px] text-gray-600 max-w-2xl mx-auto">
-            Path course yang sering di kunjungi pengguna untuk belajar skill populer dengan materi terarah dan mudah dipahami
+            Path course yang banyak di kunjungi pengguna untuk belajar skill populer dengan materi terarah dan mudah dipahami
           </p>
         </div>
 

@@ -58,6 +58,10 @@ class RoleHasSubmenuSeeder extends Seeder
       'roadmaps',
       'playlists',
       'posts',
+
+      // tipscoding
+      'tipscodings',
+      'categories',
     ])->get()->keyBy('name');
 
     $roleHasSubmenus = [
@@ -102,6 +106,10 @@ class RoleHasSubmenuSeeder extends Seeder
         'roadmaps',
         'playlists',
         'posts',
+
+        // tipscoding
+        'tipscodings',
+        'categories',
       ],
 
       'superadmin' => [
@@ -145,6 +153,10 @@ class RoleHasSubmenuSeeder extends Seeder
         'roadmaps',
         'playlists',
         'posts',
+
+        // tipscoding
+        'tipscodings',
+        'categories',
       ],
 
       'creator' => [
@@ -188,6 +200,10 @@ class RoleHasSubmenuSeeder extends Seeder
         // 'roadmaps',
         // 'playlists',
         'posts',
+
+        // tipscoding
+        'tipscodings',
+        'categories',
       ],
 
       'member' => [
@@ -231,6 +247,10 @@ class RoleHasSubmenuSeeder extends Seeder
         // 'roadmaps',
         // 'playlists',
         // 'posts',
+
+        // tipscoding
+        // 'tipscodings',
+        // 'categories',
       ],
     ];
 

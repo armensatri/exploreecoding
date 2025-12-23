@@ -244,6 +244,28 @@ class SubmenuSeeder extends Seeder
         'routename' => '/posts',
         'description' => 'data posts'
       ],
+
+      [
+        'menu_id' => 11,
+        'ssm' => 1,
+        'name' => 'tipscodings',
+        'slug' => 'tipscodings',
+        'route' => '/tipscodings',
+        'active' => 'tipscodings',
+        'routename' => '/tipscodings',
+        'description' => 'data tips coding'
+      ],
+
+      [
+        'menu_id' => 11,
+        'ssm' => 2,
+        'name' => 'categories',
+        'slug' => 'categories',
+        'route' => '/categories',
+        'active' => 'categories',
+        'routename' => '/categories',
+        'description' => 'data category tips coding'
+      ],
     ];
 
     foreach ($submenus as $submenu) {

@@ -49,7 +49,11 @@ class MenuIcon
       'paths' => 'paths.png',
       'roadmaps' => 'roadmaps.png',
       'playlists' => 'playlists.png',
-      'posts' => 'posts.png'
+      'posts' => 'posts.png',
+
+      // TIPSCODING
+      'tipscodings' => 'tipscodings.png',
+      'categories' => 'categories.png',
     ];
 
     $fileName = $icons[strtolower($name)] ?? '';

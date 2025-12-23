@@ -79,6 +79,13 @@ class MenuSeeder extends Seeder
         'slug' => 'programming',
         'description' => 'menu pengelolaan data programming'
       ],
+
+      [
+        'sm' => 11,
+        'name' => 'tipscoding',
+        'slug' => 'tipscoding',
+        'description' => 'menu tips coding dan programming'
+      ],
     ];
 
     foreach ($menus as $menu) {
