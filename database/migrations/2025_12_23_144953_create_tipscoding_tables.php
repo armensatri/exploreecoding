@@ -6,22 +6,40 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        Schema::create('tipscoding_tables', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+  public function up(): void
+  {
+    Schema::create('tipscodings', function (Blueprint $table) {
+      $table->id();
+      $table->foreignId('user_id')
+        ->constrained('users')
+        ->cascadeOnDelete()
+        ->cascadeOnUpdate();
+      $table->foreignId('category_id')
+        ->constrained('categories')
+        ->cascadeOnDelete()
+        ->cascadeOnUpdate();
+      $table->string('title');
+      $table->string('slug');
+      $table->text('excerpt');
+      $table->text('content');
+      $table->string('image')->nullable();
+      $table->string('url', 7)->unique();
+      $table->timestamps();
+    });
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('tipscoding_tables');
-    }
+    Schema::create('categories', function (Blueprint $table) {
+      $table->id();
+      $table->integer('sc')->index();
+      $table->string('name')->unique();
+      $table->string('slug')->unique();
+      $table->string('url', 7)->unique();
+      $table->timestamps();
+    });
+  }
+
+  public function down(): void
+  {
+    Schema::dropIfExists('tipscodings');
+    Schema::dropIfExists('categories');
+  }
 };

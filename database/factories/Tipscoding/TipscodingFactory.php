@@ -2,22 +2,24 @@
 
 namespace Database\Factories\Tipscoding;
 
+use App\Helpers\RandomUrl;
+use App\Models\Manageuser\User;
+use App\Models\Tipscoding\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tipscoding\Tipscoding>
- */
 class TipscodingFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
-        return [
-            //
-        ];
-    }
+  public function definition(): array
+  {
+    return [
+      'user_id' => mt_rand(1, 4),
+      'category_id' => mt_rand(1, 3),
+      'title' => $this->faker->sentence(5, false),
+      'slug' => $this->faker->slug(5, false),
+      'excerpt' => $this->faker->sentence(20),
+      'content' => $this->faker->paragraphs(4, true),
+      'image' => $this->faker->imageUrl(),
+      'url' => RandomUrl::generateUrl()
+    ];
+  }
 }

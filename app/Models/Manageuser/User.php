@@ -4,6 +4,7 @@ namespace App\Models\Manageuser;
 
 use App\Models\Manageuser\Role;
 use App\Models\Programming\Post;
+use App\Models\Tipscoding\Tipscoding;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Traits\Models\{
@@ -62,6 +63,11 @@ class User extends Authenticatable
   public function posts()
   {
     return $this->hasMany(Post::class);
+  }
+
+  public function tipscodings()
+  {
+    return $this->hasMany(Tipscoding::class);
   }
 
   public function statusOnOf()

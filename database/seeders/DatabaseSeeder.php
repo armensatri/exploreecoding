@@ -12,6 +12,11 @@ use App\Models\Programming\{
   Roadmap
 };
 
+use App\Models\Tipscoding\{
+  Category,
+  Tipscoding,
+};
+
 use Database\Seeders\Manageuser\{
   UserSeeder,
   RoleSeeder,
@@ -68,7 +73,9 @@ class DatabaseSeeder extends Seeder
                 Post::factory()->count(10)
               )
           )
-      )
-      ->create();
+      )->create();
+
+    Category::factory()->count(3)->create();
+    Tipscoding::factory()->count(20)->create();
   }
 }
