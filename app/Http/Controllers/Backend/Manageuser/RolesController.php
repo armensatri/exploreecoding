@@ -20,43 +20,29 @@ use App\Http\Requests\Manageuser\Role\{
 class RolesController extends Controller
 {
   use ValidationUnique;
+
   /**
    * Display a listing of the resource.
    */
   public function index()
   {
-    $cacheKey = 'roles.index.' . md5(
-      json_encode(
-        request()->all()
-      )
-    );
+    $filters = request(['search']);
 
-    $roles = Cache::remember(
+    $cacheKey = 'roles.index.ids.'
+      . Role::cacheVersion() . '.'
+      . md5(json_encode($filters));
+
+    $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      function () {
-        return Role::query()
-          ->search(request(['search']))
-          ->select([
-            'id',
-            'sr',
-            'name',
-            'bg',
-            'text',
-            'guard_name',
-            'description',
-            'url',
-          ])
-          ->orderBy('sr', 'asc')
-          ->paginate(10)
-          ->withQueryString();
-      }
+      fn() => Role::query()
+        ->search($filters)
+        ->orderBy('sr', 'asc')
+        ->pluck('id')
+        ->toArray()
     );
 
-    return view('backend.manageuser.roles.index', [
-      'title' => 'Semua data roles',
-      'roles' => $roles
-    ]);
+    // 4.
   }
 
   /**

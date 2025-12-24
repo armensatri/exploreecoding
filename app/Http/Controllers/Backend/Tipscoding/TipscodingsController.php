@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Backend\Tipscoding;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Tipscoding\Tipscoding;
+use Illuminate\Support\Facades\Cache;
+
+use App\Http\Requests\Tipscoding\Tipscoding\{
+  TipscodingSr,
+  TipscodingUr,
+};
 
 class TipscodingsController extends Controller
 {
@@ -27,7 +33,7 @@ class TipscodingsController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(Request $request)
+  public function store(TipscodingSr $request)
   {
     //
   }
@@ -51,7 +57,7 @@ class TipscodingsController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, Tipscoding $tipscoding)
+  public function update(TipscodingUr $request, Tipscoding $tipscoding)
   {
     //
   }

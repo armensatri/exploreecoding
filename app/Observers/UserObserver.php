@@ -12,7 +12,7 @@ class UserObserver
    */
   public function created(User $user): void
   {
-    $this->clearUserCache();
+    $this->invalidate($user);
   }
 
   /**
@@ -20,7 +20,7 @@ class UserObserver
    */
   public function updated(User $user): void
   {
-    $this->clearUserCache($user->id);
+    $this->invalidate($user);
   }
 
   /**
@@ -28,24 +28,21 @@ class UserObserver
    */
   public function deleted(User $user): void
   {
-    $this->clearUserCache($user->id);
+    $this->invalidate($user);
   }
 
   /**
    * Clear relevant user cache.
    */
-  protected function clearUserCache(?int $userId = null): void
+  protected function invalidate(User $user): void
   {
-    Cache::forget('users.index');
+    User::bumpCacheVersion();
 
-    if ($userId) {
-      Cache::forget('users.show.' . $userId);
-      Cache::forget('personal.user.' . $userId);
-      Cache::forget('profile.user.' . $userId);
-      Cache::forget('creator.user.' . $userId);
-      Cache::forget('member.user.' . $userId);
-      Cache::forget('owner.user.' . $userId);
-      Cache::forget('superadmin.user.' . $userId);
-    }
+    Cache::forget('personal.user.' . $user->id);
+    Cache::forget('profile.user.' . $user->id);
+    Cache::forget('creator.user.' . $user->id);
+    Cache::forget('member.user.' . $user->id);
+    Cache::forget('owner.user.' . $user->id);
+    Cache::forget('superadmin.user.' . $user->id);
   }
 }

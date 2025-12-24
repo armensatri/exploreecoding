@@ -8,12 +8,14 @@ use App\Models\Tipscoding\Tipscoding;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Traits\Models\{
+  HasCacheVersion,
   HasRandomUrl,
   HasSearchable
 };
 
 class User extends Authenticatable
 {
+  use HasCacheVersion;
   use HasRandomUrl, HasSearchable;
 
   protected $table = 'users';

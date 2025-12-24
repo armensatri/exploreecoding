@@ -2,22 +2,26 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\View;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Published\Status;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Model;
 
 use App\Observers\{
   MenuObserver,
   SubmenuObserver,
+
   UserObserver,
   RoleObserver,
   PermissionObserver,
+
   DataSummaryObserver,
+
+  StatusObserver,
+
   PathObserver,
   PlaylistObserver,
   PostObserver,
   RoadmapObserver,
-  StatusObserver
 };
 
 use App\Models\Managemenu\{
@@ -30,11 +34,13 @@ use App\Models\Manageuser\{
   Role,
   Permission,
 };
-use App\Models\Programming\Path;
-use App\Models\Programming\Playlist;
-use App\Models\Programming\Post;
-use App\Models\Programming\Roadmap;
-use App\Models\Published\Status;
+
+use App\Models\Programming\{
+  Path,
+  Roadmap,
+  Playlist,
+  Post,
+};
 
 class AppServiceProvider extends ServiceProvider
 {

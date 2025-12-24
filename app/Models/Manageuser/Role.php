@@ -5,6 +5,7 @@ namespace App\Models\Manageuser;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Traits\Models\{
+  HasCacheVersion,
   HasRandomUrl,
   HasSluggable,
   HasSearchable,
@@ -22,6 +23,7 @@ use App\Models\Managemenu\{
 
 class Role extends Model
 {
+  use HasCacheVersion;
   use HasRandomUrl, HasSearchable, HasSluggable;
 
   protected $table = 'roles';
