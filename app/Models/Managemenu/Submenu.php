@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Models\{
   HasRandomUrl,
   HasSluggable,
-  HasSearchable
+  HasSearchable,
+  HasCacheVersion,
 };
 
 class Submenu extends Model
 {
+  use HasCacheVersion;
   use HasRandomUrl, HasSearchable, HasSluggable;
 
   protected $table = 'submenus';

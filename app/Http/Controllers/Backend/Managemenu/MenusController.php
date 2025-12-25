@@ -25,30 +25,34 @@ class MenusController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'menus.index.' . md5(
-      json_encode(
-        request()->all()
-      )
-    );
+    $filters = request(['search']);
 
-    $menus = Cache::remember(
+    $cacheKey = 'menus.index.ids.'
+      . Menu::cacheVersion() . '.'
+      . md5(json_encode($filters));
+
+    $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      function () {
-        return Menu::query()
-          ->search(request(['search']))
-          ->select([
-            'id',
-            'sm',
-            'name',
-            'description',
-            'url'
-          ])
-          ->orderBy('sm', 'asc')
-          ->paginate(10)
-          ->withQueryString();
-      }
+      fn() => Menu::query()
+        ->search($filters)
+        ->orderBy('sm', 'asc')
+        ->pluck('id')
+        ->toArray()
     );
+
+    $menus = Menu::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'sm',
+        'name',
+        'description',
+        'url'
+      ])
+      ->orderBy('sm', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.managemenu.menus.index', [
       'title' => 'Semua data menus',
@@ -90,17 +94,9 @@ class MenusController extends Controller
    */
   public function show(Menu $menu)
   {
-    $cacheKey = 'menus.show.' . $menu->id;
-
-    $menuData = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      fn() => $menu
-    );
-
     return view('backend.managemenu.menus.show', [
       'title' => 'Detail data menu',
-      'menu' => $menuData
+      'menu' => $menu
     ]);
   }
 

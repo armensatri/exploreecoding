@@ -8,9 +8,9 @@ use App\Models\Tipscoding\Tipscoding;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Traits\Models\{
-  HasCacheVersion,
   HasRandomUrl,
-  HasSearchable
+  HasSearchable,
+  HasCacheVersion,
 };
 
 class User extends Authenticatable

@@ -12,7 +12,7 @@ class MenuObserver
    */
   public function created(Menu $menu): void
   {
-    $this->clearMenuCache();
+    $this->invalidate($menu);
   }
 
   /**
@@ -20,7 +20,7 @@ class MenuObserver
    */
   public function updated(Menu $menu): void
   {
-    $this->clearMenuCache($menu->id);
+    $this->invalidate($menu);
   }
 
   /**
@@ -28,18 +28,14 @@ class MenuObserver
    */
   public function deleted(Menu $menu): void
   {
-    $this->clearMenuCache($menu->id);
+    $this->invalidate($menu);
   }
 
   /**
    * Clear relevant menu cache.
    */
-  protected function clearMenuCache(?int $menuId = null): void
+  protected function invalidate(Menu $menu): void
   {
-    Cache::forget('menus.index');
-
-    if ($menuId) {
-      Cache::forget('menus.show.' . $menuId);
-    }
+    Menu::bumpCacheVersion();
   }
 }

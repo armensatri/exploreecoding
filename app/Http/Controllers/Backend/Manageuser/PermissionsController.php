@@ -25,29 +25,33 @@ class PermissionsController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'permissions.index.' . md5(
-      json_encode(
-        request()->all()
-      )
-    );
+    $filters = request(['search']);
 
-    $permissions = Cache::remember(
+    $cacheKey = 'permissions.index.ids.'
+      . Permission::cacheVersion() . '.'
+      . md5(json_encode($filters));
+
+    $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      function () {
-        return Permission::query()
-          ->search(request(['search']))
-          ->select([
-            'id',
-            'name',
-            'url',
-            'guard_name',
-          ])
-          ->orderBy('id', 'asc')
-          ->paginate(10)
-          ->withQueryString();
-      }
+      fn() => Permission::query()
+        ->search($filters)
+        ->orderBy('id', 'asc')
+        ->pluck('id')
+        ->toArray()
     );
+
+    $permissions = Permission::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'name',
+        'guard_name',
+        'url'
+      ])
+      ->orderBy('id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.manageuser.permissions.index', [
       'title' => 'Semua data permissions',
@@ -89,17 +93,9 @@ class PermissionsController extends Controller
    */
   public function show(Permission $permission)
   {
-    $cacheKey = 'permissions.show.' . $permission->id;
-
-    $permissionData = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      fn() => $permission
-    );
-
     return view('backend.manageuser.permissions.show', [
       'title' => 'Detail data permission',
-      'permission' => $permissionData
+      'permission' => $permission
     ]);
   }
 

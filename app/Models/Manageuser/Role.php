@@ -5,10 +5,10 @@ namespace App\Models\Manageuser;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Traits\Models\{
-  HasCacheVersion,
   HasRandomUrl,
   HasSluggable,
   HasSearchable,
+  HasCacheVersion,
 };
 
 use App\Models\Manageuser\{

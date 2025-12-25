@@ -12,7 +12,7 @@ class PermissionObserver
    */
   public function created(Permission $permission): void
   {
-    $this->clearPermissionCache();
+    $this->invalidate($permission);
   }
 
   /**
@@ -20,7 +20,7 @@ class PermissionObserver
    */
   public function updated(Permission $permission): void
   {
-    $this->clearPermissionCache($permission->id);
+    $this->invalidate($permission);
   }
 
   /**
@@ -28,18 +28,14 @@ class PermissionObserver
    */
   public function deleted(Permission $permission): void
   {
-    $this->clearPermissionCache($permission->id);
+    $this->invalidate($permission);
   }
 
   /**
    * Clear relevant permission cache.
    */
-  protected function clearPermissionCache(?int $permissionId = null): void
+  protected function invalidate(Permission $permission): void
   {
-    Cache::forget('permissions.index');
-
-    if ($permissionId) {
-      Cache::forget('permissions.show.' . $permissionId);
-    }
+    Permission::bumpCacheVersion();
   }
 }

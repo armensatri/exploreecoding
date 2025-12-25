@@ -12,7 +12,7 @@ class SubmenuObserver
    */
   public function created(Submenu $submenu): void
   {
-    $this->clearSubmenuCache();
+    $this->invalidate($submenu);
   }
 
   /**
@@ -20,7 +20,7 @@ class SubmenuObserver
    */
   public function updated(Submenu $submenu): void
   {
-    $this->clearSubmenuCache($submenu->id);
+    $this->invalidate($submenu);
   }
 
   /**
@@ -28,18 +28,14 @@ class SubmenuObserver
    */
   public function deleted(Submenu $submenu): void
   {
-    $this->clearSubmenuCache($submenu->id);
+    $this->invalidate($submenu);
   }
 
   /**
    * Clear relevant submenu cache.
    */
-  protected function clearSubmenuCache(?int $submenuId = null): void
+  protected function invalidate(Submenu $submenu): void
   {
-    Cache::forget('submenus.index');
-
-    if ($submenuId) {
-      Cache::forget('submenus.show.' . $submenuId);
-    }
+    Submenu::bumpCacheVersion();
   }
 }

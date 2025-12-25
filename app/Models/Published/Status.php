@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Models\{
   HasSluggable,
   HasRandomUrl,
-  HasSearchable
+  HasSearchable,
+  HasCacheVersion,
 };
 
 use App\Models\Programming\{
@@ -19,6 +20,7 @@ use App\Models\Programming\{
 
 class Status extends Model
 {
+  use HasCacheVersion;
   use HasRandomUrl, HasSearchable, HasSluggable;
 
   protected $table = 'statuses';

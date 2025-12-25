@@ -12,7 +12,7 @@ class StatusObserver
    */
   public function created(Status $status): void
   {
-    $this->clearStatusCache();
+    $this->invalidate($status);
   }
 
   /**
@@ -20,7 +20,7 @@ class StatusObserver
    */
   public function updated(Status $status): void
   {
-    $this->clearStatusCache($status->id);
+    $this->invalidate($status);
   }
 
   /**
@@ -28,18 +28,14 @@ class StatusObserver
    */
   public function deleted(Status $status): void
   {
-    $this->clearStatusCache($status->id);
+    $this->invalidate($status);
   }
 
   /**
    * Clear relevant status cache.
    */
-  protected function clearStatusCache(?int $statusId = null): void
+  protected function invalidate(Status $status): void
   {
-    Cache::forget('statuses.index');
-
-    if ($statusId) {
-      Cache::forget('statuses.show.' . $statusId);
-    }
+    Status::bumpCacheVersion();
   }
 }

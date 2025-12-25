@@ -42,7 +42,26 @@ class RolesController extends Controller
         ->toArray()
     );
 
-    // 4.
+    $roles = Role::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'sr',
+        'name',
+        'bg',
+        'text',
+        'guard_name',
+        'description',
+        'url'
+      ])
+      ->orderBy('sr', 'asc')
+      ->paginate(10)
+      ->withQueryString();
+
+    return view('backend.manageuser.roles.index', [
+      'title' => 'Semua data roles',
+      'roles' => $roles
+    ]);
   }
 
   /**
@@ -79,17 +98,9 @@ class RolesController extends Controller
    */
   public function show(Role $role)
   {
-    $cacheKey = 'roles.show.' . $role->id;
-
-    $roleData = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      fn() => $role
-    );
-
     return view('backend.manageuser.roles.show', [
       'title' => 'Detail data role',
-      'role' => $roleData
+      'role' => $role
     ]);
   }
 

@@ -12,7 +12,7 @@ class RoleObserver
    */
   public function created(Role $role): void
   {
-    $this->clearRoleCache();
+    $this->invalidate($role);
   }
 
   /**
@@ -20,7 +20,7 @@ class RoleObserver
    */
   public function updated(Role $role): void
   {
-    $this->clearRoleCache($role->id);
+    $this->invalidate($role);
   }
 
   /**
@@ -28,18 +28,14 @@ class RoleObserver
    */
   public function deleted(Role $role): void
   {
-    $this->clearRoleCache($role->id);
+    $this->invalidate($role);
   }
 
   /**
    * Clear relevant role cache.
    */
-  protected function clearRoleCache(?int $roleId = null): void
+  protected function invalidate(Role $role): void
   {
-    Cache::forget('roles.index');
-
-    if ($roleId) {
-      Cache::forget('roles.show.' . $roleId);
-    }
+    Role::bumpCacheVersion();
   }
 }

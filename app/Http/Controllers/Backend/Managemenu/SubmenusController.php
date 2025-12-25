@@ -29,32 +29,35 @@ class SubmenusController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'submenus.index.' . md5(
-      json_encode(
-        request()->all()
-      )
-    );
+    $filters = request(['search', 'menu']);
 
-    $submenus = Cache::remember(
+    $cacheKey = 'submenus.index.ids.'
+      . Submenu::cacheVersion() . '.'
+      . md5(json_encode($filters));
+
+    $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      function () {
-        return Submenu::query()
-          ->search(request(['search', 'menu']))
-          ->select([
-            'id',
-            'menu_id',
-            'ssm',
-            'name',
-            'description',
-            'url'
-          ])
-          ->with(['menu:id,name'])
-          ->orderBy('menu_id', 'asc')
-          ->paginate(10)
-          ->withQueryString();
-      }
+      fn() => Submenu::query()
+        ->search($filters)
+        ->orderBy('menu_id', 'asc')
+        ->pluck('id')
+        ->toArray()
     );
+
+    $submenus = Submenu::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'menu_id',
+        'ssm',
+        'name',
+        'description',
+        'url'
+      ])->with(['menu:id,name'])
+      ->orderBy('menu_id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.managemenu.submenus.index', [
       'title' => 'Semua data submenus',
@@ -101,17 +104,9 @@ class SubmenusController extends Controller
    */
   public function show(Submenu $submenu)
   {
-    $cacheKey = 'submenus.show.' . $submenu->id;
-
-    $submenuData = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      fn() => $submenu
-    );
-
     return view('backend.managemenu.submenus.show', [
       'title' => 'Detail data submenu',
-      'submenu' => $submenuData
+      'submenu' => $submenu
     ]);
   }
 
