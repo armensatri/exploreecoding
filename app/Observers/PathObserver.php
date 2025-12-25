@@ -12,7 +12,7 @@ class PathObserver
    */
   public function created(Path $path): void
   {
-    $this->clearPathCache();
+    $this->invalidate($path);
   }
 
   /**
@@ -20,7 +20,7 @@ class PathObserver
    */
   public function updated(Path $path): void
   {
-    $this->clearPathCache($path->id);
+    $this->invalidate($path);
   }
 
   /**
@@ -28,18 +28,14 @@ class PathObserver
    */
   public function deleted(Path $path): void
   {
-    $this->clearPathCache($path->id);
+    $this->invalidate($path);
   }
 
   /**
    * Clear relevant path cache.
    */
-  protected function clearPathCache(?int $pathId = null): void
+  protected function invalidate(Path $path): void
   {
-    Cache::forget('paths.index.ids');
-
-    if ($pathId) {
-      Cache::forget('paths.show.' . $pathId);
-    }
+    Path::bumpCacheVersion();
   }
 }

@@ -12,7 +12,7 @@ class RoadmapObserver
    */
   public function created(Roadmap $roadmap): void
   {
-    $this->clearRoadmapCache();
+    $this->invalidate($roadmap);
   }
 
   /**
@@ -20,7 +20,7 @@ class RoadmapObserver
    */
   public function updated(Roadmap $roadmap): void
   {
-    $this->clearRoadmapCache($roadmap->id);
+    $this->invalidate($roadmap);
   }
 
   /**
@@ -28,18 +28,14 @@ class RoadmapObserver
    */
   public function deleted(Roadmap $roadmap): void
   {
-    $this->clearRoadmapCache($roadmap->id);
+    $this->invalidate($roadmap);
   }
 
   /**
    * Clear relevant roadmap cache.
    */
-  protected function clearRoadmapCache(?int $roadmapId = null): void
+  protected function invalidate(Roadmap $roadmap): void
   {
-    Cache::forget('roadmaps.index.ids');
-
-    if ($roadmapId) {
-      Cache::forget('roadmaps.show.' . $roadmapId);
-    }
+    Roadmap::bumpCacheVersion();
   }
 }

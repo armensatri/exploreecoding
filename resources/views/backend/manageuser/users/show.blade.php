@@ -74,7 +74,7 @@
             <x-show-image
               name="Image"
               :asset="$user->image"
-              asset-default="/image/default.png"
+              :asset-default="asset('image/default.png')"
             />
 
             <x-show-action

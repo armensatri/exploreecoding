@@ -27,22 +27,20 @@ class RoadmapsController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'roadmaps.index.ids.' . md5(
-      json_encode(
-        request(['search', 'path'])
-      )
-    );
+    $filters = request(['search', 'path', 'status']);
+
+    $cacheKey = 'roadmaps.index.ids.'
+      . Roadmap::cacheVersion() . '.'
+      . md5(json_encode($filters));
 
     $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      function () {
-        return Roadmap::query()
-          ->search(request(['search', 'path']))
-          ->orderBy('path_id', 'asc')
-          ->pluck('id')
-          ->toArray();
-      }
+      fn() => Roadmap::query()
+        ->search($filters)
+        ->orderBy('path_id', 'asc')
+        ->pluck('id')
+        ->toArray()
     );
 
     $roadmaps = Roadmap::query()
@@ -55,7 +53,10 @@ class RoadmapsController extends Controller
         'status_id',
         'url'
       ])
-      ->with(['status:id,name,bg,text', 'path:id,name'])
+      ->with([
+        'path:id,name',
+        'status:id,name,bg,text'
+      ])
       ->orderBy('path_id', 'asc')
       ->paginate(10)
       ->withQueryString();
@@ -117,19 +118,14 @@ class RoadmapsController extends Controller
    */
   public function show(Roadmap $roadmap)
   {
-    $cacheKey = 'roadmaps.show.' . $roadmap->id;
-
-    $roadmapData = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      function () use ($roadmap) {
-        return $roadmap;
-      }
-    );
+    $roadmap->load([
+      'path:id,name',
+      'status:id,name,bg,text'
+    ]);
 
     return view('backend.programming.roadmaps.show', [
       'title' => 'Detail data roadmap',
-      'roadmap' => $roadmapData
+      'roadmap' => $roadmap
     ]);
   }
 

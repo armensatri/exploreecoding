@@ -23,22 +23,20 @@ class PathsController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'paths.index.ids.' . md5(
-      json_encode(
-        request(['search'])
-      )
-    );
+    $filters = request(['search', 'status']);
+
+    $cacheKey = 'paths.index.ids.'
+      . Path::cacheVersion() . '.'
+      . md5(json_encode($filters));
 
     $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      function () {
-        return Path::query()
-          ->search(request(['search']))
-          ->orderBy('sp', 'asc')
-          ->pluck('id')
-          ->toArray();
-      }
+      fn() => Path::query()
+        ->search($filters)
+        ->orderBy('sp', 'asc')
+        ->pluck('id')
+        ->toArray()
     );
 
     $paths = Path::query()
@@ -49,8 +47,7 @@ class PathsController extends Controller
         'name',
         'status_id',
         'url'
-      ])
-      ->with(['status:id,name,bg,text'])
+      ])->with(['status:id,name,bg,text'])
       ->orderBy('sp', 'asc')
       ->paginate(10)
       ->withQueryString();
@@ -107,19 +104,11 @@ class PathsController extends Controller
    */
   public function show(Path $path)
   {
-    $cacheKey = 'paths.show.' . $path->id;
-
-    $pathData = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      function () use ($path) {
-        return $path;
-      }
-    );
+    $path->load('status:id,name,bg,text');
 
     return view('backend.programming.paths.show', [
       'title' => 'Detail data path',
-      'path' => $pathData
+      'path' => $path
     ]);
   }
 

@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\Models\{
   HasRandomUrl,
   HasSearchable,
+  HasCacheVersion,
 };
 
 class Path extends Model
 {
+  use HasCacheVersion;
   use HasRandomUrl, HasSearchable, HasFactory;
 
   protected $table = 'paths';
@@ -31,6 +33,10 @@ class Path extends Model
 
   protected $sFields = [
     'name'
+  ];
+
+  protected $sRelations = [
+    'status' => 'name',
   ];
 
   public function getRouteKeyName()
