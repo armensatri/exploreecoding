@@ -31,24 +31,23 @@ class PostsController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'posts.index.ids.' . md5(json_encode([
-      'user_id' => Auth::id(),
-      'search' => request('search'),
-      'playlist' => request('playlist'),
-      'user' => request('user')
-    ]));
+    $filters = request(['search', 'playlist', 'status', 'user']);
+    $userKey = Auth::id() . ':' . Auth::user()->role_id;
+
+    $cacheKey = 'posts.index.ids.'
+      . Post::cacheVersion() . '.'
+      . $userKey . '.'
+      . md5(json_encode($filters));
 
     $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      function () {
-        return Post::query()
-          ->AccessPosts(Auth::user())
-          ->search(request(['search', 'playlist', 'user']))
-          ->orderBy('playlist_id', 'asc')
-          ->pluck('id')
-          ->toArray();
-      }
+      fn() => Post::query()
+        ->AccessPosts(Auth::user())
+        ->search($filters)
+        ->orderBy('playlist_id', 'asc')
+        ->pluck('id')
+        ->toArray()
     );
 
     $posts = Post::query()
@@ -64,10 +63,10 @@ class PostsController extends Controller
       ])
       ->with([
         'user:id,username',
+        'playlist:id,name',
         'status:id,name,bg,text',
-        'playlist:id,name'
       ])
-      ->orderBy('playlist_id', 'asc')
+      ->orderBy('playlists_id', 'asc')
       ->paginate(10)
       ->withQueryString();
 
@@ -129,19 +128,15 @@ class PostsController extends Controller
    */
   public function show(Post $post)
   {
-    $cacheKey = 'posts.show.' . $post->id;
-
-    $postData = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      function () use ($post) {
-        return $post;
-      }
-    );
+    $post->load([
+      'user:id,username',
+      'playlist:id,name',
+      'status:id,name,bg,text',
+    ]);
 
     return view('backend.programming.posts.show', [
       'title' => 'Detail data post',
-      'post' => $postData,
+      'post' => $post,
     ]);
   }
 

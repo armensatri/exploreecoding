@@ -12,7 +12,7 @@ class PlaylistObserver
    */
   public function created(Playlist $playlist): void
   {
-    $this->clearPlaylistCache();
+    $this->invalidate($playlist);
   }
 
   /**
@@ -20,7 +20,7 @@ class PlaylistObserver
    */
   public function updated(Playlist $playlist): void
   {
-    $this->clearPlaylistCache($playlist->id);
+    $this->invalidate($playlist);
   }
 
   /**
@@ -28,18 +28,14 @@ class PlaylistObserver
    */
   public function deleted(Playlist $playlist): void
   {
-    $this->clearPlaylistCache($playlist->id);
+    $this->invalidate($playlist);
   }
 
   /**
    * Clear relevant playlist cache.
    */
-  protected function clearPlaylistCache(?int $playlistId = null): void
+  protected function invalidate(Playlist $playlist): void
   {
-    Cache::forget('playlists.index.ids');
-
-    if ($playlistId) {
-      Cache::forget('playlists.show.' . $playlistId);
-    }
+    Playlist::bumpCacheVersion();
   }
 }

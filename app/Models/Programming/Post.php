@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\Models\{
   HasRandomUrl,
   HasSearchable,
+  HasCacheVersion,
 };
 
 class Post extends Model
 {
+  use HasCacheVersion;
   use HasRandomUrl, HasSearchable, HasFactory;
 
   protected $table = 'posts';
@@ -37,8 +39,9 @@ class Post extends Model
   ];
 
   protected $sRelations = [
+    'status' => 'name',
     'playlist' => 'name',
-    'user' => 'username'
+    'user' => 'username',
   ];
 
   public function getRouteKeyName()

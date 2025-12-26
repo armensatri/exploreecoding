@@ -84,7 +84,7 @@
             <x-show-image
               name="Image"
               :asset="$playlist->image"
-              asset-default="/image/default.png"
+              :asset-default="asset('image/default.png')"
             />
 
             <x-show-action

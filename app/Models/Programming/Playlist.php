@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\Models\{
   HasRandomUrl,
   HasSearchable,
+  HasCacheVersion,
 };
 
 use App\Models\Programming\{
@@ -18,6 +19,7 @@ use App\Models\Programming\{
 
 class Playlist extends Model
 {
+  use HasCacheVersion;
   use HasRandomUrl, HasSearchable, HasFactory;
 
   protected $table = 'playlists';
@@ -38,7 +40,8 @@ class Playlist extends Model
   ];
 
   protected $sRelations = [
-    'roadmap' => 'name'
+    'roadmap' => 'name',
+    'status' => 'name'
   ];
 
   public function getRouteKeyName()

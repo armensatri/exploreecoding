@@ -27,22 +27,20 @@ class PlaylistsController extends Controller
    */
   public function index()
   {
-    $cacheKey = 'playlists.index.ids.' . md5(
-      json_encode(
-        request(['search', 'roadmap'])
-      )
-    );
+    $filters = request(['search', 'roadmap', 'status']);
+
+    $cacheKey = 'playlists.index.ids.'
+      . Playlist::cacheVersion() . '.'
+      . md5(json_encode($filters));
 
     $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      function () {
-        return Playlist::query()
-          ->search(request(['search', 'roadmap']))
-          ->orderBy('roadmap_id', 'asc')
-          ->pluck('id')
-          ->toArray();
-      }
+      fn() => Playlist::query()
+        ->search($filters)
+        ->orderBy('roadmap_id', 'asc')
+        ->pluck('id')
+        ->toArray()
     );
 
     $playlists = Playlist::query()
@@ -55,7 +53,10 @@ class PlaylistsController extends Controller
         'status_id',
         'url'
       ])
-      ->with(['status:id,name,bg,text', 'roadmap:id,name'])
+      ->with([
+        'roadmap:id,name',
+        'status:id,name,bg,text'
+      ])
       ->orderBy('roadmap_id', 'asc')
       ->paginate(10)
       ->withQueryString();
@@ -117,19 +118,14 @@ class PlaylistsController extends Controller
    */
   public function show(Playlist $playlist)
   {
-    $cacheKey = 'playlists.show.' . $playlist->id;
-
-    $playlistData = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      function () use ($playlist) {
-        return $playlist;
-      }
-    );
+    $playlist->load([
+      'roadmap:id,name',
+      'status:id,name,bg,text'
+    ]);
 
     return view('backend.programming.playlists.show', [
       'title' => 'Detail data playlist',
-      'playlist' => $playlistData
+      'playlist' => $playlist
     ]);
   }
 

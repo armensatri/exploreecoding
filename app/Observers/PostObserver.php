@@ -12,7 +12,7 @@ class PostObserver
    */
   public function created(Post $post): void
   {
-    $this->clearPostCache();
+    $this->invalidate($post);
   }
 
   /**
@@ -20,7 +20,7 @@ class PostObserver
    */
   public function updated(Post $post): void
   {
-    $this->clearPostCache($post->id);
+    $this->invalidate($post);
   }
 
   /**
@@ -28,18 +28,14 @@ class PostObserver
    */
   public function deleted(Post $post): void
   {
-    $this->clearPostCache($post->id);
+    $this->invalidate($post);
   }
 
   /**
    * Clear relevant post cache.
    */
-  protected function clearPostCache(?int $postId = null): void
+  protected function invalidate(Post $post): void
   {
-    Cache::forget('posts.index.ids');
-
-    if ($postId) {
-      Cache::forget('posts.show.' . $postId);
-    }
+    Post::bumpCacheVersion();
   }
 }

@@ -89,7 +89,7 @@
             <x-show-image
               name="Image"
               :asset="$post->image"
-              asset-default="/image/default.png"
+              :asset-default="asset('image/default.png')"
             />
 
             <div class="grid gap-4 pb-4 md:grid-cols-12 md:gap-6">
