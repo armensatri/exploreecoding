@@ -112,6 +112,8 @@ class CategoriesController extends Controller
   public function update(CategoryUr $request, Category $category)
   {
     $dataupdate = $request->validated();
+
+    // ini lagi ya
   }
 
   /**
