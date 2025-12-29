@@ -11,7 +11,7 @@ class CategoryObserver
    */
   public function created(Category $category): void
   {
-    //
+    $this->invalidate($category);
   }
 
   /**
@@ -19,7 +19,7 @@ class CategoryObserver
    */
   public function updated(Category $category): void
   {
-    //
+    $this->invalidate($category);
   }
 
   /**
@@ -27,6 +27,14 @@ class CategoryObserver
    */
   public function deleted(Category $category): void
   {
-    //
+    $this->invalidate($category);
+  }
+
+  /**
+   * Clear relevant category cache.
+   */
+  protected function invalidate(Category $category): void
+  {
+    Category::bumpCacheVersion();
   }
 }

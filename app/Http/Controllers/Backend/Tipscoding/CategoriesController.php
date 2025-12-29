@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Backend\Tipscoding;
 
+use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Models\Tipscoding\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Http\Requests\Tipscoding\Category\{
   CategorySr,
@@ -58,7 +60,9 @@ class CategoriesController extends Controller
    */
   public function create()
   {
-    //
+    return view('backend.tipscoding.categories.create', [
+      'title' => 'Create data category',
+    ]);
   }
 
   /**
@@ -66,7 +70,18 @@ class CategoriesController extends Controller
    */
   public function store(CategorySr $request)
   {
-    //
+    $datastore = $request->validated();
+
+    $datastore['url'] = RandomUrl::generateUrl();
+
+    Category::create($datastore);
+
+    Alert::success(
+      'success',
+      'Data category! berhasil di tambahkan.'
+    );
+
+    return redirect()->route('categories.index');
   }
 
   /**
@@ -74,7 +89,10 @@ class CategoriesController extends Controller
    */
   public function show(Category $category)
   {
-    //
+    return view('backend.tipscoding.categories.show', [
+      'title' => 'Detail data category',
+      'category' => $category
+    ]);
   }
 
   /**
@@ -82,7 +100,10 @@ class CategoriesController extends Controller
    */
   public function edit(Category $category)
   {
-    //
+    return view('backend.tipscoding.categories.edit', [
+      'title' => 'Edit data category',
+      'category' => $category
+    ]);
   }
 
   /**
@@ -90,7 +111,7 @@ class CategoriesController extends Controller
    */
   public function update(CategoryUr $request, Category $category)
   {
-    //
+    $dataupdate = $request->validated();
   }
 
   /**
