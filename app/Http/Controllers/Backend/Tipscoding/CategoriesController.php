@@ -46,6 +46,11 @@ class CategoriesController extends Controller
       ->orderBy('sc', 'asc')
       ->paginate(10)
       ->withQueryString();
+
+    return view('backend.tipscoding.categories.index', [
+      'title' => 'Semua data categories',
+      'categories' => $categories
+    ]);
   }
 
   /**

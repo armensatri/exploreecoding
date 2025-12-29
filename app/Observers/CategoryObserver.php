@@ -29,20 +29,4 @@ class CategoryObserver
   {
     //
   }
-
-  /**
-   * Handle the Category "restored" event.
-   */
-  public function restored(Category $category): void
-  {
-    //
-  }
-
-  /**
-   * Handle the Category "force deleted" event.
-   */
-  public function forceDeleted(Category $category): void
-  {
-    //
-  }
 }
