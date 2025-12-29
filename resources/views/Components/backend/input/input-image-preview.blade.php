@@ -10,18 +10,16 @@
 
   <div class="mt-1">
     @if ($image)
-      <div class="w-[200px] p-2 bg-gray-50 rounded-2xl h-[200px]
-        border border-gray-200">
+      <div class="p-2 border border-gray-200 w-62.5 bg-gray-50 rounded-2xl h-50">
         <img src="{{ asset('storage/' . $image) }}"
           alt="image"
-          class="relative object-cover object-center w-full h-full img-preview rounded-xl"
+          class="relative object-contain object-center w-full h-full img-preview rounded-xl"
         />
       </div>
     @else
-      <div class="w-[200px] p-2 bg-gray-100 rounded-2xl h-[200px]
-        border border-gray-300">
+      <div class="p-2 bg-gray-100 border border-gray-300 w-50 rounded-2xl h-50">
         <img alt="image"
-          class="relative object-cover object-center w-full h-full img-preview rounded-xl"
+          class="relative object-contain object-center w-full h-full img-preview rounded-xl"
         />
       </div>
     @endif

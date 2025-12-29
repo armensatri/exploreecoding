@@ -30,8 +30,8 @@ return new class extends Migration
     Schema::create('categories', function (Blueprint $table) {
       $table->id();
       $table->integer('sc')->index();
-      $table->string('name')->unique();
-      $table->string('slug')->unique();
+      $table->string('name');
+      $table->string('slug');
       $table->string('url', 7)->unique();
       $table->timestamps();
     });

@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\Models\{
   HasRandomUrl,
   HasSearchable,
-  HasSluggable
+  HasCacheVersion,
 };
 
 class Category extends Model
 {
-  use HasFactory, HasSluggable, HasRandomUrl, HasSearchable;
+  use HasCacheVersion;
+  use HasFactory, HasRandomUrl, HasSearchable;
 
   protected $table = 'categories';
 

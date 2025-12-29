@@ -10,17 +10,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\Models\{
   HasRandomUrl,
   HasSearchable,
-  HasSluggable
+  HasCacheVersion,
 };
 
 
 class Tipscoding extends Model
 {
-  use HasFactory, HasSluggable, HasRandomUrl, HasSearchable;
+  use HasCacheVersion;
+  use HasFactory, HasRandomUrl, HasSearchable;
 
   protected $table = 'tipscodings';
-
-  protected $sluggable = 'title';
 
   protected $fillable = [
     'user_id',
@@ -55,5 +54,17 @@ class Tipscoding extends Model
   public function category()
   {
     return $this->belongsTo(Category::class);
+  }
+
+  public function scopeAccessTipscodings($query, $user)
+  {
+    return $query
+      ->when(
+        $user->role->name === 'creator',
+        fn($q) => $q->where('user_id', $user->id)
+      )->when(
+        $user->role->name === 'member',
+        fn($q) => $q->whereNull('id')
+      );
   }
 }

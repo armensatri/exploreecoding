@@ -101,8 +101,8 @@
 
               <div class="md:col-span-9">
                 <div class="bg-slate-50
-                  px-2.5 py-0.5 rounded-md text-base tracking-wide">
-                  <article class="text-gray-800 prose max-w-none prose-slate lg:prose-[17px]
+                  px-2.5 py-0.5 rounded-xl text-base tracking-wide">
+                  <article class="px-4 text-gray-800 prose max-w-none prose-slate lg:prose-[17px]
                   prose-h2:text-green-600
                   prose-h2:font-bold
                   prose-h3:text-green-600

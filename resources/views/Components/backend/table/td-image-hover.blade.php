@@ -1,4 +1,4 @@
-<div class="flex justify-center items-center">
+<div class="flex items-center justify-center">
   <div class="px-4 py-3">
     <div class="">
       @if ($asset)
@@ -8,7 +8,7 @@
               $asset ? asset('storage/' . $asset) :
               asset($assetDefault) }}"
               alt="user-image"
-              class="inline-block object-cover object-center rounded-full size-8"
+              class="inline-block object-cover object-top rounded-full size-8"
             />
 
             <div role="tooltip"
@@ -18,7 +18,7 @@
                 $asset ? asset('storage/' . $asset) :
                 asset($assetDefault) }}"
                 alt="user-image"
-                class="p-2 h-[250px] w-[250px] rounded-3xl object-cover object-center"
+                class="p-2 h-62.5 w-62.5 rounded-3xl object-cover object-top"
               />
             </div>
           </div>

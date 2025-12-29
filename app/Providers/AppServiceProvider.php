@@ -22,6 +22,9 @@ use App\Observers\{
   PlaylistObserver,
   PostObserver,
   RoadmapObserver,
+
+  TipscodingObserver,
+  CategoryObserver,
 };
 
 use App\Models\Managemenu\{
@@ -40,6 +43,11 @@ use App\Models\Programming\{
   Roadmap,
   Playlist,
   Post,
+};
+
+use App\Models\Tipscoding\{
+  Category,
+  Tipscoding,
 };
 
 class AppServiceProvider extends ServiceProvider
@@ -66,6 +74,9 @@ class AppServiceProvider extends ServiceProvider
     Roadmap::observe(RoadmapObserver::class);
     Playlist::observe(PlaylistObserver::class);
     Post::observe(PostObserver::class);
+
+    Tipscoding::observe(TipscodingObserver::class);
+    Category::observe(CategoryObserver::class);
 
     User::observe(DataSummaryObserver::class);
     Role::observe(DataSummaryObserver::class);
