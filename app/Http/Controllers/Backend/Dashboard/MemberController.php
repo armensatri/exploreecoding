@@ -16,12 +16,21 @@ class MemberController extends Controller
   {
     $userId = Auth::id();
 
-    $cacheKey = 'member.user.' . $userId;
+    $cacheKey = 'member.user.'
+      . User::cacheVersion() . '.'
+      . $userId;
 
     $member = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      fn() => User::find($userId)
+      fn() => User::query()
+        ->select([
+          'id',
+          'name',
+          'role_id',
+          'url'
+        ])->with('role:id,name,bg,text')
+        ->findOrFail($userId)
     );
 
     return view('backend.dashboard.member', [

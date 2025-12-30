@@ -7,35 +7,33 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Observers\{
-  MenuObserver,
-  SubmenuObserver,
-
   UserObserver,
   RoleObserver,
   PermissionObserver,
 
-  DataSummaryObserver,
+  MenuObserver,
+  SubmenuObserver,
 
   StatusObserver,
 
   PathObserver,
+  RoadmapObserver,
   PlaylistObserver,
   PostObserver,
-  RoadmapObserver,
 
   TipscodingObserver,
   CategoryObserver,
-};
-
-use App\Models\Managemenu\{
-  Menu,
-  Submenu,
 };
 
 use App\Models\Manageuser\{
   User,
   Role,
   Permission,
+};
+
+use App\Models\Managemenu\{
+  Menu,
+  Submenu,
 };
 
 use App\Models\Programming\{
@@ -77,19 +75,5 @@ class AppServiceProvider extends ServiceProvider
 
     Tipscoding::observe(TipscodingObserver::class);
     Category::observe(CategoryObserver::class);
-
-    User::observe(DataSummaryObserver::class);
-    Role::observe(DataSummaryObserver::class);
-    Permission::observe(DataSummaryObserver::class);
-
-    Menu::observe(DataSummaryObserver::class);
-    Submenu::observe(DataSummaryObserver::class);
-
-    Status::observe(DataSummaryObserver::class);
-
-    Path::observe(DataSummaryObserver::class);
-    Roadmap::observe(DataSummaryObserver::class);
-    Playlist::observe(DataSummaryObserver::class);
-    Post::observe(DataSummaryObserver::class);
   }
 }

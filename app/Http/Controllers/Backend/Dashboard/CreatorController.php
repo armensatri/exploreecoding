@@ -16,12 +16,21 @@ class CreatorController extends Controller
   {
     $userId = Auth::id();
 
-    $cacheKey = 'creator.user.' . $userId;
+    $cacheKey = 'creator.user.'
+      . User::cacheVersion() . '.'
+      . $userId;
 
     $creator = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      fn() => User::find($userId)
+      fn() => User::query()
+        ->select([
+          'id',
+          'name',
+          'role_id',
+          'url'
+        ])->with('role:id,name,bg,text')
+        ->findOrFail($userId)
     );
 
     return view('backend.dashboard.creator', [

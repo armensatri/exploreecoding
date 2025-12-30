@@ -11,34 +11,37 @@ class VisitorController extends Controller
 {
   public function index()
   {
-    $cacheKey = 'visitor.index.' . md5(
-      json_encode(
-        request(['search', 'role'])
-      )
-    );
+    $filters = request(['search', 'role']);
 
-    $users = Cache::remember(
+    $cacheKey = 'visitor.index.ids.'
+      . User::cacheVersion() . '.'
+      . md5(json_encode($filters));
+
+    $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      function () {
-        return User::query()
-          ->search(request(['search', 'role']))
-          ->select([
-            'id',
-            'name',
-            'role_id',
-            'status_on_of',
-            'last_seen',
-            'status',
-            'url'
-          ])
-          ->with(['role:id,name,bg,text'])
-          ->orderby('id', 'asc')
-          ->where('status', 1)
-          ->paginate(10)
-          ->withQueryString();
-      }
+      fn() => User::query()
+        ->search($filters)
+        ->where('status', 1)
+        ->orderBy('id', 'asc')
+        ->pluck('id')
+        ->toArray()
     );
+
+    $users = User::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'name',
+        'role_id',
+        'status_on_of',
+        'last_seen',
+        'status',
+        'url'
+      ])->with(['role:id,name,bg,text'])
+      ->orderBy('id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.managedata.visitor.index', [
       'title' => 'Visitor',
@@ -48,31 +51,35 @@ class VisitorController extends Controller
 
   public function banned()
   {
-    $cacheKey = 'visitor.banned.' . md5(
-      json_encode(
-        request(['search', 'role'])
-      )
-    );
+    $filters = request(['search', 'role']);
 
-    $users = Cache::remember(
+    $cacheKey = 'visitor.banned.ids.'
+      . User::cacheVersion() . '.'
+      . md5(json_encode($filters));
+
+    $ids = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      function () {
-        return User::query()
-          ->search(request(['search', 'role']))
-          ->select([
-            'id',
-            'name',
-            'role_id',
-            'status',
-          ])
-          ->with(['role:id,name,bg,text'])
-          ->orderby('id', 'asc')
-          ->where('status', 0)
-          ->paginate(10)
-          ->withQueryString();
-      }
+      fn() => User::query()
+        ->search($filters)
+        ->where('status', 0)
+        ->orderBy('id', 'asc')
+        ->pluck('id')
+        ->toArray()
     );
+
+    $users = User::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'name',
+        'role_id',
+        'status',
+        'url'
+      ])->with(['role:id,name,bg,text'])
+      ->orderBy('id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
     return view('backend.managedata.visitor.banned', [
       'title' => 'Visitor banned',

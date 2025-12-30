@@ -16,12 +16,21 @@ class SuperadminController extends Controller
   {
     $userId = Auth::id();
 
-    $cacheKey = 'superadmin.user.' . $userId;
+    $cacheKey = 'superadmin.user.'
+      . User::cacheVersion() . '.'
+      . $userId;
 
     $superadmin = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      fn() => User::find($userId)
+      fn() => User::query()
+        ->select([
+          'id',
+          'name',
+          'role_id',
+          'url'
+        ])->with('role:id,name,bg,text')
+        ->findOrFail($userId)
     );
 
     return view('backend.dashboard.superadmin', [

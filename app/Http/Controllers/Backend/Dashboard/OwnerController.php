@@ -16,12 +16,21 @@ class OwnerController extends Controller
   {
     $userId = Auth::id();
 
-    $cacheKey = 'owner.user.' . $userId;
+    $cacheKey = 'owner.user.'
+      . User::cacheVersion() . '.'
+      . $userId;
 
     $owner = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      fn() => User::find($userId)
+      fn() => User::query()
+        ->select([
+          'id',
+          'name',
+          'role_id',
+          'url'
+        ])->with('role:id,name,bg,text')
+        ->findOrFail($userId)
     );
 
     return view('backend.dashboard.owner', [

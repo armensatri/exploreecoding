@@ -122,6 +122,24 @@
                       data-name="Data posts"
                       :data-count="$posts"
                     />
+
+                    <x-data-card-count
+                      hover="tipscodings"
+                      :route="route('tipscodings.index')"
+                      img="/backend/img/menu/tipscodings.png"
+                      alt="tipscodings"
+                      data-name="Data tipscodings"
+                      :data-count="$tipscodings"
+                    />
+
+                    <x-data-card-count
+                      hover="categories"
+                      :route="route('categories.index')"
+                      img="/backend/img/menu/categories.png"
+                      alt="categories"
+                      data-name="Data categories"
+                      :data-count="$categories"
+                    />
                   </div>
                 </div>
               </div>
