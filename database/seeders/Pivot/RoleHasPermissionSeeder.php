@@ -303,6 +303,24 @@ class RoleHasPermissionSeeder extends Seeder
         'posts.edit',
         'posts.update',
         'posts.destroy',
+
+        // TIPSCODINGS
+        'tipscodings.index',
+        'tipscodings.create',
+        'tipscodings.store',
+        'tipscodings.show',
+        'tipscodings.edit',
+        'tipscodings.update',
+        'tipscodings.destroy',
+
+        // CATEGORIES
+        'categories.index',
+        'categories.create',
+        'categories.store',
+        'categories.show',
+        'categories.edit',
+        'categories.update',
+        'categories.destroy',
       ],
 
       'creator' => [
@@ -434,6 +452,24 @@ class RoleHasPermissionSeeder extends Seeder
         'posts.edit',
         'posts.update',
         'posts.destroy',
+
+        // TIPSCODINGS
+        'tipscodings.index',
+        'tipscodings.create',
+        'tipscodings.store',
+        'tipscodings.show',
+        'tipscodings.edit',
+        'tipscodings.update',
+        'tipscodings.destroy',
+
+        // CATEGORIES
+        'categories.index',
+        // 'categories.create',
+        // 'categories.store',
+        // 'categories.show',
+        // 'categories.edit',
+        // 'categories.update',
+        // 'categories.destroy',
       ],
 
       'member' => [
@@ -565,6 +601,24 @@ class RoleHasPermissionSeeder extends Seeder
         // 'posts.edit',
         // 'posts.update',
         // 'posts.destroy',
+
+        // TIPSCODINGS
+        // 'tipscodings.index',
+        // 'tipscodings.create',
+        // 'tipscodings.store',
+        // 'tipscodings.show',
+        // 'tipscodings.edit',
+        // 'tipscodings.update',
+        // 'tipscodings.destroy',
+
+        // CATEGORIES
+        // 'categories.index',
+        // 'categories.create',
+        // 'categories.store',
+        // 'categories.show',
+        // 'categories.edit',
+        // 'categories.update',
+        // 'categories.destroy',
       ],
     ];
 

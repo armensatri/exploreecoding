@@ -1,4 +1,4 @@
-<ol class="flex items-center gap-[5px] mb-5 ml-2">
+<ol class="flex items-center gap-1.25 mb-5 ml-2">
   <x-breadcrumb-icon
     :image="asset('backend/img/menu/personal.png')"
   />

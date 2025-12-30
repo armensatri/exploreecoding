@@ -20,12 +20,24 @@ class ProfileController extends Controller
   {
     $userId = Auth::id();
 
-    $cacheKey = 'profile.user.' . $userId;
+    $cacheKey = 'profile.user.'
+      . User::cacheVersion() . '.'
+      . $userId;
 
     $user = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      fn() => User::find($userId)
+      fn() => User::query()
+        ->select([
+          'id',
+          'name',
+          'username',
+          'email',
+          'image',
+          'role_id',
+          'url'
+        ])->with('role:id,name,bg,text')
+        ->findOrFail($userId)
     );
 
     return view('backend.account.profile.index', [
@@ -38,12 +50,24 @@ class ProfileController extends Controller
   {
     $userId = Auth::id();
 
-    $cacheKey = 'profile.user.' . $userId;
+    $cacheKey = 'profile.user.'
+      . User::cacheVersion() . '.'
+      . $userId;
 
     $user = Cache::remember(
       $cacheKey,
       now()->addMinutes(10),
-      fn() => User::find($userId)
+      fn() => User::query()
+        ->select([
+          'id',
+          'name',
+          'username',
+          'email',
+          'image',
+          'role_id',
+          'url'
+        ])->with('role:id,name,bg,text')
+        ->findOrFail($userId)
     );
 
     return view('backend.account.profile.edit', [
@@ -54,7 +78,7 @@ class ProfileController extends Controller
 
   public function update(ProfileUr $request)
   {
-    $user = User::find(Auth::id());
+    $user = User::findOrFail(Auth::id());
 
     $dataupdate = $request->validated();
 

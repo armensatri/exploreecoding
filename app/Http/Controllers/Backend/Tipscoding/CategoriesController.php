@@ -113,7 +113,14 @@ class CategoriesController extends Controller
   {
     $dataupdate = $request->validated();
 
-    // ini lagi ya
+    $category->update($dataupdate);
+
+    Alert::success(
+      'success',
+      'Data category! berhasil di update.'
+    );
+
+    return redirect()->route('categories.index');
   }
 
   /**
@@ -121,6 +128,13 @@ class CategoriesController extends Controller
    */
   public function destroy(Category $category)
   {
-    //
+    Category::destroy($category->id);
+
+    Alert::success(
+      'success',
+      'Data category! berhasil di delete.'
+    );
+
+    return redirect()->route('categories.index');
   }
 }

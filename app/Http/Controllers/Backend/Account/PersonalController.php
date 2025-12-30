@@ -16,19 +16,11 @@ class PersonalController extends Controller
 {
   public function index()
   {
-    $userId = Auth::id();
 
-    $cacheKey = 'personal.user.' . $userId;
-
-    $user = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      fn() => User::find($userId)
-    );
 
     return view('backend.account.personal.index', [
       'title' => 'Personal',
-      'user' => $user
+      // 'user' => $user
     ]);
   }
 }
