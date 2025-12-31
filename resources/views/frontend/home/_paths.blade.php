@@ -45,7 +45,7 @@
                         <div>
                           @if ($path->status->name === 'explore')
                             <a href="">
-                              <span class="shadow-sm inline-flex items-center gap-x-1.5 py-0.75 px-3 rounded-[10px] text-sm font-medium bg-blue-300 hover:bg-blue-400 text-black cursor-pointer dark:text-neutral-800 border border-gray-500">
+                              <span class="shadow-sm inline-flex items-center gap-x-1.5 py-0.75 px-3 rounded-[10px] text-sm font-medium bg-blue-300 hover:bg-blue-700 hover:text-white text-black cursor-pointer dark:text-neutral-800 border border-gray-500 hover:border hover:border-gray-500">
                                 show course
                               </span>
                             </a>

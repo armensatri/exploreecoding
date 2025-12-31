@@ -17,67 +17,74 @@ use Illuminate\Support\Facades\{
 
 class RoleAccessPermissionController extends Controller
 {
-  public function accessPermission($url)
+  public function accessPermission(string $url)
   {
-    $cacheKey = 'roleaccesspermission.accessPermission.' . $url . '.' . md5(
-      json_encode(
-        request()->all()
-      )
-    );
-
-    [$role, $groupper] = Cache::remember(
-      $cacheKey,
+    $role = Cache::remember(
+      "role.show.{$url}",
       now()->addMinutes(10),
       function () use ($url) {
-        $role = Role::query()->where('url', $url)
-          ->firstOrFail();
-        $permissions = Permission::query()
-          ->select(['id', 'name'])
-          ->orderBy('id', 'asc')
-          ->get();
-        $groupper = $permissions->sortBy('id')->groupBy(
-          function ($permission) {
-            $controller = explode('.', $permission->name)[0];
-            return ucfirst($controller);
-          }
-        );
-
-        return [$role, $groupper];
+        return Role::where('url', $url)->firstOrFail();
       }
     );
 
+    $version = method_exists(
+      Permission::class,
+      'cacheVersion'
+    ) ? Permission::cacheVersion() : 'v1';
+
+    $groupper = Cache::remember(
+      "roleaccess.perm.list.{$version}",
+      now()->addMinutes(10),
+      function () {
+        return Permission::query()
+          ->select([
+            'id',
+            'name'
+          ])
+          ->orderBy('id', 'asc')
+          ->get()
+          ->groupBy(fn($p) => ucfirst(explode('.', $p->name)[0]));
+      }
+    );
+
+    $rolePermissions = $role->permissions()
+      ->pluck('permissions.id')
+      ->toArray();
+
     return view('backend.manageaccess.permission.index', [
-      'title' => 'Access permission',
+      'title' => 'Access Permission',
       'role' => $role,
-      'groupper' => $groupper
+      'groupper' => $groupper,
+      'rolePermissions' => $rolePermissions
     ]);
   }
 
   public function accessUpPermission(Request $request)
   {
-    $roleId = $request->role_id;
-    $permissionId = $request->permission_id;
-
-    $data = [
-      'role_id' => $roleId,
-      'permission_id' => $permissionId
-    ];
-
-    $exists = DB::table('role_has_permission')
-      ->where($data)
-      ->exists();
-
-    $exists
-      ? DB::table('role_has_permission')->where($data)->delete()
-      : DB::table('role_has_permission')->insert($data);
-
-    $message = $exists
-      ? 'Permission access! berhasil di delete.'
-      : 'Permission access! berhasil di tambahkan.';
-
-    return response()->json([
-      'success' => true,
-      'message' => $message
+    $data = $request->validate([
+      'role_id' => ['required', 'exists:roles,id'],
+      'permission_id' => ['required', 'exists:permissions,id'],
     ]);
+
+    try {
+      return DB::transaction(function () use ($data) {
+        $role = Role::findOrFail($data['role_id']);
+        $role->permissions()->toggle($data['permission_id']);
+
+        if (method_exists(Permission::class, 'bumpCacheVersion')) {
+          Permission::bumpCacheVersion();
+        }
+
+        return response()->json([
+          'success' => true,
+          'message' => 'Akses permission berhasil diupdate.'
+        ]);
+      });
+    } catch (\Exception $e) {
+      return response()->json([
+        'success' => false,
+        'message' => 'Terjadi kesalahan sistem.',
+      ], 500);
+    }
   }
 }

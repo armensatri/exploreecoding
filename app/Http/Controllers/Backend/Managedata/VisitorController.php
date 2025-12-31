@@ -52,10 +52,11 @@ class VisitorController extends Controller
   public function banned()
   {
     $filters = request(['search', 'role']);
+    $page = request('page', 1);
 
     $cacheKey = 'visitor.banned.ids.'
       . User::cacheVersion() . '.'
-      . md5(json_encode($filters));
+      . md5(json_encode([$filters, $page]));
 
     $ids = Cache::remember(
       $cacheKey,
@@ -64,6 +65,7 @@ class VisitorController extends Controller
         ->search($filters)
         ->where('status', 0)
         ->orderBy('id', 'asc')
+        ->forPage($page, 10)
         ->pluck('id')
         ->toArray()
     );
