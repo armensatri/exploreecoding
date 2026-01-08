@@ -41,7 +41,7 @@
               <div class="mt-16">
                 <div class="content">
                   <section class="w-full px-3 mt-8 mb-5 xl:flex xl:justify-center">
-                    <div class="max-w-[85rem] mx-auto">
+                    <div class="mx-auto max-w-340">
                       <div class="flex flex-col">
                         <div class="-m-1.5 overflow-x-auto min-w-full">
                           <div class="p-1.5 inline-block xl:max-w-full">
@@ -76,7 +76,7 @@
                                       name="id"
                                     />
                                     <x-th
-                                      name="name"
+                                      name="username"
                                     />
                                     <x-th
                                       name="role"
@@ -105,7 +105,7 @@
 
                                       <td class="h-px whitespace-nowrap">
                                         <x-td-var
-                                          :var="$user->name"
+                                          :var="'@'. $user->username"
                                         />
                                       </td>
 

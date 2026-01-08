@@ -13,7 +13,21 @@
                   Belajar Coding Bersama ExploreeCoding
                 </h2>
                 <p class="text-gray-600 dark:text-neutral-400">
-                  ExploreeCoding membantu kamu belajar programming secara terstruktur melalui path, roadmap, playlist, dan post/materi yang mudah dipahami.
+                  ExploreeCoding membantu kamu belajar programming secara terstruktur melalui
+                  <span class="text-blue-700">
+                    paths
+                  </span>,
+                  <span class="text-blue-700">
+                    roadmaps
+                  </span>,
+                  <span class="text-blue-700">
+                    playlists
+                  </span>,
+                  dan
+                  <span class="text-blue-700">
+                    post/materi
+                  </span>
+                  yang mudah dipahami.
                 </p>
               </div>
               <!-- End Title -->
@@ -37,7 +51,7 @@
 
                   <li class="flex flex-col -m-0.5 p-4 sm:p-8">
                     <div class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
-                      12+
+                      {{ $paths->count() }}+
                     </div>
                     <p class="text-sm text-gray-600 sm:text-base dark:text-neutral-400">
                       <span class="text-sm font-semibold tracking-wide text-blue-500 uppercase">
@@ -49,7 +63,7 @@
 
                   <li class="flex flex-col -m-0.5 p-4 sm:p-8">
                     <div class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
-                      30+
+                      {{ $roadmaps }}+
                     </div>
                     <p class="text-sm text-gray-600 sm:text-base dark:text-neutral-400">
                       <span class="text-sm font-semibold tracking-wide text-blue-500 uppercase">
@@ -61,7 +75,7 @@
 
                   <li class="flex flex-col -m-0.5 p-4 sm:p-8">
                     <div class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
-                      80+
+                      {{ $playlists }}+
                     </div>
                     <p class="text-sm text-gray-600 sm:text-base dark:text-neutral-400">
                       <span class="text-sm font-semibold tracking-wide text-blue-500 uppercase">
@@ -73,7 +87,7 @@
 
                   <li class="flex flex-col -m-0.5 p-4 sm:p-8">
                     <div class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
-                      200+
+                      {{ $posts }}+
                     </div>
                     <p class="text-sm text-gray-600 sm:text-base dark:text-neutral-400">
                       <span class="text-sm font-semibold tracking-wide text-blue-500 uppercase">

@@ -32,7 +32,7 @@ class VisitorController extends Controller
       ->whereIn('id', $ids)
       ->select([
         'id',
-        'name',
+        'username',
         'role_id',
         'status_on_of',
         'last_seen',
@@ -74,7 +74,7 @@ class VisitorController extends Controller
       ->whereIn('id', $ids)
       ->select([
         'id',
-        'name',
+        'username',
         'role_id',
         'status',
         'url'

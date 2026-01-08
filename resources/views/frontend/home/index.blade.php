@@ -10,6 +10,12 @@
       @include('frontend.home._paths')
 
       @include('frontend.home._populer')
+
+      @include('frontend.home._tipscoding')
+
+      @include('frontend.home._join')
+
+      @include('frontend.home._question')
     </div>
   </div>
 @endsection

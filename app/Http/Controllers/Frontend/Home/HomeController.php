@@ -3,8 +3,14 @@
 namespace App\Http\Controllers\Frontend\Home;
 
 use Illuminate\Http\Request;
-use App\Models\Programming\Path;
 use App\Http\Controllers\Controller;
+
+use App\Models\Programming\{
+  Path,
+  Roadmap,
+  Playlist,
+  Post,
+};
 
 class HomeController extends Controller
 {
@@ -24,7 +30,10 @@ class HomeController extends Controller
 
     return view('frontend.home.index', [
       'title' => 'Home',
-      'paths' => $paths
+      'paths' => $paths,
+      'roadmaps' => Roadmap::count(),
+      'playlists' => Playlist::count(),
+      'posts' => Post::count()
     ]);
   }
 }

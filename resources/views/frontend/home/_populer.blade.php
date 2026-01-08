@@ -50,8 +50,11 @@
                               </span>
                             </a>
                           @else
-                            <span class="shadow-sm inline-flex items-center gap-x-1.5 py-0.75 px-3 rounded-[10px] text-sm font-medium bg-blue-300 text-black dark:text-neutral-800 border border-gray-500">
-                              no course
+                            <span class="shadow-sm inline-flex items-center gap-x-1 py-0.75 pl-2 pr-2.5 rounded-[10px] text-sm font-medium bg-blue-300 text-black dark:text-neutral-800 border border-gray-500">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-red-700 bi bi-x-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+</svg> course
                             </span>
                           @endif
                         </div>
