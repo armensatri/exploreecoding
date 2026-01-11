@@ -1,6 +1,6 @@
 <div class="hidden lg:flex lg:gap-x-4">
   <a href="{{ route('home') }}"
-    class="tracking-wide justify-center px-3.5 py-[3px] text-base font-medium leading-6 text-black border border-gray-400
+    class="tracking-wide justify-center px-3.5 py-0.75 text-base font-medium leading-6 text-black border border-gray-400
     rounded-[13px] bg-blue-200 hover:bg-blue-300 cursor-pointer">
     Home
   </a>
@@ -15,7 +15,7 @@
         aria-expanded="false"
         aria-label="Mega Menu"
         class="flex items-center w-auto p-2 tracking-wide justify-center
-        px-3.5 py-[3px] text-lg font-medium leading-6 text-black border border-gray-400 rounded-[13px] bg-blue-200 cursor-pointer hs-dropdown-toggle hover:bg-linear-to-r hover:from-red-200 hover:to-green-200">
+        px-3.5 py-0.75 text-lg font-medium leading-6 text-black border border-gray-400 rounded-[13px] bg-blue-200 cursor-pointer hs-dropdown-toggle hover:bg-linear-to-r hover:from-red-200 hover:to-green-200">
         Menu
         <i class="ml-1 text-base bi bi-arrow-down-circle"></i>
       </button>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="bg-sky-100 rounded-l-2xl">
-              <div class="flex flex-col p-2 h-[334px] overflow-y-scroll">
+              <div class="flex flex-col p-2 h-83.5 overflow-y-scroll">
                 <span class="ms-2.5 mb-6 tracking-wider font-bold text-base
                   uppercase text-green-700 text-center mt-4">
                   menu utama
@@ -57,7 +57,7 @@
             </div>
 
             <div class="bg-sky-100 rounded-l-2xl">
-              <div class="flex flex-col p-2 h-[334px] overflow-y-scroll">
+              <div class="flex flex-col p-2 h-83.5 overflow-y-scroll">
                 <span class="ms-2.5 mb-6 tracking-wider font-bold text-base
                   uppercase text-green-700 text-center mt-4">
                   explore lainnya
@@ -79,7 +79,7 @@
   </div>
 
   <a href="{{ route('home') }}"
-    class="tracking-wide justify-center px-3.5 py-[3px] text-base font-medium leading-6 text-black border border-gray-400
+    class="tracking-wide justify-center px-3.5 py-0.75 text-base font-medium leading-6 text-black border border-gray-400
     rounded-[13px] bg-blue-200 hover:bg-blue-300 cursor-pointer">
     About
   </a>

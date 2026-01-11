@@ -1,110 +1,106 @@
-<section class="px-6 mt-16">
-      <div class="max-w-6xl mx-auto text-center">
-        <!-- ExploreCoding Stats -->
-        <div class="px-4 py-10 mx-auto max-w-340 sm:px-6 lg:px-8 lg:py-14">
-          <!-- Grid -->
-          <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center lg:justify-between">
+<section class="px-3 mt-16">
+  <div class="max-w-6xl mx-auto text-center">
+    <div class="px-4 py-10 mx-auto">
+      <div
+        class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center lg:justify-between">
+        <!-- LEFT CONTENT -->
+        <div class="lg:col-span-5 lg:col-start-1">
+          <div class="mb-8">
+            <h2
+              class="leading-10 mb-5 text-[33px] font-bold tracking-tight text-gray-800">
+              Belajar Coding Bersama
+              <span class="text-blue-400">
+                Exploreecoding
+              </span>
+            </h2>
 
-            <!-- LEFT CONTENT -->
-            <div class="lg:col-span-5 lg:col-start-1">
-              <!-- Title -->
-              <div class="mb-8">
-                <h2 class="mb-2 text-2xl font-bold text-gray-800 lg:text-3xl dark:text-neutral-200">
-                  Belajar Coding Bersama ExploreeCoding
-                </h2>
-                <p class="text-gray-600 dark:text-neutral-400">
-                  ExploreeCoding membantu kamu belajar programming secara terstruktur melalui
-                  <span class="text-blue-700">
-                    paths
-                  </span>,
-                  <span class="text-blue-700">
-                    roadmaps
-                  </span>,
-                  <span class="text-blue-700">
-                    playlists
-                  </span>,
-                  dan
-                  <span class="text-blue-700">
-                    post/materi
-                  </span>
-                  yang mudah dipahami.
-                </p>
-              </div>
-              <!-- End Title -->
-
-              <!-- Blockquote -->
-              <blockquote class="relative">
-                <div class="relative z-10">
-                  <p class="text-xl italic text-gray-800 dark:text-white">
-                    “Materinya terstruktur, roadmapnya jelas, dan sangat membantu belajar coding dari nol.”
-                  </p>
-                </div>
-              </blockquote>
-              <!-- End Blockquote -->
-            </div>
-            <!-- End Col -->
-
-            <!-- RIGHT STATS -->
-            <div class="mt-10 lg:mt-0 lg:col-span-6 lg:col-end-13">
-              <div class="space-y-6 sm:space-y-8">
-                <ul class="grid grid-cols-2 overflow-hidden divide-x-2 divide-y-2 divide-gray-200 dark:divide-neutral-700">
-
-                  <li class="flex flex-col -m-0.5 p-4 sm:p-8">
-                    <div class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
-                      {{ $paths->count() }}+
-                    </div>
-                    <p class="text-sm text-gray-600 sm:text-base dark:text-neutral-400">
-                      <span class="text-sm font-semibold tracking-wide text-blue-500 uppercase">
-                        Paths
-                      </span>
-                      tersedia
-                    </p>
-                  </li>
-
-                  <li class="flex flex-col -m-0.5 p-4 sm:p-8">
-                    <div class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
-                      {{ $roadmaps }}+
-                    </div>
-                    <p class="text-sm text-gray-600 sm:text-base dark:text-neutral-400">
-                      <span class="text-sm font-semibold tracking-wide text-blue-500 uppercase">
-                        Roadmaps
-                      </span>
-                      terstruktur
-                    </p>
-                  </li>
-
-                  <li class="flex flex-col -m-0.5 p-4 sm:p-8">
-                    <div class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
-                      {{ $playlists }}+
-                    </div>
-                    <p class="text-sm text-gray-600 sm:text-base dark:text-neutral-400">
-                      <span class="text-sm font-semibold tracking-wide text-blue-500 uppercase">
-                        Playlists
-                      </span>
-                      pembelajaran
-                    </p>
-                  </li>
-
-                  <li class="flex flex-col -m-0.5 p-4 sm:p-8">
-                    <div class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
-                      {{ $posts }}+
-                    </div>
-                    <p class="text-sm text-gray-600 sm:text-base dark:text-neutral-400">
-                      <span class="text-sm font-semibold tracking-wide text-blue-500 uppercase">
-                        Post / Materi
-                      </span>
-                      edukatif
-                    </p>
-                  </li>
-
-                </ul>
-              </div>
-            </div>
-            <!-- End Col -->
-
+            <p class="text-xl text-gray-800">
+              ExploreeCoding membantu kamu belajar programming secara terstruktur melalui
+              <span class="text-blue-700">
+                paths
+              </span>,
+              <span class="text-blue-700">
+                roadmaps
+              </span>,
+              <span class="text-blue-700">
+                playlists
+              </span>,
+              dan
+              <span class="text-blue-700">
+                post/materi
+              </span>
+              yang mudah dipahami.
+            </p>
           </div>
-          <!-- End Grid -->
+
+          <blockquote class="relative">
+            <div class="relative z-10">
+              <p class="text-xl italic text-gray-800 dark:text-white">
+                “Materinya terstruktur, roadmapnya jelas, dan sangat membantu belajar coding dari nol.”
+              </p>
+            </div>
+          </blockquote>
         </div>
-        <!-- End ExploreCoding Stats -->
+
+        <!-- RIGHT STATS -->
+        <div class="mt-10 lg:mt-0 lg:col-span-6 lg:col-end-13">
+          <div class="space-y-6 sm:space-y-8">
+            <ul
+              class="grid grid-cols-2 overflow-hidden divide-x divide-y divide-blue-300">
+              <li class="flex flex-col -m-0.5 p-4 sm:p-8">
+                <div
+                  class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
+                  {{ $paths->count() }}+
+                </div>
+
+                <p>
+                  <span
+                    class="text-sm font-semibold tracking-wide text-blue-500 uppercase">
+                    Path
+                  </span><br>
+                  tersedia
+                </p>
+              </li>
+
+              <li class="flex flex-col -m-0.5 p-4 sm:p-8">
+                <div class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
+                  {{ $roadmaps }}+
+                </div>
+                <p>
+                  <span class="text-sm font-semibold tracking-wide text-blue-500 uppercase">
+                  Roadmap
+                  </span><br>
+                  terstruktur
+                </p>
+              </li>
+
+              <li class="flex flex-col -m-0.5 p-4 sm:p-8">
+                <div class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
+                  {{ $playlists }}+
+                </div>
+                <p>
+                  <span class="text-sm font-semibold tracking-wide text-blue-500 uppercase">
+                  Playlist
+                  </span><br>
+                  pembelajaran
+                </p>
+              </li>
+
+              <li class="flex flex-col -m-0.5 p-4 sm:p-8">
+                <div class="mb-2 text-3xl font-bold text-gray-800 sm:text-5xl dark:text-neutral-200">
+                  {{ $posts }}+
+                </div>
+                <p>
+                  <span class="text-sm font-semibold tracking-wide text-blue-500 uppercase">
+                  Materi
+                  </span><br>
+                  edukatif
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
