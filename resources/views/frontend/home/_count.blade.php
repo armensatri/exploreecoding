@@ -6,9 +6,9 @@
         <div class="lg:col-span-6 lg:col-start-1">
           <div class="mb-8">
             <h2
-              class="mb-5 text-3xl font-bold leading-10 tracking-tight text-gray-800">
+              class="mb-5 text-2xl font-bold leading-10 tracking-tight text-gray-800 sm:text-3xl">
               Belajar Coding Bersama <br>
-              <span class="text-blue-500">
+              <span class="text-transparent bg-linear-to-r from-blue-500 to-sky-300 bg-clip-text">
                 Exploreecoding
               </span>
             </h2>

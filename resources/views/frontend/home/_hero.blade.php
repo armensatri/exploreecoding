@@ -13,12 +13,12 @@
   </h1>
 
   <h2
-    class="max-w-lg mx-auto mt-5 text-3xl font-bold leading-tight tracking-tight text-center text-gray-700 sm:text-gray-800 xl:mt-2 lg:px-3 lg:text-4xl lg:max-w-5xl xl:max-w-6xl xl:text-5xl">
+    class="max-w-lg mx-auto mt-5 text-3xl font-bold leading-tight tracking-tight text-center text-gray-800 xl:mt-2 lg:px-3 lg:text-4xl lg:max-w-5xl xl:max-w-6xl xl:text-5xl">
     Platform belajar pemrograman untuk menguasai coding dari dasar
   </h2>
 
   <p
-    class="max-w-2xl mx-auto mt-10 text-lg tracking-tight text-gray-700 lg:text-xl xl:mt-16">
+    class="max-w-2xl mx-auto mt-10 text-lg tracking-normal text-gray-700 lg:text-xl xl:mt-16">
     Kuasai teknologi programming melalui latihan konsisten proyek nyata serta pembelajaran coding yang terstruktur
   </p>
 

@@ -2,17 +2,17 @@
   <div class="mx-auto text-center">
     <h2
       class="text-2xl font-bold tracking-normal text-gray-800 uppercase sm:text-3xl">
-      path
+      populer
       <span
         class="text-transparent bg-linear-to-r from-blue-500 to-sky-300 bg-clip-text">
-        course
+        path course
       </span>
     </h2>
   </div>
 
   <p
     class="max-w-2xl mx-auto mt-3 text-lg text-center text-gray-700">
-    Pilihan path course menuntun perjalanan belajarmu dari awal melalui pembelajaran bertahap dan terstruktur
+    Path course yang banyak di kunjungi pengguna untuk belajar skill populer dengan materi terarah dan mudah dipahami
   </p>
 
   <div data-hs-carousel='{
@@ -24,7 +24,7 @@
       <div class="relative mt-10 mb-10">
         <div
           class="flex transition-transform duration hs-carousel-body gap-x-6">
-          @foreach ($paths->take(5) as $path)
+          @foreach ($paths->take(3) as $path)
             <div class="w-full hs-carousel-slide">
               <div
                 class="flex flex-col items-center justify-center h-full p-8 text-center bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
@@ -84,7 +84,7 @@
     </div>
 
     <button type="button"
-      class="absolute p-2 -translate-y-1/2 bg-blue-300 border border-gray-600 rounded-full shadow cursor-pointer -left-2.5 top-1/2 hover:bg-blue-500 hover:text-white hs-carousel-prev">
+      class="absolute xl:hidden p-2 -translate-y-1/2 bg-blue-300 border border-gray-600 rounded-full shadow cursor-pointer -left-2.5 top-1/2 hover:bg-blue-500 hover:text-white hs-carousel-prev">
       <svg xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
         viewBox="0 0 16 16"
@@ -96,7 +96,7 @@
     </button>
 
     <button type="button"
-      class="absolute p-2 -translate-y-1/2 bg-blue-300 border border-gray-600 rounded-full shadow cursor-pointer -right-2.5 top-1/2 hover:bg-blue-500 hover:text-white hs-carousel-next">
+      class="absolute xl:hidden p-2 -translate-y-1/2 bg-blue-300 border border-gray-600 rounded-full shadow cursor-pointer -right-2.5 top-1/2 hover:bg-blue-500 hover:text-white hs-carousel-next">
       <svg xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
         viewBox="0 0 16 16"
@@ -108,15 +108,6 @@
     </button>
 
     <div class="flex justify-center mt-4 hs-carousel-pagination gap-x-2">
-    </div>
-
-    <div class="flex justify-center mt-5">
-      <a href="{{ route('path') }}">
-        <button
-          class="px-5 py-2 text-base font-semibold tracking-wide text-black bg-blue-300 border border-gray-400 shadow-sm cursor-pointer rounded-[14px] hover:bg-blue-600 hover:text-white">
-          Semua path course
-        </button>
-      </a>
     </div>
   </div>
 </section>
