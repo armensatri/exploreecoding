@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Tipscoding\Tipscoding;
 
 use App\Models\Programming\{
   Path,
@@ -28,12 +29,23 @@ class HomeController extends Controller
       ->orderBy('sp', 'asc')
       ->get();
 
+    $tipscodings = Tipscoding::query()
+      ->select([
+        'id',
+        'title',
+        'excerpt',
+        'category_id'
+      ])
+      ->with('category:id,name')
+      ->get();
+
     return view('frontend.home.index', [
       'title' => 'Home',
       'paths' => $paths,
       'roadmaps' => Roadmap::count(),
       'playlists' => Playlist::count(),
-      'posts' => Post::count()
+      'posts' => Post::count(),
+      'tipscodings' => $tipscodings
     ]);
   }
 }
