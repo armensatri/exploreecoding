@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\View\Components\Frontend\Home\Question;
 
 use App\View\Components\Frontend\Header\{
   MenuAuth,
@@ -32,5 +33,8 @@ class FrontendServiceProvider extends ServiceProvider
     Blade::component('mobile-menu-utama', MobileMenuUtama::class);
     Blade::component('mobile-explore-lainnya', MobileExploreLainnya::class);
     Blade::component('menu-auth', MenuAuth::class);
+
+    // HOME
+    Blade::component('question', Question::class);
   }
 }

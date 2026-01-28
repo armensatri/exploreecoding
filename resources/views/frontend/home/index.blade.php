@@ -19,7 +19,7 @@
 
       @include('frontend.home._tipscoding')
 
-      {{-- @include('frontend.home._question') --}}
+      @include('frontend.home._question')
     </div>
   </div>
 @endsection

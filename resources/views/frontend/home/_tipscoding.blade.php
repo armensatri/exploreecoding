@@ -12,7 +12,7 @@
 
   <p
     class="max-w-2xl mx-auto mt-3 text-lg text-center text-gray-700">
-    Kumpulan artikel exploreecoding berisi tips coding praktis panduan sederhana dan wawasan pengembangan skill
+    Kumpulan artikel exploreecoding berisi tips coding praktis panduan sederhana dan wawasan pengembangan pengetahuan
   </p>
 
   <div data-hs-carousel='{
@@ -29,27 +29,32 @@
               <div
                 class="flex flex-col items-center h-full p-8 bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
                 <div>
-                            <div class="">
-                                <div class="relative overflow-hidden bg-yellow-400 h-44 rounded-xl">
-                                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=500"
-                                         alt="Course Image"
-                                         class="object-cover w-full h-full opacity-90">
-                                </div>
-                            </div>
+                  <div class="">
+                    <div
+                      class="relative overflow-hidden bg-yellow-400 h-44 rounded-xl">
+                      <img
+                        src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=500"
+                        alt="Course Image"
+                        class="object-cover w-full h-full opacity-90"
+                      />
+                    </div>
+                  </div>
 
-                            <div class="mt-3">
-                                <div class="flex items-center mb-4">
-                                    <span class="px-3 py-1 text-xs font-bold tracking-wider text-blue-600 uppercase rounded-lg bg-blue-50">
-                                        <i class="bi bi-tags"></i>tips html
-                                    </span>
-                                </div>
+                  <div class="mt-3">
+                    <div class="flex items-center mb-4">
+                      <span
+                        class="px-3 py-1 text-xs font-bold tracking-wider text-blue-600 uppercase rounded-lg bg-blue-50">
+                        <i class="bi bi-tags"></i>tips html
+                      </span>
+                    </div>
 
-                                 <h3 class="mt-2 text-lg font-semibold tracking-wide text-slate-800 line-clamp-2">
-                                  Lorem ipsum dolor sit amet. dolor sit amet.
-                                  Lorem ipsum dolor sit amet. dolor sit amet.
-                                </h3>
-                            </div>
-                          </div>
+                    <h3
+                      class="mt-2 text-lg font-semibold tracking-wide text-slate-800 line-clamp-2">
+                      Lorem ipsum dolor sit amet. dolor sit amet.
+                      Lorem ipsum dolor sit amet. dolor sit amet.
+                    </h3>
+                  </div>
+                </div>
               </div>
             </div>
           @endforeach
@@ -88,7 +93,7 @@
       <a href="{{ route('path') }}">
         <button
           class="px-5 py-2 text-base font-semibold tracking-wide text-black bg-blue-300 border border-gray-400 shadow-sm cursor-pointer rounded-[14px] hover:bg-blue-600 hover:text-white">
-          Semua path course
+          Semua tips coding
         </button>
       </a>
     </div>
