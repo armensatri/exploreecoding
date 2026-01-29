@@ -34,7 +34,7 @@
           question="Apakah roadmap pembelajaran bisa di pilih ?"
           answer="bisa, tapi harus mengikuti arah dari path, karna
           path -> roadmaps -> playlists -> posts/materi saling
-          berhubungan dan tentukan arah belajar dari path
+          berhubungan, dan tentukan arah belajar dari path
           yang di pilih"
         />
 
@@ -63,8 +63,7 @@
         <x-question
           heading="6"
           collapse="6"
-          question="Kalau saya stuck dan kesulitan apakah ada
-          tempat untuk bertanya ?"
+          question="Jika ada kesulitan apakah ada tempat untuk bertanya ?"
           answer="kita diskusi bersama di kolom komentar
           post/materi saja"
         />
