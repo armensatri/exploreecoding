@@ -1,55 +1,84 @@
 <footer class="antialiased bg-sky-100">
   <div class="p-4 mx-auto text-center max-w-7xl md:p-8 lg:p-10">
-    <div class="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
+    <hr class="w-full p-4 my-6 border-sky-200 sm:mx-auto lg:my-8">
+    <div class="grid grid-cols-2 gap-8 md:grid-cols-2 lg:grid-cols-4">
       <div>
-        <h2 class="mb-6 text-base font-bold text-black uppercase">
-          Home
-        </h2>
-        <ul class="text-gray-500">
-          <li class="mb-4">
-            <a href="#aaa" class=" hover:underline isolate">
-              --
-            </a>
-          </li>
+        <x-footer-menu
+          menu="Exploreecoding"
+        />
+        <ul>
+          <x-footer-submenu
+            route="#"
+            submenu="Tentang kami"
+          />
+          <x-footer-submenu
+            route=""
+            submenu="Tips coding"
+          />
+          <x-footer-submenu
+            route=""
+            submenu="App component"
+          />
         </ul>
       </div>
 
       <div>
-        <h2 class="mb-6 text-base font-bold text-black uppercase">
-          Company
-        </h2>
-        <ul class="text-gray-500">
-          <li class="mb-4">
-            <a href="#aaa" class=" hover:underline isolate">
-              --
-            </a>
-          </li>
+        <x-footer-menu
+          menu="Course"
+        />
+        <ul>
+          <x-footer-submenu
+            route=""
+            submenu="Semua path"
+          />
+          <x-footer-submenu
+            route=""
+            submenu="Silabus"
+          />
+          <x-footer-submenu
+            route=""
+            submenu="Ada ide ? kirim"
+          />
         </ul>
       </div>
 
       <div>
-        <h2 class="mb-6 text-base font-bold text-black uppercase">
-          Content
-        </h2>
-        <ul class="text-gray-500">
-          <li class="mb-4">
-            <a href="#aaa" class=" hover:underline isolate">
-              --
-            </a>
-          </li>
+        <x-footer-menu
+          menu="Populer course"
+        />
+        <ul>
+          <x-footer-submenu
+            route=""
+            submenu="Frontend"
+          />
+          <x-footer-submenu
+            route=""
+            submenu="Backend"
+          />
+          <x-footer-submenu
+            route=""
+            submenu="Struktur data"
+          />
         </ul>
       </div>
 
       <div>
-        <h2 class="mb-6 text-base font-bold text-black uppercase">
-          Contact
-        </h2>
-        <ul class="text-gray-500">
-          <li class="mb-4">
-            <a href="#aaa" class=" hover:underline isolate">
-              --
-            </a>
-          </li>
+        <x-footer-menu
+          menu="Support"
+        />
+        <ul>
+          <x-footer-submenu
+            route=""
+            submenu="Hubungi kami"
+          />
+          <x-footer-submenu
+            route=""
+            submenu="Syarat dan ketentuan"
+          />
+          <x-footer-submenu
+            route=""
+            submenu="Privacy"
+          />
         </ul>
       </div>
     </div>

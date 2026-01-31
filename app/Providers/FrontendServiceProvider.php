@@ -16,6 +16,11 @@ use App\View\Components\Frontend\Header\{
   MobileExploreLainnya,
 };
 
+use App\View\Components\Frontend\Footer\{
+  FooterMenu,
+  FooterSubmenu,
+};
+
 class FrontendServiceProvider extends ServiceProvider
 {
   public function register(): void
@@ -31,10 +36,17 @@ class FrontendServiceProvider extends ServiceProvider
     Blade::component('web-explore-lainnya', WebExploreLainnya::class);
     Blade::component('mobile-default', MobileDefault::class);
     Blade::component('mobile-menu-utama', MobileMenuUtama::class);
-    Blade::component('mobile-explore-lainnya', MobileExploreLainnya::class);
+    Blade::component(
+      'mobile-explore-lainnya',
+      MobileExploreLainnya::class
+    );
     Blade::component('menu-auth', MenuAuth::class);
 
     // HOME
     Blade::component('question', Question::class);
+
+    // FOOTER
+    Blade::component('footer-menu', FooterMenu::class);
+    Blade::component('footer-submenu', FooterSubmenu::class);
   }
 }

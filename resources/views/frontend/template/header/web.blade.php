@@ -47,11 +47,59 @@
                 </span>
 
                 <x-web-menu-utama
-                  :route="route('home')"
+                  route=""
                   :image="asset('frontend/img/navigation/home.png')"
-                  menu="Home"
-                  description="Welcome back exploreecoding belajar pemograman terstruktur dan gratis"
-                  button-name="Home"
+                  menu="Sitemap"
+                  description="Peta navigasi exploreecoding untuk menemukan semua konten"
+                  button-name="Sitemap"
+                />
+
+                <x-web-menu-utama
+                  route=""
+                  :image="asset('frontend/img/navigation/home.png')"
+                  menu="Silabus"
+                  description="Panduan materi pembelajaran terarah dan sistematis exploreecoding"
+                  button-name="Silabus"
+                />
+
+                <x-web-menu-utama
+                  route=""
+                  :image="asset('frontend/img/navigation/home.png')"
+                  menu="Semua path"
+                  description="Kumpulan path belajar coding lengkap untuk semua level"
+                  button-name="Semua path"
+                />
+
+                <x-web-menu-utama
+                  route=""
+                  :image="asset('frontend/img/navigation/home.png')"
+                  menu="Tips coding"
+                  description="Blog artikel sederhana untuk meningkatkan skill pemrograman"
+                  button-name="Tips coding"
+                />
+
+                <x-web-menu-utama
+                  route=""
+                  :image="asset('frontend/img/navigation/home.png')"
+                  menu="Populer course"
+                  description="Course unggulan yang paling sering di pelajari pengguna"
+                  button-name="Popluer course"
+                />
+
+                <x-web-menu-utama
+                  route=""
+                  :image="asset('frontend/img/navigation/home.png')"
+                  menu="Ada ide ? kirim"
+                  description="Kirim ide course atau materi baru ke exploreecoding"
+                  button-name="Kirim ide"
+                />
+
+                <x-web-menu-utama
+                  route=""
+                  :image="asset('frontend/img/navigation/home.png')"
+                  menu="Hubungi kami"
+                  description="Kontak resmi exploreecoding untuk pertanyaan dan dukungan"
+                  button-name="Hubungi kami"
                 />
               </div>
             </div>
@@ -64,11 +112,19 @@
                 </span>
 
                 <x-web-explore-lainnya
-                  :route="url('https://laravel.com')"
+                  route=""
                   :image="asset('frontend/img/explore/app-laravel.png')"
-                  menu="App Laravel"
-                  description="Laravel php framework dengan syntax elegan dan powerfull"
-                  button-name="Laravel"
+                  menu="App expblog"
+                  description="App blog exploreecoding berisi tentang artikel dan wawasan IT"
+                  button-name="blog"
+                />
+
+                <x-web-explore-lainnya
+                  route=""
+                  :image="asset('frontend/img/explore/app-laravel.png')"
+                  menu="App expcomponent"
+                  description="App component exploreecoding berisi tentang component ui ux"
+                  button-name="Component"
                 />
               </div>
             </div>
