@@ -18,6 +18,7 @@ use App\View\Components\Frontend\Header\{
 
 use App\View\Components\Frontend\Footer\{
   FooterMenu,
+  FooterSodmed,
   FooterSubmenu,
 };
 
@@ -48,5 +49,6 @@ class FrontendServiceProvider extends ServiceProvider
     // FOOTER
     Blade::component('footer-menu', FooterMenu::class);
     Blade::component('footer-submenu', FooterSubmenu::class);
+    Blade::component('footer-sosmed', FooterSodmed::class);
   }
 }

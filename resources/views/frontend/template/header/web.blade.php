@@ -74,7 +74,7 @@
                   route=""
                   :image="asset('frontend/img/navigation/home.png')"
                   menu="Tips coding"
-                  description="Blog artikel sederhana untuk meningkatkan skill pemrograman"
+                  description="Tips pengetahuan untuk meningkatkan skill pemrograman"
                   button-name="Tips coding"
                 />
 
@@ -114,17 +114,9 @@
                 <x-web-explore-lainnya
                   route=""
                   :image="asset('frontend/img/explore/app-laravel.png')"
-                  menu="App expblog"
+                  menu="App expblogger"
                   description="App blog exploreecoding berisi tentang artikel dan wawasan IT"
                   button-name="blog"
-                />
-
-                <x-web-explore-lainnya
-                  route=""
-                  :image="asset('frontend/img/explore/app-laravel.png')"
-                  menu="App expcomponent"
-                  description="App component exploreecoding berisi tentang component ui ux"
-                  button-name="Component"
                 />
               </div>
             </div>

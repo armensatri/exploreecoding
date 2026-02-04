@@ -6,7 +6,7 @@
   />
 
   <div class="grow">
-    <div class="inline-flex items-center mb-1 text-base font-semibold tracking-wide text-gray-900">
+    <div class="inline-flex items-center mb-1 text-sm font-semibold tracking-wide text-gray-900 uppercase">
       {{ $menu }}
     </div>
 

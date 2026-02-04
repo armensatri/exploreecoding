@@ -2,7 +2,7 @@
   class="-m-1.5 p-1.5">
   <img src="{{ asset('/frontend/img/logo/logo.png') }}"
     alt="logo"
-    class="w-[34px] h-[34px] rounded-full"
+    class="w-8.5 h-8.5 rounded-full"
   />
 </a>
 
@@ -13,7 +13,7 @@
         aria-haspopup="menu"
         aria-expanded="false"
         aria-label="Dropdown"
-        class="hs-dropdown-toggle flex items-center gap-x-1 tracking-wide justify-center px-3 py-[3px] cursor-pointer">
+        class="hs-dropdown-toggle flex items-center gap-x-1 tracking-wide justify-center px-3 py-0.75 cursor-pointer">
 
         <picture>
           <img src="{{ Auth::user()->image ??
@@ -52,7 +52,7 @@
             method="POST">
             @csrf
             <button type="submit"
-              class="px-3 py-[3px] mb-2 hover:shadow text-red-800 bg-red-200 hover:bg-red-600 hover:text-white rounded-xl flex items-center justify-center font-medium text-[15px] cursor-pointer border border-gray-400">
+              class="px-3 py-0.75 mb-2 hover:shadow text-red-800 bg-red-200 hover:bg-red-600 hover:text-white rounded-xl flex items-center justify-center font-medium text-[15px] cursor-pointer border border-gray-400">
               <i class="bi bi-arrow-right-circle"></i>
               <span class="text-[15px] font-medium ml-1 tracking-wide">
                 Logout

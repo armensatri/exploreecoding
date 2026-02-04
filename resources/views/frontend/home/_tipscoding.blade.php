@@ -24,35 +24,43 @@
       <div class="relative mt-10 mb-10">
         <div
           class="flex transition-transform duration hs-carousel-body gap-x-6">
-          @foreach ($paths->take(5) as $path)
+          @foreach ($tipscodings->take(5) as $tipscoding)
             <div class="w-full hs-carousel-slide">
               <div
                 class="flex flex-col items-center h-full p-8 bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
                 <div>
-                  <div class="">
-                    <div
-                      class="relative overflow-hidden bg-yellow-400 h-44 rounded-xl">
-                      <img
-                        src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=500"
-                        alt="Course Image"
-                        class="object-cover w-full h-full opacity-90"
-                      />
-                    </div>
-                  </div>
-
                   <div class="mt-3">
                     <div class="flex items-center mb-4">
-                      <span
-                        class="px-3 py-1 text-xs font-bold tracking-wider text-blue-600 uppercase rounded-lg bg-blue-50">
-                        <i class="bi bi-tags"></i>tips html
-                      </span>
+                      <a href="">
+                        <span
+                          class="px-3 py-1 text-xs font-bold tracking-wider text-blue-600 uppercase border border-gray-300 rounded-lg bg-sky-50 hover:bg-blue-600 hover:text-white hover:border-0">
+                          <i class="bi bi-tags"></i> {{ $tipscoding->category->name }}
+                        </span>
+                      </a>
                     </div>
 
                     <h3
-                      class="mt-2 text-lg font-semibold tracking-wide text-slate-800 line-clamp-2">
-                      Lorem ipsum dolor sit amet. dolor sit amet.
-                      Lorem ipsum dolor sit amet. dolor sit amet.
+                      class="mt-2 text-xl font-semibold tracking-tight text-slate-800 line-clamp-1">
+                      {{ $tipscoding->title }}
                     </h3>
+
+                    <p
+                      class="ml-px text-gray-600 text-[17px] line-clamp-3 mt-3 tracking-tight font-normal">
+                      {{ $tipscoding->excerpt }}
+                    </p>
+
+                    <div class="flex items-center mt-3">
+                      <div class="hs-tooltip [--placement:auto]">
+                        <div
+                          class="relative hs-tooltip-toggle w-max text-[15px] text-black hover:text-white truncate cursor-pointer bg-blue-300 hover:bg-blue-600 px-2 py-0.5 rounded-lg border border-gray-400 font-medium shadow-xs tracking-wide">
+                          Baca selanjutnya...
+                          <span
+                            class="absolute z-10 invisible px-2 py-px text-sm tracking-wide text-black bg-blue-200 border border-blue-300 rounded-lg hs-tooltip-content hs-tooltip-shown:visible max-w-max">
+                            {{ $tipscoding->title }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

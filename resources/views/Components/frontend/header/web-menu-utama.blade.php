@@ -1,5 +1,4 @@
-<div class="flex justify-center mb-8 px-5 py-3 rounded-2xl gap-x-4
-  hover:bg-gradient-to-r hover:from-red-200 hover:to-green-200">
+<div class="flex justify-center px-5 py-3 mb-8 rounded-2xl gap-x-4 hover:bg-linear-to-r hover:from-red-200 hover:to-green-200">
 
   <img src="{{ $image }}"
     alt="nav"
@@ -7,8 +6,7 @@
   />
 
   <div class="grow">
-    <div class="inline-flex items-center text-base font-semibold
-      text-gray-900 mb-1 tracking-wide">
+    <div class="inline-flex items-center mb-1 text-sm font-semibold tracking-wide text-gray-900 uppercase">
       {{ $menu }}
     </div>
 
@@ -27,7 +25,7 @@
       <a href="{{ $route ?? '' }}">
         {{ $buttonName }}
         @if ($route)
-          <i class="ml-1 bi bi-box-arrow-up-right text-xs"></i>
+          <i class="ml-1 text-xs bi bi-box-arrow-up-right"></i>
         @else
           <i class="ml-1 text-xs bi bi-x-circle"></i>
         @endif

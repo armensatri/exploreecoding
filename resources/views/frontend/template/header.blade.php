@@ -8,7 +8,7 @@
         class="-m-1.5 p-1.5">
         <img src="{{ asset('/frontend/img/logo/logo.png') }}"
           alt="logo"
-          class="w-[34px] h-[34px] rounded-full"
+          class="w-8.5 h-8.5 rounded-full"
         />
       </a>
     </div>
