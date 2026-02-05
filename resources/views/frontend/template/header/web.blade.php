@@ -88,18 +88,18 @@
 
                 <x-web-menu-utama
                   route=""
-                  :image="asset('frontend/img/navigation/home.png')"
+                  :image="asset('frontend/img/navigation/ide.png')"
                   menu="Ada ide ? kirim"
                   description="Kirim ide course atau materi baru ke exploreecoding"
                   button-name="Kirim ide"
                 />
 
                 <x-web-menu-utama
-                  route=""
-                  :image="asset('frontend/img/navigation/home.png')"
-                  menu="Hubungi kami"
+                  :route="route('ec-contact')"
+                  :image="asset('frontend/img/navigation/contact.png')"
+                  menu="✅Contact"
                   description="Kontak resmi exploreecoding untuk pertanyaan dan dukungan"
-                  button-name="Hubungi kami"
+                  button-name="Contact"
                 />
               </div>
             </div>
@@ -113,10 +113,10 @@
 
                 <x-web-explore-lainnya
                   route=""
-                  :image="asset('frontend/img/explore/app-laravel.png')"
-                  menu="App expblogger"
-                  description="App blog exploreecoding berisi tentang artikel dan wawasan IT"
-                  button-name="blog"
+                  :image="asset('image/default.png')"
+                  menu="Exploreeblog"
+                  description="App blog exploreeblog berisi tentang artikel dan wawasan IT"
+                  button-name="Blog"
                 />
               </div>
             </div>

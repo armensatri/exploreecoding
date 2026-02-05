@@ -19,11 +19,59 @@
     </div>
 
     <x-mobile-menu-utama
-      :route="route('home')"
-      :image="asset('frontend/img/navigation/home.png')"
-      menu="Home"
-      description="Welcome back exploreecoding belajar pemograman terstruktur dan gratis"
-      button-name="Home"
+      route=""
+      :image="asset('frontend/img/navigation/sitemap.png')"
+      menu="Sitemap"
+      description="Peta navigasi exploreecoding untuk menemukan semua konten"
+      button-name="Sitemap"
+    />
+
+    <x-mobile-menu-utama
+      route=""
+      :image="asset('frontend/img/navigation/silabus.png')"
+      menu="Silabus"
+      description="Panduan materi pembelajaran terarah dan sistematis exploreecoding"
+      button-name="Silabus"
+    />
+
+    <x-mobile-menu-utama
+      route=""
+      :image="asset('frontend/img/navigation/paths.png')"
+      menu="Semua path"
+      description="Kumpulan path belajar coding lengkap untuk semua level"
+      button-name="Semua path"
+    />
+
+    <x-mobile-menu-utama
+      route=""
+      :image="asset('frontend/img/navigation/tipscodings.png')"
+      menu="Tips coding"
+      description="Tips pengetahuan untuk meningkatkan skill pemrograman"
+      button-name="Tips coding"
+    />
+
+    <x-mobile-menu-utama
+      route=""
+      :image="asset('frontend/img/navigation/paths.png')"
+      menu="Populer path course"
+      description="Path course unggulan yang paling sering di pelajari pengguna"
+      button-name="Populer path"
+    />
+
+    <x-mobile-menu-utama
+      route=""
+      :image="asset('frontend/img/navigation/ide.png')"
+      menu="Ada ide ? kirim"
+      description="Kirim ide course atau materi baru ke exploreecoding"
+      button-name="Kirim ide"
+    />
+
+    <x-mobile-menu-utama
+      :route="route('ec-contact')"
+      :image="asset('frontend/img/navigation/contact.png')"
+      menu="✅Contact"
+      description="Kontak resmi exploreecoding untuk pertanyaan dan dukungan"
+      button-name="Contact"
     />
   </div>
 
@@ -35,11 +83,11 @@
     </div>
 
     <x-mobile-explore-lainnya
-      :route="url('https://laravel.com')"
-      :image="asset('frontend/img/explore/app-laravel.png')"
-      menu="App Laravel"
-      description="Laravel php framework dengan syntax elegan dan powerfull"
-      button-name="Laravel"
+      route=""
+      :image="asset('image/default.png')"
+      menu="Exploreeblog"
+      description="App blog exploreeblog berisi tentang artikel dan wawasan IT"
+      button-name="Blog"
     />
   </div>
 </div>

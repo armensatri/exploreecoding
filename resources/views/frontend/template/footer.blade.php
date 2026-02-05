@@ -8,8 +8,8 @@
         />
         <ul>
           <x-footer-submenu
-            route="#"
-            submenu="Hubungi kami"
+            :route="route('ec-contact')"
+            submenu="✅Contact"
           />
           <x-footer-submenu
             route=""
