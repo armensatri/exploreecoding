@@ -1,14 +1,12 @@
 <div class="py-1.5">
-  <div class="flex px-5 py-3 rounded-2xl gap-x-4
-    hover:bg-linear-to-r hover:from-red-200 hover:to-green-200">
+  <div class="flex px-5 py-3 rounded-2xl gap-x-4 hover:bg-linear-to-r hover:from-red-200 hover:to-green-200">
     <img src="{{ $image }}"
       alt="exp"
       class="size-5"
     />
 
     <div class="grow">
-      <div class="inline-flex items-center text-base font-bold
-        text-gray-800 mb-1">
+      <div class="inline-flex items-center mb-1 text-sm font-semibold tracking-wide text-gray-800 uppercase">
         {{ $menu }}
       </div>
 
@@ -27,7 +25,7 @@
         <a href="{{ $route ?? '' }}" target="_blank">
           {{ $buttonName }}
           @if ($route)
-            <i class="ml-1 bi bi-box-arrow-up-right text-xs"></i>
+            <i class="ml-1 text-xs bi bi-box-arrow-up-right"></i>
           @else
             <i class="ml-1 text-xs bi bi-x-circle"></i>
           @endif

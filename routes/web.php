@@ -4,8 +4,12 @@
 require __DIR__ . '/auth/auth.php';
 
 // FRONTEND
+require __DIR__ . '/frontend/explore.php';
+require __DIR__ . '/frontend/footer.php';
 require __DIR__ . '/frontend/home.php';
-require __DIR__ . '/frontend/course.php';
+require __DIR__ . '/frontend/programming.php';
+require __DIR__ . '/frontend/support.php';
+require __DIR__ . '/frontend/tipscoding.php';
 
 // BACKEND
 require __DIR__ . '/backend/account.php';

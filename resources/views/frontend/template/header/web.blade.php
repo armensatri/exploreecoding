@@ -48,7 +48,7 @@
 
                 <x-web-menu-utama
                   route=""
-                  :image="asset('frontend/img/navigation/home.png')"
+                  :image="asset('frontend/img/navigation/sitemap.png')"
                   menu="Sitemap"
                   description="Peta navigasi exploreecoding untuk menemukan semua konten"
                   button-name="Sitemap"
@@ -56,7 +56,7 @@
 
                 <x-web-menu-utama
                   route=""
-                  :image="asset('frontend/img/navigation/home.png')"
+                  :image="asset('frontend/img/navigation/silabus.png')"
                   menu="Silabus"
                   description="Panduan materi pembelajaran terarah dan sistematis exploreecoding"
                   button-name="Silabus"
@@ -64,7 +64,7 @@
 
                 <x-web-menu-utama
                   route=""
-                  :image="asset('frontend/img/navigation/home.png')"
+                  :image="asset('frontend/img/navigation/paths.png')"
                   menu="Semua path"
                   description="Kumpulan path belajar coding lengkap untuk semua level"
                   button-name="Semua path"
@@ -72,7 +72,7 @@
 
                 <x-web-menu-utama
                   route=""
-                  :image="asset('frontend/img/navigation/home.png')"
+                  :image="asset('frontend/img/navigation/tipscodings.png')"
                   menu="Tips coding"
                   description="Tips pengetahuan untuk meningkatkan skill pemrograman"
                   button-name="Tips coding"
@@ -80,10 +80,10 @@
 
                 <x-web-menu-utama
                   route=""
-                  :image="asset('frontend/img/navigation/home.png')"
-                  menu="Populer course"
-                  description="Course unggulan yang paling sering di pelajari pengguna"
-                  button-name="Popluer course"
+                  :image="asset('frontend/img/navigation/paths.png')"
+                  menu="Populer path course"
+                  description="Path course unggulan yang paling sering di pelajari pengguna"
+                  button-name="Popluer path"
                 />
 
                 <x-web-menu-utama

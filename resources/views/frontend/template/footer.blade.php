@@ -132,7 +132,7 @@
 
         <span
           class="flex items-center text-sm font-medium tracking-wide text-black">
-          010123{{ date('y') }}
+          1.010123{{ date('y') }}
         </span>
       </p>
     </div>

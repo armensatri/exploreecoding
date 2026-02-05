@@ -55,7 +55,7 @@ class LoginController extends Controller
         'owner' => 'owner',
         'superadmin' => 'superadmin',
         'creator' => 'creator',
-        'member' => 'member'
+        'member' => 'home'
       ];
 
       $user = Auth::user();

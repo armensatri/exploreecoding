@@ -56,7 +56,7 @@
                         {{ $path->status->name }}
                       </span>
                     @else
-                      <a href="{{ route('path') }}"
+                      <a href=""
                         class="cursor-pointer">
                         <span
                           class="shadow-sm inline-flex items-center gap-x-1.5 py-0.75 px-3 rounded-[10px] text-sm font-medium border border-gray-500 bg-blue-300 text-blue-800 hover:bg-blue-600 hover:text-white">
@@ -111,7 +111,7 @@
     </div>
 
     <div class="flex justify-center mt-5">
-      <a href="{{ route('path') }}">
+      <a href="">
         <button
           class="px-5 py-2 text-base font-semibold tracking-wide text-black bg-blue-300 border border-gray-400 shadow-sm cursor-pointer rounded-[14px] hover:bg-blue-600 hover:text-white">
           Semua path course
