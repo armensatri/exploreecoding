@@ -17,7 +17,7 @@
 
         <picture>
           <img src="{{ Auth::user()->image ??
-            'frontend/img/user/user.png' }}"
+            asset('frontend/img/user/user.png') }}"
             alt="user-profile"
             class="object-cover object-top p-0.5
             bg-white rounded-full w-9 h-9"

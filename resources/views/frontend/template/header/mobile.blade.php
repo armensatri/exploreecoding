@@ -43,9 +43,9 @@
     />
 
     <x-mobile-menu-utama
-      route=""
+      :route="route('ec-tipscoding.index')"
       :image="asset('frontend/img/navigation/tipscodings.png')"
-      menu="Tips coding"
+      menu="✅Tips coding"
       description="Tips pengetahuan untuk meningkatkan skill pemrograman"
       button-name="Tips coding"
     />
@@ -67,7 +67,7 @@
     />
 
     <x-mobile-menu-utama
-      :route="route('ec-contact')"
+      :route="route('ec-tipscoding.index')"
       :image="asset('frontend/img/navigation/contact.png')"
       menu="✅Contact"
       description="Kontak resmi exploreecoding untuk pertanyaan dan dukungan"

@@ -12,8 +12,8 @@
             submenu="✅Contact"
           />
           <x-footer-submenu
-            route=""
-            submenu="Tips coding"
+            :route="route('ec-tipscoding.index')"
+            submenu="✅Tips coding"
           />
           <x-footer-submenu
             route=""

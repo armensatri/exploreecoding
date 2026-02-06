@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use App\View\Components\Frontend\Home\Question;
+use App\View\Components\Frontend\Paginate\Paginate;
 
 use App\View\Components\Frontend\Header\{
   MenuAuth,
@@ -50,5 +51,8 @@ class FrontendServiceProvider extends ServiceProvider
     Blade::component('footer-menu', FooterMenu::class);
     Blade::component('footer-submenu', FooterSubmenu::class);
     Blade::component('footer-sosmed', FooterSodmed::class);
+
+    // PAGINATE
+    Blade::component('paginate', Paginate::class);
   }
 }
