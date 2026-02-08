@@ -23,7 +23,8 @@ class Category extends Model
     'sc',
     'name',
     'slug',
-    'url'
+    'image',
+    'url',
   ];
 
   protected $sFields = [

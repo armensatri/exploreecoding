@@ -18,12 +18,23 @@ class TipscodingController extends Controller
       ->select([
         'id',
         'sc',
-        'name'
+        'name',
+        'image'
       ])->withCount('tipscodings')
       ->orderBy('sc', 'asc')
       ->get();
 
-    $tipscodings = Tipscoding::with('category:id,name', 'user:id,username')->paginate(12);
+    $tipscodings = Tipscoding::query()
+      ->select([
+        'id',
+        'title',
+        'excerpt',
+        'category_id',
+        'user_id'
+      ])
+      ->with(['category:id,name', 'user:id,username'])
+      ->orderBy('id', 'desc')
+      ->paginate(12);
 
     return view('frontend.tipscoding.tipscoding.index', [
       'title' => 'Tips coding',
