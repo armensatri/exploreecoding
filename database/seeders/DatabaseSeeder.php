@@ -75,7 +75,7 @@ class DatabaseSeeder extends Seeder
           )
       )->create();
 
-    Category::factory()->count(3)->create();
-    Tipscoding::factory()->count(20)->create();
+    Category::factory()->count(20)->create();
+    Tipscoding::factory()->count(80)->create();
   }
 }

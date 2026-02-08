@@ -13,7 +13,7 @@ class TipscodingFactory extends Factory
   {
     return [
       'user_id' => mt_rand(1, 4),
-      'category_id' => mt_rand(1, 3),
+      'category_id' => mt_rand(1, 20),
       'title' => $this->faker->sentence(5, false),
       'slug' => $this->faker->slug(5, false),
       'excerpt' => $this->faker->sentence(20),

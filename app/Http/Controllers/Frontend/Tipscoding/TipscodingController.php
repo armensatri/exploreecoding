@@ -14,8 +14,16 @@ class TipscodingController extends Controller
 {
   public function index()
   {
-    $tipscodings = Tipscoding::with('category:id,name')->paginate(6);
-    $categories = Category::all();
+    $categories = Category::query()
+      ->select([
+        'id',
+        'sc',
+        'name'
+      ])->withCount('tipscodings')
+      ->orderBy('sc', 'asc')
+      ->get();
+
+    $tipscodings = Tipscoding::with('category:id,name', 'user:id,username')->paginate(12);
 
     return view('frontend.tipscoding.tipscoding.index', [
       'title' => 'Tips coding',

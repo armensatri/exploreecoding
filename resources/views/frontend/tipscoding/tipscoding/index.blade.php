@@ -23,21 +23,114 @@
 
     <div class="py-20">
       <section class="px-4 py-10 mx-auto max-w-7xl">
+        <div class="py-5 text-center">
+          <div class="mx-auto text-center">
+            <h3 class="text-lg font-bold text-gray-900 uppercase">
+              Tips
+              <span class="text-blue-500">
+                category
+              </span>
+            </h3>
+
+            <p class="font-medium text-gray-600">
+              Semua category tips coding
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-center mb-20 lg:mb-0">
+          <div class="lg:hidden">
+            <button type="button"
+              id="dropdownDefaultButton"
+              data-dropdown-toggle="dropdown"
+              class="inline-flex items-center justify-center bg-blue-200
+              px-3 py-1.5 rounded-xl border border-gray-400 text-black
+              font-medium text-base tracking-wide cursor-pointer hover:bg-blue-300">
+              Select category
+              <svg xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                class="ml-1.5 text-black bi bi-arrow-down-circle">
+                <path fill-rule="evenodd"
+                  d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"
+                />
+              </svg>
+            </button>
+
+            <div id="dropdown"
+              class="z-10 hidden overflow-hidden bg-gray-100 border border-gray-400 shadow-lg w-max rounded-2xl">
+              <div class="max-h-87.5 overflow-y-auto p-4">
+                <ul class="space-y-4 text-sm font-medium text-body">
+                  @foreach ($categories as $category)
+                    <li>
+                      <div class="flex justify-center">
+                        <button
+                          class="flex items-center cursor-pointer pl-3 pr-1.5 py-1.5 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200 whitespace-nowrap">
+
+                          <span class="mr-2 text-[8px] text-black">
+                            {{ $category->sc }}
+                          </span>
+
+                          <img
+                            src="{{ asset('frontend/img/explore/app-laravel.png') }}"
+                            alt=""
+                            class="object-contain w-4 h-4 mr-1"
+                          />
+
+                          {{ $category->name }}
+
+                          <span
+                            class="px-1.5 py-0.5 text-black bg-gray-100 rounded-md text-[11px] ml-1 border border-gray-400 tracking-wider">
+                            {{ $category->tipscodings_count }} Tips
+                          </span>
+                        </button>
+                      </div>
+                    </li>
+                  @endforeach
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="flex-wrap items-center justify-center hidden gap-3 lg:mb-20 lg:flex">
+          @foreach ($categories as $category)
+            <div>
+              <a href="">
+                <button
+                  class="flex items-center cursor-pointer pl-3 pr-1.5 py-1.5 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200">
+                  <span class="mr-2 text-[8px] text-black">
+                    {{ $category->sc }}
+                  </span>
+                  <img src="{{ asset(
+                    'frontend/img/explore/app-laravel.png'
+                    ) }}"
+                    alt=""
+                    class="w-4.5 h-4.5 mr-1"
+                  />
+
+                  {{ $category->name }}
+
+                  <span
+                    class="px-1.5 py-0.5 text-black bg-gray-100 rounded-md text-[11px] ml-1 border border-gray-400 tracking-wider">
+                    {{ $category->tipscodings_count }} Tips
+                  </span>
+                </button>
+              </a>
+            </div>
+          @endforeach
+        </div>
+
         <div class="mb-8">
           <h1 class="text-3xl font-bold text-gray-900 lg:text-4xl">
             Semua <span class="text-blue-500">tips</span>
           </h1>
-          <p class="max-w-2xl mt-3 ml-2 text-lg text-gray-600">
-            Artikel -- <span class="text-blue-600">tips coding</span> -- untuk pengembangan wawasan dan pengetahuan
+          <p class="max-w-2xl mt-3 ml-1 text-lg text-gray-600">
+            {{ $tipscodings->total() }} - Artikel -- <span class="text-blue-600">tips coding</span> -- untuk pengembangan wawasan dan pengetahuan
           </p>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-1 mb-10">
-          <a href="">
-            <button class="flex items-center cursor-pointer pl-3 pr-1.5 py-1.5 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200">
-              <img src="{{ asset('frontend/img/explore/app-laravel.png') }}" alt="" class="w-4.5 h-4.5 mr-1"> Laravel <span class="px-1.5 py-0.5 text-black bg-gray-100 rounded-md text-[11px] ml-1 border border-gray-400 tracking-wider">129</span>
-            </button>
-          </a>
         </div>
 
         <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -51,7 +144,7 @@
                     class="object-cover border border-gray-300 rounded-full w-9 h-9"
                   />
                   <span class="text-[15px] font-medium text-gray-600">
-                    @anonimouse
+                    <span>@</span>{{ $tipscoding->user->username }}
                   </span>
                 </div>
 
@@ -73,7 +166,7 @@
 
               <div class="flex flex-wrap items-center gap-2">
                 <span class="px-2 py-0.5 text-[13px] font-medium text-blue-600 rounded-lg bg-gray-200 tracking-wide border border-blue-400"><i class="bi bi-tags"></i> {{ $tipscoding->category->name }}</span>
-                <span class="px-2 py-0.5 text-sm font-medium text-white rounded-md bg-blue-600 tracking-wide shadow-sm">
+                <span class="px-2 py-0.75 text-sm font-medium text-white rounded-md bg-blue-600 tracking-wide shadow-sm">
                   Baca
                   <i class="ml-1 text-xs bi bi-box-arrow-up-right"></i>
                 </span>
@@ -82,7 +175,7 @@
           @endforeach
         </div>
 
-        <div class="grid mt-16 md:flex lg:justify-center md:items-center">
+        <div class="flex items-center justify-center mt-16">
           @if ($tipscodings->lastPage() > 1)
             <x-pagination
               :pagination="$tipscodings"
