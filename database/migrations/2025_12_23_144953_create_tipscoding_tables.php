@@ -32,6 +32,7 @@ return new class extends Migration
       $table->integer('sc')->index();
       $table->string('name');
       $table->string('slug');
+      $table->string('image')->nullable();
       $table->string('url', 7)->unique();
       $table->timestamps();
     });

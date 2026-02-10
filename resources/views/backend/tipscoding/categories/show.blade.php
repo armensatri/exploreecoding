@@ -64,6 +64,12 @@
               :var="$category->sc"
             />
 
+            <x-show-image
+              name="Image"
+              :asset="$category->image"
+              :asset-default="asset('image/default.png')"
+            />
+
             <x-show-action
               name="Action"
               :indexs="route('categories.index')"

@@ -30,6 +30,13 @@ class CategorySr extends FormRequest
         'required',
         'numeric'
       ],
+
+      'image' => [
+        'nullable',
+        'image',
+        'max:2048',
+        'mimes:png,jpg,jpeg,webp'
+      ],
     ];
   }
 
@@ -46,6 +53,10 @@ class CategorySr extends FormRequest
 
       'sc.required' => 'Category..sorting! harus di isi',
       'sc.numeric' => 'Category..sorting! hanya boleh angka',
+
+      'image.image' => 'Category..image! file yang di upload bukan image',
+      'image.max' => 'Category..image! ukuran image maksimal 2 mb',
+      'image.mimes' => 'Category..image! type image hanya boleh png, jpg,jpeg dan webp',
     ];
   }
 }

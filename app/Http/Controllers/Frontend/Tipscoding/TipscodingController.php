@@ -19,7 +19,8 @@ class TipscodingController extends Controller
         'id',
         'sc',
         'name',
-        'image'
+        'image',
+        'url'
       ])->withCount('tipscodings')
       ->orderBy('sc', 'asc')
       ->get();
@@ -41,5 +42,10 @@ class TipscodingController extends Controller
       'tipscodings' => $tipscodings,
       'categories' => $categories
     ]);
+  }
+
+  public function category()
+  {
+    return view('');
   }
 }

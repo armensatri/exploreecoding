@@ -15,7 +15,6 @@ class PathFactory extends Factory
       'name' => $this->faker->sentence(2, false),
       'slug' => $this->faker->slug(),
       'description' => $this->faker->paragraph(),
-      'image' => $this->faker->imageUrl(),
       'url' => RandomUrl::generateUrl()
     ];
   }

@@ -34,9 +34,10 @@ class HomeController extends Controller
         'id',
         'title',
         'excerpt',
-        'category_id'
+        'category_id',
+        'user_id'
       ])
-      ->with('category:id,name')
+      ->with(['category:id,name', 'user:id,username'])
       ->get();
 
     return view('frontend.home.index', [

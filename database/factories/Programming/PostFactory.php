@@ -19,7 +19,6 @@ class PostFactory extends Factory
       'slug' => $this->faker->slug(),
       'excerpt' => $this->faker->sentence(20),
       'content' => $this->faker->paragraphs(4, true),
-      'image' => $this->faker->imageUrl(),
       'url' => RandomUrl::generateUrl()
     ];
   }

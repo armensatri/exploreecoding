@@ -13,6 +13,7 @@ use App\Http\Requests\Tipscoding\Category\{
   CategorySr,
   CategoryUr,
 };
+use Illuminate\Support\Facades\Storage;
 
 class CategoriesController extends Controller
 {
@@ -58,10 +59,11 @@ class CategoriesController extends Controller
   /**
    * Show the form for creating a new resource.
    */
-  public function create()
+  public function create(Category $category)
   {
     return view('backend.tipscoding.categories.create', [
       'title' => 'Create data category',
+      'category' => $category
     ]);
   }
 
@@ -73,6 +75,12 @@ class CategoriesController extends Controller
     $datastore = $request->validated();
 
     $datastore['url'] = RandomUrl::generateUrl();
+
+    if ($request->hasFile('image')) {
+      $datastore['image'] = $request->file('image')->store(
+        '/tipscoding/categories'
+      );
+    }
 
     Category::create($datastore);
 
@@ -112,6 +120,16 @@ class CategoriesController extends Controller
   public function update(CategoryUr $request, Category $category)
   {
     $dataupdate = $request->validated();
+
+    if ($request->hasFile('image')) {
+      if (!empty($category->image)) {
+        Storage::delete($category->image);
+      }
+
+      $dataupdate['image'] = $request->file('image')->store(
+        '/tipscoding/categories'
+      );
+    }
 
     $category->update($dataupdate);
 

@@ -18,6 +18,7 @@
           </div>
 
           <form action="{{ route('categories.store') }}"
+            enctype="multipart/form-data"
             method="POST">
             @csrf
 
@@ -59,6 +60,23 @@
                   value-default=""
                   error="sc"
                   placeholder="Masukkan sorting category"
+                />
+              </div>
+
+              <div class="gap-8 xl:gap-14 max-auto md:flex">
+                <x-input-image
+                  label-for="image"
+                  label-name="Category..image"
+                  type="file"
+                  id="image"
+                  name="image"
+                  error="image"
+                />
+
+                <x-input-image-preview
+                  label-for="image"
+                  label-name="Category..preview"
+                  :image="$category->image"
                 />
               </div>
 

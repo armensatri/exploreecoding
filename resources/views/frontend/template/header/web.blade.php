@@ -95,7 +95,7 @@
                 />
 
                 <x-web-menu-utama
-                  :route="route('ec-tipscoding.index')"
+                  :route="route('ec-contact')"
                   :image="asset('frontend/img/navigation/contact.png')"
                   menu="✅Contact"
                   description="Kontak resmi exploreecoding untuk pertanyaan dan dukungan"
