@@ -5,5 +5,5 @@
 
   <x-slash/>
 
-  <x-breadcrumb-name name="semua-tipscoding" class="text-blue-600"/>
+  <x-breadcrumb-name name="tipscoding" class="text-blue-600"/>
 </ol>

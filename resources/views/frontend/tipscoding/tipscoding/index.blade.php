@@ -34,7 +34,7 @@
             <h3 class="text-lg font-bold text-gray-900 uppercase">
               Tips
               <span class="text-blue-500">
-                category
+                categori
               </span>
             </h3>
           </div>

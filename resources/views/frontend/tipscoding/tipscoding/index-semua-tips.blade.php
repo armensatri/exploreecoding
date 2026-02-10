@@ -2,11 +2,8 @@
   <a href="{{ route('ec-tipscoding.index') }}">
     <button
       class="flex items-center cursor-pointer pl-3 pr-1.5 py-1.5 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200 whitespace-nowrap">
-      ✅
 
-      <img
-        src="{{ asset(
-        'frontend/img/navigation/tipscodings.png') }}"
+      <img src="{{ asset('frontend/img/navigation/tipscodings.png') }}"
         alt="image"
         class="object-contain w-4 h-4 mr-2"
       />

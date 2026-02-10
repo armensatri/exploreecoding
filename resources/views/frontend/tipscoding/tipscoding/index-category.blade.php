@@ -3,7 +3,7 @@
 
   @foreach ($categories->take(15) as $category)
     <div>
-      <a href="{{ route('ec-tipscoding.category', $category->url) }}">
+      <a href="{{ route('ec-tipscoding.categori', $category->url) }}">
         <button
           class="flex items-center cursor-pointer pl-3 pr-1.5 py-1.5 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200">
 
@@ -38,4 +38,13 @@
       </a>
     </div>
   @endforeach
+
+  <div class="flex justify-center mt-5">
+    <a href="{{ route('ec-categori.index') }}">
+      <button
+        class="px-5 py-2 text-base font-semibold tracking-wide text-black bg-blue-300 border border-gray-400 shadow-sm cursor-pointer rounded-[14px] hover:bg-blue-600 hover:text-white">
+        Semua category
+      </button>
+    </a>
+  </div>
 </div>
