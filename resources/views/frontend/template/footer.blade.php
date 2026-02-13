@@ -11,10 +11,12 @@
             :route="route('ec-contact')"
             submenu="✅Contact"
           />
+
           <x-footer-submenu
             :route="route('ec-tipscoding.index')"
             submenu="✅Tips coding"
           />
+
           <x-footer-submenu
             route=""
             submenu="App component"
@@ -31,10 +33,12 @@
             route=""
             submenu="Semua path"
           />
+
           <x-footer-submenu
             route=""
             submenu="Silabus"
           />
+
           <x-footer-submenu
             route=""
             submenu="Ada ide ? kirim"
@@ -51,10 +55,12 @@
             route=""
             submenu="Frontend"
           />
+
           <x-footer-submenu
             route=""
             submenu="Backend"
           />
+
           <x-footer-submenu
             route=""
             submenu="Struktur data"
@@ -71,10 +77,12 @@
             route=""
             submenu="Saweria"
           />
+
           <x-footer-submenu
             route=""
             submenu="Syarat dan ketentuan"
           />
+
           <x-footer-submenu
             route=""
             submenu="Privacy"

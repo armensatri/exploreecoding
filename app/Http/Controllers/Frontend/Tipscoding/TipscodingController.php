@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Frontend\Tipscoding;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Tipscoding\{
@@ -14,17 +13,6 @@ class TipscodingController extends Controller
 {
   public function index()
   {
-    $categories = Category::query()
-      ->select([
-        'id',
-        'sc',
-        'name',
-        'image',
-        'url'
-      ])->withCount('tipscodings')
-      ->orderBy('sc', 'asc')
-      ->get();
-
     $tipscodings = Tipscoding::query()
       ->select([
         'id',
@@ -33,19 +21,32 @@ class TipscodingController extends Controller
         'category_id',
         'user_id'
       ])
-      ->with(['category:id,name', 'user:id,username'])
+      ->with([
+        'category:id,name,url',
+        'user:id,username'
+      ])
       ->orderBy('id', 'desc')
       ->paginate(12);
 
-    return view('frontend.tipscoding.tipscoding.index', [
-      'title' => 'Tips coding',
-      'tipscodings' => $tipscodings,
-      'categories' => $categories
-    ]);
-  }
+    $totaltipscodings = Tipscoding::count();
 
-  public function category()
-  {
-    return view('');
+    // $categories = Category::query()
+    //   ->select([
+    //     'id',
+    //     'sc',
+    //     'name',
+    //     'image',
+    //     'url'
+    //   ])
+    //   ->withCount('tipscoding')
+    //   ->orderBy('sc', 'asc')
+    //   ->get();
+
+    return view('frontend.tipscoding.tipscoding.index', [
+      'title' => 'Tipscoding',
+      'tipscodings' => $tipscodings,
+      'totaltipscodings' => $totaltipscodings,
+      // 'cate'
+    ]);
   }
 }

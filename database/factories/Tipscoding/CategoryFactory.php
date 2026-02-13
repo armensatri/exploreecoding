@@ -10,9 +10,9 @@ class CategoryFactory extends Factory
   public function definition(): array
   {
     return [
-      'sc' => $this->faker->numberBetween(1, 100),
-      'name' => $this->faker->sentence(2, false),
-      'slug' => $this->faker->slug(),
+      'sc' => $this->faker->numberBetween(1, 20),
+      'name' => $this->faker->sentence(1, false),
+      'slug' => $this->faker->slug(1, false),
       'url' => RandomUrl::generateUrl()
     ];
   }
