@@ -11,7 +11,7 @@ class CategoryFactory extends Factory
   {
     return [
       'sc' => $this->faker->numberBetween(1, 20),
-      'name' => $this->faker->sentence(1, false),
+      'name' => strtolower($this->faker->sentence(1, false)),
       'slug' => $this->faker->slug(1, false),
       'url' => RandomUrl::generateUrl()
     ];
