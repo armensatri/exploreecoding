@@ -1,17 +1,17 @@
 <div
   class="flex-wrap items-center justify-center hidden gap-3 lg:mb-5 lg:flex">
-  @foreach ($categories->take(15) as $category)
+  @foreach ($categories->take(15) as $categori)
     <div>
-      <a href="{{ route('ec-tipscoding.category', $category->url) }}">
+      <a href="{{ route('ec-tipscoding.category', $categori->url) }}">
         <button
           class="flex items-center cursor-pointer pl-3 pr-1.5 py-1.5 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200">
 
           <span class="mr-1 text-[8px] text-black">
-            {{ $category->sc }}
+            {{ $categori->sc }}
           </span>
 
-          @if ($category->image)
-            <img src="{{ asset($category->image) }}"
+          @if ($categori->image)
+            <img src="{{ asset($categori->image) }}"
               alt="category"
               class="w-4.5 h-4.5 mr-1"
             />
@@ -24,12 +24,12 @@
 
           <span
             class="mr-1 hover:underline hover:underline-offset-2 hover:decoration-blue-500">
-            {{ $category->name }}
+            {{ $categori->name }}
           </span>
 
           <span
             class="px-1.5 py-0.5 text-black bg-gray-100 rounded-md text-[11px] ml-1 border border-gray-400 tracking-wider">
-            {{ $category->tipscodings_count }} Tips
+            {{ $categori->tipscodings_count }} Tips
           </span>
         </button>
       </a>

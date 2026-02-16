@@ -64,8 +64,8 @@ class DatabaseSeeder extends Seeder
       // RoadmapSeeder::class,
       // PlaylistSeeder::class,
       // PostSeeder::class,
-      CategorySeeder::class,
-      TipscodingSeeder::class
+      // CategorySeeder::class,
+      // TipscodingSeeder::class
     ]);
 
     Path::factory()
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
           )
       )->create();
 
-    // Category::factory()->count(20)->create();
-    // Tipscoding::factory()->count(80)->create();
+    Category::factory()->count(20)->create();
+    Tipscoding::factory()->count(80)->create();
   }
 }

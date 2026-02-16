@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Frontend\Tipscoding;
 
-use App\Models\Tipscoding\Category;
 use App\Http\Controllers\Controller;
+
+use App\Models\Tipscoding\{
+  Category,
+  Tipscoding
+};
 
 class CategoryController extends Controller
 {
@@ -21,9 +25,12 @@ class CategoryController extends Controller
       ->orderBy('sc', 'asc')
       ->get();
 
+    $totaltipscodings = Tipscoding::count();
+
     return view('frontend.tipscoding.category.index', [
       'title' => 'Tips categori',
-      'categories' => $categories
+      'categories' => $categories,
+      'totaltipscodings' => $totaltipscodings
     ]);
   }
 }

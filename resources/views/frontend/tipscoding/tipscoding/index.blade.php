@@ -47,13 +47,10 @@
           </div>
         </div>
 
-        {{-- tipscoding index --}}
         @include('frontend.tipscoding.tipscoding._index.index')
 
-        {{-- select category --}}
         @include('frontend.tipscoding.tipscoding._index.select-category')
 
-        {{-- sebagian category --}}
         @include('frontend.tipscoding.tipscoding._index.sebagian-category')
 
         <div class="mb-3 mt-28">
@@ -76,7 +73,6 @@
 
         <div class="grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3">
           @foreach ($tipscodings as $tipscoding)
-            {{-- card tipscoding --}}
             @include('frontend.tipscoding.tipscoding._index.card')
           @endforeach
         </div>

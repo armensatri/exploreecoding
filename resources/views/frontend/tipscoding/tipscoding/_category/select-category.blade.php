@@ -25,20 +25,20 @@
       class="z-10 hidden overflow-hidden bg-gray-100 border border-gray-400 shadow-lg w-max rounded-[20px]">
       <div class="max-h-87.5 overflow-y-auto p-4">
         <ul class="space-y-4 text-sm font-medium text-body">
-          @foreach ($categories->take(15) as $category)
+          @foreach ($categories->take(15) as $categori)
             <li>
               <div class="flex justify-center">
                 <a href="{{ route(
-                  'ec-tipscoding.category', $category->url) }}">
+                  'ec-tipscoding.category', $categori->url) }}">
                   <button
                     class="flex items-center cursor-pointer pl-3 pr-1.5 py-1.5 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200 whitespace-nowrap">
 
                     <span class="text-[8px] text-black">
-                      {{ $category->sc }}
+                      {{ $categori->sc }}
                     </span>
 
-                    @if ($category->image)
-                      <img src="{{ asset($category->image) }}"
+                    @if ($categori->image)
+                      <img src="{{ asset($categori->image) }}"
                         alt="category"
                         class="w-4.5 h-4.5 mr-1"
                       />
@@ -51,12 +51,12 @@
 
                     <span
                       class="mr-1 hover:underline hover:underline-offset-2 hover:decoration-blue-500">
-                      {{ $category->name }}
+                      {{ $categori->name }}
                     </span>
 
                     <span
                       class="px-1.5 py-0.5 text-black bg-gray-100 rounded-md text-[11px] ml-1 border border-gray-400 tracking-wider">
-                      {{ $category->tipscodings_count }} Tips
+                      {{ $categori->tipscodings_count }} Tips
                     </span>
                   </button>
                 </a>

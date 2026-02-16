@@ -14,12 +14,17 @@ Route::controller(TipscodingController::class)->group(
 
     Route::get('/ec/tipscoding/categori/{category:url}', 'category')
       ->name('ec-tipscoding.category');
+
+    Route::get(
+      '/ec/tipscoding/categori/{category:url}/tips/{tipscoding:url}',
+      'show'
+    )->name('ec-tipscoding.show');
   }
 );
 
 Route::controller(CategoryController::class)->group(
   function () {
-    Route::get('/ec/tipscoding/categori')
+    Route::get('/ec/tipscoding/categori', 'index')
       ->name('ec-categori.index');
   }
 );

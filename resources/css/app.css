@@ -18,7 +18,9 @@
 /* FONT INTER VAR */
 :root {
   font-family: Inter, sans-serif;
-  font-feature-settings: "liga" 1, "calt" 1;
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1;
 }
 
 /* FONT INTRUMENTS SANS */
@@ -83,5 +85,25 @@
 .x {
   @apply text-red-700 bg-red-50 rounded-lg px-2 inline-flex
   items-center text-sm;
-  font-family: "JetBrains Mono", monospace;
+}
+
+/* ec breadcrum scroll */
+.breadcrumb-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+/* ec breadcrum scroll */
+.breadcrumb-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ec breadcrum scroll */
+.breadcrumb-scroll::-webkit-scrollbar-thumb {
+  background-color: #9ca3af; /* gray-400 */
+  border-radius: 9999px;
+}
+
+/* ec breadcrum scroll */
+.breadcrumb-scroll {
+  scrollbar-width: thin;
 }
