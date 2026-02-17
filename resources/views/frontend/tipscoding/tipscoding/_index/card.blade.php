@@ -90,7 +90,10 @@
       </span>
     </a>
 
-    <a href="">
+    <a href="{{ route('ec-tipscoding.show', [
+        'category' => $tipscoding->category->url,
+        'tipscoding' => $tipscoding->url
+      ]) }}">
       <div class="flex items-center">
         <div class="hs-tooltip [--placement:auto]">
           <div

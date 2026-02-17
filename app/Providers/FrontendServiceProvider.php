@@ -23,12 +23,6 @@ use App\View\Components\Frontend\Footer\{
   FooterSubmenu,
 };
 
-use App\View\Components\Frontend\Breadcrumb\{
-  EcSlash,
-  EcBreadcrumbIcon,
-  EcBreadcrumbName,
-};
-
 class FrontendServiceProvider extends ServiceProvider
 {
   public function register(): void
@@ -60,10 +54,5 @@ class FrontendServiceProvider extends ServiceProvider
 
     // PAGINATE
     Blade::component('paginate', Paginate::class);
-
-    // BREADCRUMB
-    Blade::component('ec-breadcrumb-icon', EcBreadcrumbIcon::class);
-    Blade::component('ec-slash', EcSlash::class);
-    Blade::component('ec-breadcrumb-name', EcBreadcrumbName::class);
   }
 }

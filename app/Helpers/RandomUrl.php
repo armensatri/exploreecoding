@@ -14,6 +14,6 @@ class RandomUrl
       $url .= $characters[random_int(0, strlen($characters) - 1)];
     }
 
-    return 'x' . strtolower($url);
+    return 'x' . strtolower($url) . 'x';
   }
 }

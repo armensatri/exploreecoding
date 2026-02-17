@@ -73,7 +73,7 @@
 
         <div
           class="flex flex-wrap items-center justify-center gap-3">
-          @foreach ($categories->take(15) as $categori)
+          @foreach ($categories as $categori)
             <div>
               <a href="{{ route(
                 'ec-tipscoding.category', $categori->url) }}">

@@ -19,7 +19,8 @@ class TipscodingController extends Controller
         'title',
         'excerpt',
         'category_id',
-        'user_id'
+        'user_id',
+        'url'
       ])
       ->with([
         'category:id,name,url',
@@ -75,7 +76,8 @@ class TipscodingController extends Controller
         'title',
         'excerpt',
         'category_id',
-        'user_id'
+        'user_id',
+        'url',
       ])
       ->with([
         'category:id,name,url',
@@ -90,6 +92,13 @@ class TipscodingController extends Controller
       'category' => $category,
       'totaltipscodings' => $totaltipscodings,
       'tipscodings' => $tipscodings
+    ]);
+  }
+
+  public function show()
+  {
+    return view('frontend.tipscoding.tipscoding.show', [
+      'title' => 'show',
     ]);
   }
 }

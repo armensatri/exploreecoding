@@ -1,29 +1,13 @@
-<div class="max-w-xl">
-  <ol class="flex flex-wrap items-center h-4 gap-1 mb-3">
-    <x-ec-breadcrumb-icon
-      image="/frontend/img/navigation/categories.png"
-    />
+<ol class="flex items-center gap-1 mb-5">
+  <x-breadcrumb-icon
+    :image="asset('frontend/img/navigation/categories.png')"
+  />
 
-    <x-ec-slash/>
+  <x-slash/>
 
-    <x-ec-breadcrumb-name name="tipscoding"/>
+  <x-breadcrumb-name name="tipcoding"/>
 
-    <x-ec-slash/>
+  <x-slash/>
 
-    <x-ec-breadcrumb-name name="categori"/>
-
-    <x-ec-slash/>
-
-    <x-ec-breadcrumb-name
-      name="Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, recusandae."
-      class="text-blue-600"
-    />
-
-    <x-ec-slash/>
-
-    <x-ec-breadcrumb-name
-      name="Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, recusandae."
-      class="text-blue-600"
-    />
-  </ol>
-</div>
+  <x-breadcrumb-name :name="$category->name" class="text-blue-600"/>
+</ol>
