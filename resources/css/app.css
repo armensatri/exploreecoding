@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@import "@fontsource/jetbrains-mono";
+@import "flowbite/src/themes/default";
+@import "../../node_modules/preline/variants.css";
+
+@plugin "flowbite/plugin";
+@plugin "@tailwindcss/typography";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@source "../../node_modules/flowbite";
+@source "../../node_modules/preline/dist/*.js";
+
+/* FONT INTER VAR */
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1;
+}
+
+/* FONT INTRUMENTS SANS */
+/* @layer utilities {
+  .font-instrument {
+    font-family: "Instrument Sans", sans-serif;
+  }
+} */
+
+/* login & register */
+.input-auth {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500 placeholder:tracking-wider placeholder:ps-1 placeholder:font-serif tracking-wide;
+}
+
+/* login & register */
+.button-auth {
+  @apply block w-2/3 mx-auto bg-blue-200 py-2 rounded-xl font-medium text-base shadow-sm cursor-pointer hover:bg-blue-600 hover:text-white
+  border border-blue-300;
+}
+
+/* resources index */
+.content-backend {
+  @apply flex-nowrap w-full bg-white drop-shadow-xs
+  p-4 -mt-12.5 flex items-center justify-center rounded-lg;
+}
+
+/* resources index */
+.content-backend-title {
+  @apply px-8 py-1 text-base sm:text-xl font-normal tracking-wide text-white bg-green-700 rounded-full drop-shadow-xs;
+}
+
+/* resources index */
+.table-border {
+  @apply bg-white border border-gray-200 shadow-xs rounded-3xl;
+}
+
+/* resources index */
+.table-grid {
+  @apply gap-3 px-6 py-4 border-b border-gray-200 md:flex md:justify-between md:items-center;
+}
+
+/* resources index */
+.table-pagination {
+  @apply gap-3 px-6 py-5 border-t border-gray-200 md:flex lg:justify-center md:items-center;
+}
+
+/* resources create show edit */
+.x-border {
+  @apply w-full p-14 bg-white border border-gray-200
+  shadow-xs rounded-3xl;
+}
+
+/* markdown font prose pre and code */
+@layer components {
+  .prose pre,
+  .prose code {
+    font-family: "JetBrains Mono", monospace;
+  }
+}
+
+/* markdown inline code */
+.x {
+  @apply text-red-700 bg-red-50 rounded-lg px-2 inline-flex
+  items-center text-sm;
+}
+
+/* ec breadcrum scroll */
+.breadcrumb-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+/* ec breadcrum scroll */
+.breadcrumb-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ec breadcrum scroll */
+.breadcrumb-scroll::-webkit-scrollbar-thumb {
+  background-color: #9ca3af; /* gray-400 */
+  border-radius: 9999px;
+}
+
+/* ec breadcrum scroll */
+.breadcrumb-scroll {
+  scrollbar-width: thin;
+}

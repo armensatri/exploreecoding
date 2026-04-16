@@ -1,0 +1,27 @@
+<div class="w-full py-2.5">
+  <div class="flex ml-1 justify-start gap-1.5">
+    <div>
+      <label for="{{ $labelFor }}"
+        class="block mb-1.5 text-base font-medium text-green-700">
+        {{ $labelName }}
+      </label>
+    </div>
+  </div>
+
+  <div class="mt-1">
+    @if ($image)
+      <div class="p-2 border border-gray-200 w-62.5 bg-gray-50 rounded-2xl h-50">
+        <img src="{{ asset('storage/' . $image) }}"
+          alt="image"
+          class="relative object-contain object-center w-full h-full img-preview rounded-xl"
+        />
+      </div>
+    @else
+      <div class="p-2 bg-gray-100 border border-gray-300 w-50 rounded-2xl h-50">
+        <img alt="image"
+          class="relative object-contain object-center w-full h-full img-preview rounded-xl"
+        />
+      </div>
+    @endif
+  </div>
+</div>

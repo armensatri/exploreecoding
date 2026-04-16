@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Models\Programming;
+
+use App\Models\Published\Status;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use App\Traits\Models\{
+  HasCacheVersion,
+  HasRandomUrl,
+  HasSearchable,
+};
+
+use App\Models\Programming\{
+  Post,
+  Roadmap
+};
+
+class Playlist extends Model
+{
+  use HasCacheVersion;
+  use HasRandomUrl, HasSearchable, HasFactory;
+
+  protected $table = 'playlists';
+
+  protected $fillable = [
+    'status_id',
+    'roadmap_id',
+    'spl',
+    'name',
+    'slug',
+    'description',
+    'image',
+    'url'
+  ];
+
+  protected $sFields = [
+    'name'
+  ];
+
+  protected $sRelations = [
+    'roadmap' => 'name',
+    'status' => 'name'
+  ];
+
+  public function getRouteKeyName()
+  {
+    return 'url';
+  }
+
+  public function status()
+  {
+    return $this->belongsTo(Status::class);
+  }
+
+  public function roadmap()
+  {
+    return $this->belongsTo(Roadmap::class);
+  }
+
+  public function posts()
+  {
+    return $this->hasMany(Post::class);
+  }
+}
