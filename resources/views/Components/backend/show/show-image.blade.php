@@ -11,7 +11,7 @@
         'storage/' . $asset
       ) : asset($assetDefault) }}"
         alt="image"
-        class="w-50 h-62.5 object-cover object-top rounded-3xl"
+        class="w-62.5 h-62.5 object-cover object-top rounded-3xl"
       />
     </div>
   </div>

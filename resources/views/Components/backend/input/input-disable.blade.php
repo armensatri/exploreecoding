@@ -12,7 +12,7 @@
     id="{{ $id }}"
     name="{{ $name }}"
     placeholder="{{ $placeholder }}"
-    disabled readonly
+    readonly
     class="bg-gray-200 border border-gray-300 text-gray-900 text-sm
     rounded-[14px] focus:ring-1 focus:ring-blue-500
     focus:border-blue-500 block w-full p-2.25 placeholder:text-gray-500 placeholder:tracking-wide placeholder:font-serif placeholder:ps-1 tracking-wide"

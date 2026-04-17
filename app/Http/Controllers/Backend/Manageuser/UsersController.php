@@ -12,6 +12,7 @@ use App\Traits\Controller\ImageStore;
 use App\Traits\Controller\ImageUpdate;
 use App\Traits\Controller\ValidationUnique;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UsersController extends Controller
@@ -93,11 +94,15 @@ class UsersController extends Controller
 
     $datastore['role_id'] = $request->role_id;
 
-    User::create($datastore);
+    $user = User::create($datastore);
 
-    Alert::success(
+    Alert::html(
       'success',
-      'Data user! berhasil di tambahkan'
+      "Data user!
+        <span style='color:#2563eb;'>
+          {$user->name}
+        </span> berhasil di tambahkan",
+      'success'
     );
 
     return redirect()->route('users.index');
@@ -155,6 +160,21 @@ class UsersController extends Controller
       'image',
       'manageuser/users'
     );
+
+    $dataupdate['role_id'] = $request->role_id;
+
+    $user->update($dataupdate);
+
+    Alert::html(
+      'success',
+      "Data user!
+        <span style='color:#2563eb;'>
+          {$user->name}
+        </span> berhasil di update",
+      'success'
+    );
+
+    return redirect()->route('users.index');
   }
 
   /**
@@ -162,6 +182,34 @@ class UsersController extends Controller
    */
   public function destroy(User $user)
   {
-    //
+    if (in_array($user->role->name, ['owner'])) {
+      Alert::html(
+        'Oops...',
+        "Data user! role
+        <span style='color:#2563eb;'>
+          {$user->role->name}
+        </span> tidak bisa di delete",
+        'warning'
+      );
+
+      return redirect()->route('users.index');
+    }
+
+    if ($user->image) {
+      Storage::delete($user->image);
+    }
+
+    User::destroy($user->id);
+
+    Alert::html(
+      'success',
+      "Data user!
+        <span style='color:#2563eb;'>
+          {$user->name}
+        </span> berhasil di delete",
+      'success'
+    );
+
+    return redirect()->route('users.index');
   }
 }

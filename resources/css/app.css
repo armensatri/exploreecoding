@@ -107,3 +107,8 @@
 .breadcrumb-scroll {
   scrollbar-width: thin;
 }
+
+/* class utama popup realrasid sweatalert */
+.swal2-popup {
+  border-radius: 32px !important;
+}
