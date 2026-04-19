@@ -2,23 +2,35 @@
 
 namespace App\Http\Controllers\Backend\Manageuser;
 
-// use Illuminate\Http\Request;
 use App\Helpers\RandomUrl;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Manageuser\User\{UserSr, UserUr,};
-use App\Models\Manageuser\Role;
-use App\Models\Manageuser\User;
-use App\Traits\Controller\ImageStore;
-use App\Traits\Controller\ImageUpdate;
-use App\Traits\Controller\ValidationUnique;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+
+use App\Models\Manageuser\{
+  User,
+  Role
+};
+
+use App\Traits\Controller\{
+  ImageStore,
+  ImageUpdate,
+  ValidationUnique
+};
+
+use Illuminate\Support\Facades\{
+  Cache,
+  Storage
+};
+
+use App\Http\Requests\Manageuser\User\{
+  UserSr,
+  UserUr,
+};
 
 class UsersController extends Controller
 {
   use ValidationUnique;
-  use ImageUpdate, ImageStore;
+  use ImageStore, ImageUpdate;
 
   /**
    * Display a listing of the resource.
@@ -211,5 +223,23 @@ class UsersController extends Controller
     );
 
     return redirect()->route('users.index');
+  }
+
+  public function changeStatus($id, $status)
+  {
+    $user = User::findOrFail($id);
+
+    $isBanned = $status === 'banned';
+
+    $user->status = $isBanned ? 0 : 1;
+    $user->save();
+
+    $message = $isBanned
+      ? "User {$user->username}! berhasil di banned."
+      : "User {$user->username}! berhasil di aktifkan.";
+
+    Alert::success('success', $message);
+
+    return redirect()->route('visitor');
   }
 }

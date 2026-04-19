@@ -5,12 +5,10 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\Manageuser\User;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\HttpFoundation\Response;
 
-use Illuminate\Support\Facades\{
-  Auth,
-};
-use RealRashid\SweetAlert\Facades\Alert;
 
 class UserStatus
 {
@@ -29,9 +27,12 @@ class UserStatus
       $request->session()->invalidate();
       $request->session()->regenerateToken();
 
-      Alert::warning(
-        'Oops..',
-        'Akun anda! di banned.'
+      Alert::html(
+        'Oops...',
+        "Akun anda! <span style='color:#2563eb;'>
+          di banned
+        </span>",
+        'warning'
       );
 
       return redirect()->route('login');
