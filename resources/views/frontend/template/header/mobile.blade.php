@@ -84,7 +84,7 @@
 
     <x-mobile-explore-lainnya
       route=""
-      :image="asset('image/default.png')"
+      :image="asset('frontend/img/navigation/exploreeblog.png')"
       menu="Exploreeblog"
       description="App blog exploreeblog berisi tentang artikel dan wawasan IT"
       button-name="Blog"
