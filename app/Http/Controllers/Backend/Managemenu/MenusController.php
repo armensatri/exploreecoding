@@ -2,65 +2,200 @@
 
 namespace App\Http\Controllers\Backend\Managemenu;
 
+use App\Helpers\RandomUrl;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Managemenu\Menu\MenuSr;
+use App\Http\Requests\Managemenu\Menu\MenuUr;
 use App\Models\Managemenu\Menu;
+use App\Traits\Controller\ValidationUnique;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MenusController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+  use ValidationUnique;
+
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+    $filters = request(['search']);
+
+    $cacheKey = 'menus.index.ids.'
+      . Menu::cacheVersion() . '.'
+      . md5(json_encode($filters));
+
+    $ids = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => Menu::query()
+        ->search($filters)
+        ->orderBy('sm', 'asc')
+        ->pluck('id')
+        ->toArray()
+    );
+
+    $menus = Menu::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'sm',
+        'name',
+        'description',
+        'url'
+      ])
+      ->orderBy('sm', 'asc')
+      ->paginate(10)
+      ->withQueryString();
+
+    return view('backend.managemenu.menus.index', [
+      'title' => 'Semua data menus',
+      'menus' => $menus
+    ]);
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create()
+  {
+    return view('backend.managemenu.menus.create', [
+      'title' => 'Create data menu'
+    ]);
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(MenuSr $request)
+  {
+    $datastore = $request->validated();
+
+    $datastore['url'] = RandomUrl::generateUrl();
+
+    $menu = Menu::create($datastore);
+
+    Alert::html(
+      'success',
+      "Data menu!
+        <span style='color:#2563eb;'>
+          {$menu->name}
+        </span> berhasil di tambahkan",
+      'success'
+    );
+
+    return redirect()->route('menus.index');
+  }
+
+  /**
+   * Display the specified resource.
+   */
+  public function show(Menu $menu)
+  {
+    return view('backend.managemenu.menus.show', [
+      'title' => 'Detail data menu',
+      'menu' => $menu
+    ]);
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(Menu $menu)
+  {
+    return view('backend.managemenu.menus.edit', [
+      'title' => 'Edit data menu',
+      'menu' => $menu
+    ]);
+  }
+
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(MenuUr $request, Menu $menu)
+  {
+    $dataupdate = $request->validated();
+
+    $this->fieldUnique(
+      $request,
+      $menu,
+      ['name', 'slug'],
+      [
+        'name.unique' => 'Menu..name! sudah terdaptar',
+        'slug.unique' => 'Menu..slug! sudah terdaptar',
+      ]
+    );
+
+    $menu->update($dataupdate);
+
+    Alert::html(
+      'success',
+      "Data menu!
+        <span style='color:#2563eb;'>
+          {$menu->name}
+        </span> berhasil di update",
+      'success'
+    );
+
+    return redirect()->route('menus.index');
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(Menu $menu)
+  {
+    if (in_array($menu->name, [
+      'owner',
+      'superadmin',
+      'creator',
+      'member',
+      'account',
+      'managedata',
+      'manageuser',
+      'managemenu'
+    ])) {
+      Alert::html(
+        'Oops...',
+        "Data menu!
+        <span style='color:#2563eb;'>
+          owner, superadmin, creator, member, account,
+          managedata, manageuser, managemenu
+        </span> tidak bisa di delete",
+        'warning'
+      );
+
+      return redirect()->route('menus.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    Menu::destroy($menu->id);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    Alert::html(
+      'success',
+      "Data menu!
+        <span style='color:#2563eb;'>
+          {$menu->name}
+        </span> berhasil di delete",
+      'success'
+    );
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Menu $menu)
-    {
-        //
-    }
+    return redirect()->route('menus.index');
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Menu $menu)
-    {
-        //
-    }
+  /**
+   * Generate resource slug otomatis.
+   */
+  public function slug(Request $request)
+  {
+    $slug = SlugService::createSlug(
+      Menu::class,
+      'slug',
+      $request->name
+    );
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Menu $menu)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Menu $menu)
-    {
-        //
-    }
+    return response()->json(['slug' => $slug]);
+  }
 }

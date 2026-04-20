@@ -8,13 +8,9 @@ use App\Models\Manageuser\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Traits\Controller\ValidationUnique;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
-use App\Traits\Controller\{
-  ImageStore,
-  ImageUpdate,
-  ValidationUnique
-};
 
 use App\Http\Requests\Manageuser\Role\{
   RoleSr,
@@ -24,7 +20,6 @@ use App\Http\Requests\Manageuser\Role\{
 class RolesController extends Controller
 {
   use ValidationUnique;
-  use ImageStore, ImageUpdate;
 
   /**
    * Display a listing of the resource.
@@ -137,7 +132,7 @@ class RolesController extends Controller
       ['name', 'slug'],
       [
         'name.unique' => 'Role..name! sudah terdaptar',
-        'slug.unique'    => 'Role..slug! sudah terdaptar',
+        'slug.unique' => 'Role..slug! sudah terdaptar',
       ]
     );
 

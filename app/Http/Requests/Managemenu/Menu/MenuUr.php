@@ -2,28 +2,56 @@
 
 namespace App\Http\Requests\Managemenu\Menu;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MenuUr extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
+  public function authorize(): bool
+  {
+    return true;
+  }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            //
-        ];
-    }
+  public function rules(): array
+  {
+    return [
+      'sm' => [
+        'required',
+        'numeric'
+      ],
+
+      'name' => [
+        'required',
+        'min:3',
+        'max:75',
+      ],
+
+      'slug' => [
+        'required',
+        'min:3',
+        'max:75',
+      ],
+
+      'description' => [
+        'required'
+      ],
+    ];
+  }
+
+  public function messages()
+  {
+    return [
+      'sm.required' => 'Menu..sorting! harus di isi',
+      'sm.numeric' => 'Menu..sorting! hanya boleh angka',
+
+      'name.required' => 'Menu..name! harus di isi',
+      'name.min' => 'Menu..name! minimal 3 karakter',
+      'name.max' => 'Menu..name! maksimal 75 karakter',
+
+      'slug.required' => 'Menu..slug! harus di isi',
+      'slug.min' => 'Menu..slug! minimal 3 karakter',
+      'slug.max' => 'Menu..slug! maksimal 75 karakter',
+
+      'description.required' => 'Menu..description! harus di isi',
+    ];
+  }
 }

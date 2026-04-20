@@ -162,7 +162,7 @@ class UsersController extends Controller
       ['username', 'email'],
       [
         'username.unique' => 'User..username! sudah terdaptar',
-        'email.unique'    => 'User..email! sudah terdaptar',
+        'email.unique' => 'User..email! sudah terdaptar',
       ]
     );
 
