@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\Backend\Managemenu;
 
 use App\Helpers\RandomUrl;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Managemenu\Menu\MenuSr;
-use App\Http\Requests\Managemenu\Menu\MenuUr;
-use App\Models\Managemenu\Menu;
-use App\Traits\Controller\ValidationUnique;
-use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
+use App\Models\Managemenu\Menu;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Traits\Controller\ValidationUnique;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+
+use App\Http\Requests\Managemenu\Menu\{
+  MenuSr,
+  MenuUr
+};
 
 class MenusController extends Controller
 {
@@ -162,9 +165,8 @@ class MenusController extends Controller
         'Oops...',
         "Data menu!
         <span style='color:#2563eb;'>
-          owner, superadmin, creator, member, account,
-          managedata, manageuser, managemenu
-        </span> tidak bisa di delete",
+          {$menu->name}
+        </span> tidak boleh di delete",
         'warning'
       );
 

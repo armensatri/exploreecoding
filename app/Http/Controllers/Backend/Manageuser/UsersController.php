@@ -200,7 +200,7 @@ class UsersController extends Controller
         "Data user! role
         <span style='color:#2563eb;'>
           {$user->role->name}
-        </span> tidak bisa di delete",
+        </span> tidak boleh di delete",
         'warning'
       );
 

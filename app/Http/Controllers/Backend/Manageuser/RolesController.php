@@ -160,8 +160,8 @@ class RolesController extends Controller
         'Oops...',
         "Data role!
         <span style='color:#2563eb;'>
-          owner dan superadmin
-        </span> tidak bisa di delete",
+          {$role->name}
+        </span> tidak boleh di delete",
         'warning'
       );
 
