@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\Backend\Published;
 
 use App\Helpers\RandomUrl;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Published\Status\StatusSr;
-use App\Http\Requests\Published\Status\StatusUr;
-use App\Models\Published\Status;
-use App\Traits\Controller\ValidationUnique;
-use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
+use App\Models\Published\Status;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Traits\Controller\ValidationUnique;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+
+use App\Http\Requests\Published\Status\{
+  StatusSr,
+  StatusUr
+};
 
 class StatusesController extends Controller
 {
@@ -105,17 +108,43 @@ class StatusesController extends Controller
   /**
    * Show the form for editing the specified resource.
    */
-  public function edit(StatusUr $status)
+  public function edit(Status $status)
   {
-    //
+    return view('backend.published.statuses.edit', [
+      'title' => 'Edit data status',
+      'status' => $status
+    ]);
   }
 
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, Status $status)
+  public function update(StatusUr $request, Status $status)
   {
-    //
+    $dataupdate = $request->validated();
+
+    $this->fieldUnique(
+      $request,
+      $status,
+      ['name', 'slug'],
+      [
+        'name.unique' => 'Status..name! sudah terdaptar',
+        'slug.unique'    => 'Status..slug! sudah terdaptar',
+      ]
+    );
+
+    $status->update($dataupdate);
+
+    Alert::html(
+      'success',
+      "Data status!
+        <span style='color:#2563eb;'>
+          {$status->name}
+        </span> berhasil di update",
+      'success'
+    );
+
+    return redirect()->route('statuses.index');
   }
 
   /**
@@ -123,7 +152,18 @@ class StatusesController extends Controller
    */
   public function destroy(Status $status)
   {
-    //
+    Status::destroy($status->id);
+
+    Alert::html(
+      'success',
+      "Data status!
+        <span style='color:#2563eb;'>
+          {$status->name}
+        </span> berhasil di delete",
+      'success'
+    );
+
+    return redirect()->route('statuses.index');
   }
 
   /**

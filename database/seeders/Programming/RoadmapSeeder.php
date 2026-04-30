@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Programming;
 
+use App\Helpers\RandomUrl;
 use Illuminate\Database\Seeder;
 use App\Models\Programming\Roadmap;
 
@@ -17,7 +18,8 @@ class RoadmapSeeder extends Seeder
         'sr' => 1,
         'name' => 'Getstarted Introduction',
         'slug' => 'getstarted-introduction',
-        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.',
+        'url' => RandomUrl::generateUrl(),
       ],
 
       // PATH 2 ALGORITMA
@@ -27,7 +29,8 @@ class RoadmapSeeder extends Seeder
         'sr' => 1,
         'name' => 'Algoritma Introduction',
         'slug' => 'algoritma-introduction',
-        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.',
+        'url' => RandomUrl::generateUrl(),
       ],
       [
         'status_id' => mt_rand(1, 3),
@@ -35,7 +38,8 @@ class RoadmapSeeder extends Seeder
         'sr' => 2,
         'name' => 'Programming Pundamental',
         'slug' => 'programming-pundamental',
-        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.',
+        'url' => RandomUrl::generateUrl(),
       ],
 
       // PATH 3 STRUKTUR DATA
@@ -45,7 +49,8 @@ class RoadmapSeeder extends Seeder
         'sr' => 1,
         'name' => 'Struktur Data Introduction',
         'slug' => 'struktur-data-introduction',
-        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.',
+        'url' => RandomUrl::generateUrl(),
       ],
       [
         'status_id' => mt_rand(1, 3),
@@ -53,7 +58,8 @@ class RoadmapSeeder extends Seeder
         'sr' => 2,
         'name' => 'Struktur Data Basic',
         'slug' => 'struktur-data-basic',
-        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.',
+        'url' => RandomUrl::generateUrl(),
       ],
 
       // PATH 4 PEMOGRAMAN
@@ -63,7 +69,8 @@ class RoadmapSeeder extends Seeder
         'sr' => 1,
         'name' => 'Pemograman Introduction',
         'slug' => 'pemograman-introduction',
-        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.',
+        'url' => RandomUrl::generateUrl(),
       ],
       [
         'status_id' => mt_rand(1, 3),
@@ -71,7 +78,8 @@ class RoadmapSeeder extends Seeder
         'sr' => 2,
         'name' => 'Pengenalan Pemograman',
         'slug' => 'pengenalan-pemograman',
-        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.',
+        'url' => RandomUrl::generateUrl(),
       ],
 
       // PATH 5 FRONTEND
@@ -81,7 +89,8 @@ class RoadmapSeeder extends Seeder
         'sr' => 1,
         'name' => 'Frontend Introduction',
         'slug' => 'frontend-introduction',
-        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.',
+        'url' => RandomUrl::generateUrl(),
       ],
       [
         'status_id' => mt_rand(1, 3),
@@ -89,7 +98,8 @@ class RoadmapSeeder extends Seeder
         'sr' => 2,
         'name' => 'Internet',
         'slug' => 'internet',
-        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.'
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel recusandae est error velit natus! Ducimus.',
+        'url' => RandomUrl::generateUrl(),
       ],
     ];
 

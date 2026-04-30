@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\Published\Status;
-use Illuminate\Support\Facades\Cache;
 
 class StatusObserver
 {
