@@ -4,6 +4,7 @@ namespace App\Models\Tipscoding;
 
 use App\Models\Manageuser\User;
 use App\Models\Tipscoding\Category;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -55,15 +56,14 @@ class Tipscoding extends Model
     return $this->belongsTo(Category::class);
   }
 
-  public function scopeAccessTipscodings($query, $user)
+  public function scopeAccessTipscodings(Builder $query, User $user)
   {
-    return $query
-      ->when(
-        $user->role->name === 'creator',
-        fn($q) => $q->where('user_id', $user->id)
-      )->when(
-        $user->role->name === 'member',
-        fn($q) => $q->whereNull('id')
-      );
+    $role = $user->role?->name;
+
+    return match ($role) {
+      'creator' => $query->where('user_id', $user->id),
+      'member'  => $query->whereKey([]),
+      default   => $query,
+    };
   }
 }

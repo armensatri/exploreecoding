@@ -8,59 +8,59 @@ use Illuminate\Http\Request;
 
 class TipscodingsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+    // ini lagi ya
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create()
+  {
+    //
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(Request $request)
+  {
+    //
+  }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tipscoding $tipscoding)
-    {
-        //
-    }
+  /**
+   * Display the specified resource.
+   */
+  public function show(Tipscoding $tipscoding)
+  {
+    //
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tipscoding $tipscoding)
-    {
-        //
-    }
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(Tipscoding $tipscoding)
+  {
+    //
+  }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Tipscoding $tipscoding)
-    {
-        //
-    }
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(Request $request, Tipscoding $tipscoding)
+  {
+    //
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Tipscoding $tipscoding)
-    {
-        //
-    }
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(Tipscoding $tipscoding)
+  {
+    //
+  }
 }

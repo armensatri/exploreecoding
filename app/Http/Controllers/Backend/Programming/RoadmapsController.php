@@ -3,16 +3,29 @@
 namespace App\Http\Controllers\Backend\Programming;
 
 use App\Helpers\RandomUrl;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Programming\Roadmap\RoadmapSr;
-use App\Http\Requests\Programming\Roadmap\RoadmapUr;
-use App\Models\Programming\Path;
-use App\Models\Programming\Roadmap;
 use App\Models\Published\Status;
-use App\Traits\Controller\ImageStore;
-use App\Traits\Controller\ImageUpdate;
-use Illuminate\Support\Facades\Cache;
+use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
+
+use App\Models\Programming\{
+  Path,
+  Roadmap
+};
+
+use App\Traits\Controller\{
+  ImageStore,
+  ImageUpdate
+};
+
+use Illuminate\Support\Facades\{
+  Cache,
+  Storage
+};
+
+use App\Http\Requests\Programming\Roadmap\{
+  RoadmapSr,
+  RoadmapUr
+};
 
 class RoadmapsController extends Controller
 {
@@ -150,7 +163,27 @@ class RoadmapsController extends Controller
    */
   public function update(RoadmapUr $request, Roadmap $roadmap)
   {
-    //
+    $dataupdate = $request->validated();
+
+    $dataupdate['image'] = $this->handleImageUpdate(
+      $request,
+      $roadmap,
+      'image',
+      'programming/roadmaps'
+    );
+
+    $roadmap->update($dataupdate);
+
+    Alert::html(
+      'success',
+      "Data roadmap!
+        <span style='color:#2563eb;'>
+          {$roadmap->name}
+        </span> berhasil di update",
+      'success'
+    );
+
+    return redirect()->route('roadmaps.index');
   }
 
   /**
@@ -158,6 +191,21 @@ class RoadmapsController extends Controller
    */
   public function destroy(Roadmap $roadmap)
   {
-    //
+    if ($roadmap->image) {
+      Storage::delete($roadmap->image);
+    }
+
+    Roadmap::destroy($roadmap->id);
+
+    Alert::html(
+      'success',
+      "Data roadmap!
+        <span style='color:#2563eb;'>
+          {$roadmap->name}
+        </span> berhasil di delete",
+      'success'
+    );
+
+    return redirect()->route('roadmaps.index');
   }
 }

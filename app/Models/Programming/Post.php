@@ -6,6 +6,7 @@ use App\Models\Manageuser\User;
 use App\Models\Published\Status;
 use App\Models\Programming\Playlist;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use App\Traits\Models\{
@@ -64,15 +65,14 @@ class Post extends Model
     return $this->belongsTo(User::class);
   }
 
-  public function scopeAccessPosts($query, $user)
+  public function scopeAccessPosts(Builder $query, User $user)
   {
-    return $query
-      ->when(
-        $user->role->name === 'creator',
-        fn($q) => $q->where('user_id', $user->id)
-      )->when(
-        $user->role->name === 'member',
-        fn($q) => $q->whereNull('id')
-      );
+    $role = $user->role?->name;
+
+    return match ($role) {
+      'creator' => $query->where('user_id', $user->id),
+      'member'  => $query->whereKey([]),
+      default   => $query,
+    };
   }
 }
