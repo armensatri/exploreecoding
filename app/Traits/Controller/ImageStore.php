@@ -2,10 +2,12 @@
 
 namespace App\Traits\Controller;
 
+use Illuminate\Http\Request;
+
 trait ImageStore
 {
   public function handleImageStore(
-    $request,
+    Request $request,
     $field = 'image',
     $path = 'uploads'
   ) {

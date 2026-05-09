@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 trait HasRandomUrl
 {
-  protected static function bootHasRandomUrl()
+  protected static function RandomUrl(): void
   {
     static::creating(function (Model $model) {
       if (empty($model->url)) {

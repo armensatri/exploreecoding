@@ -4,8 +4,8 @@ namespace App\Models\Tipscoding;
 
 use App\Models\Manageuser\User;
 use App\Models\Tipscoding\Category;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use App\Traits\Models\{

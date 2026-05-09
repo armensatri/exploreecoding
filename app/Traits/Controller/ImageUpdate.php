@@ -2,13 +2,15 @@
 
 namespace App\Traits\Controller;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Model;
 
 trait ImageUpdate
 {
   public function handleImageUpdate(
-    $request,
-    $model,
+    Request $request,
+    Model $model,
     $field = 'image',
     $path = 'uploads'
   ) {

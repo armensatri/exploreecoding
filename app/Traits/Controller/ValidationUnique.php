@@ -2,13 +2,14 @@
 
 namespace App\Traits\Controller;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 
 trait ValidationUnique
 {
   public function fieldUnique(
     FormRequest $request,
-    $model,
+    Model $model,
     array $fields,
     array $messages = [],
     ?string $table = null
