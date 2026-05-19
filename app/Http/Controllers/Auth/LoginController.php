@@ -44,7 +44,7 @@ class LoginController extends Controller
     if (Auth::attempt($datastore)) {
       User::where('id', Auth::id())->update([
         'status_on_of' => 1,
-        'last_seen' => Carbon::now('Asia/Jakarta')->format('d-m-Y H:i:s')
+        'last_seen' => now(),
       ]);
 
       $request->session()->regenerate();

@@ -225,7 +225,7 @@ class UsersController extends Controller
     return redirect()->route('users.index');
   }
 
-  public function changeStatus($id, $status)
+  public function changeStatus(int $id, string $status)
   {
     $user = User::findOrFail($id);
 
@@ -235,8 +235,8 @@ class UsersController extends Controller
     $user->save();
 
     $message = $isBanned
-      ? "User {$user->username}! berhasil di banned."
-      : "User {$user->username}! berhasil di aktifkan.";
+      ? "User @{$user->username}! berhasil di banned."
+      : "User @{$user->username}! berhasil di aktifkan.";
 
     Alert::success('success', $message);
 
