@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Backend\Account;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\Profile\ProfileUr;
 use App\Models\Manageuser\User;
-use App\Traits\Controller\ImageStore;
 use App\Traits\Controller\ImageUpdate;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller
 {
-  use ImageStore, ImageUpdate;
+  use ImageUpdate;
 
   public function index()
   {

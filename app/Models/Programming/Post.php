@@ -2,15 +2,18 @@
 
 namespace App\Models\Programming;
 
+use App\Helpers\RandomUrl;
 use App\Models\Manageuser\User;
 use App\Models\Published\Status;
 use App\Models\Programming\Playlist;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+use Illuminate\Database\Eloquent\{
+  Model,
+  Builder
+};
+
 use App\Traits\Models\{
-  HasRandomUrl,
   HasSearchable,
   HasCacheVersion,
 };
@@ -18,7 +21,7 @@ use App\Traits\Models\{
 class Post extends Model
 {
   use HasCacheVersion;
-  use HasRandomUrl, HasSearchable, HasFactory;
+  use HasSearchable, HasFactory;
 
   protected $table = 'posts';
 
@@ -74,5 +77,18 @@ class Post extends Model
       'member'  => $query->whereKey([]),
       default   => $query,
     };
+  }
+
+  protected static function bootHasRandomUrl()
+  {
+    static::creating(function (Model $model) {
+      if (empty($model->url)) {
+        do {
+          $url = RandomUrl::generateUrl();
+        } while ($model->newQuery()->where('url', $url)->exists());
+
+        $model->url = $url;
+      }
+    });
   }
 }

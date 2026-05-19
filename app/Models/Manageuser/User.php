@@ -2,13 +2,14 @@
 
 namespace App\Models\Manageuser;
 
+use App\Helpers\RandomUrl;
 use App\Models\Manageuser\Role;
 use App\Models\Programming\Post;
 use App\Models\Tipscoding\Tipscoding;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Traits\Models\{
-  HasRandomUrl,
   HasSearchable,
   HasCacheVersion,
 };
@@ -16,7 +17,7 @@ use App\Traits\Models\{
 class User extends Authenticatable
 {
   use HasCacheVersion;
-  use HasRandomUrl, HasSearchable;
+  use HasSearchable;
 
   protected $table = 'users';
 
@@ -94,5 +95,18 @@ class User extends Authenticatable
       'text' => "text-{$color}-800",
       'status' => $active ? 'active' : 'banned',
     ];
+  }
+
+  protected static function bootHasRandomUrl()
+  {
+    static::creating(function (Model $model) {
+      if (empty($model->url)) {
+        do {
+          $url = RandomUrl::generateUrl();
+        } while ($model->newQuery()->where('url', $url)->exists());
+
+        $model->url = $url;
+      }
+    });
   }
 }

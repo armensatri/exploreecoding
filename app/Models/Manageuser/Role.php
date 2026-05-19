@@ -2,10 +2,10 @@
 
 namespace App\Models\Manageuser;
 
+use App\Helpers\RandomUrl;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Traits\Models\{
-  HasRandomUrl,
   HasSluggable,
   HasSearchable,
   HasCacheVersion,
@@ -24,7 +24,7 @@ use App\Models\Manageuser\{
 class Role extends Model
 {
   use HasCacheVersion;
-  use HasRandomUrl, HasSearchable, HasSluggable;
+  use HasSearchable, HasSluggable;
 
   protected $table = 'roles';
 
@@ -81,5 +81,18 @@ class Role extends Model
       'role_id',
       'permission_id'
     );
+  }
+
+  protected static function bootHasRandomUrl()
+  {
+    static::creating(function (Model $model) {
+      if (empty($model->url)) {
+        do {
+          $url = RandomUrl::generateUrl();
+        } while ($model->newQuery()->where('url', $url)->exists());
+
+        $model->url = $url;
+      }
+    });
   }
 }

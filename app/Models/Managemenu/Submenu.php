@@ -2,13 +2,13 @@
 
 namespace App\Models\Managemenu;
 
-use App\Models\Managemenu\Menu;
+use App\Helpers\RandomUrl;
 use App\Models\Manageuser\Role;
+use App\Models\Managemenu\Menu;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Traits\Models\{
   HasSluggable,
-  HasRandomUrl,
   HasSearchable,
   HasCacheVersion,
 };
@@ -16,7 +16,7 @@ use App\Traits\Models\{
 class Submenu extends Model
 {
   use HasCacheVersion;
-  use HasRandomUrl, HasSearchable, HasSluggable;
+  use HasSearchable, HasSluggable;
 
   protected $table = 'submenus';
 
@@ -58,5 +58,18 @@ class Submenu extends Model
       'submenu_id',
       'role_id',
     );
+  }
+
+  protected static function bootHasRandomUrl()
+  {
+    static::creating(function (Model $model) {
+      if (empty($model->url)) {
+        do {
+          $url = RandomUrl::generateUrl();
+        } while ($model->newQuery()->where('url', $url)->exists());
+
+        $model->url = $url;
+      }
+    });
   }
 }
