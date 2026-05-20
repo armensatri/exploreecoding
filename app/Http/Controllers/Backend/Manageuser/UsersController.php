@@ -235,10 +235,17 @@ class UsersController extends Controller
     $user->save();
 
     $message = $isBanned
-      ? "User @{$user->username}! berhasil di banned."
-      : "User @{$user->username}! berhasil di aktifkan.";
+      ? 'berhasil di banned'
+      : 'berhasil di aktifkan';
 
-    Alert::success('success', $message);
+    Alert::html(
+      'Success!',
+      "Data user!
+        <span style='color:#2563eb;'>
+          @{$user->username}
+        </span> {$message}.",
+      'success'
+    );
 
     return redirect()->route('visitor');
   }

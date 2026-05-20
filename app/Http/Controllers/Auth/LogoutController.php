@@ -17,7 +17,6 @@ class LogoutController extends Controller
   {
     User::where('id', Auth::id())->update([
       'status_on_of' => 0,
-      'last_seen' => null
     ]);
 
     Auth::logout();

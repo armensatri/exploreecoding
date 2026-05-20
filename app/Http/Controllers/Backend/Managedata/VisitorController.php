@@ -20,6 +20,7 @@ class VisitorController extends Controller
         'status',
         'url'
       ])->with('role:id,name,bg,text')
+      ->where('status', 1)
       ->orderBy('id', 'asc')
       ->paginate(10)
       ->withQueryString();
@@ -30,5 +31,24 @@ class VisitorController extends Controller
     ]);
   }
 
-  // banned lagi ya
+  public function banned()
+  {
+    $users = User::query()
+      ->select([
+        'id',
+        'username',
+        'role_id',
+        'status',
+        'url'
+      ])->with('role:id,name,bg,text')
+      ->where('status', 0)
+      ->orderBy('id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
+
+    return view('backend.managedata.visitor.banned', [
+      'title' => 'Visitor banned',
+      'users' => $users
+    ]);
+  }
 }

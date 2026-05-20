@@ -19,7 +19,7 @@
 
       <section class="w-full px-3 mt-8 mb-5">
         <div class="breadcrumb">
-          @include('backend.sbreadcrumb.visitor.banned')
+          @include('backend.xbreadcrumb.visitor.banned')
         </div>
 
         <div class="x-border">
@@ -50,7 +50,7 @@
                               <div class="grid table-grid">
                                 <div class="description">
                                   <x-description
-                                    table-name="Visitor"
+                                    table-name="Banned"
                                     :page-data="$users"
                                   />
                                 </div>
@@ -59,7 +59,7 @@
                                   <div class="inline-flex items-center gap-x-2">
                                     <div class="refresh">
                                       <x-refresh
-                                        :route="route('visitor')"
+                                        :route="route('visitor.banned')"
                                       />
                                     </div>
                                   </div>
@@ -82,7 +82,7 @@
                                       name="role"
                                     />
                                     <x-th
-                                      name="banned"
+                                      name="status"
                                     />
                                     <x-th-action/>
                                   </tr>

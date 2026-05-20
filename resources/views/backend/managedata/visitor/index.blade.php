@@ -39,7 +39,7 @@
 
             <div class="mt-20 ml-4">
               <div class="flex items-center justify-center gap-x-4">
-                <div class="pl-2 pr-1 py-1 text-sm text-green-900 bg-green-200 font-serif rounded-[10px] border border-green-300 tracking-wide">
+                <div class="pl-2 pr-1 py-1.25 text-sm text-green-900 bg-green-200 font-serif rounded-[9px] border border-green-300 tracking-wide">
                   User online
                   <span class="px-2 py-0.75 text-xs text-black bg-white rounded-[7px] font-sans border border-blue-800">
                     {{
@@ -48,7 +48,7 @@
                   </span>
                 </div>
 
-                <div class="pl-2 pr-1 py-1 text-sm text-red-900 bg-red-200 font-serif rounded-[10px] border border-red-300 tracking-wide">
+                <div class="pl-2 pr-1 py-1.25 text-sm text-red-900 bg-red-200 font-serif rounded-[9px] border border-red-300 tracking-wide">
                   User offline
                   <span class="px-2 py-0.75 text-xs text-black bg-white rounded-[7px] font-sans border border-blue-800">
                     {{
@@ -57,7 +57,7 @@
                   </span>
                 </div>
 
-                <div class="pl-2 pr-1 py-1 text-sm text-blue-900 bg-blue-200 font-serif rounded-[10px] border border-blue-300 tracking-wide">
+                <div class="pl-2 pr-1 py-1.25 text-sm text-blue-900 bg-blue-200 font-serif rounded-[9px] border border-blue-300 tracking-wide">
                   User total
                   <span class="px-2 py-0.75 text-xs text-black bg-white rounded-[7px] font-sans border border-blue-800">
                     {{
