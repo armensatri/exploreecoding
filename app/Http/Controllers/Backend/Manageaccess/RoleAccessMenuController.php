@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Manageaccess;
 
-use App\Http\Controllers\Controller;
-use App\Models\Managemenu\Menu;
-use App\Models\Manageuser\Role;
 use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\{
-  DB
-};
+use App\Models\Manageuser\Role;
+use App\Models\Managemenu\Menu;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class RoleAccessMenuController extends Controller
 {
@@ -54,7 +51,6 @@ class RoleAccessMenuController extends Controller
     ]);
 
     try {
-
       return DB::transaction(function () use ($data) {
 
         $role = Role::findOrFail($data['role_id']);
@@ -75,7 +71,6 @@ class RoleAccessMenuController extends Controller
         ]);
       });
     } catch (\Throwable $e) {
-
       return response()->json([
         'success' => false,
         'message' => 'Terjadi kesalahan sistem.',
