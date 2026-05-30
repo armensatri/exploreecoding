@@ -5,9 +5,5 @@
 
   <x-slash/>
 
-  <x-breadcrumb-name name="exploreecoding/exploreecoding/exploreecoding/exploreecoding/exploreecoding/exploreecoding"/>
-
-  <x-slash/>
-
   <x-breadcrumb-name name="contact" class="text-blue-600"/>
 </ol>

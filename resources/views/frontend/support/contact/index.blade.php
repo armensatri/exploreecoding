@@ -4,8 +4,7 @@
   <div class="relative px-6 bg-sky-100 pt-14 lg:px-8">
     <div class="mt-16">
       <div class="mx-auto max-w-7xl">
-        ini lagi ya
-        {{-- @include('frontend.xbreadcrumb.contact.index') --}}
+        @include('frontend.xbreadcrumb.contact.index')
       </div>
     </div>
 

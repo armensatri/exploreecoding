@@ -50,7 +50,7 @@
                   route=""
                   :image="asset('frontend/img/navigation/sitemap.png')"
                   menu="Sitemap"
-                  description="Peta navigasi exploreecoding untuk menemukan semua konten"
+                  description="peta navigasi content"
                   button-name="Sitemap"
                 />
 
@@ -58,7 +58,7 @@
                   route=""
                   :image="asset('frontend/img/navigation/silabus.png')"
                   menu="Silabus"
-                  description="Panduan materi pembelajaran terarah dan sistematis exploreecoding"
+                  description="panduan materi pembelajaran"
                   button-name="Silabus"
                 />
 
@@ -66,15 +66,15 @@
                   route=""
                   :image="asset('frontend/img/navigation/paths.png')"
                   menu="Semua path"
-                  description="Kumpulan path belajar coding lengkap untuk semua level"
+                  description="kumpulan path belajar coding"
                   button-name="Semua path"
                 />
 
                 <x-web-menu-utama
                   :route="route('ec-tipscoding.index')"
                   :image="asset('frontend/img/navigation/tipscodings.png')"
-                  menu="✅Tips coding"
-                  description="Tips pengetahuan untuk meningkatkan skill pemrograman"
+                  menu="Tips coding"
+                  description="tips pengetahuan pemrograman"
                   button-name="Tips coding"
                 />
 
@@ -82,7 +82,7 @@
                   route=""
                   :image="asset('frontend/img/navigation/paths.png')"
                   menu="Populer path course"
-                  description="Path course unggulan yang paling sering di pelajari pengguna"
+                  description="path course sering di kunjungi"
                   button-name="Popluer path"
                 />
 
@@ -90,15 +90,15 @@
                   route=""
                   :image="asset('frontend/img/navigation/ide.png')"
                   menu="Ada ide ? kirim"
-                  description="Kirim ide course atau materi baru ke exploreecoding"
+                  description="kirim ide materi course"
                   button-name="Kirim ide"
                 />
 
                 <x-web-menu-utama
                   :route="route('ec-contact')"
                   :image="asset('frontend/img/navigation/contact.png')"
-                  menu="✅Contact"
-                  description="Kontak resmi exploreecoding untuk pertanyaan dan dukungan"
+                  menu="Contact"
+                  description="kontak resmi exploreecoding"
                   button-name="Contact"
                 />
               </div>
