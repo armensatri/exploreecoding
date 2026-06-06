@@ -52,8 +52,8 @@ class SubmenusController extends Controller
         'menu_id',
         'ssm',
         'name',
+        'slug',
         'description',
-        'url'
       ])->with(['menu:id,name'])
       ->orderBy('menu_id', 'asc')
       ->paginate(10)

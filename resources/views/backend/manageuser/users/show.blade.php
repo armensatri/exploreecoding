@@ -30,11 +30,6 @@
             />
 
             <x-show-var
-              name="Url"
-              :var="$user->url"
-            />
-
-            <x-show-var
               name="Create"
               :var="$user->created_at->format('d-m-Y - H:i:s')"
             />
@@ -56,7 +51,7 @@
 
             <x-show-var
               name="Username"
-              :var="$user->username"
+              :var="'@' . $user->username"
             />
 
             <x-show-var
@@ -80,8 +75,8 @@
             <x-show-action
               name="Action"
               :indexs="route('users.index')"
-              :edit="route('users.edit', $user->url)"
-              :delete="route('users.destroy', $user->url)"
+              :edit="route('users.edit', $user->username)"
+              :delete="route('users.destroy', $user->username)"
             />
           </div>
         </div>

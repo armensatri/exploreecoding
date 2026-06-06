@@ -30,11 +30,6 @@
             />
 
             <x-show-var
-              name="Url"
-              :var="$permission->url"
-            />
-
-            <x-show-var
               name="Create"
               :var="$permission->created_at->format('d-m-Y - H:i:s')"
             />
@@ -67,8 +62,8 @@
             <x-show-action
               name="Action"
               :indexs="route('permissions.index')"
-              :edit="route('permissions.edit', $permission->url)"
-              :delete="route('permissions.destroy', $permission->url)"
+              :edit="route('permissions.edit', $permission->slug)"
+              :delete="route('permissions.destroy', $permission->slug)"
             />
           </div>
         </div>

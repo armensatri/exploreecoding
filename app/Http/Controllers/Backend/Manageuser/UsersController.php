@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Manageuser;
 
-use App\Helpers\RandomUrl;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -59,9 +58,9 @@ class UsersController extends Controller
         'id',
         'image',
         'name',
+        'username',
         'email',
         'role_id',
-        'url'
       ])->with(['role:id,name,bg,text'])
       ->orderBy('id', 'asc')
       ->paginate(10)
@@ -96,8 +95,6 @@ class UsersController extends Controller
   {
     $datastore = $request->validated();
 
-    $datastore['url'] = RandomUrl::generateUrl();
-
     $datastore['image'] = $this->handleImageStore(
       $request,
       'image',
@@ -125,8 +122,6 @@ class UsersController extends Controller
    */
   public function show(User $user)
   {
-    $user->load('role:id,name,bg,text');
-
     return view('backend.manageuser.users.show', [
       'title' => 'Detail data user',
       'user' => $user

@@ -22,7 +22,6 @@ return new class extends Migration
       $table->boolean('status_on_of')->default(0)->index();
       $table->timestamp('last_seen')->nullable()->index();
       $table->boolean('status')->default(true)->after('email');
-      $table->string('url', 7)->unique();
       $table->timestamps();
     });
 
@@ -35,7 +34,6 @@ return new class extends Migration
       $table->string('text');
       $table->text('description');
       $table->string('guard_name')->default('web')->index();
-      $table->string('url', 7)->unique();
       $table->timestamps();
     });
 
@@ -44,7 +42,6 @@ return new class extends Migration
       $table->string('name')->unique();
       $table->string('slug')->unique();
       $table->string('guard_name')->default('web')->index();
-      $table->string('url', 7)->unique();
       $table->timestamps();
     });
   }

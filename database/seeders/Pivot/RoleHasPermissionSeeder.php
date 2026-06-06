@@ -2,7 +2,6 @@
 
 namespace Database\Seeders\Pivot;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use App\Models\Manageuser\Role;
@@ -637,7 +636,6 @@ class RoleHasPermissionSeeder extends Seeder
           [
             'guard_name' => 'web',
             'slug' => Str::of($permissionName)->replace('.', '-')->slug(),
-            'url' => RandomUrl::generateUrl()
           ]
         );
       }

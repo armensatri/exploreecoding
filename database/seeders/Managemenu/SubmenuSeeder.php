@@ -2,7 +2,6 @@
 
 namespace Database\Seeders\Managemenu;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Database\Seeder;
 use App\Models\Managemenu\Submenu;
 
@@ -21,7 +20,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'owner',
         'routename' => '/owner',
         'description' => 'dashboard owner',
-        'url' => RandomUrl::generateUrl()
       ],
 
       // ID 2 SUPERADMIN
@@ -34,7 +32,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'superadmin',
         'routename' => '/superadmin',
         'description' => 'dashboard superadmin',
-        'url' => RandomUrl::generateUrl()
       ],
 
       // ID 3 ADMIN
@@ -47,7 +44,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'creator',
         'routename' => '/creator',
         'description' => 'dashboard creator',
-        'url' => RandomUrl::generateUrl()
       ],
 
       // ID 4 MEMBER
@@ -60,7 +56,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'member',
         'routename' => '/member',
         'description' => 'dashboard admin',
-        'url' => RandomUrl::generateUrl()
       ],
 
       // ID 5 ACCOUNT
@@ -73,7 +68,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'profile',
         'routename' => '/profile',
         'description' => 'my profile',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -85,7 +79,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'personal',
         'routename' => '/personal',
         'description' => 'profile personal public',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -97,7 +90,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'changepassword',
         'routename' => '/changepassword',
         'description' => 'change password user',
-        'url' => RandomUrl::generateUrl()
       ],
 
       // ID 6 MANAGEDATA
@@ -110,7 +102,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'data',
         'routename' => '/data',
         'description' => 'data system',
-        'url' => RandomUrl::generateUrl()
       ],
       [
         'menu_id' => 6,
@@ -121,7 +112,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'visitor',
         'routename' => '/visitor',
         'description' => 'data user visitor',
-        'url' => RandomUrl::generateUrl()
       ],
       [
         'menu_id' => 6,
@@ -132,7 +122,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'access',
         'routename' => '/access',
         'description' => 'data access system',
-        'url' => RandomUrl::generateUrl()
       ],
       [
         'menu_id' => 6,
@@ -143,7 +132,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'statistic',
         'routename' => '/statistic',
         'description' => 'data statistic system',
-        'url' => RandomUrl::generateUrl()
       ],
 
       // ID 7 MANAGEUSER
@@ -156,7 +144,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'users',
         'routename' => '/users',
         'description' => 'data users',
-        'url' => RandomUrl::generateUrl()
       ],
       [
         'menu_id' => 7,
@@ -167,7 +154,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'roles',
         'routename' => '/roles',
         'description' => 'data roles',
-        'url' => RandomUrl::generateUrl()
       ],
       [
         'menu_id' => 7,
@@ -178,7 +164,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'permissions',
         'routename' => '/permissions',
         'description' => 'data permissions',
-        'url' => RandomUrl::generateUrl()
       ],
 
       // ID 8 MANAGEMENU
@@ -191,7 +176,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'menus',
         'routename' => '/menus',
         'description' => 'data menus',
-        'url' => RandomUrl::generateUrl()
       ],
       [
         'menu_id' => 8,
@@ -202,7 +186,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'submenus',
         'routename' => '/submenus',
         'description' => 'data submenus',
-        'url' => RandomUrl::generateUrl()
       ],
 
       // ID 9 PUBLISHED
@@ -215,7 +198,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'statuses',
         'routename' => '/statuses',
         'description' => 'data statuses',
-        'url' => RandomUrl::generateUrl()
       ],
 
       // ID 10 PROGRAMMING
@@ -228,7 +210,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'paths',
         'routename' => '/paths',
         'description' => 'data paths',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -240,7 +221,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'roadmaps',
         'routename' => '/roadmaps',
         'description' => 'data roadmaps',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -252,7 +232,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'playlists',
         'routename' => '/playlists',
         'description' => 'data playlists',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -264,7 +243,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'posts',
         'routename' => '/posts',
         'description' => 'data posts',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -276,7 +254,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'tipscodings',
         'routename' => '/tipscodings',
         'description' => 'data tips coding',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -288,7 +265,6 @@ class SubmenuSeeder extends Seeder
         'active' => 'categories',
         'routename' => '/categories',
         'description' => 'data category tips coding',
-        'url' => RandomUrl::generateUrl()
       ],
     ];
 

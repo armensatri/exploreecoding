@@ -2,7 +2,6 @@
 
 namespace App\Models\Managemenu;
 
-use App\Helpers\RandomUrl;
 use App\Models\Manageuser\Role;
 use App\Models\Managemenu\Submenu;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +24,6 @@ class Menu extends Model
     'name',
     'slug',
     'description',
-    'url'
   ];
 
   protected $sFields = [
@@ -34,7 +32,7 @@ class Menu extends Model
 
   public function getRouteKeyName()
   {
-    return 'url';
+    return 'slug';
   }
 
   public function submenus()
@@ -50,18 +48,5 @@ class Menu extends Model
       'menu_id',
       'role_id'
     );
-  }
-
-  protected static function bootHasRandomUrl()
-  {
-    static::creating(function (Model $model) {
-      if (empty($model->url)) {
-        do {
-          $url = RandomUrl::generateUrl();
-        } while ($model->newQuery()->where('url', $url)->exists());
-
-        $model->url = $url;
-      }
-    });
   }
 }

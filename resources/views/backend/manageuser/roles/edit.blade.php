@@ -17,7 +17,7 @@
             @include('backend.xbreadcrumb.roles.edit')
           </div>
 
-          <form action="{{ route('roles.update', $role->url) }}"
+          <form action="{{ route('roles.update', $role->slug) }}"
             method="POST">
             @method('PATCH')
             @csrf

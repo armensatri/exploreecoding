@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Managemenu;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Models\Managemenu\Menu;
 use App\Http\Controllers\Controller;
@@ -47,8 +46,8 @@ class MenusController extends Controller
         'id',
         'sm',
         'name',
+        'slug',
         'description',
-        'url'
       ])
       ->orderBy('sm', 'asc')
       ->paginate(10)
@@ -76,8 +75,6 @@ class MenusController extends Controller
   public function store(MenuSr $request)
   {
     $datastore = $request->validated();
-
-    $datastore['url'] = RandomUrl::generateUrl();
 
     $menu = Menu::create($datastore);
 
@@ -164,9 +161,9 @@ class MenusController extends Controller
       Alert::html(
         'Oops...',
         "Data menu!
-        <span style='color:#2563eb;'>
-          {$menu->name}
-        </span> tidak boleh di delete",
+          <span style='color:#2563eb;'>
+            {$menu->name}
+          </span> tidak boleh di delete",
         'warning'
       );
 

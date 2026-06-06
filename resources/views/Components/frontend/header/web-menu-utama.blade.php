@@ -15,7 +15,7 @@
     </div>
 
     <div class="inline-flex items-center px-2 py-1 mt-2
-      text-xs font-medium border border-gray-500 hover:border-gray-600 rounded-[9px] leading-1 drop-shadow-sm tracking-wider
+      text-xs font-medium border border-gray-500 hover:border-gray-600 rounded-[8px] drop-shadow-sm tracking-wider
       {{ $route
           ? 'bg-blue-200 text-black hover:bg-blue-700
           hover:text-white hover:drop-shadow-lg'
@@ -26,8 +26,6 @@
         {{ $buttonName }}
         @if ($route)
           <i class="ml-1 text-xs bi bi-box-arrow-up-right"></i>
-        @else
-          <i class="ml-1 text-xs bi bi-x-circle"></i>
         @endif
       </a>
     </div>

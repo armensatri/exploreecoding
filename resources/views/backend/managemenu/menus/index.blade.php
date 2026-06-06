@@ -18,7 +18,7 @@
       </div>
 
       <section class="w-full px-3 mt-8 mb-5">
-        <div class="max-w-340 mx-auto">
+        <div class="mx-auto max-w-340">
           <div class="flex flex-col">
             <div class="-m-1.5 overflow-x-auto min-w-full">
               <div class="p-1.5 inline-block xl:max-w-full">
@@ -78,10 +78,10 @@
                           name="name"
                         />
                         <x-th
-                          name="description"
+                          name="slug"
                         />
                         <x-th
-                          name="url"
+                          name="description"
                         />
                         <x-th-action/>
                       </tr>
@@ -116,13 +116,13 @@
 
                           <td class="h-px whitespace-nowrap">
                             <x-td-var
-                              :var="$menu->description"
+                              :var="$menu->slug"
                             />
                           </td>
 
                           <td class="h-px whitespace-nowrap">
                             <x-td-var
-                              :var="$menu->url"
+                              :var="$menu->description"
                             />
                           </td>
 
@@ -131,15 +131,15 @@
                               :id="$menu->id"
 
                               :show="route(
-                                'menus.show', $menu->url
+                                'menus.show', $menu->slug
                               )"
 
                               :edit="route(
-                                'menus.edit', $menu->url
+                                'menus.edit', $menu->slug
                               )"
 
                               :delete="route(
-                                'menus.destroy', $menu->url
+                                'menus.destroy', $menu->slug
                               )"
                             />
                           </td>

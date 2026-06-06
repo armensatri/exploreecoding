@@ -75,10 +75,10 @@
                           name="name"
                         />
                         <x-th
-                          name="guard"
+                          name="slug"
                         />
                         <x-th
-                          name="url"
+                          name="guard"
                         />
                         <x-th-action/>
                       </tr>
@@ -106,14 +106,14 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var-center
-                              :var="$permission->guard_name"
+                            <x-td-var
+                              :var="$permission->slug"
                             />
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$permission->url"
+                            <x-td-var-center
+                              :var="$permission->guard_name"
                             />
                           </td>
 
@@ -122,15 +122,15 @@
                               :id="$permission->id"
 
                               :show="route(
-                                'permissions.show', $permission->url
+                                'permissions.show', $permission->slug
                               )"
 
                               :edit="route(
-                                'permissions.edit', $permission->url
+                                'permissions.edit', $permission->slug
                               )"
 
                               :delete="route(
-                                'permissions.destroy', $permission->url
+                                'permissions.destroy', $permission->slug
                               )"
                             />
                           </td>

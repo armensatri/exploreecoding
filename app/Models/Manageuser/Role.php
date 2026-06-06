@@ -2,7 +2,6 @@
 
 namespace App\Models\Manageuser;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Traits\Models\{
@@ -35,8 +34,6 @@ class Role extends Model
     'bg',
     'text',
     'description',
-    'guard_name',
-    'url'
   ];
 
   protected $sFields = [
@@ -45,7 +42,7 @@ class Role extends Model
 
   public function getRouteKeyName()
   {
-    return 'url';
+    return 'slug';
   }
 
   public function users()
@@ -81,18 +78,5 @@ class Role extends Model
       'role_id',
       'permission_id'
     );
-  }
-
-  protected static function bootHasRandomUrl()
-  {
-    static::creating(function (Model $model) {
-      if (empty($model->url)) {
-        do {
-          $url = RandomUrl::generateUrl();
-        } while ($model->newQuery()->where('url', $url)->exists());
-
-        $model->url = $url;
-      }
-    });
   }
 }

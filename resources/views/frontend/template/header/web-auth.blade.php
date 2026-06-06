@@ -37,13 +37,13 @@
           />
         </div>
 
-        <div class="space-y-0.5 mt-3 border-t- border-t-gray-200
+        <div class="space-y-0.5 mt-3 border-t border-t-gray-200
           mx-7 p-3 flex justify-center">
           <form action="{{ route('logout') }}"
             method="POST">
             @csrf
             <button type="submit"
-              class="px-3 py-0.75 mb-2 hover:shadow text-red-800 bg-red-200 hover:bg-red-600 hover:text-white rounded-xl flex items-center justify-center font-medium text-[15px] cursor-pointer border border-gray-400">
+              class="px-3 py-0.75 mb-2 hover:shadow text-red-800 bg-red-200 hover:bg-red-600 hover:text-white rounded-[10px] flex items-center justify-center font-medium text-[15px] cursor-pointer border border-gray-400">
               <i class="bi bi-arrow-right-circle"></i>
               <span class="text-[15px] font-medium ml-1 tracking-wide">
                 Logout

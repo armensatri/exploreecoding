@@ -78,13 +78,10 @@
                           name="name"
                         />
                         <x-th
+                          name="slug"
+                        />
+                        <x-th
                           name="description"
-                        />
-                        <x-th
-                          name="guard"
-                        />
-                        <x-th
-                          name="url"
                         />
                         <x-th-action/>
                       </tr>
@@ -121,19 +118,13 @@
 
                           <td class="h-px whitespace-nowrap">
                             <x-td-var
-                              :var="$role->description"
-                            />
-                          </td>
-
-                          <td class="h-px whitespace-nowrap">
-                            <x-td-var-center
-                              :var="$role->guard_name"
+                              :var="$role->slug"
                             />
                           </td>
 
                           <td class="h-px whitespace-nowrap">
                             <x-td-var
-                              :var="$role->url"
+                              :var="$role->description"
                             />
                           </td>
 
@@ -142,15 +133,15 @@
                               :id="$role->id"
 
                               :show="route(
-                                'roles.show', $role->url
+                                'roles.show', $role->slug
                               )"
 
                               :edit="route(
-                                'roles.edit', $role->url
+                                'roles.edit', $role->slug
                               )"
 
                               :delete="route(
-                                'roles.destroy', $role->url
+                                'roles.destroy', $role->slug
                               )"
                             />
                           </td>

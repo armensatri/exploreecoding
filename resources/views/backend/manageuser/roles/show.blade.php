@@ -30,11 +30,6 @@
             />
 
             <x-show-var
-              name="Url"
-              :var="$role->url"
-            />
-
-            <x-show-var
               name="Create"
               :var="$role->created_at->format('d-m-Y - H:i:s')"
             />
@@ -89,8 +84,8 @@
             <x-show-action
               name="Action"
               :indexs="route('roles.index')"
-              :edit="route('roles.edit', $role->url)"
-              :delete="route('roles.destroy', $role->url)"
+              :edit="route('roles.edit', $role->slug)"
+              :delete="route('roles.destroy', $role->slug)"
             />
           </div>
         </div>

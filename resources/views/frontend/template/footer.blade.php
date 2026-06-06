@@ -9,12 +9,12 @@
         <ul>
           <x-footer-submenu
             :route="route('ec-contact')"
-            submenu="✅Contact"
+            submenu="🔹Contact"
           />
 
           <x-footer-submenu
             :route="route('ec-tipscoding.index')"
-            submenu="✅Tips coding"
+            submenu="🔹Tips coding"
           />
 
           <x-footer-submenu

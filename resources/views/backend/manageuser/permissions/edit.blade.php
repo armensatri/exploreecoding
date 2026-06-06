@@ -18,7 +18,7 @@
           </div>
 
           <form action="
-            {{ route('permissions.update', $permission->url) }}"
+            {{ route('permissions.update', $permission->slug) }}"
             method="POST">
             @method('PATCH')
             @csrf

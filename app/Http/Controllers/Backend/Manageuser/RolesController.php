@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Manageuser;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Models\Manageuser\Role;
 use App\Http\Controllers\Controller;
@@ -48,11 +47,10 @@ class RolesController extends Controller
         'id',
         'sr',
         'name',
+        'slug',
         'bg',
         'text',
-        'guard_name',
         'description',
-        'url'
       ])
       ->orderBy('sr', 'asc')
       ->paginate(10)
@@ -80,8 +78,6 @@ class RolesController extends Controller
   public function store(RoleSr $request)
   {
     $datastore = $request->validated();
-
-    $datastore['url'] = RandomUrl::generateUrl();
 
     $role = Role::create($datastore);
 

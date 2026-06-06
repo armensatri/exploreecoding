@@ -18,8 +18,8 @@
 
     <a href="{{ $route }}">
       <button
-        class="text-sm font-medium bg-blue-200 hover:bg-blue-700 text-black px-2.5 py-1 rounded-xl border
-        border-gray-400 tracking-wide hover:tracking-wider hover:text-white cursor-pointer">
+        class="text-sm font-medium bg-blue-200 hover:bg-blue-700 text-black px-2.5 py-1 rounded-[10px] border
+        border-gray-400 tracking-wider hover:tracking-wider hover:text-white cursor-pointer">
         Getstarted
       </button>
     </a>

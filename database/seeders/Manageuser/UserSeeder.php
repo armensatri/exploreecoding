@@ -17,7 +17,6 @@ class UserSeeder extends Seeder
         'email' => 'armensatri@gmail.com',
         'password' => bcrypt('Coba123#'),
         'role_id' => 1,
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -26,7 +25,6 @@ class UserSeeder extends Seeder
         'email' => 'superadmin@gmail.com',
         'password' => bcrypt('Coba123#'),
         'role_id' => 2,
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -35,7 +33,6 @@ class UserSeeder extends Seeder
         'email' => 'creator@gmail.com',
         'password' => bcrypt('Coba123#'),
         'role_id' => 3,
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -44,7 +41,6 @@ class UserSeeder extends Seeder
         'email' => 'member@gmail.com',
         'password' => bcrypt('Coba123#'),
         'role_id' => 4,
-        'url' => RandomUrl::generateUrl()
       ],
     ];
 

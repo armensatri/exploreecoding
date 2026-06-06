@@ -31,7 +31,6 @@ class User extends Authenticatable
     'status_on_of',
     'last_seen',
     'status',
-    'url'
   ];
 
   protected $sFields = [
@@ -55,7 +54,7 @@ class User extends Authenticatable
 
   public function getRouteKeyName()
   {
-    return 'url';
+    return 'username';
   }
 
   public function role()
@@ -95,18 +94,5 @@ class User extends Authenticatable
       'text' => "text-{$color}-800",
       'status' => $active ? 'active' : 'banned',
     ];
-  }
-
-  protected static function bootHasRandomUrl()
-  {
-    static::creating(function (Model $model) {
-      if (empty($model->url)) {
-        do {
-          $url = RandomUrl::generateUrl();
-        } while ($model->newQuery()->where('url', $url)->exists());
-
-        $model->url = $url;
-      }
-    });
   }
 }

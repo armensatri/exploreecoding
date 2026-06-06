@@ -17,7 +17,7 @@
             @include('backend.xbreadcrumb.users.edit')
           </div>
 
-          <form action="{{ route('users.update', $user->url) }}"
+          <form action="{{ route('users.update', $user->username) }}"
             method="POST"
             enctype="multipart/form-data">
             @method('PATCH')

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Manageuser;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Manageuser\Permission;
@@ -46,8 +45,8 @@ class PermissionsController extends Controller
       ->select([
         'id',
         'name',
+        'slug',
         'guard_name',
-        'url'
       ])
       ->orderBy('id', 'asc')
       ->paginate(10)
@@ -75,8 +74,6 @@ class PermissionsController extends Controller
   public function store(PermissionSr $request)
   {
     $datastore = $request->validated();
-
-    $datastore['url'] = RandomUrl::generateUrl();
 
     $permission = Permission::create($datastore);
 

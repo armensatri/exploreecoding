@@ -2,7 +2,6 @@
 
 namespace Database\Seeders\Managemenu;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Database\Seeder;
 use App\Models\Managemenu\Menu;
 
@@ -16,7 +15,6 @@ class MenuSeeder extends Seeder
         'name' => 'owner',
         'slug' => 'owner',
         'description' => 'menu owner',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -24,7 +22,6 @@ class MenuSeeder extends Seeder
         'name' => 'superadmin',
         'slug' => 'superadmin',
         'description' => 'menu superadmin',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -32,7 +29,6 @@ class MenuSeeder extends Seeder
         'name' => 'creator',
         'slug' => 'creator',
         'description' => 'menu creator',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -40,7 +36,6 @@ class MenuSeeder extends Seeder
         'name' => 'member',
         'slug' => 'member',
         'description' => 'menu member',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -48,7 +43,6 @@ class MenuSeeder extends Seeder
         'name' => 'account',
         'slug' => 'account',
         'description' => 'menu account user',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -56,7 +50,6 @@ class MenuSeeder extends Seeder
         'name' => 'managedata',
         'slug' => 'managedata',
         'description' => 'menu pengelolaan data',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -64,7 +57,6 @@ class MenuSeeder extends Seeder
         'name' => 'manageuser',
         'slug' => 'manageuser',
         'description' => 'menu pengelolaan user',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -72,7 +64,6 @@ class MenuSeeder extends Seeder
         'name' => 'managemenu',
         'slug' => 'managemenu',
         'description' => 'menu pengelolaan menu',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -80,7 +71,6 @@ class MenuSeeder extends Seeder
         'name' => 'published',
         'slug' => 'published',
         'description' => 'menu pengelolaan data publish',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -88,7 +78,6 @@ class MenuSeeder extends Seeder
         'name' => 'programming',
         'slug' => 'programming',
         'description' => 'menu pengelolaan data programming',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -96,7 +85,6 @@ class MenuSeeder extends Seeder
         'name' => 'tipscoding',
         'slug' => 'tipscoding',
         'description' => 'menu tips coding dan programming',
-        'url' => RandomUrl::generateUrl()
       ],
     ];
 
