@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Managemenu;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
@@ -86,8 +85,6 @@ class SubmenusController extends Controller
   public function store(SubmenuSr $request)
   {
     $datastore = $request->validated();
-
-    $datastore['url'] = RandomUrl::generateUrl();
 
     $submenu = Submenu::create($datastore);
 
