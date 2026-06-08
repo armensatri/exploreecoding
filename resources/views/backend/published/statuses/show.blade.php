@@ -30,11 +30,6 @@
             />
 
             <x-show-var
-              name="Url"
-              :var="$status->url"
-            />
-
-            <x-show-var
               name="Create"
               :var="$status->created_at->format('d-m-Y - H:i:s')"
             />
@@ -84,8 +79,8 @@
             <x-show-action
               name="Action"
               :indexs="route('statuses.index')"
-              :edit="route('statuses.edit', $status->url)"
-              :delete="route('statuses.destroy', $status->url)"
+              :edit="route('statuses.edit', $status->slug)"
+              :delete="route('statuses.destroy', $status->slug)"
             />
           </div>
         </div>

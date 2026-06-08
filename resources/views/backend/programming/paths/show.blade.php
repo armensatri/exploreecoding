@@ -30,11 +30,6 @@
             />
 
             <x-show-var
-              name="Url"
-              :var="$path->url"
-            />
-
-            <x-show-var
               name="Create"
               :var="$path->created_at->format('d-m-Y - H:i:s')"
             />
@@ -85,8 +80,8 @@
             <x-show-action
               name="Action"
               :indexs="route('paths.index')"
-              :edit="route('paths.edit', $path->url)"
-              :delete="route('paths.destroy', $path->url)"
+              :edit="route('paths.edit', $path->slug)"
+              :delete="route('paths.destroy', $path->slug)"
             />
           </div>
         </div>

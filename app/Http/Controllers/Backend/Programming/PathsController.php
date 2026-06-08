@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Programming;
 
-use App\Helpers\RandomUrl;
 use App\Models\Published\Status;
 use App\Models\Programming\Path;
 use App\Http\Controllers\Controller;
@@ -54,8 +53,8 @@ class PathsController extends Controller
         'id',
         'sp',
         'name',
+        'slug',
         'status_id',
-        'url'
       ])->with(['status:id,name,bg,text'])
       ->orderBy('sp', 'asc')
       ->paginate(10)
@@ -89,8 +88,6 @@ class PathsController extends Controller
   public function store(PathSr $request)
   {
     $datastore = $request->validated();
-
-    $datastore['url'] = RandomUrl::generateUrl();
 
     $datastore['image'] = $this->handleImageStore(
       $request,

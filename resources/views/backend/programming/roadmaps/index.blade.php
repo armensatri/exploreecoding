@@ -81,10 +81,10 @@
                           name="name"
                         />
                         <x-th
-                          name="status"
+                          name="slug"
                         />
                         <x-th
-                          name="url"
+                          name="status"
                         />
                         <x-th-action/>
                       </tr>
@@ -126,16 +126,17 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var-bg
-                              :bg="$roadmap->status->bg"
-                              :text="$roadmap->status->text"
-                              :var="$roadmap->status->name"
+                            <x-td-var-width
+                              :var="$roadmap->slug"
+                              :tooltip="$roadmap->slug"
                             />
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$roadmap->url"
+                            <x-td-var-bg
+                              :bg="$roadmap->status->bg"
+                              :text="$roadmap->status->text"
+                              :var="$roadmap->status->name"
                             />
                           </td>
 
@@ -144,15 +145,15 @@
                               :id="$roadmap->id"
 
                               :show="route(
-                                'roadmaps.show', $roadmap->url
+                                'roadmaps.show', $roadmap->slug
                               )"
 
                               :edit="route(
-                                'roadmaps.edit', $roadmap->url
+                                'roadmaps.edit', $roadmap->slug
                               )"
 
                               :delete="route(
-                                'roadmaps.destroy', $roadmap->url
+                                'roadmaps.destroy', $roadmap->slug
                               )"
                             />
                           </td>

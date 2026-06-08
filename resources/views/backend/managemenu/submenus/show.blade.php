@@ -30,11 +30,6 @@
             />
 
             <x-show-var
-              name="Url"
-              :var="$submenu->url"
-            />
-
-            <x-show-var
               name="Create"
               :var="$submenu->created_at->format('d-m-Y - H:i:s')"
             />
@@ -92,8 +87,8 @@
             <x-show-action
               name="Action"
               :indexs="route('submenus.index')"
-              :edit="route('submenus.edit', $submenu->url)"
-              :delete="route('submenus.destroy', $submenu->url)"
+              :edit="route('submenus.edit', $submenu->slug)"
+              :delete="route('submenus.destroy', $submenu->slug)"
             />
           </div>
         </div>

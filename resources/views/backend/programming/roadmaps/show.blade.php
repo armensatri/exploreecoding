@@ -30,11 +30,6 @@
             />
 
             <x-show-var
-              name="Url"
-              :var="$roadmap->url"
-            />
-
-            <x-show-var
               name="Create"
               :var="$roadmap->created_at->format('d-m-Y - H:i:s')"
             />
@@ -90,8 +85,8 @@
             <x-show-action
               name="Action"
               :indexs="route('roadmaps.index')"
-              :edit="route('roadmaps.edit', $roadmap->url)"
-              :delete="route('roadmaps.destroy', $roadmap->url)"
+              :edit="route('roadmaps.edit', $roadmap->slug)"
+              :delete="route('roadmaps.destroy', $roadmap->slug)"
             />
           </div>
         </div>

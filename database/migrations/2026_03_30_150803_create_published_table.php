@@ -16,7 +16,6 @@ return new class extends Migration
       $table->string('bg');
       $table->string('text');
       $table->text('description');
-      $table->string('url', 7)->unique();
       $table->timestamps();
     });
   }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Programming;
 
-use App\Helpers\RandomUrl;
 use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -59,8 +58,8 @@ class RoadmapsController extends Controller
         'path_id',
         'sr',
         'name',
+        'slug',
         'status_id',
-        'url'
       ])
       ->with([
         'path:id,name',
@@ -103,8 +102,6 @@ class RoadmapsController extends Controller
   public function store(RoadmapSr $request)
   {
     $datastore = $request->validated();
-
-    $datastore['url'] = RandomUrl::generateUrl();
 
     $datastore['image'] = $this->handleImageStore(
       $request,

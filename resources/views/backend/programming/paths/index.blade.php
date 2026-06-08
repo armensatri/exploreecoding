@@ -78,10 +78,10 @@
                           name="name"
                         />
                         <x-th
-                          name="status"
+                          name="slug"
                         />
                         <x-th
-                          name="url"
+                          name="status"
                         />
                         <x-th-action/>
                       </tr>
@@ -116,6 +116,13 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
+                            <x-td-var-width
+                              :var="$path->slug"
+                              :tooltip="$path->slug"
+                            />
+                          </td>
+
+                          <td class="h-px whitespace-nowrap">
                             <x-td-var-bg
                               :bg="$path->status->bg"
                               :text="$path->status->text"
@@ -123,27 +130,20 @@
                             />
                           </td>
 
-                          <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$path->url"
-                            />
-                          </td>
-
-
                           <td class="size-px whitespace-nowrap">
                             <x-td-action
                               :id="$path->id"
 
                               :show="route(
-                                'paths.show', $path->url
+                                'paths.show', $path->slug
                               )"
 
                               :edit="route(
-                                'paths.edit', $path->url
+                                'paths.edit', $path->slug
                               )"
 
                               :delete="route(
-                                'paths.destroy', $path->url
+                                'paths.destroy', $path->slug
                               )"
                             />
                           </td>

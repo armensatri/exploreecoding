@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Published;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Http\Request;
 use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
@@ -47,10 +46,10 @@ class StatusesController extends Controller
         'id',
         'ss',
         'name',
+        'slug',
         'bg',
         'text',
         'description',
-        'url',
       ])->orderBy('ss', 'asc')
       ->paginate(10)
       ->withQueryString();
@@ -77,8 +76,6 @@ class StatusesController extends Controller
   public function store(StatusSr $request)
   {
     $datastore = $request->validated();
-
-    $datastore['url'] = RandomUrl::generateUrl();
 
     $status = Status::create($datastore);
 

@@ -19,7 +19,6 @@ return new class extends Migration
       $table->string('slug');
       $table->text('description');
       $table->string('image')->nullable();
-      $table->string('url', 7)->unique();
       $table->timestamps();
     });
 
@@ -38,7 +37,6 @@ return new class extends Migration
       $table->string('slug');
       $table->text('description');
       $table->string('image')->nullable();
-      $table->string('url', 7)->unique();
       $table->timestamps();
     });
 

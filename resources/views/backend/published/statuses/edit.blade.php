@@ -17,7 +17,7 @@
             @include('backend.xbreadcrumb.statuses.edit')
           </div>
 
-          <form action="{{ route('statuses.update', $status->url) }}"
+          <form action="{{ route('statuses.update', $status->slug) }}"
             method="POST">
             @method('PATCH')
             @csrf

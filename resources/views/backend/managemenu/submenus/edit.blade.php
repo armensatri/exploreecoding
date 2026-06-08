@@ -17,7 +17,7 @@
             @include('backend.xbreadcrumb.submenus.edit')
           </div>
 
-          <form action="{{ route('submenus.update', $submenu->url) }}"
+          <form action="{{ route('submenus.update', $submenu->slug) }}"
             method="POST">
             @method('PATCH')
             @csrf

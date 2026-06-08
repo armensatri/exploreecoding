@@ -2,7 +2,6 @@
 
 namespace App\Models\Published;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Programming\{
@@ -32,7 +31,6 @@ class Status extends Model
     'bg',
     'text',
     'description',
-    'url'
   ];
 
   protected $sFields = [
@@ -41,7 +39,7 @@ class Status extends Model
 
   public function getRouteKeyName()
   {
-    return 'url';
+    return 'slug';
   }
 
   public function paths()
@@ -62,18 +60,5 @@ class Status extends Model
   public function posts()
   {
     return $this->hasMany(Post::class);
-  }
-
-  protected static function bootHasRandomUrl()
-  {
-    static::creating(function (Model $model) {
-      if (empty($model->url)) {
-        do {
-          $url = RandomUrl::generateUrl();
-        } while ($model->newQuery()->where('url', $url)->exists());
-
-        $model->url = $url;
-      }
-    });
   }
 }

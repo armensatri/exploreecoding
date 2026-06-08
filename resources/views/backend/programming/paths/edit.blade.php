@@ -17,7 +17,7 @@
             @include('backend.xbreadcrumb.paths.edit')
           </div>
 
-          <form action="{{ route('paths.update', $path->url) }}"
+          <form action="{{ route('paths.update', $path->slug) }}"
             method="POST"
             enctype="multipart/form-data">
             @method('PATCH')

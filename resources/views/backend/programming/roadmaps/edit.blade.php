@@ -17,7 +17,7 @@
             @include('backend.xbreadcrumb.roadmaps.edit')
           </div>
 
-          <form action="{{ route('roadmaps.update', $roadmap->url) }}"
+          <form action="{{ route('roadmaps.update', $roadmap->slug) }}"
             method="POST"
             enctype="multipart/form-data">
             @method('PATCH')
