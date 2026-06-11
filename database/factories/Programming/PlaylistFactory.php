@@ -2,7 +2,6 @@
 
 namespace Database\Factories\Programming;
 
-use App\Helpers\RandomUrl;
 use App\Models\Programming\Roadmap;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,7 +16,6 @@ class PlaylistFactory extends Factory
       'name' => $this->faker->sentence(2, false),
       'slug' => $this->faker->slug(2, false),
       'description' => $this->faker->paragraph(),
-      'url' => RandomUrl::generateUrl()
     ];
   }
 }

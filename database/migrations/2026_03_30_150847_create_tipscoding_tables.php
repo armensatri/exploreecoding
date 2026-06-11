@@ -23,7 +23,6 @@ return new class extends Migration
       $table->text('excerpt');
       $table->text('content');
       $table->string('image')->nullable();
-      $table->string('url', 7)->unique();
       $table->timestamps();
     });
 
@@ -33,7 +32,6 @@ return new class extends Migration
       $table->string('name');
       $table->string('slug');
       $table->string('image')->nullable();
-      $table->string('url', 7)->unique();
       $table->timestamps();
     });
   }

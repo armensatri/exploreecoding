@@ -18,7 +18,7 @@
           </div>
 
           <form action="{{
-            route('tipscodings.update', $tipscoding->url) }}"
+            route('tipscodings.update', $tipscoding->slug) }}"
             id="edit-editor"
             method="POST"
             enctype="multipart/form-data">

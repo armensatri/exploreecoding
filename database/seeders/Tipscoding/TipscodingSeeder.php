@@ -2,7 +2,6 @@
 
 namespace Database\Seeders\Tipscoding;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Database\Seeder;
 use App\Models\Tipscoding\Tipscoding;
 
@@ -18,7 +17,6 @@ class TipscodingSeeder extends Seeder
         'slug' => 'apa-itu-html',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
-        'url' => RandomUrl::generateUrl()
       ],
       [
         'user_id' => 2,
@@ -27,7 +25,6 @@ class TipscodingSeeder extends Seeder
         'slug' => 'sejarah-html',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -37,7 +34,6 @@ class TipscodingSeeder extends Seeder
         'slug' => 'apa-itu-css',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
-        'url' => RandomUrl::generateUrl()
       ],
       [
         'user_id' => 4,
@@ -46,7 +42,6 @@ class TipscodingSeeder extends Seeder
         'slug' => 'sejarah-css',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
-        'url' => RandomUrl::generateUrl()
       ],
 
       [
@@ -56,7 +51,6 @@ class TipscodingSeeder extends Seeder
         'slug' => 'apa-itu-javascript',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
-        'url' => RandomUrl::generateUrl()
       ],
       [
         'user_id' => 2,
@@ -65,7 +59,6 @@ class TipscodingSeeder extends Seeder
         'slug' => 'sejarah-javascript',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
-        'url' => RandomUrl::generateUrl()
       ],
       [
         'user_id' => 3,
@@ -74,7 +67,6 @@ class TipscodingSeeder extends Seeder
         'slug' => 'dasar-javascript',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
-        'url' => RandomUrl::generateUrl()
       ],
     ];
 

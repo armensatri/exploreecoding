@@ -2,7 +2,6 @@
 
 namespace App\Models\Tipscoding;
 
-use App\Helpers\RandomUrl;
 use App\Models\Tipscoding\Tipscoding;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,7 +23,6 @@ class Category extends Model
     'name',
     'slug',
     'image',
-    'url',
   ];
 
   protected $sFields = [
@@ -33,24 +31,11 @@ class Category extends Model
 
   public function getRouteKeyName()
   {
-    return 'url';
+    return 'slug';
   }
 
   public function tipscodings()
   {
     return $this->hasMany(Tipscoding::class);
-  }
-
-  protected static function bootHasRandomUrl()
-  {
-    static::creating(function (Model $model) {
-      if (empty($model->url)) {
-        do {
-          $url = RandomUrl::generateUrl();
-        } while ($model->newQuery()->where('url', $url)->exists());
-
-        $model->url = $url;
-      }
-    });
   }
 }

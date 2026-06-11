@@ -2,7 +2,6 @@
 
 namespace Database\Factories\Tipscoding;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CategoryFactory extends Factory
@@ -11,9 +10,8 @@ class CategoryFactory extends Factory
   {
     return [
       'sc' => $this->faker->numberBetween(1, 20),
-      'name' => strtolower($this->faker->sentence(1, false)),
-      'slug' => $this->faker->slug(1, false),
-      'url' => RandomUrl::generateUrl()
+      'name' => strtolower($this->faker->sentence(2, false)),
+      'slug' => $this->faker->slug(2, false),
     ];
   }
 }

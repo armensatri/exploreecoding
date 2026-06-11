@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Tipscoding;
 
-use App\Helpers\RandomUrl;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -62,7 +61,7 @@ class TipscodingsController extends Controller
         'user_id',
         'category_id',
         'title',
-        'url'
+        'slug'
       ])
       ->with([
         'user:id,username',
@@ -102,7 +101,6 @@ class TipscodingsController extends Controller
     $datastore = $request->validated();
 
     $datastore['user_id'] = Auth::user()->id;
-    $datastore['url'] = RandomUrl::generateUrl();
 
     $datastore['image'] = $this->handleImageStore(
       $request,

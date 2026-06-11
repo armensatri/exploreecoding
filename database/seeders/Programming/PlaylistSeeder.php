@@ -2,7 +2,6 @@
 
 namespace Database\Seeders\Programming;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Database\Seeder;
 use App\Models\Programming\Playlist;
 
@@ -19,7 +18,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'Intro Getstarted',
         'slug' => 'intro-getstarted',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
 
       // ROADMAP ALGORITMA INTRODUCTION
@@ -30,7 +28,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'Intro Algoritma',
         'slug' => 'intro-algoritma',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
 
       // ROADMAP PROGRAMMING FUNDAMENTAL
@@ -41,7 +38,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'Intro Programming Fundamental',
         'slug' => 'intro-programming-fundamental',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
       [
         'status_id' => mt_rand(1, 3),
@@ -50,7 +46,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'Language Sintax',
         'slug' => 'language-sintax',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
 
       // ROADMAP STRUKTUR DATA INTRODUCTION
@@ -61,7 +56,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'Intro Struktur Data',
         'slug' => 'intro-struktur-data',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
 
       // ROADMAP STRUKTUR DATA BASIC
@@ -72,7 +66,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'Intro Struktur Data Basic',
         'slug' => 'intro-struktur-data-basic',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
       [
         'status_id' => mt_rand(1, 3),
@@ -81,7 +74,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'Array',
         'slug' => 'array',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
 
       // ROADMAP PEMOGRAMAN INTRODUCTION
@@ -92,7 +84,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'Intro Pemograman',
         'slug' => 'intro-pemograman',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
 
       // ROADMAP PENGENALAN PEMOGRAMAN
@@ -103,7 +94,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'Intro Pengenalan Pemograman',
         'slug' => 'intro-pengenalan pemograman',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
 
       // ROADMAP FRONTEND INTRODUCTION
@@ -114,7 +104,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'Intro Frontend',
         'slug' => 'intro-frontend',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
 
       // ROADMAP INTERNET
@@ -125,7 +114,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'Intro Internet',
         'slug' => 'intro-internet',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
       [
         'status_id' => mt_rand(1, 3),
@@ -134,7 +122,6 @@ class PlaylistSeeder extends Seeder
         'name' => 'HTTP & HTTPS',
         'slug' => 'http-&-https',
         'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, beatae! A quisquam consequuntur et voluptatem',
-        'url' => RandomUrl::generateUrl(),
       ],
     ];
 

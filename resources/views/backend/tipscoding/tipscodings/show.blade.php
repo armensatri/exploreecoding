@@ -30,11 +30,6 @@
             />
 
             <x-show-var
-              name="Url"
-              :var="$tipscoding->url"
-            />
-
-            <x-show-var
               name="Create"
               :var="$tipscoding->created_at->format('d-m-Y - H:i:s')"
             />
@@ -111,8 +106,8 @@
             <x-show-action
               name="Action"
               :indexs="route('tipscodings.index')"
-              :edit="route('tipscodings.edit', $tipscoding->url)"
-              :delete="route('tipscodings.destroy', $tipscoding->url)"
+              :edit="route('tipscodings.edit', $tipscoding->slug)"
+              :delete="route('tipscodings.destroy', $tipscoding->slug)"
             />
           </div>
         </div>

@@ -17,7 +17,7 @@
             @include('backend.xbreadcrumb.playlists.edit')
           </div>
 
-          <form action="{{ route('playlists.update', $playlist->url) }}"
+          <form action="{{ route('playlists.update', $playlist->slug) }}"
             method="POST"
             enctype="multipart/form-data">
             @method('PATCH')

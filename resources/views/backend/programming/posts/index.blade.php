@@ -145,15 +145,15 @@
                               :id="$post->id"
 
                               :show="route(
-                                'posts.show', $post->url
+                                'posts.show', $post->slug
                               )"
 
                               :edit="route(
-                                'posts.edit', $post->url
+                                'posts.edit', $post->slug
                               )"
 
                               :delete="route(
-                                'posts.destroy', $post->url
+                                'posts.destroy', $post->slug
                               )"
                             />
                           </td>

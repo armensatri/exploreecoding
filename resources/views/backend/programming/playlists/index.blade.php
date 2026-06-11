@@ -81,10 +81,10 @@
                           name="name"
                         />
                         <x-th
-                          name="status"
+                          name="slug"
                         />
                         <x-th
-                          name="url"
+                          name="status"
                         />
                         <x-th-action/>
                       </tr>
@@ -126,16 +126,17 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var-bg
-                              :bg="$playlist->status->bg"
-                              :text="$playlist->status->text"
-                              :var="$playlist->status->name"
+                            <x-td-var-width
+                              :var="$playlist->slug"
+                              :tooltip="$playlist->slug"
                             />
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$playlist->url"
+                            <x-td-var-bg
+                              :bg="$playlist->status->bg"
+                              :text="$playlist->status->text"
+                              :var="$playlist->status->name"
                             />
                           </td>
 
@@ -144,15 +145,15 @@
                               :id="$playlist->id"
 
                               :show="route(
-                                'playlists.show', $playlist->url
+                                'playlists.show', $playlist->slug
                               )"
 
                               :edit="route(
-                                'playlists.edit', $playlist->url
+                                'playlists.edit', $playlist->slug
                               )"
 
                               :delete="route(
-                                'playlists.destroy', $playlist->url
+                                'playlists.destroy', $playlist->slug
                               )"
                             />
                           </td>

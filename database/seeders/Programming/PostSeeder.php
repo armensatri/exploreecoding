@@ -2,7 +2,6 @@
 
 namespace Database\Seeders\Programming;
 
-use App\Helpers\RandomUrl;
 use Illuminate\Database\Seeder;
 use App\Models\Programming\Post;
 
@@ -28,7 +27,6 @@ class PostSeeder extends Seeder
         Jadi, programming adalah suatu proses atau kegiatan menulis dan menguji (pemrograman) agar program dapat dibuat, dan hasilnya sesuai apa yang diinginkan.
 
         Bagaimana, sudah mulai paham kan apa itu programming?',
-        'url' => RandomUrl::generateUrl(),
       ]
     ];
 

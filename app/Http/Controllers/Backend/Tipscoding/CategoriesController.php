@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Tipscoding;
 
-use App\Helpers\RandomUrl;
 use App\Models\Tipscoding\Category;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -53,7 +52,7 @@ class CategoriesController extends Controller
         'id',
         'sc',
         'name',
-        'url'
+        'slug'
       ])
       ->orderBy('sc', 'asc')
       ->paginate(10)
@@ -82,8 +81,6 @@ class CategoriesController extends Controller
   public function store(CategorySr $request)
   {
     $datastore = $request->validated();
-
-    $datastore['url'] = RandomUrl::generateUrl();
 
     $datastore['image'] = $this->handleImageStore(
       $request,

@@ -81,7 +81,7 @@
                           name="title"
                         />
                         <x-th
-                          name="url"
+                          name="slug"
                         />
                         <x-th-action/>
                       </tr>
@@ -122,8 +122,9 @@
                           </td>
 
                           <td class="h-px whitespace-nowrap">
-                            <x-td-var
-                              :var="$tipscoding->url"
+                            <x-td-var-width
+                              :var="$tipscoding->slug"
+                              :tooltip="$tipscoding->slug"
                             />
                           </td>
 
@@ -132,15 +133,15 @@
                               :id="$tipscoding->id"
 
                               :show="route(
-                                'tipscodings.show', $tipscoding->url
+                                'tipscodings.show', $tipscoding->slug
                               )"
 
                               :edit="route(
-                                'tipscodings.edit', $tipscoding->url
+                                'tipscodings.edit', $tipscoding->slug
                               )"
 
                               :delete="route(
-                                'tipscodings.destroy', $tipscoding->url
+                                'tipscodings.destroy', $tipscoding->slug
                               )"
                             />
                           </td>

@@ -30,11 +30,6 @@
             />
 
             <x-show-var
-              name="Url"
-              :var="$post->url"
-            />
-
-            <x-show-var
               name="Create"
               :var="$post->created_at->format('d-m-Y - H:i:s')"
             />
@@ -122,8 +117,8 @@
             <x-show-action
               name="Action"
               :indexs="route('posts.index')"
-              :edit="route('posts.edit', $post->url)"
-              :delete="route('posts.destroy', $post->url)"
+              :edit="route('posts.edit', $post->slug)"
+              :delete="route('posts.destroy', $post->slug)"
             />
           </div>
         </div>

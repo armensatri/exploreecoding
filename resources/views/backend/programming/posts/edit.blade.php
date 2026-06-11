@@ -17,7 +17,7 @@
             @include('backend.xbreadcrumb.posts.edit')
           </div>
 
-          <form action="{{ route('posts.update', $post->url) }}"
+          <form action="{{ route('posts.update', $post->slug) }}"
             id="edit-editor"
             method="POST"
             enctype="multipart/form-data">

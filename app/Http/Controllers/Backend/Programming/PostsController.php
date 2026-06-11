@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Programming;
 
-use App\Helpers\RandomUrl;
 use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -65,7 +64,7 @@ class PostsController extends Controller
         'playlist_id',
         'sp',
         'title',
-        'url'
+        'slug'
       ])
       ->with([
         'user:id,username',
@@ -111,7 +110,6 @@ class PostsController extends Controller
     $datastore = $request->validated();
 
     $datastore['user_id'] = Auth::user()->id;
-    $datastore['url'] = RandomUrl::generateUrl();
 
     $datastore['image'] = $this->handleImageStore(
       $request,

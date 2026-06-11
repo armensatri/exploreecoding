@@ -30,11 +30,6 @@
             />
 
             <x-show-var
-              name="Url"
-              :var="$playlist->url"
-            />
-
-            <x-show-var
               name="Create"
               :var="$playlist->created_at->format('d-m-Y - H:i:s')"
             />
@@ -90,8 +85,8 @@
             <x-show-action
               name="Action"
               :indexs="route('playlists.index')"
-              :edit="route('playlists.edit', $playlist->url)"
-              :delete="route('playlists.destroy', $playlist->url)"
+              :edit="route('playlists.edit', $playlist->slug)"
+              :delete="route('playlists.destroy', $playlist->slug)"
             />
           </div>
         </div>

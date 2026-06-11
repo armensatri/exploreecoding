@@ -2,7 +2,6 @@
 
 namespace Database\Factories\Programming;
 
-use App\Helpers\RandomUrl;
 use App\Models\Programming\Playlist;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +18,6 @@ class PostFactory extends Factory
       'slug' => $this->faker->slug(2, false),
       'excerpt' => $this->faker->sentence(20),
       'content' => $this->faker->paragraphs(4, true),
-      'url' => RandomUrl::generateUrl()
     ];
   }
 }

@@ -30,11 +30,6 @@
             />
 
             <x-show-var
-              name="Url"
-              :var="$category->url"
-            />
-
-            <x-show-var
               name="Create"
               :var="$category->created_at->format('d-m-Y - H:i:s')"
             />
@@ -73,8 +68,8 @@
             <x-show-action
               name="Action"
               :indexs="route('categories.index')"
-              :edit="route('categories.edit', $category->url)"
-              :delete="route('categories.destroy', $category->url)"
+              :edit="route('categories.edit', $category->slug)"
+              :delete="route('categories.destroy', $category->slug)"
             />
           </div>
         </div>

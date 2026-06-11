@@ -78,7 +78,7 @@
                           name="name"
                         />
                         <x-th
-                          name="url"
+                          name="slug"
                         />
                         <x-th-action/>
                       </tr>
@@ -113,7 +113,7 @@
 
                           <td class="h-px whitespace-nowrap">
                             <x-td-var
-                              :var="$category->url"
+                              :var="$category->slug"
                             />
                           </td>
 
@@ -122,15 +122,15 @@
                               :id="$category->id"
 
                               :show="route(
-                                'categories.show', $category->url
+                                'categories.show', $category->slug
                               )"
 
                               :edit="route(
-                                'categories.edit', $category->url
+                                'categories.edit', $category->slug
                               )"
 
                               :delete="route(
-                                'categories.destroy', $category->url
+                                'categories.destroy', $category->slug
                               )"
                             />
                           </td>
