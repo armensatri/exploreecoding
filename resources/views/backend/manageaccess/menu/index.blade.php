@@ -73,7 +73,7 @@
                                 name="name"
                               />
                               <x-th
-                                name="url"
+                                name="slug"
                               />
                               <x-th-action/>
                             </tr>
@@ -108,7 +108,7 @@
 
                                 <td class="h-px whitespace-nowrap">
                                   <x-td-var
-                                    :var="$menu->url"
+                                    :var="$menu->slug"
                                   />
                                 </td>
 
@@ -148,7 +148,7 @@
 
           const roleId = this.getAttribute("data-role");
           const menuId = this.getAttribute("data-menu");
-          const roleUrl = this.getAttribute("data-url");
+          const roleSlug = this.getAttribute("data-slug");
           const isChecked = this.checked ? 1 : 0;
 
           try {
@@ -165,7 +165,7 @@
               body: JSON.stringify({
                 role_id: roleId,
                 menu_id: menuId,
-                role_url: roleUrl,
+                role_slug: roleSlug,
                 is_checked: isChecked
               }),
             });
@@ -183,8 +183,8 @@
                 icon: "success",
               }).then(() => {
                 window.location.href =
-                "{{ route('access.menu', [':url']) }}"
-                .replace(":url", roleUrl)
+                "{{ route('access.menu', [':slug']) }}"
+                .replace(":slug", roleSlug)
               })
             } else {
               throw new Error(result.message);

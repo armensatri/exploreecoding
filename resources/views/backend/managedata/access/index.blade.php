@@ -81,7 +81,7 @@
                                 name="name"
                               />
                               <x-th
-                                name="url"
+                                name="slug"
                               />
                               <x-th-action/>
                             </tr>
@@ -118,7 +118,7 @@
 
                                 <td class="h-px whitespace-nowrap">
                                   <x-td-var
-                                    :var="$role->url"
+                                    :var="$role->slug"
                                   />
                                 </td>
 

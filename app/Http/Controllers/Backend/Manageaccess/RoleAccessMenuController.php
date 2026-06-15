@@ -10,15 +10,15 @@ use App\Http\Controllers\Controller;
 
 class RoleAccessMenuController extends Controller
 {
-  public function accessMenu(string $url)
+  public function accessMenu(string $slug)
   {
     $role = Role::query()
       ->select([
         'id',
         'name',
-        'url'
+        'slug',
       ])
-      ->where('url', $url)
+      ->where('slug', $slug)
       ->firstOrFail();
 
     $menus = Menu::query()
@@ -26,7 +26,7 @@ class RoleAccessMenuController extends Controller
         'id',
         'sm',
         'name',
-        'url'
+        'slug'
       ])
       ->withExists([
         'roles as has_access' => fn($query)
@@ -38,7 +38,7 @@ class RoleAccessMenuController extends Controller
 
     return view('backend.manageaccess.menu.index', [
       'title' => 'Access Menu',
-      'role'  => $role,
+      'role' => $role,
       'menus' => $menus,
     ]);
   }
@@ -52,11 +52,8 @@ class RoleAccessMenuController extends Controller
 
     try {
       return DB::transaction(function () use ($data) {
-
         $role = Role::findOrFail($data['role_id']);
-
         $result = $role->menus()->toggle($data['menu_id']);
-
         $isAttached = !empty($result['attached']);
 
         if (method_exists(Menu::class, 'bumpCacheVersion')) {
@@ -73,7 +70,7 @@ class RoleAccessMenuController extends Controller
     } catch (\Throwable $e) {
       return response()->json([
         'success' => false,
-        'message' => 'Terjadi kesalahan sistem.',
+        'message' => 'Gagal memperbarui akses.',
       ], 500);
     }
   }

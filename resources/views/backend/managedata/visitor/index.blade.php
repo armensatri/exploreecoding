@@ -57,12 +57,17 @@
                   </span>
                 </div>
 
-                <div class="pl-2 pr-1 py-1.25 text-sm text-blue-900 bg-blue-200 font-serif rounded-[9px] border border-blue-300 tracking-wide">
-                  User total
-                  <span class="px-2 py-0.75 text-xs text-black bg-white rounded-[7px] font-sans border border-blue-800">
-                    {{
-                      $users->count()
-                    }}
+                <div class="pl-2 pr-1 py-1.25 text-sm text-green-900 bg-green-200 font-serif rounded-[9px] border border-green-300 tracking-wide">
+                  User verify
+                  <span class="px-2 py-0.75 text-xs text-black bg-white rounded-[7px] font-sans border border-green-800">
+                    0
+                  </span>
+                </div>
+
+                <div class="pl-2 pr-1 py-1.25 text-sm text-red-900 bg-red-200 font-serif rounded-[9px] border border-red-300 tracking-wide">
+                  User not verify
+                  <span class="px-2 py-0.75 text-xs text-black bg-white rounded-[7px] font-sans border border-red-800">
+                    0
                   </span>
                 </div>
               </div>
@@ -212,15 +217,15 @@
                                           :id="$user->id"
 
                                           :show="route(
-                                            'users.show', $user->url
+                                            'users.show', $user->username
                                           )"
 
                                           :edit="route(
-                                            'users.edit', $user->url
+                                            'users.edit', $user->username
                                           )"
 
                                           :delete="route(
-                                            'users.destroy', $user->url
+                                            'users.destroy', $user->username
                                           )"
                                         />
                                       </td>

@@ -2,31 +2,29 @@
 
 namespace App\Http\Controllers\Backend\Manageaccess;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+
 use App\Models\Manageuser\{
   Role,
   Permission
 };
 
-use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\DB;
-
 class RoleAccessPermissionController extends Controller
 {
-  public function accessPermission(string $url)
+  public function accessPermission(string $slug)
   {
     $role = Role::query()
       ->select([
         'id',
         'name',
-        'url',
-        'description'
+        'slug',
       ])
       ->with([
-        'permissions:id'
+        'permissions:id,name'
       ])
-      ->where('url', $url)
+      ->where('slug', $slug)
       ->firstOrFail();
 
     $groupper = Permission::query()
@@ -46,9 +44,9 @@ class RoleAccessPermissionController extends Controller
       ->toArray();
 
     return view('backend.manageaccess.permission.index', [
-      'title'           => 'Access Permission',
-      'role'            => $role,
-      'groupper'        => $groupper,
+      'title' => 'Access Permission',
+      'role' => $role,
+      'groupper' => $groupper,
       'rolePermissions' => $rolePermissions,
     ]);
   }
@@ -56,19 +54,14 @@ class RoleAccessPermissionController extends Controller
   public function accessUpPermission(Request $request)
   {
     $data = $request->validate([
-      'role_id'       => ['required', 'exists:roles,id'],
+      'role_id' => ['required', 'exists:roles,id'],
       'permission_id' => ['required', 'exists:permissions,id'],
     ]);
 
     try {
-
       return DB::transaction(function () use ($data) {
-
         $role = Role::findOrFail($data['role_id']);
-
-        $result = $role->permissions()
-          ->toggle($data['permission_id']);
-
+        $result = $role->permissions()->toggle($data['permission_id']);
         $isAttached = !empty($result['attached']);
 
         return response()->json([
@@ -79,10 +72,9 @@ class RoleAccessPermissionController extends Controller
         ]);
       });
     } catch (\Throwable $e) {
-
       return response()->json([
         'success' => false,
-        'message' => 'Terjadi kesalahan sistem.',
+        'message' => 'Gagal memperbarui akses.',
       ], 500);
     }
   }

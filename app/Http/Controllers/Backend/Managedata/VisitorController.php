@@ -36,7 +36,6 @@ class VisitorController extends Controller
         'status_on_of',
         'last_seen',
         'status',
-        'url'
       ])->with(['role:id,name,bg,text'])
       ->orderBy('id', 'asc')
       ->paginate(10)
@@ -76,7 +75,6 @@ class VisitorController extends Controller
         'username',
         'role_id',
         'status',
-        'url'
       ])->with(['role:id,name,bg,text'])
       ->orderBy('id', 'asc')
       ->paginate(10)

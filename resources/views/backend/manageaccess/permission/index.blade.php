@@ -32,9 +32,9 @@
             </div>
 
             <div class="flex justify-around">
-              <div class="grid max-h-[350] mt-12 grid-cols-1 gap-16 md:grid-cols-2 xl:grid-cols-3">
+              <div class="grid grid-cols-1 gap-16 mt-12 md:grid-cols-2 xl:grid-cols-3">
                 @foreach ($groupper as $controller => $permissions)
-                  <div class="boder">
+                  <div>
                     <fieldset>
                       <div class="w-auto p-4 border border-gray-300 shadow-2xs rounded-3xl bg-slate-50">
                         <legend class="mb-2 ml-2 text-base font-normal tracking-wide text-yellow-500">
@@ -75,7 +75,7 @@
                                 <input type="checkbox"
                                   data-role="{{ $role->id }}"
                                   data-permission="{{ $permission['id'] }}"
-                                  data-url="{{ $role->url }}"
+                                  data-slug="{{ $role->slug }}"
                                   {{ in_array($permission['id'], $rolePermissions) ? 'checked' : '' }}
                                   class="ml-1 w-4 h-4 text-blue-500 rounded-[5px] cursor-pointer access-checkbox outline-offset-1 outline-1 outline-blue-500"
                                 />
@@ -116,7 +116,7 @@
 
           const roleId = this.getAttribute("data-role");
           const permissionId = this.getAttribute("data-permission");
-          const roleUrl = this.getAttribute("data-url");
+          const roleSlug = this.getAttribute("data-slug");
           const isChecked = this.checked ? 1 : 0;
 
           try {
@@ -134,7 +134,7 @@
               body: JSON.stringify({
                 role_id: roleId,
                 permission_id: permissionId,
-                role_url: roleUrl,
+                role_slug: roleSlug,
                 is_checked: isChecked
               }),
             });
@@ -152,8 +152,8 @@
                 icon: "success",
               }).then(() => {
                 window.location.href =
-                "{{ route('access.permission', [':url']) }}"
-                .replace(":url", roleUrl)
+                "{{ route('access.permission', [':slug']) }}"
+                .replace(":slug", roleSlug)
               })
             } else {
               throw new Error(result.message);

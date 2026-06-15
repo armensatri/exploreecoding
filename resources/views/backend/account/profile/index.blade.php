@@ -52,7 +52,7 @@
           </div>
 
           <div class="flex justify-center mt-20">
-            <a href="{{ route('profile.edit', $user->url) }}"
+            <a href="{{ route('profile.edit', $user->username) }}"
               class="uppercase px-3 py-1 font-medium text-sm mb-2
               bg-blue-200 text-black border-gray-400 rounded-[10px]
               border hover:bg-blue-600 hover:text-white">

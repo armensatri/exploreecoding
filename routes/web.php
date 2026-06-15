@@ -23,7 +23,6 @@ require __DIR__ . '/backend/subprofile.php';
 require __DIR__ . '/backend/subvisitor.php';
 
 // FRONTEND
-require __DIR__ . '/frontend/explore.php';
 require __DIR__ . '/frontend/home.php';
 require __DIR__ . '/frontend/navigation.php';
 require __DIR__ . '/frontend/programming.php';

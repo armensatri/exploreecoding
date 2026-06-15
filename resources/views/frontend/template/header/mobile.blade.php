@@ -20,14 +20,6 @@
 
     <x-mobile-menu-utama
       route=""
-      :image="asset('frontend/img/navigation/sitemap.png')"
-      menu="Sitemap"
-      description="peta navigasi content"
-      button-name="Sitemap"
-    />
-
-    <x-mobile-menu-utama
-      route=""
       :image="asset('frontend/img/navigation/silabus.png')"
       menu="Silabus"
       description="panduan materi pembelajaran"

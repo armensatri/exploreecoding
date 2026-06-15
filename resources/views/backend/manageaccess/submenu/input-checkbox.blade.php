@@ -2,7 +2,7 @@
   <input type="checkbox"
     data-role="{{ $role->id }}"
     data-submenu="{{ $submenu->id }}"
-    data-url="{{ $role->url }}"
+    data-slug="{{ $role->slug }}"
     {{ in_array(
       $submenu->id,
       $role->submenus->pluck('id')->toArray()) ? 'checked' : ''

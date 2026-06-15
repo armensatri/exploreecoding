@@ -32,9 +32,9 @@ class AccessController extends Controller
         'id',
         'sr',
         'name',
+        'slug',
         'bg',
         'text',
-        'url'
       ])
       ->orderBy('sr', 'asc')
       ->paginate(10)

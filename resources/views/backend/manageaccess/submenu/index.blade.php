@@ -31,7 +31,7 @@
             </div>
 
             <section class="w-full px-3 mt-12 mb-5 xl:flex xl:justify-center">
-              <div class="max-w-340 mx-auto">
+              <div class="mx-auto max-w-340">
                 <div class="flex flex-col">
                   <div class="-m-1.5 overflow-x-auto min-w-full">
                     <div class="p-1.5 inline-block xl:max-w-full">
@@ -73,7 +73,7 @@
                                 name="name"
                               />
                               <x-th
-                                name="url"
+                                name="slug"
                               />
                               <x-th-action/>
                             </tr>
@@ -108,7 +108,7 @@
 
                                 <td class="h-px whitespace-nowrap">
                                   <x-td-var
-                                    :var="$submenu->url"
+                                    :var="$submenu->slug"
                                   />
                                 </td>
 
@@ -148,7 +148,7 @@
 
           const roleId = this.getAttribute("data-role");
           const submenuId = this.getAttribute("data-submenu");
-          const roleUrl = this.getAttribute("data-url");
+          const roleSlug = this.getAttribute("data-slug");
           const isChecked = this.checked ? 1 : 0;
 
           try {
@@ -166,7 +166,7 @@
               body: JSON.stringify({
                 role_id: roleId,
                 submenu_id: submenuId,
-                role_url: roleUrl,
+                role_slug: roleSlug,
                 is_checked: isChecked
               }),
             });
@@ -184,8 +184,8 @@
                 icon: "success",
               }).then(() => {
                 window.location.href =
-                "{{ route('access.submenu', [':url']) }}"
-                .replace(":url", roleUrl)
+                "{{ route('access.submenu', [':slug']) }}"
+                .replace(":slug", roleSlug)
               })
             } else {
               throw new Error(result.message);

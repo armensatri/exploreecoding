@@ -19,7 +19,7 @@ Route::group(
     Route::controller(RoleAccessMenuController::class)->group(
       function () {
         Route::get(
-          '/access/menu/{url}',
+          '/access/menu/{slug}',
           'accessMenu'
         )->name('access.menu');
 
@@ -33,7 +33,7 @@ Route::group(
     Route::controller(RoleAccessSubmenuController::class)->group(
       function () {
         Route::get(
-          '/access/submenu/{url}',
+          '/access/submenu/{slug}',
           'accessSubmenu'
         )->name('access.submenu');
 
@@ -47,7 +47,7 @@ Route::group(
     Route::controller(RoleAccessPermissionController::class)->group(
       function () {
         Route::get(
-          '/access/permission/{url}',
+          '/access/permission/{slug}',
           'accessPermission'
         )->name('access.permission');
 
