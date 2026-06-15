@@ -20,6 +20,7 @@ class RoleAccessPermissionController extends Controller
         'id',
         'name',
         'slug',
+        'description'
       ])
       ->with([
         'permissions:id,name'

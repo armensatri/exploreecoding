@@ -41,33 +41,6 @@
                           {{ ucfirst($controller) }}Controller
                         </legend>
 
-                        {{-- @foreach ($permissions as $permission)
-                          <div class="flex items-center px-1 ml-1">
-                            <div>
-                              <div class="flex items-center">
-                                <input type="checkbox"
-                                  data-role="{{ $role->id }}"
-                                  data-permission="{{ $permission->id }}"
-                                  data-url="{{ $role->url }}"
-                                  {{ in_array($permission->id, $role->permissions->pluck('id')->toArray()) ? 'checked' : '' }}
-                                  class="ml-1 w-4 h-4 text-blue-500 rounded-[5px] cursor-pointer access-checkbox outline-offset-1 outline-1 outline-blue-500"
-                                />
-                              </div>
-                            </div>
-
-                            <div class="flex items-center text-[15px] text-gray-600 whitespace-nowrap p-2 py-1.5 tracking-wide">
-                              <div class="flex items-center gap-1">
-                                <div class="text-xs text-black">
-                                  {{ $permission->id }}
-                                </div>
-                                <div>-</div>
-                                <div>
-                                  {{ $permission->name }}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        @endforeach --}}
                         @foreach ($permissions as $permission)
                           <div class="flex items-center px-1 ml-1">
                             <div>

@@ -17,7 +17,8 @@ class RoleAccessSubmenuController extends Controller
       ->select([
         'id',
         'name',
-        'slug'
+        'slug',
+        'description'
       ])
       ->where('slug', $slug)
       ->firstOrFail();

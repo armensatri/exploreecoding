@@ -17,6 +17,7 @@ class RoleAccessMenuController extends Controller
         'id',
         'name',
         'slug',
+        'description'
       ])
       ->where('slug', $slug)
       ->firstOrFail();
