@@ -11,7 +11,7 @@
   </div>
 
   <p
-    class="max-w-2xl mx-auto mt-3 text-lg text-center text-gray-700">
+    class="max-w-2xl mx-auto mt-3 text-lg text-center text-gray-700 xl:text-xl xl:mt-5">
     Kumpulan artikel exploreecoding berisi tips coding praktis panduan sederhana dan wawasan pengembangan pengetahuan
   </p>
 
@@ -173,7 +173,7 @@
       <a href="{{ route('ec-tipscoding.index') }}">
         <button
           class="px-5 py-2 text-base font-semibold tracking-wide text-black bg-blue-300 border border-gray-400 shadow-sm cursor-pointer rounded-[14px] hover:bg-blue-600 hover:text-white">
-          ✅Semua tips coding
+          🔹Semua tips coding
         </button>
       </a>
     </div>

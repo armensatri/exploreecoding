@@ -13,7 +13,7 @@
               </span>
             </h2>
 
-            <p class="max-w-xl mx-auto text-lg text-gray-700">
+            <p class="max-w-xl mx-auto text-lg xl:text-[20px] xl:mt-5 text-gray-700">
               Exploreecoding membantu kamu belajar programming secara terstruktur melalui
               <span class="text-blue-700">
                 paths,
@@ -34,7 +34,7 @@
 
           <blockquote class="relative">
             <div class="relative z-10">
-              <p class="text-lg italic text-gray-700">
+              <p class="text-lg xl:text-[20px] xl:mt-5 italic text-gray-700">
                 “Materinya terstruktur, roadmapnya jelas, dan sangat membantu belajar coding dari nol.”
               </p>
             </div>
@@ -47,7 +47,7 @@
               class="grid grid-cols-2 overflow-hidden divide-x divide-y divide-gray-300">
               <li class="flex flex-col -m-0.5 p-4 sm:p-8">
                 <div class="mb-2 text-3xl font-bold text-gray-800">
-                  {{ $paths->count() }}+
+                  {{ $paths->count() }}
                 </div>
                 <p>
                   <span
@@ -55,7 +55,7 @@
                     Path
                   </span>
                   <br>
-                  <span class="text-lg tracking-wide text-gray-700">
+                  <span class="text-lg xl:text-[20px] tracking-wide text-gray-700">
                     Tersedia
                   </span>
                 </p>
@@ -63,14 +63,14 @@
 
               <li class="flex flex-col -m-0.5 p-4 sm:p-8">
                 <div class="mb-2 text-3xl font-bold text-gray-800">
-                  {{ $roadmaps }}+
+                  {{ $roadmaps }}
                 </div>
                 <p>
                   <span class="text-base font-semibold tracking-tight text-blue-500 uppercase">
                   Roadmap
                   </span>
                   <br>
-                  <span class="text-lg tracking-wide text-gray-700">
+                  <span class="text-lg xl:text-[20px] tracking-wide text-gray-700">
                     Terstruktur
                   </span>
                 </p>
@@ -78,14 +78,14 @@
 
               <li class="flex flex-col -m-0.5 p-4 sm:p-8">
                 <div class="mb-2 text-3xl font-bold text-gray-800">
-                  {{ $playlists }}+
+                  {{ $playlists }}
                 </div>
                 <p>
                   <span class="text-base font-semibold tracking-tight text-blue-500 uppercase">
                   Playlist
                   </span>
                   <br>
-                  <span class="text-lg tracking-wide text-gray-700">
+                  <span class="text-lg xl:text-[20px] tracking-wide text-gray-700">
                     Belajar
                   </span>
                 </p>
@@ -93,14 +93,14 @@
 
               <li class="flex flex-col -m-0.5 p-4 sm:p-8">
                 <div class="mb-2 text-3xl font-bold text-gray-800">
-                  {{ $posts }}+
+                  {{ $posts }}
                 </div>
                 <p>
                   <span class="text-base font-semibold tracking-tight text-blue-500 uppercase">
                   Materi
                   </span>
                   <br>
-                  <span class="text-lg tracking-wide text-gray-700">
+                  <span class="text-lg xl:text-[20px] tracking-wide text-gray-700">
                     Edukatif
                   </span>
                 </p>

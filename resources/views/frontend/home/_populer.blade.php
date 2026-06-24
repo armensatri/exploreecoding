@@ -11,7 +11,7 @@
   </div>
 
   <p
-    class="max-w-2xl mx-auto mt-3 text-lg text-center text-gray-700">
+    class="max-w-2xl mx-auto xl:text-xl xl:mt-5 mt-3 text-lg text-center text-gray-700">
     Path course yang banyak di kunjungi pengguna untuk belajar skill populer dengan materi terarah dan mudah dipahami
   </p>
 

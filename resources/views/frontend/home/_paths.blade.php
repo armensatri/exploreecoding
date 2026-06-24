@@ -11,7 +11,7 @@
   </div>
 
   <p
-    class="max-w-2xl mx-auto mt-3 text-lg text-center text-gray-700">
+    class="max-w-2xl mx-auto mt-3 text-lg text-center text-gray-700 xl:mt-5 xl:text-xl">
     Pilihan path course menuntun perjalanan belajarmu dari awal melalui pembelajaran bertahap dan terstruktur
   </p>
 
@@ -26,7 +26,7 @@
           class="flex transition-transform duration hs-carousel-body gap-x-6">
           @foreach ($paths->take(5) as $path)
             <div class="w-full hs-carousel-slide">
-              <div
+              {{-- <div
                 class="flex flex-col items-center justify-center h-full p-8 text-center bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
                 <div
                   class="flex items-center justify-center mx-auto bg-blue-100 border border-gray-600 rounded-full size-14">
@@ -75,6 +75,110 @@
                     class="shadow-sm inline-flex items-center gap-x-1.5 py-0.5 px-1.5 rounded-md text-2xs font-medium bg-blue-100 tracking-wide border border-gray-500">
                     {{ $path->sp }}
                   </span>
+                </div>
+              </div> --}}
+
+              <div class="">
+                <div class="w-full p-10 bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl h-max rounded-2xl">
+                  <!-- Header -->
+                  <div class="flex items-start gap-3">
+                    <!-- Avatar -->
+                    <img
+                      src="/image/default.png"
+                      class="object-cover -ml-2 border border-gray-300 rounded-full w-14 h-14"
+                    />
+
+                    <div class="flex-1">
+                      <h2 class="mt-2.5 text-base font-semibold uppercase text-gray-800">
+                        {{ $path->name }}
+                      </h2>
+
+                      <!-- Rating -->
+                      <div class="flex items-center gap-2 mt-2">
+                        <span class="flex items-center gap-1 px-2 py-0.5 text-white bg-green-600 rounded-xs text-xs">
+                          ★ 5.0
+                        </span>
+
+                        <span class="text-[11px] border border-gray-300 bg-gray-200 text-gray-500 rounded-xs py-px px-2">
+                            {{ $path->sp }}.{{ $path->created_at
+                              ->locale('id')
+                              ->translatedFormat('dmy')
+                            }}{{ date('y') }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Info -->
+                  <div class="mt-4 text-[11px] text-gray-500">
+                    <div class="flex flex-col gap-1">
+                      <span class="mt-3 text-[17px] text-gray-700 line-clamp-3">
+                        {{ $path->description }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Tags -->
+                  <div class="gap-2 mt-4 space-y-2 ">
+                    <div class="flex items-center w-full gap-3">
+                      <span class="text-[14px] text-gray-700 whitespace-nowrap tracking-wide">
+                          🔹roadmaps
+                      </span>
+
+                      <div class="flex-1 tracking-wide border-t border-gray-400 border-dotted">
+                      </div>
+
+                      <span class="text-[13px] tracking-tight text-gray-700 truncate whitespace-nowrap">
+                          5
+                        </span>
+                    </div>
+
+                    <div class="flex items-center w-full gap-3">
+                      <span class="text-[14px] text-gray-700 whitespace-nowrap tracking-wide">
+                          🔹playlists
+                      </span>
+
+                      <div class="flex-1 tracking-wide border-t border-gray-400 border-dotted">
+                      </div>
+
+                      <span class="text-[13px] tracking-tight text-gray-700 truncate whitespace-nowrap">
+                          20
+                        </span>
+                    </div>
+
+                    <div class="flex items-center w-full gap-3">
+                      <span class="text-[14px] text-gray-700 whitespace-nowrap tracking-wide">
+                          🔹posts/materi
+                      </span>
+
+                      <div class="flex-1 tracking-wide border-t border-gray-400 border-dotted">
+                      </div>
+
+                      <span class="text-[13px] tracking-tight text-gray-700 truncate whitespace-nowrap">
+                          256
+                        </span>
+                    </div>
+                  </div>
+
+                  <!-- Bottom -->
+                  <div class="flex items-center justify-between mt-5">
+                    <!-- Price -->
+                    <div>
+                      <p class="text-sm font-bold text-gray-700">
+                        $75/h
+                      </p>
+
+                      <p class="text-gray-400 text-2xs">
+                        Online/Offline
+                      </p>
+                    </div>
+
+                    <!-- Button -->
+                    <button
+                      class="px-5 py-3 text-xs font-semibold text-white bg-blue-600 rounded-full shadow-md hover:bg-blue-700">
+                      Book Consultation
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

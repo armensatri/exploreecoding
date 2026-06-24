@@ -22,7 +22,8 @@ class HomeController extends Controller
         'sp',
         'name',
         'status_id',
-        'description'
+        'description',
+        'created_at',
       ])
       ->with('status:id,bg,name,text')
       ->orderBy('sp', 'asc')

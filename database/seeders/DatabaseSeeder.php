@@ -6,12 +6,12 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\Published\StatusSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Programming\{
-  Path,
-  Playlist,
-  Post,
-  Roadmap
-};
+// use App\Models\Programming\{
+//   Path,
+//   Playlist,
+//   Post,
+//   Roadmap
+// };
 
 use App\Models\Tipscoding\{
   Category,
@@ -35,12 +35,12 @@ use Database\Seeders\Pivot\{
   RoleHasPermissionSeeder,
 };
 
-// use Database\Seeders\Programming\{
-//   PathSeeder,
-//   PlaylistSeeder,
-//   PostSeeder,
-//   RoadmapSeeder
-// };
+use Database\Seeders\Programming\{
+  PathSeeder,
+  PlaylistSeeder,
+  PostSeeder,
+  RoadmapSeeder
+};
 
 // use Database\Seeders\Tipscoding\{
 //   CategorySeeder,
@@ -63,27 +63,27 @@ class DatabaseSeeder extends Seeder
       PermissionSeeder::class,
       RoleHasPermissionSeeder::class,
       StatusSeeder::class,
-      // PathSeeder::class,
-      // RoadmapSeeder::class,
-      // PlaylistSeeder::class,
-      // PostSeeder::class,
+      PathSeeder::class,
+      RoadmapSeeder::class,
+      PlaylistSeeder::class,
+      PostSeeder::class,
       // CategorySeeder::class,
       // TipscodingSeeder::class
     ]);
 
-    Path::factory()
-      ->count(5)
-      ->has(
-        Roadmap::factory()
-          ->count(4)
-          ->has(
-            Playlist::factory()
-              ->count(3)
-              ->has(
-                Post::factory()->count(10)
-              )
-          )
-      )->create();
+    // Path::factory()
+    //   ->count(5)
+    //   ->has(
+    //     Roadmap::factory()
+    //       ->count(4)
+    //       ->has(
+    //         Playlist::factory()
+    //           ->count(3)
+    //           ->has(
+    //             Post::factory()->count(10)
+    //           )
+    //       )
+    //   )->create();
 
     Category::factory()->count(20)->create();
     Tipscoding::factory()->count(80)->create();
