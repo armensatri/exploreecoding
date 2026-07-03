@@ -50,6 +50,7 @@ class HomeController extends Controller
     return view('frontend.home.index', [
       'title' => 'Home',
       'paths' => $paths,
+      'populerpaths' => $paths->whereIn('sp', [1, 3, 5])->take(3),
       'tipscodings' => $tipscodings,
       'roadmaps' => Roadmap::count(),
       'playlists' => Playlist::count(),

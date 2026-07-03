@@ -133,6 +133,16 @@ class SubmenuSeeder extends Seeder
         'routename' => '/statistic',
         'description' => 'data statistic system',
       ],
+      [
+        'menu_id' => 6,
+        'ssm' => 5,
+        'name' => 'view',
+        'slug' => 'view',
+        'route' => '/view',
+        'active' => 'view',
+        'routename' => '/view',
+        'description' => 'data view content',
+      ],
 
       // ID 7 MANAGEUSER
       [

@@ -65,6 +65,9 @@ class RoleHasPermissionSeeder extends Seeder
         // STATISTIC
         'statistic',
 
+        // VIEW
+        'view.index',
+
         // USERS
         'users.index',
         'users.create',
@@ -213,6 +216,9 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         'statistic',
+
+        // VIEW
+        'view.index',
 
         // USERS
         'users.index',
@@ -363,6 +369,9 @@ class RoleHasPermissionSeeder extends Seeder
         // STATISTIC
         // 'statistic',
 
+        // VIEW
+        // 'view.index',
+
         // USERS
         // 'users.index',
         // 'users.create',
@@ -511,6 +520,9 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         // 'statistic',
+
+        // VIEW
+        // 'view.index',
 
         // USERS
         // 'users.index',

@@ -24,7 +24,7 @@
       <div class="relative mt-10 mb-10">
         <div
           class="flex transition-transform duration hs-carousel-body gap-x-6">
-          @foreach ($paths as $path)
+          @foreach ($populerpaths as $path)
             <div class="w-full hs-carousel-slide">
               <div class="">
                 <div class="w-full px-10 py-6 bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl h-max rounded-2xl">

@@ -2,17 +2,12 @@
 
 namespace App\Models\Manageuser;
 
-use App\Helpers\RandomUrl;
 use App\Models\Manageuser\Role;
 use App\Models\Programming\Post;
 use App\Models\Tipscoding\Tipscoding;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\View\Pathview;
+use App\Traits\Models\{HasSearchable, HasCacheVersion,};
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
-use App\Traits\Models\{
-  HasSearchable,
-  HasCacheVersion,
-};
 
 class User extends Authenticatable
 {
@@ -70,6 +65,11 @@ class User extends Authenticatable
   public function tipscodings()
   {
     return $this->hasMany(Tipscoding::class);
+  }
+
+  public function pathviews()
+  {
+    return $this->hasMany(Pathview::class);
   }
 
   public function statusOnOf()

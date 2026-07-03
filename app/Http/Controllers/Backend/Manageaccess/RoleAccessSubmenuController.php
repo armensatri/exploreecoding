@@ -34,7 +34,7 @@ class RoleAccessSubmenuController extends Controller
         'roles as has_access' => fn($query)
         => $query->whereKey($role->id)
       ])
-      ->orderBy('id', 'asc')
+      ->orderBy('menu_id', 'asc')
       ->paginate(10)
       ->withQueryString();
 

@@ -29,7 +29,7 @@ class MenuIcon
       'visitor' => 'visitor.jpg',
       'access' => 'access.png',
       'statistic' => 'statistic.jpg',
-      'silabus' => 'silabus.png',
+      'view' => 'view.png',
 
       // MANAGEUSER
       'users' => 'users.jpg',

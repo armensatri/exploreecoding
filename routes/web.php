@@ -15,6 +15,7 @@ require __DIR__ . '/backend/manageuser.php';
 require __DIR__ . '/backend/programming.php';
 require __DIR__ . '/backend/published.php';
 require __DIR__ . '/backend/tipscoding.php';
+require __DIR__ . '/backend/view.php';
 
 // SUB BACKEND
 require __DIR__ . '/backend/subaccess.php';

@@ -2,8 +2,6 @@
 
 namespace App\Helpers;
 
-use App\Models\Manageuser\User;
-
 use Illuminate\Support\Facades\{
   Auth,
   Redirect
@@ -13,7 +11,7 @@ class Redirects
 {
   public static function Dashboard()
   {
-    $user = User::find(Auth::id());
+    $user = Auth::user();
 
     if (!$user) {
       return Redirect::route('login')->send();
@@ -26,6 +24,8 @@ class Redirects
       'member' => 'member'
     ];
 
-    return $routes[$user->role->name] ?? route('home');
+    $roleName = $user->role->name ?? '';
+
+    return $routes[$roleName] ?? route('home');
   }
 }
