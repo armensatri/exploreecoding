@@ -11,7 +11,7 @@
   </div>
 
   <p
-    class="max-w-2xl mx-auto xl:text-xl xl:mt-5 mt-3 text-lg text-center text-gray-700">
+    class="max-w-2xl mx-auto mt-3 text-lg text-center text-gray-700 xl:text-xl xl:mt-5">
     Path course yang banyak di kunjungi pengguna untuk belajar skill populer dengan materi terarah dan mudah dipahami
   </p>
 
@@ -24,57 +24,124 @@
       <div class="relative mt-10 mb-10">
         <div
           class="flex transition-transform duration hs-carousel-body gap-x-6">
-          @foreach ($paths->take(3) as $path)
+          @foreach ($paths as $path)
             <div class="w-full hs-carousel-slide">
-              <div
-                class="flex flex-col items-center justify-center h-full p-8 text-center bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
-                <div
-                  class="flex items-center justify-center mx-auto bg-blue-100 border border-gray-600 rounded-full size-14">
-                  <img src="{{ asset('image/default.png') }}"
-                    alt="image"
-                    class="size-full"
-                  />
-                </div>
+              <div class="">
+                <div class="w-full px-10 py-6 bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl h-max rounded-2xl">
+                  <div class="flex items-start gap-3">
+                    <img
+                      src="/image/default.png"
+                      class="object-cover w-16 h-16 -ml-2 border border-gray-300 rounded-full"
+                    />
 
-                <h3 class="mt-2 text-lg font-semibold">
-                  {{ $path->name }}
-                </h3>
+                    <div class="flex-1">
+                      <h2 class="mt-2.5 text-base font-semibold uppercase text-gray-800">
+                        {{ $path->name }}
+                      </h2>
 
-                <p class="mt-3 text-[17px] text-gray-700 line-clamp-2">
-                  {{ $path->description }}
-                </p>
-
-                <div class="mt-4 mb-2">
-                  <div>
-                    @if (in_array($path->status->name, [
-                      'upcoming',
-                      'on progress'
-                      ]))
-                      <span
-                        class="shadow-sm inline-flex items-center gap-x-1.5 py-0.75 px-3 rounded-[10px] text-sm font-medium border border-gray-500
-                        {{ $path->status->text }} {{ $path->status->bg }}">
-                        {{ $path->status->name }}
-                      </span>
-                    @else
-                      <a href=""
-                        class="cursor-pointer">
-                        <span
-                          class="shadow-sm inline-flex items-center gap-x-1.5 py-0.75 px-3 rounded-[10px] text-sm font-medium border border-gray-500 bg-blue-300 text-blue-800 hover:bg-blue-600 hover:text-white">
-                          show course
+                      <div class="flex items-center gap-2 mt-2">
+                        <span class="flex items-center gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs">
+                          ★ 5.0
                         </span>
-                      </a>
-                    @endif
-                  </div>
-                </div>
-              </div>
 
-              <div
-                class="flex items-center justify-center gap-4 mx-auto -mt-4">
-                <div>
-                  <span
-                    class="shadow-sm inline-flex items-center gap-x-1.5 py-0.5 px-1.5 rounded-md text-2xs font-medium bg-blue-100 tracking-wide border border-gray-500">
-                    {{ $path->sp }}
-                  </span>
+                        <span class="flex items-center text-[11px] border border-gray-300 bg-gray-200 text-gray-600 rounded-md py-px px-2">
+                          <svg xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                            class="mr-1 text-gray-600 bi bi-eye">
+                            <path
+                              d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"
+                            />
+                            <path
+                              d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"
+                            />
+                          </svg>
+
+                          <span class="text-[11px] text-gray-600">
+                            100.K
+                          </span>
+                        </span>
+
+                        <span class="text-[11px] border border-gray-300 bg-gray-200 text-gray-600 rounded-md py-px px-2">
+                          {{ $path->sp }}.{{ $path->created_at
+                            ->locale('id')
+                            ->translatedFormat('dmy')
+                          }}{{ date('y') }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 text-[11px] text-gray-500">
+                    <div class="flex flex-col gap-1">
+                      <span class="mt-3 text-[17px] text-gray-700 line-clamp-3">
+                        {{ $path->description }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="gap-2 mt-4 space-y-2 ">
+                    <div class="flex items-center w-full gap-3">
+                      <span class="text-[14px] text-gray-700 whitespace-nowrap tracking-wide">
+                        🔹roadmaps
+                      </span>
+
+                      <div class="flex-1 tracking-wide border-t border-gray-400 border-dotted">
+                      </div>
+
+                      <span class="mr-2.5 text-[13px] tracking-tight text-gray-700 truncate whitespace-nowrap">
+                        {{ $path->roadmaps_count }}
+                      </span>
+                    </div>
+
+                    <div class="flex items-center w-full gap-3">
+                      <span class="text-[14px] text-gray-700 whitespace-nowrap tracking-wide">
+                        🔹playlists
+                      </span>
+
+                      <div class="flex-1 tracking-wide border-t border-gray-400 border-dotted">
+                      </div>
+
+                      <span class="mr-2.5 text-[13px] tracking-tight text-gray-700 truncate whitespace-nowrap">
+                        {{ $path->roadmaps->sum(function($roadmap) {
+                          return $roadmap->playlists->count();
+                        }) }}
+                      </span>
+                    </div>
+
+                    <div class="flex items-center w-full gap-3">
+                      <span class="text-[14px] text-gray-700 whitespace-nowrap tracking-wide">
+                        🔹posts/materi
+                      </span>
+
+                      <div class="flex-1 tracking-wide border-t border-gray-400 border-dotted">
+                      </div>
+
+                      <span class="mr-2.5 text-[13px] tracking-tight text-gray-700 truncate whitespace-nowrap">
+                        {{ $path->roadmaps->flatMap->playlists->flatMap->posts->count() }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between w-full mt-5 gap-x-5 md:gap-y-3.5 lg:gap-x-5 md:flex-col lg:flex-row">
+                    <div class="w-full p-0.75 bg-white rounded-[11px] border border-gray-400 md:w-3/4 lg:w-full">
+                      <a href=""
+                        class="block w-full px-5 py-2 text-[14px] font-semibold text-center rounded-[10px] tracking-wider
+                        {{ $path->status->bg }}
+                        {{ $path->status->text }}">
+                        {{ $path->status->name }}
+                      </a>
+                    </div>
+
+                    <div class="w-full p-0.75 bg-white rounded-[11px] border border-gray-400">
+                      <div class="block w-full px-5 py-2 text-[14px]
+                        font-semibold text-center text-white bg-blue-600 rounded-[10px] shadow-md hover:bg-blue-700 tracking-wide">
+                        Show course
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -84,7 +151,7 @@
     </div>
 
     <button type="button"
-      class="absolute xl:hidden p-2 -translate-y-1/2 bg-blue-300 border border-gray-600 rounded-full shadow cursor-pointer -left-2.5 top-1/2 hover:bg-blue-500 hover:text-white hs-carousel-prev">
+      class="absolute p-2 -translate-y-1/2 bg-blue-300 border border-gray-600 rounded-full shadow cursor-pointer -left-2.5 top-1/2 hover:bg-blue-500 hover:text-white hs-carousel-prev">
       <svg xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
         viewBox="0 0 16 16"
@@ -96,7 +163,7 @@
     </button>
 
     <button type="button"
-      class="absolute xl:hidden p-2 -translate-y-1/2 bg-blue-300 border border-gray-600 rounded-full shadow cursor-pointer -right-2.5 top-1/2 hover:bg-blue-500 hover:text-white hs-carousel-next">
+      class="absolute p-2 -translate-y-1/2 bg-blue-300 border border-gray-600 rounded-full shadow cursor-pointer -right-2.5 top-1/2 hover:bg-blue-500 hover:text-white hs-carousel-next">
       <svg xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
         viewBox="0 0 16 16"
@@ -108,6 +175,15 @@
     </button>
 
     <div class="flex justify-center mt-4 hs-carousel-pagination gap-x-2">
+    </div>
+
+    <div class="flex justify-center mt-5">
+      <a href="">
+        <button
+          class="px-5 py-2 text-base font-semibold tracking-wide text-black bg-blue-300 border border-gray-400 shadow-sm cursor-pointer rounded-[14px] hover:bg-blue-600 hover:text-white">
+          Semua path course
+        </button>
+      </a>
     </div>
   </div>
 </section>

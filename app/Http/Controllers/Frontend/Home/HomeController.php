@@ -25,7 +25,14 @@ class HomeController extends Controller
         'description',
         'created_at',
       ])
-      ->with('status:id,bg,name,text')
+      ->with([
+        'status:id,bg,name,text',
+        'roadmaps.playlists.posts'
+      ])
+      ->withCount([
+        'roadmaps',
+      ])
+      ->whereIn('sp', [1, 2, 3, 4, 5])
       ->orderBy('sp', 'asc')
       ->get();
 
@@ -43,10 +50,10 @@ class HomeController extends Controller
     return view('frontend.home.index', [
       'title' => 'Home',
       'paths' => $paths,
+      'tipscodings' => $tipscodings,
       'roadmaps' => Roadmap::count(),
       'playlists' => Playlist::count(),
       'posts' => Post::count(),
-      'tipscodings' => $tipscodings
     ]);
   }
 }

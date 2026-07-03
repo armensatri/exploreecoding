@@ -12,7 +12,7 @@ class StatusSeeder extends Seeder
     $statuses = [
       [
         'ss' => 1,
-        'name' => 'upcoming',
+        'name' => 'Upcoming',
         'slug' => 'upcoming',
         'bg' => 'bg-red-200',
         'text' => 'text-red-800',
@@ -20,7 +20,7 @@ class StatusSeeder extends Seeder
       ],
       [
         'ss' => 2,
-        'name' => 'on progress',
+        'name' => 'On progress',
         'slug' => 'on-progress',
         'bg' => 'bg-yellow-200',
         'text' => 'text-yellow-800',
@@ -28,10 +28,10 @@ class StatusSeeder extends Seeder
       ],
       [
         'ss' => 3,
-        'name' => 'explore',
+        'name' => 'Explore',
         'slug' => 'explore',
-        'bg' => 'bg-blue-200',
-        'text' => 'text-blue-800',
+        'bg' => 'bg-green-200',
+        'text' => 'text-green-800',
         'description' => 'explore',
       ],
     ];
