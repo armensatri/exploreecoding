@@ -8,16 +8,16 @@ use Illuminate\View\Component;
 
 class Question extends Component
 {
-  public $heading;
-  public $collapse;
-  public $question;
-  public $answer;
+  public string $heading;
+  public mixed $collapse;
+  public string $question;
+  public string $answer;
 
   public function __construct(
-    $heading,
-    $collapse,
-    $question,
-    $answer,
+    string $heading,
+    mixed $collapse,
+    string $question,
+    string $answer,
   ) {
     $this->heading = $heading;
     $this->collapse = $collapse;

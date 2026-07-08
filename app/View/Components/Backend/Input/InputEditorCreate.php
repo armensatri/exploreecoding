@@ -8,16 +8,16 @@ use Illuminate\View\Component;
 
 class InputEditorCreate extends Component
 {
-  public $labelFor;
-  public $labelName;
-  public $id;
-  public $error;
+  public string $labelFor;
+  public string $labelName;
+  public string $id;
+  public string|null $error;
 
   public function __construct(
-    $labelFor,
-    $labelName,
-    $id,
-    $error
+    string $labelFor,
+    string $labelName,
+    string $id,
+    string|null $error
   ) {
     $this->labelFor = $labelFor;
     $this->labelName = $labelName;

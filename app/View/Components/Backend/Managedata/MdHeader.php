@@ -8,16 +8,16 @@ use Illuminate\View\Component;
 
 class MdHeader extends Component
 {
-  public $image;
-  public $alt;
-  public $title;
-  public $description;
+  public string $image;
+  public string $alt;
+  public string $title;
+  public string $description;
 
   public function __construct(
-    $image,
-    $alt,
-    $title,
-    $description,
+    string $image,
+    string $alt,
+    string $title,
+    string $description,
   ) {
     $this->image = $image;
     $this->alt = $alt;

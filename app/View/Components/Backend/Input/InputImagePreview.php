@@ -8,14 +8,14 @@ use Illuminate\View\Component;
 
 class InputImagePreview extends Component
 {
-  public $labelFor;
-  public $labelName;
-  public $image;
+  public string $labelFor;
+  public string $labelName;
+  public string $image;
 
   public function __construct(
-    $labelFor,
-    $labelName,
-    $image
+    string $labelFor,
+    string $labelName,
+    string $image
   ) {
     $this->labelFor = $labelFor;
     $this->labelName = $labelName;

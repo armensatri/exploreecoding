@@ -8,26 +8,27 @@ use Illuminate\View\Component;
 
 class InputSelect extends Component
 {
-  public $labelFor;
-  public $labelName;
-  public $id;
-  public $name;
-  public $items;
-  public $valueOld;
-  public $valueDefault;
-  public $error;
-  public $placeholder;
+  public ?string $labelFor;
+  public ?string $labelName;
+  public ?string $id;
+  public ?string $name;
+  /** @var array|null */
+  public ?array $items;
+  public mixed $valueOld;
+  public mixed $valueDefault;
+  public ?string $error;
+  public ?string $placeholder;
 
   public function __construct(
-    $labelFor,
-    $labelName,
-    $id,
-    $name,
-    $items,
-    $valueOld,
-    $valueDefault,
-    $error,
-    $placeholder,
+    ?string $labelFor = null,
+    ?string $labelName = null,
+    ?string $id = null,
+    ?string $name = null,
+    ?array $items = null,
+    $valueOld = null,
+    $valueDefault = null,
+    ?string $error = null,
+    ?string $placeholder = null,
   ) {
     $this->labelFor = $labelFor;
     $this->labelName = $labelName;

@@ -8,16 +8,16 @@ use Illuminate\View\Component;
 
 class ShowBackground extends Component
 {
-  public $name;
-  public $bg;
-  public $text;
-  public $var;
+  public string $name;
+  public string $bg;
+  public string $text;
+  public mixed $var;
 
   public function __construct(
-    $name,
-    $bg,
-    $text,
-    $var,
+    string $name,
+    string $bg,
+    string $text,
+    mixed $var
   ) {
     $this->name = $name;
     $this->bg = $bg;

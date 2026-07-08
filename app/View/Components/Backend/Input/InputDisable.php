@@ -8,26 +8,26 @@ use Illuminate\View\Component;
 
 class InputDisable extends Component
 {
-  public $labelFor;
-  public $labelName;
-  public $type;
-  public $id;
-  public $name;
-  public $valueOld;
-  public $valueDefault;
-  public $error;
-  public $placeholder;
+  public ?string $labelFor;
+  public ?string $labelName;
+  public ?string $type;
+  public ?string $id;
+  public ?string $name;
+  public ?string $valueOld;
+  public ?string $valueDefault;
+  public ?string $error;
+  public ?string $placeholder;
 
   public function __construct(
-    $labelFor,
-    $labelName,
-    $type,
-    $id,
-    $name,
-    $valueOld,
-    $valueDefault,
-    $error,
-    $placeholder,
+    ?string $labelFor = null,
+    ?string $labelName = null,
+    ?string $type = null,
+    ?string $id = null,
+    ?string $name = null,
+    ?string $valueOld = null,
+    ?string $valueDefault = null,
+    ?string $error = null,
+    ?string $placeholder = null,
   ) {
     $this->labelFor = $labelFor;
     $this->labelName = $labelName;

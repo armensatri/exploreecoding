@@ -8,16 +8,16 @@ use Illuminate\View\Component;
 
 class MenuAuth extends Component
 {
-  public $route;
-  public $img;
-  public $alt;
-  public $menu;
+  public string $route;
+  public string $img;
+  public string $alt;
+  public string $menu;
 
   public function __construct(
-    $route,
-    $img,
-    $alt,
-    $menu
+    string $route,
+    string $img,
+    string $alt,
+    string $menu
   ) {
     $this->route = $route;
     $this->img = $img;

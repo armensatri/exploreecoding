@@ -8,10 +8,10 @@ use Illuminate\View\Component;
 
 class TdVarWidth extends Component
 {
-  public $var;
-  public $tooltip;
+  public mixed $var;
+  public mixed $tooltip;
 
-  public function __construct($var, $tooltip)
+  public function __construct(mixed $var, mixed $tooltip)
   {
     $this->var = $var;
     $this->tooltip = $tooltip;

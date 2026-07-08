@@ -8,9 +8,9 @@ use Illuminate\View\Component;
 
 class Message extends Component
 {
-  public $error;
+  public ?string $error;
 
-  public function __construct($error)
+  public function __construct(?string $error = null)
   {
     $this->error = $error;
   }

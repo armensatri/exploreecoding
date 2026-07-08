@@ -8,20 +8,20 @@ use Illuminate\View\Component;
 
 class DataCardCount extends Component
 {
-  public $hover;
-  public $route;
-  public $img;
-  public $alt;
-  public $dataName;
-  public $dataCount;
+  public string $hover;
+  public string $route;
+  public string $img;
+  public string $alt;
+  public string $dataName;
+  public int $dataCount;
 
   public function __construct(
-    $hover,
-    $route,
-    $img,
-    $alt,
-    $dataName,
-    $dataCount,
+    string $hover,
+    string $route,
+    string $img,
+    string $alt,
+    string $dataName,
+    int $dataCount
   ) {
     $this->hover = $hover;
     $this->route = $route;

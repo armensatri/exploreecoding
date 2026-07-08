@@ -8,9 +8,9 @@ use Illuminate\View\Component;
 
 class Paginate extends Component
 {
-  public $pagination;
+  public mixed $pagination;
 
-  public function __construct($pagination)
+  public function __construct(mixed $pagination)
   {
     $this->pagination = $pagination;
   }

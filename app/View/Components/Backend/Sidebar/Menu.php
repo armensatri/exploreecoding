@@ -8,10 +8,10 @@ use Illuminate\View\Component;
 
 class Menu extends Component
 {
-  public $sm;
-  public $menu;
+  public mixed $sm;
+  public mixed $menu;
 
-  public function __construct($sm, $menu)
+  public function __construct(mixed $sm, mixed $menu)
   {
     $this->sm = $sm;
     $this->menu = $menu;

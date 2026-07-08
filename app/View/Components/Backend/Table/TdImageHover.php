@@ -8,10 +8,10 @@ use Illuminate\View\Component;
 
 class TdImageHover extends Component
 {
-  public $asset;
-  public $assetDefault;
+  public string $asset;
+  public string $assetDefault;
 
-  public function __construct($asset, $assetDefault)
+  public function __construct(string $asset, string $assetDefault)
   {
     $this->asset = $asset;
     $this->assetDefault = $assetDefault;

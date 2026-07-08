@@ -8,10 +8,10 @@ use Illuminate\View\Component;
 
 class Search extends Component
 {
-  public $search;
-  public $placeholder;
+  public string $search;
+  public string $placeholder;
 
-  public function __construct($search, $placeholder)
+  public function __construct(string $search, string $placeholder)
   {
     $this->search = $search;
     $this->placeholder = $placeholder;

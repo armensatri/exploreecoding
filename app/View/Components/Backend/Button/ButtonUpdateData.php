@@ -8,9 +8,9 @@ use Illuminate\View\Component;
 
 class ButtonUpdateData extends Component
 {
-  public $buttonName;
+  public string $buttonName;
 
-  public function __construct($buttonName)
+  public function __construct(string $buttonName)
   {
     $this->buttonName = $buttonName;
   }

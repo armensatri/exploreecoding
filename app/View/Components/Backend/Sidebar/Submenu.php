@@ -8,18 +8,18 @@ use Illuminate\View\Component;
 
 class Submenu extends Component
 {
-  public $route;
-  public $active;
-  public $ssm;
-  public $subMenu;
-  public $image;
+  public string $route;
+  public string|bool $active;
+  public string $ssm;
+  public string $subMenu;
+  public string $image;
 
   public function __construct(
-    $route,
-    $active,
-    $ssm,
-    $subMenu,
-    $image,
+    string $route,
+    string|bool $active,
+    string $ssm,
+    string $subMenu,
+    string $image,
   ) {
     $this->route = $route;
     $this->active = $active;

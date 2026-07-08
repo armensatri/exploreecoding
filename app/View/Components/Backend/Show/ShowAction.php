@@ -8,16 +8,16 @@ use Illuminate\View\Component;
 
 class ShowAction extends Component
 {
-  public $name;
-  public $edit;
-  public $indexs;
-  public $delete;
+  public string $name;
+  public string $edit;
+  public string $indexs;
+  public string $delete;
 
   public function __construct(
-    $name,
-    $edit,
-    $indexs,
-    $delete,
+    string $name,
+    string $edit,
+    string $indexs,
+    string $delete,
   ) {
     $this->name = $name;
     $this->edit = $edit;

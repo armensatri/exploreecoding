@@ -8,14 +8,14 @@ use Illuminate\View\Component;
 
 class ShowImage extends Component
 {
-  public $name;
-  public $asset;
-  public $assetDefault;
+  public string $name;
+  public ?string $asset;
+  public ?string $assetDefault;
 
   public function __construct(
-    $name,
-    $asset,
-    $assetDefault
+    string $name,
+    ?string $asset = null,
+    ?string $assetDefault = null
   ) {
     $this->name = $name;
     $this->asset = $asset;

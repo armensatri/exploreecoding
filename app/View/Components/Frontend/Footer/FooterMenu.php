@@ -8,9 +8,9 @@ use Illuminate\View\Component;
 
 class FooterMenu extends Component
 {
-  public $menu;
+  public mixed $menu;
 
-  public function __construct($menu)
+  public function __construct(mixed $menu)
   {
     $this->menu = $menu;
   }

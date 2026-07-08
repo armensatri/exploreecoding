@@ -8,10 +8,10 @@ use Illuminate\View\Component;
 
 class FooterSodmed extends Component
 {
-  public $route;
-  public $image;
+  public string $route;
+  public string $image;
 
-  public function __construct($route, $image)
+  public function __construct(string $route, string $image)
   {
     $this->route = $route;
     $this->image = $image;

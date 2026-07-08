@@ -8,10 +8,10 @@ use Illuminate\View\Component;
 
 class Indexs extends Component
 {
-  public $route;
-  public $buttonName;
+  public string $route;
+  public string $buttonName;
 
-  public function __construct($route, $buttonName)
+  public function __construct(string $route, string $buttonName)
   {
     $this->route = $route;
     $this->buttonName = $buttonName;

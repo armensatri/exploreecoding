@@ -8,18 +8,18 @@ use Illuminate\View\Component;
 
 class WebExploreLainnya extends Component
 {
-  public $route;
-  public $image;
-  public $menu;
-  public $description;
-  public $buttonName;
+  public string $route;
+  public string $image;
+  public string $menu;
+  public string $description;
+  public string $buttonName;
 
   public function __construct(
-    $route,
-    $image,
-    $menu,
-    $description,
-    $buttonName,
+    string $route,
+    string $image,
+    string $menu,
+    string $description,
+    string $buttonName,
   ) {
     $this->route = $route;
     $this->image = $image;

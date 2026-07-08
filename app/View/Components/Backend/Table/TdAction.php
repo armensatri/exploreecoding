@@ -8,16 +8,16 @@ use Illuminate\View\Component;
 
 class TdAction extends Component
 {
-  public $id;
-  public $show;
-  public $edit;
-  public $delete;
+  public mixed $id;
+  public mixed $show;
+  public mixed $edit;
+  public mixed $delete;
 
   public function __construct(
-    $id,
-    $show,
-    $edit,
-    $delete,
+    mixed $id,
+    mixed $show,
+    mixed $edit,
+    mixed $delete,
   ) {
     $this->id = $id;
     $this->show = $show;

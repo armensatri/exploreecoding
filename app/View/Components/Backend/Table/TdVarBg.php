@@ -8,14 +8,14 @@ use Illuminate\View\Component;
 
 class TdVarBg extends Component
 {
-  public $bg;
-  public $text;
-  public $var;
+  public string $bg;
+  public string $text;
+  public mixed $var;
 
   public function __construct(
-    $bg,
-    $text,
-    $var,
+    string $bg,
+    string $text,
+    mixed $var,
   ) {
     $this->bg = $bg;
     $this->text = $text;

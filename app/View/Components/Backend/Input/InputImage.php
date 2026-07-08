@@ -8,20 +8,20 @@ use Illuminate\View\Component;
 
 class InputImage extends Component
 {
-  public $labelFor;
-  public $labelName;
-  public $type;
-  public $id;
-  public $name;
-  public $error;
+  public string $labelFor;
+  public string $labelName;
+  public string $type;
+  public string $id;
+  public string $name;
+  public string $error;
 
   public function __construct(
-    $labelFor,
-    $labelName,
-    $type,
-    $id,
-    $name,
-    $error
+    string $labelFor,
+    string $labelName,
+    string $type,
+    string $id,
+    string $name,
+    string $error
   ) {
     $this->labelFor = $labelFor;
     $this->labelName = $labelName;

@@ -8,24 +8,24 @@ use Illuminate\View\Component;
 
 class InputTextarea extends Component
 {
-  public $labelFor;
-  public $labelName;
-  public $id;
-  public $name;
-  public $valueOld;
-  public $valueDefault;
-  public $error;
-  public $placeholder;
+  public string $labelFor;
+  public string $labelName;
+  public string $id;
+  public string $name;
+  public ?string $valueOld;
+  public ?string $valueDefault;
+  public ?string $error;
+  public ?string $placeholder;
 
   public function __construct(
-    $labelFor,
-    $labelName,
-    $id,
-    $name,
-    $valueOld,
-    $valueDefault,
-    $error,
-    $placeholder,
+    string $labelFor,
+    string $labelName,
+    string $id,
+    string $name,
+    ?string $valueOld,
+    ?string $valueDefault,
+    ?string $error,
+    ?string $placeholder,
   ) {
     $this->labelFor = $labelFor;
     $this->labelName = $labelName;

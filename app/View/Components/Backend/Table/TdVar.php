@@ -8,9 +8,9 @@ use Illuminate\View\Component;
 
 class TdVar extends Component
 {
-  public $var;
+  public mixed $var;
 
-  public function __construct($var)
+  public function __construct(mixed $var)
   {
     $this->var = $var;
   }

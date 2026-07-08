@@ -8,10 +8,10 @@ use Illuminate\View\Component;
 
 class ShowVar extends Component
 {
-  public $name;
-  public $var;
+  public string $name;
+  public mixed $var;
 
-  public function __construct($name, $var)
+  public function __construct(string $name, mixed $var)
   {
     $this->name = $name;
     $this->var = $var;

@@ -8,14 +8,14 @@ use Illuminate\View\Component;
 
 class VisitorNavigation extends Component
 {
-  public $route;
-  public $active;
-  public $menuName;
+  public string $route;
+  public bool $active;
+  public string $menuName;
 
   public function __construct(
-    $route,
-    $active,
-    $menuName,
+    string $route,
+    bool $active,
+    string $menuName,
   ) {
     $this->route = $route;
     $this->active = $active;

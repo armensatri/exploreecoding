@@ -8,9 +8,9 @@ use Illuminate\View\Component;
 
 class Th extends Component
 {
-  public $name;
+  public string $name;
 
-  public function __construct($name)
+  public function __construct(string $name)
   {
     $this->name = $name;
   }
