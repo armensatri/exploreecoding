@@ -8,19 +8,11 @@ use Illuminate\View\Component;
 
 class ShowImage extends Component
 {
-  public string $name;
-  public ?string $asset;
-  public ?string $assetDefault;
-
   public function __construct(
-    string $name,
-    ?string $asset = null,
-    ?string $assetDefault = null
-  ) {
-    $this->name = $name;
-    $this->asset = $asset;
-    $this->assetDefault = $assetDefault;
-  }
+    public string $name,
+    public ?string $asset = null,
+    public ?string $assetDefault = null,
+  ) {}
 
   public function render(): View|Closure|string
   {

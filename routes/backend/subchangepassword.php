@@ -13,7 +13,7 @@ Route::group(
   function () {
     Route::controller(ChangePasswordController::class)->group(
       function () {
-        Route::get('/changepassword/{url}/edit', 'edit')
+        Route::get('/changepassword/{username}/edit', 'edit')
           ->name('changepassword.edit');
         Route::patch('/changepassword/update', 'update')
           ->name('changepassword.update');

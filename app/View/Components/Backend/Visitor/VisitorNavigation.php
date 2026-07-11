@@ -8,19 +8,11 @@ use Illuminate\View\Component;
 
 class VisitorNavigation extends Component
 {
-  public string $route;
-  public bool $active;
-  public string $menuName;
-
   public function __construct(
-    string $route,
-    bool $active,
-    string $menuName,
-  ) {
-    $this->route = $route;
-    $this->active = $active;
-    $this->menuName = $menuName;
-  }
+    public string $route,
+    public string $active,
+    public string $menuName,
+  ) {}
 
   public function render(): View|Closure|string
   {

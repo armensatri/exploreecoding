@@ -31,7 +31,7 @@
                   <div class="flex items-start gap-3">
                     <img
                       src="/image/default.png"
-                      class="object-cover w-16 h-16 -ml-2 border border-gray-300 rounded-full"
+                      class="object-cover w-20 h-20 -ml-2 border border-gray-300 rounded-full"
                     />
 
                     <div class="flex-1">
@@ -40,10 +40,6 @@
                       </h2>
 
                       <div class="flex items-center gap-2 mt-2">
-                        <span class="flex items-center gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs">
-                          ★ 5.0
-                        </span>
-
                         <span class="flex items-center text-[11px] border border-gray-300 bg-gray-200 text-gray-600 rounded-md py-px px-2">
                           <svg xmlns="http://www.w3.org/2000/svg"
                             width="14"
@@ -60,12 +56,12 @@
                           </svg>
 
                           <span class="text-[11px] text-gray-600">
-                            100.K
+                            {{ \App\Helpers\CountNumber::short($path->pathviews_count) }}
                           </span>
                         </span>
 
                         <span class="text-[11px] border border-gray-300 bg-gray-200 text-gray-600 rounded-md py-px px-2">
-                          {{ $path->sp }}.{{ $path->created_at
+                          {{ $path->id }}.{{ $path->sp }}.{{ $path->created_at
                             ->locale('id')
                             ->translatedFormat('dmy')
                           }}{{ date('y') }}
@@ -74,7 +70,11 @@
                     </div>
                   </div>
 
-                  <div class="mt-4 text-[11px] text-gray-500">
+                  <div class="w-max mt-3 gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs">
+                    ★ 5.0
+                  </div>
+
+                  <div>
                     <div class="flex flex-col gap-1">
                       <span class="mt-3 text-[17px] text-gray-700 line-clamp-3">
                         {{ $path->description }}
@@ -105,9 +105,7 @@
                       </div>
 
                       <span class="mr-2.5 text-[13px] tracking-tight text-gray-700 truncate whitespace-nowrap">
-                        {{ $path->roadmaps->sum(function($roadmap) {
-                          return $roadmap->playlists->count();
-                        }) }}
+                        {{ $path->playlists_count }}
                       </span>
                     </div>
 
@@ -120,7 +118,7 @@
                       </div>
 
                       <span class="mr-2.5 text-[13px] tracking-tight text-gray-700 truncate whitespace-nowrap">
-                        {{ $path->roadmaps->flatMap->playlists->flatMap->posts->count() }}
+                        {{ $path->posts_count }}
                       </span>
                     </div>
                   </div>

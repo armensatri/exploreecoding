@@ -8,19 +8,11 @@ use Illuminate\View\Component;
 
 class InputImagePreview extends Component
 {
-  public string $labelFor;
-  public string $labelName;
-  public string $image;
-
   public function __construct(
-    string $labelFor,
-    string $labelName,
-    string $image
-  ) {
-    $this->labelFor = $labelFor;
-    $this->labelName = $labelName;
-    $this->image = $image;
-  }
+    public string $labelFor,
+    public string $labelName,
+    public ?string $image = null,
+  ) {}
 
   public function render(): View|Closure|string
   {

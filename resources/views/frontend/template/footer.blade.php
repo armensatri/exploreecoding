@@ -19,7 +19,7 @@
 
           <x-footer-submenu
             route=""
-            submenu="App component"
+            submenu="Blogexploreecoding"
           />
         </ul>
       </div>

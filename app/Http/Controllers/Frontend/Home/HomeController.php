@@ -16,7 +16,7 @@ class HomeController extends Controller
 {
   public function index()
   {
-    $paths = Path::query()
+    $pathQuery = Path::query()
       ->select([
         'id',
         'sp',
@@ -27,14 +27,30 @@ class HomeController extends Controller
       ])
       ->with([
         'status:id,bg,name,text',
-        'roadmaps.playlists.posts'
       ])
       ->withCount([
         'roadmaps',
+        'playlists',
+        'pathviews',
       ])
-      ->whereIn('sp', [1, 2, 3, 4, 5])
-      ->orderBy('sp', 'asc')
+      ->selectSub(
+        Post::query()
+          ->selectRaw('COUNT(posts.id)')
+          ->join('playlists', 'posts.playlist_id', '=', 'playlists.id')
+          ->join('roadmaps', 'playlists.roadmap_id', '=', 'roadmaps.id')
+          ->whereColumn('roadmaps.path_id', 'paths.id'),
+        'posts_count'
+      )
+      ->whereIn('sp', [1, 2, 3, 4, 5]);
+
+    $paths = $pathQuery
+      ->orderBy('sp')
       ->get();
+
+    $populerpaths = $paths
+      ->sortByDesc('pathviews_count')
+      ->take(3)
+      ->values();
 
     $tipscodings = Tipscoding::query()
       ->select([
@@ -44,13 +60,14 @@ class HomeController extends Controller
         'category_id',
         'user_id'
       ])
+      ->whereIn('id', [1, 2, 3, 4, 5])
       ->with(['category:id,name', 'user:id,username'])
       ->get();
 
     return view('frontend.home.index', [
       'title' => 'Home',
       'paths' => $paths,
-      'populerpaths' => $paths->whereIn('sp', [1, 3, 5])->take(3),
+      'populerpaths' => $populerpaths,
       'tipscodings' => $tipscodings,
       'roadmaps' => Roadmap::count(),
       'playlists' => Playlist::count(),

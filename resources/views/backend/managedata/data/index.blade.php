@@ -22,7 +22,7 @@
               :image="asset('/image/default.png')"
               alt="visitor"
               title="Data count"
-              description="Jumlah data dalam system"
+              description="Jumlah record data dalam system"
             />
           </div>
 

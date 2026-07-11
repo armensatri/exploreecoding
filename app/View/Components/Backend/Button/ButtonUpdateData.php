@@ -8,12 +8,9 @@ use Illuminate\View\Component;
 
 class ButtonUpdateData extends Component
 {
-  public string $buttonName;
-
-  public function __construct(string $buttonName)
-  {
-    $this->buttonName = $buttonName;
-  }
+  public function __construct(
+    public string $buttonName,
+  ) {}
 
   public function render(): View|Closure|string
   {

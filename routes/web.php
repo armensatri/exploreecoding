@@ -21,6 +21,7 @@ require __DIR__ . '/backend/view.php';
 require __DIR__ . '/backend/subaccess.php';
 require __DIR__ . '/backend/subchangepassword.php';
 require __DIR__ . '/backend/subprofile.php';
+require __DIR__ . '/backend/subview.php';
 require __DIR__ . '/backend/subvisitor.php';
 
 // FRONTEND

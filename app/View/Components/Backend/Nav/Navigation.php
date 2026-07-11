@@ -1,20 +1,21 @@
 <?php
 
-namespace App\View\Components\Backend\Button;
+namespace App\View\Components\Backend\Nav;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Indexs extends Component
+class Navigation extends Component
 {
   public function __construct(
     public string $route,
-    public string $buttonName,
+    public string $active,
+    public string $menuName,
   ) {}
 
   public function render(): View|Closure|string
   {
-    return view('components.backend.button.indexs');
+    return view('components.backend.nav.navigation');
   }
 }

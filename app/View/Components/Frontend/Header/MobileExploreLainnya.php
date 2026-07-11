@@ -8,25 +8,13 @@ use Illuminate\View\Component;
 
 class MobileExploreLainnya extends Component
 {
-  public string $route;
-  public string $image;
-  public string $menu;
-  public string $description;
-  public string $buttonName;
-
   public function __construct(
-    string $route,
-    string $image,
-    string $menu,
-    string $description,
-    string $buttonName,
-  ) {
-    $this->route = $route;
-    $this->image = $image;
-    $this->menu = $menu;
-    $this->description = $description;
-    $this->buttonName = $buttonName;
-  }
+    public string $route,
+    public string $image,
+    public string $menu,
+    public string $description,
+    public string $buttonName,
+  ) {}
 
   public function render(): View|Closure|string
   {

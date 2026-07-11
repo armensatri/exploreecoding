@@ -19,7 +19,7 @@
 
       <section class="w-full px-3 mt-8 mb-5">
         <div class="breadcrumb">
-          @include('backend.xbreadcrumb.visitor.index')
+          @include('backend.xbreadcrumb.view.index')
         </div>
 
         <div class="x-border">
@@ -27,24 +27,20 @@
             <x-md-header
               :image="asset('/image/default.png')"
               alt="image"
-              title="Data visitor"
-              description="Monitoring data user visitor"
+              title="Data view"
+              description="Monitoring data view content"
             />
           </div>
 
           <div class="w-full mt-12 overflow-x-auto">
             <div class="flex justify-center gap-2 px-4 py-2 mx-auto border-gray-200 sm:border-b min-w-max whitespace-nowrap">
-              <x-visitor-navigation
-                :route="route('visitor')"
-                active="visitor"
-                menu-name="Visitor"
-              />
+              @include('backend.view._navigation')
+            </div>
+          </div>
 
-              <x-visitor-navigation
-                :route="route('visitor.banned')"
-                active="visitor/banned"
-                menu-name="Banned"
-              />
+          <div class="p-8 text-center">
+            <div class="font-normal text-lg tracking-wide text-gray-600">
+              Pantau jumlah view setiap konten secara real-time, analisis performa, identifikasi tren view pengunjung, dan optimalkan strategi penyajian konten secara efektif.
             </div>
           </div>
         </div>

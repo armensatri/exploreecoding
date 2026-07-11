@@ -8,14 +8,10 @@ use Illuminate\View\Component;
 
 class FooterSubmenu extends Component
 {
-  public string $route;
-  public array $submenu;
-
-  public function __construct(string $route, array $submenu)
-  {
-    $this->route = $route;
-    $this->submenu = $submenu;
-  }
+  public function __construct(
+    public string $route,
+    public string $submenu,
+  ) {}
 
   public function render(): View|Closure|string
   {

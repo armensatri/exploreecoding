@@ -8,14 +8,10 @@ use Illuminate\View\Component;
 
 class Menu extends Component
 {
-  public mixed $sm;
-  public mixed $menu;
-
-  public function __construct(mixed $sm, mixed $menu)
-  {
-    $this->sm = $sm;
-    $this->menu = $menu;
-  }
+  public function __construct(
+    public mixed $sm,
+    public mixed $menu,
+  ) {}
 
   public function render(): View|Closure|string
   {

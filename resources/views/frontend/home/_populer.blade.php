@@ -31,7 +31,7 @@
                   <div class="flex items-start gap-3">
                     <img
                       src="/image/default.png"
-                      class="object-cover w-16 h-16 -ml-2 border border-gray-300 rounded-full"
+                      class="object-cover w-20 h-20 -ml-2 border border-gray-300 rounded-full"
                     />
 
                     <div class="flex-1">
@@ -40,10 +40,6 @@
                       </h2>
 
                       <div class="flex items-center gap-2 mt-2">
-                        <span class="flex items-center gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs">
-                          ★ 5.0
-                        </span>
-
                         <span class="flex items-center text-[11px] border border-gray-300 bg-gray-200 text-gray-600 rounded-md py-px px-2">
                           <svg xmlns="http://www.w3.org/2000/svg"
                             width="14"
@@ -60,12 +56,12 @@
                           </svg>
 
                           <span class="text-[11px] text-gray-600">
-                            100.K
+                            {{ number_format($path->pathviews_count) }}
                           </span>
                         </span>
 
                         <span class="text-[11px] border border-gray-300 bg-gray-200 text-gray-600 rounded-md py-px px-2">
-                          {{ $path->sp }}.{{ $path->created_at
+                          {{ $path->id }}.{{ $path->sp }}.{{ $path->created_at
                             ->locale('id')
                             ->translatedFormat('dmy')
                           }}{{ date('y') }}
@@ -74,7 +70,17 @@
                     </div>
                   </div>
 
-                  <div class="mt-4 text-[11px] text-gray-500">
+                  <div class="flex items-center justify-between gap-2 mt-3">
+                    <div class="w-max gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs">
+                      ★ 5.0
+                    </div>
+
+                    <div class="w-max gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs">
+                      published {{ $path->created_at->diffForhumans() }}
+                    </div>
+                  </div>
+
+                  <div class="text-[11px] text-gray-500">
                     <div class="flex flex-col gap-1">
                       <span class="mt-3 text-[17px] text-gray-700 line-clamp-3">
                         {{ $path->description }}
@@ -105,9 +111,7 @@
                       </div>
 
                       <span class="mr-2.5 text-[13px] tracking-tight text-gray-700 truncate whitespace-nowrap">
-                        {{ $path->roadmaps->sum(function($roadmap) {
-                          return $roadmap->playlists->count();
-                        }) }}
+                        {{ $path->playlists_count }}
                       </span>
                     </div>
 
@@ -120,26 +124,27 @@
                       </div>
 
                       <span class="mr-2.5 text-[13px] tracking-tight text-gray-700 truncate whitespace-nowrap">
-                        {{ $path->roadmaps->flatMap->playlists->flatMap->posts->count() }}
+                        {{ $path->posts_count }}
                       </span>
                     </div>
                   </div>
 
                   <div class="flex items-center justify-between w-full mt-5 gap-x-5 md:gap-y-3.5 lg:gap-x-5 md:flex-col lg:flex-row">
                     <div class="w-full p-0.75 bg-white rounded-[11px] border border-gray-400 md:w-3/4 lg:w-full">
-                      <a href=""
-                        class="block w-full px-5 py-2 text-[14px] font-semibold text-center rounded-[10px] tracking-wider
+                      <div class="block w-full px-5 py-2 text-[14px] font-semibold text-center rounded-[10px] tracking-wider
                         {{ $path->status->bg }}
                         {{ $path->status->text }}">
                         {{ $path->status->name }}
-                      </a>
+                      </div>
                     </div>
 
                     <div class="w-full p-0.75 bg-white rounded-[11px] border border-gray-400">
-                      <div class="block w-full px-5 py-2 text-[14px]
-                        font-semibold text-center text-white bg-blue-600 rounded-[10px] shadow-md hover:bg-blue-700 tracking-wide">
-                        Show course
-                      </div>
+                      <a href="">
+                        <div class="block w-full px-5 py-2 text-[14px]
+                          font-semibold text-center text-white bg-blue-600 rounded-[10px] shadow-md hover:bg-blue-700 tracking-wide">
+                          Show course
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -175,15 +180,6 @@
     </button>
 
     <div class="flex justify-center mt-4 hs-carousel-pagination gap-x-2">
-    </div>
-
-    <div class="flex justify-center mt-5">
-      <a href="">
-        <button
-          class="px-5 py-2 text-base font-semibold tracking-wide text-black bg-blue-300 border border-gray-400 shadow-sm cursor-pointer rounded-[14px] hover:bg-blue-600 hover:text-white">
-          Semua path course
-        </button>
-      </a>
     </div>
   </div>
 </section>

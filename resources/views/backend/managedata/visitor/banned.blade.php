@@ -28,7 +28,7 @@
               :image="asset('/image/default.png')"
               alt="image"
               title="Visitor banned"
-              description="Monitoring data user visitor"
+              description="Monitoring data user visitor banned"
             />
           </div>
 

@@ -38,39 +38,7 @@
             </div>
 
             <div class="mt-20 ml-4">
-              <div class="flex items-center justify-center gap-x-4">
-                <div class="pl-2 pr-1 py-1.25 text-sm text-green-900 bg-green-200 font-serif rounded-[9px] border border-green-300 tracking-wide">
-                  User online
-                  <span class="px-2 py-0.75 text-xs text-black bg-white rounded-[7px] font-sans border border-blue-800">
-                    {{
-                      $users->where('status_on_of', 1)->count()
-                    }}
-                  </span>
-                </div>
-
-                <div class="pl-2 pr-1 py-1.25 text-sm text-red-900 bg-red-200 font-serif rounded-[9px] border border-red-300 tracking-wide">
-                  User offline
-                  <span class="px-2 py-0.75 text-xs text-black bg-white rounded-[7px] font-sans border border-blue-800">
-                    {{
-                      $users->where('status_on_of', 0)->count()
-                    }}
-                  </span>
-                </div>
-
-                <div class="pl-2 pr-1 py-1.25 text-sm text-green-900 bg-green-200 font-serif rounded-[9px] border border-green-300 tracking-wide">
-                  User verify
-                  <span class="px-2 py-0.75 text-xs text-black bg-white rounded-[7px] font-sans border border-green-800">
-                    0
-                  </span>
-                </div>
-
-                <div class="pl-2 pr-1 py-1.25 text-sm text-red-900 bg-red-200 font-serif rounded-[9px] border border-red-300 tracking-wide">
-                  User not verify
-                  <span class="px-2 py-0.75 text-xs text-black bg-white rounded-[7px] font-sans border border-red-800">
-                    0
-                  </span>
-                </div>
-              </div>
+              @include('backend.managedata.visitor._button-count')
             </div>
 
             <div class="w-full">

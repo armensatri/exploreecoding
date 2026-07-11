@@ -8,12 +8,9 @@ use Illuminate\View\Component;
 
 class FooterMenu extends Component
 {
-  public mixed $menu;
-
-  public function __construct(mixed $menu)
-  {
-    $this->menu = $menu;
-  }
+  public function __construct(
+    public mixed $menu,
+  ) {}
 
   public function render(): View|Closure|string
   {

@@ -8,37 +8,17 @@ use Illuminate\View\Component;
 
 class Input extends Component
 {
-  public ?string $labelFor;
-  public ?string $labelName;
-  public ?string $type;
-  public ?string $id;
-  public ?string $name;
-  public ?string $valueOld;
-  public ?string $valueDefault;
-  public ?string $error;
-  public ?string $placeholder;
-
   public function __construct(
-    ?string $labelFor = null,
-    ?string $labelName = null,
-    ?string $type = null,
-    ?string $id = null,
-    ?string $name = null,
-    ?string $valueOld = null,
-    ?string $valueDefault = null,
-    ?string $error = null,
-    ?string $placeholder = null,
-  ) {
-    $this->labelFor = $labelFor;
-    $this->labelName = $labelName;
-    $this->type = $type;
-    $this->id = $id;
-    $this->name = $name;
-    $this->valueOld = $valueOld;
-    $this->valueDefault = $valueDefault;
-    $this->error = $error;
-    $this->placeholder = $placeholder;
-  }
+    public ?string $labelFor = null,
+    public ?string $labelName = null,
+    public ?string $type = null,
+    public ?string $id = null,
+    public ?string $name = null,
+    public ?string $valueOld = null,
+    public ?string $valueDefault = null,
+    public ?string $error = null,
+    public ?string $placeholder = null,
+  ) {}
 
   public function render(): View|Closure|string
   {

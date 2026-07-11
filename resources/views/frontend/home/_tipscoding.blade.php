@@ -27,7 +27,7 @@
           @foreach ($tipscodings->take(5) as $tipscoding)
             <div class="w-full hs-carousel-slide">
               <div
-                class="flex flex-col items-center h-full p-8 bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
+                class="flex flex-col items-center h-full p-6 bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
                 <div class="">
                   <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center gap-2">
@@ -62,10 +62,10 @@
                   <div class="flex items-center">
                     <div class="hs-tooltip [--placement:auto]">
                       <div
-                        class="relative hs-tooltip-toggle mt-2 ml-1 mb-2 text-[18px] font-semibold text-gray-800 hover:underline hover:underline-offset-2 hover:decoration-blue-500 tracking-tight">
+                        class="relative hs-tooltip-toggle mt-2 ml-1 mb-2 text-[19px] font-semibold text-gray-800 hover:underline hover:underline-offset-2 hover:decoration-blue-500 line-clamp-1 tracking-tight">
 
                         <a href="">
-                          {{ Str::words(strip_tags($tipscoding->title), 4) }}
+                          {{ $tipscoding->title }}
                         </a>
 
                         <span
@@ -76,7 +76,7 @@
                     </div>
                   </div>
 
-                  <p class="mb-4 ml-1 font-medium text-[15px] text-gray-600">
+                  <p class="mb-4 ml-1 text-base text-gray-700">
                     <span class="block sm:hidden">
                       {{ Str::words(strip_tags($tipscoding->excerpt), 10) }}
                     </span>
@@ -120,9 +120,7 @@
                         <div class="hs-tooltip [--placement:auto]">
                           <div
                             class="relative flex items-center px-2 py-1 text-sm font-medium tracking-wider text-white bg-blue-600 rounded-[9px] shadow-sm hs-tooltip-toggle hover:bg-blue-700">
-
                             baca
-
                             <i class="ml-1 text-xs bi bi-box-arrow-up-right"></i>
 
                             <span

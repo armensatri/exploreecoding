@@ -8,12 +8,9 @@ use Illuminate\View\Component;
 
 class BreadcrumbIcon extends Component
 {
-  public string $image;
-
-  public function __construct(string $image)
-  {
-    $this->image = $image;
-  }
+  public function __construct(
+    public string $image,
+  ) {}
 
   public function render(): View|Closure|string
   {

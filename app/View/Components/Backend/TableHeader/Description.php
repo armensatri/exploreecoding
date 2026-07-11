@@ -8,14 +8,10 @@ use Illuminate\View\Component;
 
 class Description extends Component
 {
-  public string $tableName;
-  public mixed $pageData;
-
-  public function __construct(string $tableName, mixed $pageData)
-  {
-    $this->tableName = $tableName;
-    $this->pageData = $pageData;
-  }
+  public function __construct(
+    public string $tableName,
+    public mixed $pageData,
+  ) {}
 
   public function render(): View|Closure|string
   {

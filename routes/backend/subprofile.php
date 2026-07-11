@@ -13,7 +13,7 @@ Route::group(
   function () {
     Route::controller(ProfileController::class)->group(
       function () {
-        Route::get('/profile/{url}/edit', 'edit')
+        Route::get('/profile/{username}/edit', 'edit')
           ->name('profile.edit');
         Route::patch('/profile/update', 'update')
           ->name('profile.update');

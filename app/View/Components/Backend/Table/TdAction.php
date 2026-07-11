@@ -8,22 +8,12 @@ use Illuminate\View\Component;
 
 class TdAction extends Component
 {
-  public mixed $id;
-  public mixed $show;
-  public mixed $edit;
-  public mixed $delete;
-
   public function __construct(
-    mixed $id,
-    mixed $show,
-    mixed $edit,
-    mixed $delete,
-  ) {
-    $this->id = $id;
-    $this->show = $show;
-    $this->edit = $edit;
-    $this->delete = $delete;
-  }
+    public mixed $id,
+    public string $show,
+    public string $edit,
+    public string $delete,
+  ) {}
 
   public function render(): View|Closure|string
   {

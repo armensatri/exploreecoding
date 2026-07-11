@@ -8,12 +8,9 @@ use Illuminate\View\Component;
 
 class TdVarCenter extends Component
 {
-  public mixed $var;
-
-  public function __construct(mixed $var)
-  {
-    $this->var = $var;
-  }
+  public function __construct(
+    public mixed $var,
+  ) {}
 
   public function render(): View|Closure|string
   {

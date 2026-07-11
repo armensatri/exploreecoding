@@ -10,12 +10,13 @@ return new class extends Migration
   {
     Schema::create('path_view', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('path_id')
-        ->constrained()
-        ->cascadeOnDelete();
       $table->foreignId('user_id')
         ->constrained()
         ->cascadeOnDelete();
+      $table->foreignId('path_id')
+        ->constrained()
+        ->cascadeOnDelete();
+      $table->string('path_name');
       $table->timestamps();
 
       $table->unique(['path_id', 'user_id']);

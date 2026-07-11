@@ -13,7 +13,7 @@
           </h2>
 
           <p class="mt-1 text-gray-600 md:block">
-            Answers to the most frequently asked questions.
+            Jawaban atas pertanyaan yang paling sering diajukan.
           </p>
         </div>
       </div>

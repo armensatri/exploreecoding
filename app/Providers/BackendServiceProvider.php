@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\View\Components\Backend\Nav\Navigation;
 use App\View\Components\Backend\Data\DataCardCount;
 use App\View\Components\Backend\Managedata\MdHeader;
 use App\View\Components\Backend\Pagination\Pagination;
@@ -127,5 +128,8 @@ class BackendServiceProvider extends ServiceProvider
 
     // VISITOR
     Blade::component('visitor-navigation', VisitorNavigation::class);
+
+    // VISITOR
+    Blade::component('navigation', Navigation::class);
   }
 }
