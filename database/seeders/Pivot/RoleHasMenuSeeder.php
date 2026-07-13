@@ -18,10 +18,7 @@ class RoleHasMenuSeeder extends Seeder
     ])->get()->keyBy('name');
 
     $menus = Menu::whereIn('name', [
-      'owner',
-      'superadmin',
-      'creator',
-      'member',
+      'home',
       'account',
       'managedata',
       'manageuser',
@@ -33,10 +30,7 @@ class RoleHasMenuSeeder extends Seeder
 
     $roleHasMenus = [
       'owner' => [
-        'owner',
-        // 'superadmin',
-        // 'creator',
-        // 'member',
+        'home',
         'account',
         'managedata',
         'manageuser',
@@ -47,10 +41,7 @@ class RoleHasMenuSeeder extends Seeder
       ],
 
       'superadmin' => [
-        // 'owner',
-        'superadmin',
-        // 'creator',
-        // 'member',
+        'home',
         'account',
         'managedata',
         'manageuser',
@@ -61,10 +52,7 @@ class RoleHasMenuSeeder extends Seeder
       ],
 
       'creator' => [
-        // 'owner',
-        // 'superadmin',
-        'creator',
-        // 'member',
+        'home',
         'account',
         // 'managedata',
         // 'manageuser',
@@ -75,10 +63,7 @@ class RoleHasMenuSeeder extends Seeder
       ],
 
       'member' => [
-        // 'owner',
-        // 'superadmin',
-        // 'creator',
-        'member',
+        'home',
         'account',
         // 'managedata',
         // 'manageuser',

@@ -72,6 +72,13 @@ class User extends Authenticatable
     return $this->hasMany(Pathview::class);
   }
 
+  public function hasSubmenu(string $submenu): bool
+  {
+    return $this->role
+      ->submenus
+      ->contains('name', $submenu);
+  }
+
   public function statusOnOf()
   {
     $online = $this->status_on_of;

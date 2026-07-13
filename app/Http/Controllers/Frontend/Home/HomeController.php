@@ -58,7 +58,8 @@ class HomeController extends Controller
         'title',
         'excerpt',
         'category_id',
-        'user_id'
+        'user_id',
+        'created_at',
       ])
       ->whereIn('id', [1, 2, 3, 4, 5])
       ->with(['category:id,name', 'user:id,username'])

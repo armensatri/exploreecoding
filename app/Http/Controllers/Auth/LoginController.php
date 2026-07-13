@@ -27,7 +27,6 @@ class LoginController extends Controller
   public function store(LoginSr $request)
   {
     $datastore = $request->validated();
-
     $key = Str::lower($request->email) . '|' . $request->ip();
 
     if (RateLimiter::tooManyAttempts($key, 5)) {
@@ -51,25 +50,7 @@ class LoginController extends Controller
 
       RateLimiter::clear($key);
 
-      $routeMap = [
-        'owner' => 'owner',
-        'superadmin' => 'superadmin',
-        'creator' => 'creator',
-        'member' => 'home'
-      ];
-
-      $user = Auth::user();
-      $role = $user && $user->role ? $user->role->name : null;
-      $route = $routeMap[$role] ?? null;
-
-      if ($route) {
-        return Redirect::route($route);
-      }
-
-      Alert::error('Akses di tolak', 'Anda tidak memiliki akses');
-      Auth::logout();
-
-      return Redirect::route('login');
+      return Redirect::route('dashboard');
     }
 
     RateLimiter::hit($key, 60);

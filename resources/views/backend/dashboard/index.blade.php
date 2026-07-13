@@ -12,23 +12,23 @@
       </section>
 
       <section class="w-full px-4 mt-8 mb-5">
-        @include('backend.xbreadcrumb.dashboard.creator')
+        @include('backend.xbreadcrumb.dashboard.index')
 
         <div class="x-border">
           <div class="p-8 text-center">
             <div class="mb-4 text-3xl font-extrabold tracking-wider text-gray-900 uppercase">
-              welcome back {{ $creator->name }}
+              welcome back {{ $user->name }}
             </div>
 
             <div class="font-light tracking-wide text-gray-600 sm:text-xl">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptatem praesentium consequuntur mollitia incidunt maiores nostrum obcaecati quas quasi ea.
             </div>
 
-            <div class="{{ $creator->role->bg }}
+            <div class="{{ $user->role->bg }}
               mt-8 inline-block rounded-full tracking-wider">
               <div class="px-3.5 py-1.5 text-sm uppercase font-medium
-                {{ $creator->role->text }}">
-                role access {{ $creator->role->name }}
+                {{ $user->role->text }}">
+                role access {{ $user->role->name }}
               </div>
             </div>
           </div>

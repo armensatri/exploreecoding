@@ -18,17 +18,8 @@ class RoleHasSubmenuSeeder extends Seeder
     ])->get()->keyBy('name');
 
     $submenus = Submenu::whereIn('name', [
-      // OWNER
-      'owner',
-
-      // SUPERADMIN
-      'superadmin',
-
-      // CREATOR
-      'creator',
-
-      // MEMBER
-      'member',
+      // HOME
+      'dashboard',
 
       // ACCOUNT
       'profile',
@@ -67,17 +58,8 @@ class RoleHasSubmenuSeeder extends Seeder
 
     $roleHasSubmenus = [
       'owner' => [
-        // OWNER
-        'owner',
-
-        // SUPERADMIN
-        // 'superadmin',
-
-        // CREATOR
-        // 'creator',
-
-        // MEMBER
-        // 'member',
+        // HOME
+        'dashboard',
 
         // ACCOUNT
         'profile',
@@ -115,17 +97,8 @@ class RoleHasSubmenuSeeder extends Seeder
       ],
 
       'superadmin' => [
-        // OWNER
-        // 'owner',
-
-        // SUPERADMIN
-        'superadmin',
-
-        // CREATOR
-        // 'creator',
-
-        // MEMBER
-        // 'member',
+        // HOME
+        'dashboard',
 
         // ACCOUNT
         'profile',
@@ -163,17 +136,8 @@ class RoleHasSubmenuSeeder extends Seeder
       ],
 
       'creator' => [
-        // OWNER
-        // 'owner',
-
-        // SUPERADMIN
-        // 'superadmin',
-
-        // CREATOR
-        'creator',
-
-        // MEMBER
-        // 'member',
+        // HOME
+        'dashboard',
 
         // ACCOUNT
         'profile',
@@ -211,17 +175,8 @@ class RoleHasSubmenuSeeder extends Seeder
       ],
 
       'member' => [
-        // OWNER
-        // 'owner',
-
-        // SUPERADMIN
-        // 'superadmin',
-
-        // CREATOR
-        // 'creator',
-
-        // MEMBER
-        'member',
+        // HOME
+        'dashboard',
 
         // ACCOUNT
         'profile',

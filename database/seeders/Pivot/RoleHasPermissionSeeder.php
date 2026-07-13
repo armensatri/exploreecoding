@@ -28,10 +28,7 @@ class RoleHasPermissionSeeder extends Seeder
     $roleHasPermissions = [
       'owner' => [
         // DASHBOARD
-        'owner',
-        // 'superadmin',
-        // 'creator',
-        // 'member',
+        'dashboard',
 
         // PROFILE
         'profile',
@@ -181,10 +178,7 @@ class RoleHasPermissionSeeder extends Seeder
 
       'superadmin' => [
         // DASHBOARD
-        // 'owner',
-        'superadmin',
-        // 'creator',
-        // 'member',
+        'dashboard',
 
         // PROFILE
         'profile',
@@ -334,10 +328,7 @@ class RoleHasPermissionSeeder extends Seeder
 
       'creator' => [
         // DASHBOARD
-        // 'owner',
-        // 'superadmin',
-        'creator',
-        // 'member',
+        'dashboard',
 
         // PROFILE
         'profile',
@@ -487,10 +478,7 @@ class RoleHasPermissionSeeder extends Seeder
 
       'member' => [
         // DASHBOARD
-        // 'owner',
-        // 'superadmin',
-        // 'creator',
-        'member',
+        'dashboard',
 
         // PROFILE
         'profile',

@@ -39,7 +39,7 @@
 
         <div class="space-y-0.5 p-4">
           <x-menu-auth
-            :route="route(\App\Helpers\Redirects::Dashboard())"
+            :route="route('dashboard')"
             :img="asset('frontend/img/auth/dashboard.jpg')"
             alt="menu"
             menu="Dashboard"

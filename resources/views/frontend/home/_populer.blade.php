@@ -64,7 +64,7 @@
                           {{ $path->id }}.{{ $path->sp }}.{{ $path->created_at
                             ->locale('id')
                             ->translatedFormat('dmy')
-                          }}{{ date('y') }}
+                          }}
                         </span>
                       </div>
                     </div>
@@ -72,11 +72,7 @@
 
                   <div class="flex items-center justify-between gap-2 mt-3">
                     <div class="w-max gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs">
-                      ★ 5.0
-                    </div>
-
-                    <div class="w-max gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs">
-                      published {{ $path->created_at->diffForhumans() }}
+                      published {{ $path->created_at->diffForHumans() }}
                     </div>
                   </div>
 

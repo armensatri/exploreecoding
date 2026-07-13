@@ -64,14 +64,14 @@
                           {{ $path->id }}.{{ $path->sp }}.{{ $path->created_at
                             ->locale('id')
                             ->translatedFormat('dmy')
-                          }}{{ date('y') }}
+                          }}
                         </span>
                       </div>
                     </div>
                   </div>
 
                   <div class="w-max mt-3 gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs">
-                    ★ 5.0
+                    published {{ $path->created_at->diffForHumans() }}
                   </div>
 
                   <div>

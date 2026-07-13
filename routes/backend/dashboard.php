@@ -1,13 +1,7 @@
 <?php
 
+use App\Http\Controllers\Backend\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\Backend\Dashboard\{
-  OwnerController,
-  SuperadminController,
-  CreatorController,
-  MemberController,
-};
 
 Route::group(
   [
@@ -18,16 +12,7 @@ Route::group(
     ]
   ],
   function () {
-    Route::get('/owner', [OwnerController::class, 'index'])
-      ->name('owner');
-
-    Route::get('/superadmin', [SuperadminController::class, 'index'])
-      ->name('superadmin');
-
-    Route::get('/creator', [CreatorController::class, 'index'])
-      ->name('creator');
-
-    Route::get('/member', [MemberController::class, 'index'])
-      ->name('member');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+      ->name('dashboard');
   }
 );

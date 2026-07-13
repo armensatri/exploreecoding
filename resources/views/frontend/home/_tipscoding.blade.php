@@ -34,11 +34,22 @@
                       <img
                         src="{{ asset('frontend/img/user/user.png') }}"
                         alt="author"
-                        class="object-cover border border-gray-300 rounded-full w-9 h-9"
+                        class="object-cover border border-gray-300 rounded-full w-12 h-12"
                       />
-                      <span class="text-[15px] font-medium text-gray-600">
-                        <span>@</span>{{ $tipscoding->user->username }}
-                      </span>
+
+                      <div class="flex flex-col leading-5">
+                        <span class="text-base font-medium text-gray-600">
+                          <span>@</span>{{ $tipscoding->user->username }}
+                        </span>
+
+                        <span class="ml-1 text-[15px] font-medium text-gray-600">
+                          <span class="text-xs text-gray-500">
+                            published {{
+                              $tipscoding->created_at->diffForHumans()
+                            }}
+                          </span>
+                        </span>
+                      </div>
                     </div>
 
                     <div class="flex items-center text-xs text-gray-600">
@@ -62,7 +73,7 @@
                   <div class="flex items-center">
                     <div class="hs-tooltip [--placement:auto]">
                       <div
-                        class="relative hs-tooltip-toggle mt-2 ml-1 mb-2 text-[19px] font-semibold text-gray-800 hover:underline hover:underline-offset-2 hover:decoration-blue-500 line-clamp-1 tracking-tight">
+                        class="relative hs-tooltip-toggle mt-3 ml-1 mb-2 text-[19px] font-semibold text-gray-800 hover:underline hover:underline-offset-2 hover:decoration-blue-500 line-clamp-1 tracking-tight">
 
                         <a href="">
                           {{ $tipscoding->title }}

@@ -3,8 +3,8 @@
   inline-flex w-full items-center p-2 hover:bg-linear-to-r hover:via-red-50 hover:from-gray-50 hover:to-green-50 hover:rounded-full">
 
   <span class="text-xs text-blue-700">
-    @if (Auth::user()?->role?->submenus?->contains('name', $subMenu))
-      <i class="bi bi-check2 text-[10px] text-green-600"></i>
+    @if(Auth::user()->hasSubmenu($subMenu))
+      <i class="bi bi-check2 text-2xs text-green-600"></i>
     @else
       <i class="bi bi-x text-[11px] text-red-600"></i>
     @endif
@@ -16,7 +16,7 @@
   />
 
   <div>
-    <span class="text-[10px] text-black">
+    <span class="text-2xs text-black">
       {{ $ssm }}
     </span>
     <span class="text-[16px] font-normal tracking-wide text-blue-600">
