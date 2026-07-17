@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Manageuser\Role;
-use App\Models\Manageuser\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\Auth\Register\RegisterSr;
+
+use App\Models\Manageuser\{
+  User,
+  Role,
+};
 
 class RegisterController extends Controller
 {

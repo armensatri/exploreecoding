@@ -56,7 +56,7 @@
                           </svg>
 
                           <span class="text-[11px] text-gray-600">
-                            {{ number_format($path->pathviews_count) }}
+                          {{ \App\Helpers\FormatNumber::short($path->pathviews_count) }}
                           </span>
                         </span>
 
@@ -70,10 +70,8 @@
                     </div>
                   </div>
 
-                  <div class="flex items-center justify-between gap-2 mt-3">
-                    <div class="w-max gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs">
-                      published {{ $path->created_at->diffForHumans() }}
-                    </div>
+                  <div class="w-max mt-3 gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs tracking-wide">
+                    published {{ $path->created_at->diffForHumans() }}
                   </div>
 
                   <div class="text-[11px] text-gray-500">

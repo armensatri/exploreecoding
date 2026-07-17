@@ -2,11 +2,15 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Route;
 use App\Models\Manageuser\Permission;
-use Illuminate\Console\Attributes\Signature;
-use Illuminate\Console\Attributes\Description;
+
+use Illuminate\Console\Attributes\{
+  Signature,
+  Description
+};
 
 #[Signature('permission:cpr')]
 #[Description('Create permission routes')]
@@ -21,11 +25,16 @@ class RoutePermission extends Command
   public function handle()
   {
     $routes = collect(Route::getRoutes())->filter(
-      function ($routes) {
-        return $routes->getName() && in_array(
+      function ($route) {
+
+        $hasNameAndWeb = $route->getName() && in_array(
           'web',
-          $routes->middleware()
+          $route->middleware()
         );
+
+        $isBackend = Str::startsWith($route->uri(), 'backend') || Str::startsWith($route->getName(), 'backend.');
+
+        return $hasNameAndWeb && $isBackend;
       }
     );
 

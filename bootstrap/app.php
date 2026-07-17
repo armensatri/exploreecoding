@@ -18,12 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
       \App\Http\Middleware\PermissionMiddleware::class,
     ]);
 
-    // SECURITY HEADER
-    // $middleware->append(
-    //   \App\Http\Middleware\SecurityHeadersMiddleware::class
-    // );
-
-    // STATUS USER
     $middleware->web(append: [
       UserStatus::class,
     ]);

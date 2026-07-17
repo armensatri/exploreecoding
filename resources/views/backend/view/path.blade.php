@@ -117,7 +117,8 @@
 
                                     <td class="h-px whitespace-nowrap">
                                       <x-td-var-center
-                                        :var="$path->pathviews_count"
+                                        :var="
+                                          \App\Helpers\FormatNumber::short($path->pathviews_count)"
                                       />
                                     </td>
                                   </tr>

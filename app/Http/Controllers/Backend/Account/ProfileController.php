@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Backend\Account;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Account\Profile\ProfileUr;
 use App\Models\Manageuser\User;
-use App\Traits\Controller\ImageUpdate;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\Controller\ImageUpdate;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\Account\Profile\ProfileUr;
 
 class ProfileController extends Controller
 {

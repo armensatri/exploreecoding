@@ -56,7 +56,7 @@
                           </svg>
 
                           <span class="text-[11px] text-gray-600">
-                            {{ \App\Helpers\CountNumber::short($path->pathviews_count) }}
+                            {{ \App\Helpers\FormatNumber::short($path->pathviews_count) }}
                           </span>
                         </span>
 
@@ -70,7 +70,7 @@
                     </div>
                   </div>
 
-                  <div class="w-max mt-3 gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs">
+                  <div class="w-max mt-3 gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs tracking-wide">
                     published {{ $path->created_at->diffForHumans() }}
                   </div>
 
@@ -125,19 +125,20 @@
 
                   <div class="flex items-center justify-between w-full mt-5 gap-x-5 md:gap-y-3.5 lg:gap-x-5 md:flex-col lg:flex-row">
                     <div class="w-full p-0.75 bg-white rounded-[11px] border border-gray-400 md:w-3/4 lg:w-full">
-                      <a href=""
-                        class="block w-full px-5 py-2 text-[14px] font-semibold text-center rounded-[10px] tracking-wider
+                      <div class="block w-full px-5 py-2 text-[14px] font-semibold text-center rounded-[10px] tracking-wider
                         {{ $path->status->bg }}
                         {{ $path->status->text }}">
                         {{ $path->status->name }}
-                      </a>
+                      </div>
                     </div>
 
                     <div class="w-full p-0.75 bg-white rounded-[11px] border border-gray-400">
-                      <div class="block w-full px-5 py-2 text-[14px]
-                        font-semibold text-center text-white bg-blue-600 rounded-[10px] shadow-md hover:bg-blue-700 tracking-wide">
-                        Show course
-                      </div>
+                      <a href="">
+                        <div class="block w-full px-5 py-2 text-[14px]
+                          font-semibold text-center text-white bg-blue-600 rounded-[10px] shadow-md hover:bg-blue-700 tracking-wide">
+                          Show course
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>

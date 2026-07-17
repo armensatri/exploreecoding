@@ -22,7 +22,7 @@
           <div>
             <a href="{{ route('users.change.status',
               [
-                'id' => $user->id,
+                'username' => $user->username,
                 'status' => $user->status ? 'banned' : 'active'
               ]) }}"
               class="inline-flex items-center justify-center px-8 py-1.5 bg-red-700 rounded-xl hover:bg-red-800">

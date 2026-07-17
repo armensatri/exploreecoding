@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Backend\View;
 
-use App\Http\Controllers\Controller;
 use App\Models\Programming\Path;
+use App\Http\Controllers\Controller;
 
 class ViewController extends Controller
 {
@@ -23,7 +23,7 @@ class ViewController extends Controller
         'name'
       ])
       ->withCount('pathviews')
-      ->orderBy('sp', 'asc')
+      ->orderByDesc('pathviews_count')
       ->paginate(10)
       ->withQueryString();
 

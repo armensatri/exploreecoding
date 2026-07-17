@@ -4,38 +4,26 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Response;
-
-use Illuminate\Support\Facades\{
-  DB,
-  Auth,
-  Redirect,
-};
 
 class PermissionMiddleware
 {
   public function handle(Request $request, Closure $next): Response
   {
+    /** @var \App\Models\Manageuser\User $user */
     $user = Auth::user();
 
     if (!$user || !$user->role_id) {
       return Redirect::route('blocked.permission')->send();
     }
 
+    // Ambil nama route saat ini (misal: 'dashboard' atau 'users.index')
     $routeName = $request->route()->getName();
 
-    $hasPermission = DB::table('permissions')
-      ->join(
-        'role_has_permission',
-        'permissions.id',
-        '=',
-        'role_has_permission.permission_id'
-      )
-      ->where('role_has_permission.role_id', $user->role_id)
-      ->where('permissions.name', $routeName)
-      ->exists();
-
-    if (!$hasPermission) {
+    // OPTIMASI: Cek izin langsung dari memori RAM (0 ms / Tanpa Query Database)
+    if (!$user->hasPermission($routeName)) {
       return Redirect::route('blocked.permission')->send();
     }
 

@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Backend\Manageaccess;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 use App\Models\Manageuser\{
   Role,
   Permission
+};
+
+use Illuminate\Support\Facades\{
+  DB,
+  Log,
+  Auth
 };
 
 class RoleAccessPermissionController extends Controller
@@ -22,23 +27,24 @@ class RoleAccessPermissionController extends Controller
         'slug',
         'description'
       ])
-      ->with([
-        'permissions:id,name'
-      ])
+      ->with(['permissions:id,name'])
       ->where('slug', $slug)
       ->firstOrFail();
 
-    $groupper = Permission::query()
+    $allPermissions = Permission::query()
       ->select([
         'id',
         'name'
       ])
       ->orderBy('id', 'asc')
-      ->get()
-      ->groupBy(
-        fn($permission)
-        => ucfirst(explode('.', $permission->name)[0])
-      );
+      ->get();
+
+    $groupper = $allPermissions->groupBy(
+      function ($permission) {
+        $parts = explode('.', $permission->name);
+        return ucfirst($parts[0]);
+      }
+    );
 
     $rolePermissions = $role->permissions
       ->pluck('id')
@@ -73,6 +79,12 @@ class RoleAccessPermissionController extends Controller
         ]);
       });
     } catch (\Throwable $e) {
+      Log::error('Gagal up permission: ' . $e->getMessage(), [
+        'user_id' => Auth::id(),
+        'payload' => $data,
+        'trace' => $e->getTraceAsString()
+      ]);
+
       return response()->json([
         'success' => false,
         'message' => 'Gagal memperbarui akses.',

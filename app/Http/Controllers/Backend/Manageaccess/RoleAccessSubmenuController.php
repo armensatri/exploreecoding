@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Backend\Manageaccess;
 use Illuminate\Http\Request;
 use App\Models\Manageuser\Role;
 use App\Models\Managemenu\Submenu;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\{
+  DB,
+  Log,
+  Auth
+};
 
 class RoleAccessSubmenuController extends Controller
 {
@@ -70,9 +74,15 @@ class RoleAccessSubmenuController extends Controller
         ]);
       });
     } catch (\Throwable $e) {
+      Log::error('Gagal memperbarui akses submenu: ' . $e->getMessage(), [
+        'user_id' => Auth::id(),
+        'payload' => $data,
+        'trace'   => $e->getTraceAsString()
+      ]);
+
       return response()->json([
         'success' => false,
-        'message' => 'Gagal memperbarui akses.',
+        'message' => 'Gagal memperbarui akses karena masalah sistem.',
       ], 500);
     }
   }

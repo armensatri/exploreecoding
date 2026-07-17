@@ -18,6 +18,7 @@ class RoleHasPermissionSeeder extends Seeder
       'member'
     ];
 
+    // 1. Buat semua roles terlebih dahulu
     foreach ($roles as $rolename) {
       Role::firstOrCreate(
         ['name' => $rolename],
@@ -627,24 +628,28 @@ class RoleHasPermissionSeeder extends Seeder
       ],
     ];
 
+    // 2. Kumpulkan semua nama permission unik dari seluruh role
+    $allUniquePermissions = collect($roleHasPermissions)->flatten()->unique();
+
+    // 3. Buat semua permission unik tersebut di database (Sekali jalan)
+    foreach ($allUniquePermissions as $permissionName) {
+      Permission::firstOrCreate(
+        ['name' => $permissionName, 'guard_name' => 'web'], // Kunci pencarian ditambah guard_name agar aman
+        ['slug' => Str::of($permissionName)->replace('.', '-')->slug()]
+      );
+    }
+
+    // 4. Proses sinkronisasi relasi pivot
     foreach ($roleHasPermissions as $roleName => $permissions) {
-      $role = Role::where('name', $roleName)->first();
+      $role = Role::where('name', $roleName)->where('guard_name', 'web')->first();
 
       if (!$role) {
         continue;
       }
 
-      foreach ($permissions as $permissionName) {
-        Permission::firstOrCreate(
-          ['name' => $permissionName],
-          [
-            'guard_name' => 'web',
-            'slug' => Str::of($permissionName)->replace('.', '-')->slug(),
-          ]
-        );
-      }
-
+      // Tambahkan guard_name 'web' pada query pencarian ID untuk menghindari salah ambil guard lain
       $permissionIds = Permission::whereIn('name', $permissions)
+        ->where('guard_name', 'web')
         ->pluck('id');
 
       $role->permissions()->sync($permissionIds);

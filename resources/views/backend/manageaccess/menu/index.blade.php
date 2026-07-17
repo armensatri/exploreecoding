@@ -145,28 +145,28 @@
     document.addEventListener("DOMContentLoaded", function () {
       document.querySelectorAll(".access-checkbox").forEach((checkbox) => {
         checkbox.addEventListener("change", async function () {
+          const checkboxElement = this;
+          const roleId = checkboxElement.getAttribute("data-role");
+          const menuId = checkboxElement.getAttribute("data-menu");
+          const roleSlug = checkboxElement.getAttribute("data-slug");
 
-          const roleId = this.getAttribute("data-role");
-          const menuId = this.getAttribute("data-menu");
-          const roleSlug = this.getAttribute("data-slug");
-          const isChecked = this.checked ? 1 : 0;
+          // Ambil status akses sebelum di-klik (1 atau 0)
+          const currentAccess = checkboxElement.getAttribute("data-has-access") === "1";
+
+          // Kunci checkbox agar user tidak bisa klik berkali-kali saat proses kirim
+          checkboxElement.disabled = true;
 
           try {
             const response = await fetch("{{ route('access.up.menu') }}", {
               method: "POST",
-
               headers: {
                 "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector(
-                  'meta[name="csrf-token"]'
-                ).content,
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
               },
-
               body: JSON.stringify({
                 role_id: roleId,
                 menu_id: menuId,
                 role_slug: roleSlug,
-                is_checked: isChecked
               }),
             });
 
@@ -177,22 +177,42 @@
             const result = await response.json();
 
             if (result.success) {
-              Swal.fire({
-                title: "success",
-                text: result.message,
-                icon: "success",
-              }).then(() => {
-                window.location.href =
-                "{{ route('access.menu', [':slug']) }}"
-                .replace(":slug", roleSlug)
-              })
+              // SINKRONISASI REALTIME DI BROWSER:
+              // Jika sebelumnya 1 (punya akses), sekarang jadi 0 (dihapus), dan sebaliknya.
+              const newAccessState = !currentAccess;
+              checkboxElement.setAttribute("data-has-access", newAccessState ? "1" : "0");
+              checkboxElement.checked = newAccessState;
+
+              // Tampilkan notifikasi toast kecil di pojok layar (tidak mengganggu)
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+              });
+
+              Toast.fire({
+                icon: 'success',
+                title: result.message
+              });
             } else {
               throw new Error(result.message);
             }
           } catch (error) {
             console.error("error:", error);
-            Swal.fire("error", "Something went wrong!", "error");
-            this.checked = !this.checked;
+
+            // Kembalikan ke posisi semula jika gagal koneksi/error server
+            checkboxElement.checked = currentAccess;
+
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Gagal memperbarui akses di database.',
+            });
+          } finally {
+            // Buka kembali kunci checkbox
+            checkboxElement.disabled = false;
           }
         });
       });

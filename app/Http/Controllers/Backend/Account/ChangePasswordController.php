@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Backend\Account;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Account\ChangePassword\ChangePasswordUr;
 use App\Models\Manageuser\User;
-use Illuminate\Support\Facades\{Auth, Hash};
+use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\Account\ChangePassword\ChangePasswordUr;
+
+use Illuminate\Support\Facades\{
+  Auth,
+  Hash
+};
 
 class ChangePasswordController extends Controller
 {

@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-class CountNumber
+class FormatNumber
 {
   public static function short(int|float|null $number): string
   {

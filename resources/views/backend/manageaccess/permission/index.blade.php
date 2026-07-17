@@ -38,18 +38,19 @@
                     <fieldset>
                       <div class="w-auto p-4 border border-gray-300 shadow-2xs rounded-3xl bg-slate-50">
                         <legend class="mb-2 ml-2 text-base font-normal tracking-wide text-yellow-500">
-                          {{ ucfirst($controller) }}Controller
+                          {{ $controller }} Controller
                         </legend>
 
                         @foreach ($permissions as $permission)
                           <div class="flex items-center px-1 ml-1">
                             <div>
                               <div class="flex items-center">
+                                <!-- Menggunakan properti objek biasa $permission->id lebih disarankan daripada mode array -->
                                 <input type="checkbox"
                                   data-role="{{ $role->id }}"
-                                  data-permission="{{ $permission['id'] }}"
+                                  data-permission="{{ $permission->id }}"
                                   data-slug="{{ $role->slug }}"
-                                  {{ in_array($permission['id'], $rolePermissions) ? 'checked' : '' }}
+                                  {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }}
                                   class="ml-1 w-4 h-4 text-blue-500 rounded-[5px] cursor-pointer access-checkbox outline-offset-1 outline-1 outline-blue-500"
                                 />
                               </div>
@@ -58,13 +59,11 @@
                             <div class="flex items-center text-[15px] text-gray-600 whitespace-nowrap p-2 py-1.5 tracking-wide">
                               <div class="flex items-center gap-1">
                                 <div class="text-xs text-black">
-                                  {{ $permission['id'] }}
+                                  {{ $permission->id }}
                                 </div>
-
                                 <div>-</div>
-
                                 <div>
-                                  {{ $permission['name'] }}
+                                  {{ $permission->name }}
                                 </div>
                               </div>
                             </div>
@@ -84,31 +83,41 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      // Inisialisasi template Toast SweetAlert2 agar terlihat profesional
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true
+      });
+
       document.querySelectorAll(".access-checkbox").forEach((checkbox) => {
         checkbox.addEventListener("change", async function () {
+          const checkboxElement = this;
+          const roleId = checkboxElement.getAttribute("data-role");
+          const permissionId = checkboxElement.getAttribute("data-permission");
+          const roleSlug = checkboxElement.getAttribute("data-slug");
 
-          const roleId = this.getAttribute("data-role");
-          const permissionId = this.getAttribute("data-permission");
-          const roleSlug = this.getAttribute("data-slug");
-          const isChecked = this.checked ? 1 : 0;
+          // Kunci checkbox sementara untuk menghindari double-click (spam) saat proses request berjalan
+          checkboxElement.disabled = true;
 
           try {
-            const response = await fetch(
-              "{{ route('access.up.permission') }}", {
-              method: "POST",
+            const csrfTokenElement = document.querySelector('meta[name="csrf-token"]');
+            if (!csrfTokenElement) {
+              throw new Error("Meta tag CSRF token tidak ditemukan!");
+            }
 
+            const response = await fetch("{{ route('access.up.permission') }}", {
+              method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector(
-                  'meta[name="csrf-token"]'
-                ).content,
+                "X-CSRF-TOKEN": csrfTokenElement.content,
               },
-
               body: JSON.stringify({
                 role_id: roleId,
                 permission_id: permissionId,
                 role_slug: roleSlug,
-                is_checked: isChecked
               }),
             });
 
@@ -119,22 +128,28 @@
             const result = await response.json();
 
             if (result.success) {
-              Swal.fire({
-                title: "success",
-                text: result.message,
-                icon: "success",
-              }).then(() => {
-                window.location.href =
-                "{{ route('access.permission', [':slug']) }}"
-                .replace(":slug", roleSlug)
-              })
+              Toast.fire({
+                icon: 'success',
+                title: result.message
+              });
+              // Catatan: window.location.href DIAPUS agar tidak perlu kedip/refresh halaman.
+              // Status centang sudah otomatis terjaga di layar.
             } else {
               throw new Error(result.message);
             }
           } catch (error) {
-            console.error("error:", error);
-            Swal.fire("error", "Something went wrong!", "error");
-            this.checked = !this.checked;
+            console.error("Error detail:", error);
+
+            // Kembalikan posisi centang ke semula jika request gagal di server
+            checkboxElement.checked = !checkboxElement.checked;
+
+            Toast.fire({
+              icon: 'error',
+              title: 'Gagal memperbarui hak akses.'
+            });
+          } finally {
+            // Buka kembali kunci checkbox setelah proses selesai
+            checkboxElement.disabled = false;
           }
         });
       });

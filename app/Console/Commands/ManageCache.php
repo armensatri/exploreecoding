@@ -4,8 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use Illuminate\Console\Attributes\Signature;
-use Illuminate\Console\Attributes\Description;
+
+use Illuminate\Console\Attributes\{
+  Signature,
+  Description
+};
 
 #[Signature(
   'manage:cache {--max=100 : Batas maksimal ukuran cache dalam MB}'
@@ -50,7 +53,7 @@ class ManageCache extends Command
     return 0;
   }
 
-  private function folderSize($dir)
+  private function folderSize(string $dir): int
   {
     $size = 0;
 
@@ -71,7 +74,7 @@ class ManageCache extends Command
     return $size;
   }
 
-  private function countFiles($dir)
+  private function countFiles(string $dir): int
   {
     $count = 0;
 
@@ -90,12 +93,12 @@ class ManageCache extends Command
     return $count;
   }
 
-  private function clearCache($dir)
+  private function clearCache(string $dir): void
   {
     File::cleanDirectory($dir);
   }
 
-  private function humanFilesize($bytes, $decimals = 2)
+  private function humanFilesize(int $bytes, int $decimals = 2): string
   {
     $size = ['B', 'KB', 'MB', 'GB', 'TB'];
 
@@ -103,7 +106,7 @@ class ManageCache extends Command
       return '0 B';
     }
 
-    $factor = floor((strlen($bytes) - 1) / 3);
+    $factor = (int) floor((strlen((string) $bytes) - 1) / 3);
 
     return sprintf(
       "%.{$decimals}f",

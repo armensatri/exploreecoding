@@ -4,8 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
-use Illuminate\Console\Attributes\Signature;
-use Illuminate\Console\Attributes\Description;
+
+use Illuminate\Console\Attributes\{
+  Signature,
+  Description
+};
 
 #[Signature('git:push {message=update}')]
 #[Description('Menjalankan git add, commit, dan push sekaligus')]

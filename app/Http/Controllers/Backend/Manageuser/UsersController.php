@@ -220,9 +220,9 @@ class UsersController extends Controller
     return redirect()->route('users.index');
   }
 
-  public function changeStatus(int $id, string $status)
+  public function changeStatus(string $username, string $status)
   {
-    $user = User::findOrFail($id);
+    $user = User::where('username', $username)->firstOrFail();
 
     $isBanned = $status === 'banned';
 
@@ -242,6 +242,6 @@ class UsersController extends Controller
       'success'
     );
 
-    return redirect()->route('visitor');
+    return redirect()->back();
   }
 }

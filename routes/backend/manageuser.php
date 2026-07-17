@@ -48,7 +48,7 @@ Route::group(
     ]
   ],
   function () {
-    Route::get('/users/{id}/{status}', [
+    Route::get('/users/{username}/{status}', [
       UsersController::class,
       'changestatus'
     ])->name('users.change.status');

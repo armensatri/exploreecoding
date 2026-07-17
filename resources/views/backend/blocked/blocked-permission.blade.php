@@ -45,7 +45,7 @@
             Anda tidak ada akses ke halaman ini
           </p>
 
-          <a href="{{ \App\Helpers\Redirects::Dashboard() }}">
+          <a href="{{ route('dashboard') }}">
             <button type="button"
               class="inline-flex items-center px-3.5 py-2 text-sm font-medium tracking-wider text-white bg-blue-600 border border-transparent rounded-xl gap-x-2 hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none cursor-pointer">
               back to dashboard

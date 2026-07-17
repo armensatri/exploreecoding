@@ -79,6 +79,13 @@ class User extends Authenticatable
       ->contains('name', $submenu);
   }
 
+  public function hasPermission(string $permission): bool
+  {
+    return $this->role
+      ?->permissions
+      ?->contains('name', $permission) ?? false;
+  }
+
   public function statusOnOf()
   {
     $online = $this->status_on_of;
