@@ -51,20 +51,12 @@
           menu="Populer course"
         />
         <ul>
-          <x-footer-submenu
-            route=""
-            submenu="Frontend"
-          />
-
-          <x-footer-submenu
-            route=""
-            submenu="Backend"
-          />
-
-          <x-footer-submenu
-            route=""
-            submenu="Struktur data"
-          />
+          @foreach ($populerpaths as $path)
+            <x-footer-submenu
+              route=""
+              :submenu="$path->name"
+            />
+          @endforeach
         </ul>
       </div>
 

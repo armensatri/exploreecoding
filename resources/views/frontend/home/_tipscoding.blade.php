@@ -21,38 +21,39 @@
     "slidesQty": { "xs": 1, "md": 2, "xl": 3 }
     }' class="relative w-full mx-auto max-w-7xl">
     <div class="overflow-hidden hs-carousel">
-      <div class="relative mt-10 mb-10">
+      <div class="relative mt-20 mb-10">
         <div
           class="flex transition-transform duration hs-carousel-body gap-x-6">
-          @foreach ($tipscodings->take(5) as $tipscoding)
+          @foreach ($tipscodings as $tipscoding)
             <div class="w-full hs-carousel-slide">
-              <div
-                class="flex flex-col items-center h-full p-6 bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
+              <div class="flex flex-col items-center h-full px-7 py-5
+                bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
                 <div class="">
-                  <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-start justify-between w-full
+                    mb-4">
                     <div class="flex items-center gap-2">
                       <img
                         src="{{ asset('frontend/img/user/user.png') }}"
                         alt="author"
-                        class="object-cover border border-gray-300 rounded-full w-12 h-12"
+                        class="object-cover w-12 h-12 border border-gray-300 rounded-full"
                       />
 
-                      <div class="flex flex-col leading-5">
-                        <span class="text-base font-medium text-gray-600">
+                      <div class="">
+                        <div class="text-base font-medium text-blue-600">
                           <span>@</span>{{ $tipscoding->user->username }}
-                        </span>
+                        </div>
 
-                        <span class="ml-1 text-[15px] font-medium text-gray-600">
-                          <span class="text-xs text-gray-500">
-                            published {{
+                        <div class="ml-1 text-[15px] font-medium text-gray-600">
+                          <div class="text-xs text-gray-500">
+                            {{
                               $tipscoding->created_at->diffForHumans()
                             }}
-                          </span>
-                        </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
-                    <div class="flex items-center text-xs text-gray-600">
+                    <div class="mt-2.5 flex items-center text-xs text-gray-600">
                       <svg xmlns="http://www.w3.org/2000/svg"
                         width="16"
                         height="16"
@@ -66,7 +67,7 @@
                           d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"
                         />
                       </svg>
-                      100.K
+                      {{ \App\Helpers\FormatNumber::short($tipscoding->tipscodingviews_count) }}
                     </div>
                   </div>
 
@@ -87,29 +88,11 @@
                     </div>
                   </div>
 
-                  <p class="mb-4 ml-1 text-base text-gray-700">
-                    <span class="block sm:hidden">
-                      {{ Str::words(strip_tags($tipscoding->excerpt), 10) }}
-                    </span>
-
-                    <span class="hidden sm:block md:hidden">
-                      {{ Str::words(strip_tags($tipscoding->excerpt), 16) }}
-                    </span>
-
-                    <span class="hidden md:block lg:hidden">
-                      {{ Str::words(strip_tags($tipscoding->excerpt), 8) }}
-                    </span>
-
-                    <span class="hidden lg:block xl:hidden">
-                      {{ Str::words(strip_tags($tipscoding->excerpt), 12) }}
-                    </span>
-
-                    <span class="hidden xl:block">
-                      {{ Str::words(strip_tags($tipscoding->excerpt), 9) }}
-                    </span>
+                  <p class="mb-4 ml-1 text-base text-gray-700 line-clamp-2">
+                    {{ $tipscoding->excerpt }}
                   </p>
 
-                  <div class="flex items-center gap-2">
+                  <div class="flex items-center gap-2 ml-px">
                     <a href="">
                       <span
                         class="flex items-center px-2 py-1 text-[13px] font-medium text-blue-600 rounded-[9px] bg-white tracking-wider border border-blue-400 hover:bg-gray-200 hover:text-black">

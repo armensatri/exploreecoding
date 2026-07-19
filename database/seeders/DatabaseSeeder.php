@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Tipscoding\{Category, Tipscoding};
+use Database\Seeders\View\{PathviewSeeder, TipscodingviewSeeder,};
 use Database\Seeders\Managemenu\{MenuSeeder, SubmenuSeeder};
 use Database\Seeders\Manageuser\{UserSeeder, RoleSeeder, PermissionSeeder,};
 use Database\Seeders\Pivot\{RoleHasMenuSeeder, RoleHasSubmenuSeeder, RoleHasPermissionSeeder,};
 use Database\Seeders\Programming\{PathSeeder, PlaylistSeeder, PostSeeder, RoadmapSeeder};
 use Database\Seeders\Published\StatusSeeder;
-use Database\Seeders\View\PathviewSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -38,8 +38,8 @@ class DatabaseSeeder extends Seeder
       PlaylistSeeder::class,
       PostSeeder::class,
       // CategorySeeder::class,
-      // TipscodingSeeder::class
-      PathviewSeeder::class
+      // TipscodingSeeder::class,
+      PathviewSeeder::class,
     ]);
 
     // Path::factory()
@@ -58,5 +58,7 @@ class DatabaseSeeder extends Seeder
 
     Category::factory()->count(20)->create();
     Tipscoding::factory()->count(80)->create();
+
+    $this->call(TipscodingviewSeeder::class);
   }
 }

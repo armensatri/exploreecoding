@@ -4,7 +4,7 @@
   <div class="relative px-6 bg-sky-100 pt-14 lg:px-8">
     <div class="mt-16">
       <div class="mx-auto max-w-7xl">
-        {{-- @include('frontend.xbreadcrumb.contact.index') --}}
+        @include('frontend.xbreadcrumb.tipscoding.index')
       </div>
     </div>
 
@@ -29,29 +29,7 @@
 
     <div class="py-20">
       <div class="gap-x-20">
-        <div class="text-center">
-          <h3 class="mb-2 text-lg font-semibold text-gray-900">
-            WhatsApp
-          </h3>
-
-          <a href="#"
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] bg-teal-600 text-white font-medium hover:bg-teal-700
-            transition shadow-xs">
-            <i class="text-lg bi bi-whatsapp"></i> 0853 7537 9xxx
-          </a>
-        </div>
-
-        <div class="mt-16 text-center">
-          <h3 class="mb-2 text-lg font-semibold text-gray-900">
-            Send to mail
-          </h3>
-
-          <a href="#"
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] bg-teal-600 text-white font-medium hover:bg-teal-700
-            transition shadow-xs">
-            <i class="text-lg bi bi-envelope-at-fill"></i> exploreecoding@gmail.com
-          </a>
-        </div>
+        //
       </div>
     </div>
   </div>

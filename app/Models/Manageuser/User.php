@@ -5,9 +5,17 @@ namespace App\Models\Manageuser;
 use App\Models\Manageuser\Role;
 use App\Models\Programming\Post;
 use App\Models\Tipscoding\Tipscoding;
-use App\Models\View\Pathview;
-use App\Traits\Models\{HasSearchable, HasCacheVersion,};
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
+use App\Models\View\{
+  Pathview,
+  Tipscodingview
+};
+
+use App\Traits\Models\{
+  HasSearchable,
+  HasCacheVersion,
+};
 
 class User extends Authenticatable
 {
@@ -70,6 +78,11 @@ class User extends Authenticatable
   public function pathviews()
   {
     return $this->hasMany(Pathview::class);
+  }
+
+  public function tipscodingviews()
+  {
+    return $this->hasMany(Tipscodingview::class);
   }
 
   public function hasSubmenu(string $submenu): bool

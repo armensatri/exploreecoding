@@ -19,6 +19,22 @@
     </div>
 
     <x-mobile-menu-utama
+      :route="route('home')"
+      :image="asset('frontend/img/navigation/home.png')"
+      menu="Home"
+      description="halaman home"
+      button-name="Home"
+    />
+
+    <x-mobile-menu-utama
+      route=""
+      :image="asset('frontend/img/navigation/about.png')"
+      menu="About"
+      description="about exploreecoding"
+      button-name="About"
+    />
+
+    <x-mobile-menu-utama
       route=""
       :image="asset('frontend/img/navigation/silabus.png')"
       menu="Silabus"
@@ -46,7 +62,7 @@
       route=""
       :image="asset('frontend/img/navigation/paths.png')"
       menu="Populer path course"
-      description="path course sering di kunjungi"
+      description="path course banyak di kunjungi"
       button-name="Populer path"
     />
 
@@ -76,8 +92,8 @@
 
     <x-mobile-explore-lainnya
       route=""
-      :image="asset('frontend/img/navigation/exploreeblog.png')"
-      menu="Exploreeblog"
+      :image="asset('frontend/img/explore/exploreeblog.png')"
+      menu="Blogexploreecoding"
       description="App blog exploreeblog berisi tentang artikel dan wawasan IT"
       button-name="Blog"
     />

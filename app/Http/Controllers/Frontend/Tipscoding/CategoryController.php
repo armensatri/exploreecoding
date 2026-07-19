@@ -19,18 +19,18 @@ class CategoryController extends Controller
         'sc',
         'name',
         'image',
-        'url'
+        'slug'
       ])
       ->withCount('tipscodings')
       ->orderBy('sc', 'asc')
       ->get();
 
-    $totaltipscodings = Tipscoding::count();
+    $tipscodings = Tipscoding::count();
 
     return view('frontend.tipscoding.category.index', [
       'title' => 'Tips categori',
       'categories' => $categories,
-      'totaltipscodings' => $totaltipscodings
+      'tipscodings' => $tipscodings
     ]);
   }
 }

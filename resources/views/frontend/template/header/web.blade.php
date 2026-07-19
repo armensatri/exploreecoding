@@ -74,7 +74,7 @@
                   route=""
                   :image="asset('frontend/img/navigation/paths.png')"
                   menu="Populer path course"
-                  description="path course sering di kunjungi"
+                  description="path course banyak di kunjungi"
                   button-name="Popluer path"
                 />
 
@@ -105,8 +105,8 @@
 
                 <x-web-explore-lainnya
                   route=""
-                  :image="asset('frontend/img/navigation/exploreeblog.png')"
-                  menu="Exploreeblog"
+                  :image="asset('frontend/img/explore/exploreeblog.png')"
+                  menu="Blogexploreecoding"
                   description="App blog exploreeblog berisi tentang artikel dan wawasan IT"
                   button-name="Blog"
                 />
@@ -118,7 +118,7 @@
     </div>
   </div>
 
-  <a href="{{ route('home') }}"
+  <a href=""
     class="tracking-wide justify-center px-3.5 py-0.75 text-base font-medium leading-6 text-black border border-gray-400
     rounded-[13px] bg-blue-200 hover:bg-blue-300 cursor-pointer">
     About

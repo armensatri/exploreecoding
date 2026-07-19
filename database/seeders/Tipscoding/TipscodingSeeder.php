@@ -13,7 +13,7 @@ class TipscodingSeeder extends Seeder
       [
         'user_id' => 1,
         'category_id' => 1,
-        'title' => 'apa itu html',
+        'title' => 'Apa itu html',
         'slug' => 'apa-itu-html',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
@@ -21,7 +21,7 @@ class TipscodingSeeder extends Seeder
       [
         'user_id' => 2,
         'category_id' => 1,
-        'title' => 'sejarah html',
+        'title' => 'Sejarah html',
         'slug' => 'sejarah-html',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
@@ -30,7 +30,7 @@ class TipscodingSeeder extends Seeder
       [
         'user_id' => 3,
         'category_id' => 2,
-        'title' => 'apa itu css',
+        'title' => 'Apa itu css',
         'slug' => 'apa-itu-css',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
@@ -38,7 +38,7 @@ class TipscodingSeeder extends Seeder
       [
         'user_id' => 4,
         'category_id' => 2,
-        'title' => 'sejarah css',
+        'title' => 'Sejarah css',
         'slug' => 'sejarah-css',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
@@ -47,24 +47,8 @@ class TipscodingSeeder extends Seeder
       [
         'user_id' => 1,
         'category_id' => 3,
-        'title' => 'apa itu javascript',
+        'title' => 'Apa itu javascript',
         'slug' => 'apa-itu-javascript',
-        'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
-        'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
-      ],
-      [
-        'user_id' => 2,
-        'category_id' => 3,
-        'title' => 'sejarah javascript',
-        'slug' => 'sejarah-javascript',
-        'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
-        'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
-      ],
-      [
-        'user_id' => 3,
-        'category_id' => 3,
-        'title' => 'dasar javascript',
-        'slug' => 'dasar-javascript',
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
       ],

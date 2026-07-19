@@ -4,6 +4,7 @@ namespace App\Models\Tipscoding;
 
 use App\Models\Manageuser\User;
 use App\Models\Tipscoding\Category;
+use App\Models\View\Tipscodingview;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use App\Traits\Models\{
@@ -57,14 +58,19 @@ class Tipscoding extends Model
     return $this->belongsTo(Category::class);
   }
 
+  public function tipscodingviews()
+  {
+    return $this->hasMany(Tipscodingview::class);
+  }
+
   public function scopeAccessTipscodings(Builder $query, User $user)
   {
     $role = $user->role?->name;
 
     return match ($role) {
       'creator' => $query->where('user_id', $user->id),
-      'member'  => $query->whereKey([]),
-      default   => $query,
+      'member' => $query->whereKey([]),
+      default  => $query,
     };
   }
 }

@@ -21,6 +21,7 @@ class HomeController extends Controller
         'id',
         'sp',
         'name',
+        'slug',
         'status_id',
         'description',
         'created_at',
@@ -56,14 +57,18 @@ class HomeController extends Controller
       ->select([
         'id',
         'title',
+        'slug',
         'excerpt',
         'category_id',
         'user_id',
         'created_at',
       ])
       ->whereIn('id', [1, 2, 3, 4, 5])
-      ->with(['category:id,name', 'user:id,username'])
-      ->get();
+      ->withCount('tipscodingviews')
+      ->with([
+        'category:id,name',
+        'user:id,username'
+      ])->get();
 
     return view('frontend.home.index', [
       'title' => 'Home',

@@ -21,7 +21,7 @@
     "slidesQty": { "xs": 1, "md": 2, "xl": 3 }
     }' class="relative w-full mx-auto max-w-7xl">
     <div class="overflow-hidden hs-carousel">
-      <div class="relative mt-10 mb-10">
+      <div class="relative mt-20 mb-10">
         <div
           class="flex transition-transform duration hs-carousel-body gap-x-6">
           @foreach ($paths as $path)
@@ -63,20 +63,16 @@
                         <span class="text-[11px] border border-gray-300 bg-gray-200 text-gray-600 rounded-md py-px px-2">
                           {{ $path->id }}.{{ $path->sp }}.{{ $path->created_at
                             ->locale('id')
-                            ->translatedFormat('dmy')
-                          }}
+                            ->translatedFormat('dm.y')
+                          }}{{ date('y') }}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div class="w-max mt-3 gap-1 px-2 py-0.5 text-white bg-green-600 rounded-[5px] text-xs tracking-wide">
-                    published {{ $path->created_at->diffForHumans() }}
-                  </div>
-
                   <div>
                     <div class="flex flex-col gap-1">
-                      <span class="mt-3 text-[17px] text-gray-700 line-clamp-3">
+                      <span class="mt-5 text-[17px] text-gray-700 line-clamp-3">
                         {{ $path->description }}
                       </span>
                     </div>

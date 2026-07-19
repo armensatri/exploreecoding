@@ -6,9 +6,7 @@
       class="inline-flex items-center justify-center bg-blue-200
       px-3 py-1.5 rounded-xl border border-gray-400 text-black
       font-medium text-base tracking-wide cursor-pointer hover:bg-blue-300">
-
       Select category
-
       <svg xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
@@ -25,20 +23,19 @@
       class="z-10 hidden overflow-hidden bg-gray-100 border border-gray-400 shadow-lg w-max rounded-[20px]">
       <div class="max-h-87.5 overflow-y-auto p-4">
         <ul class="space-y-4 text-sm font-medium text-body">
-          @foreach ($categories->take(15) as $categori)
+          @foreach ($categories->take(15) as $category)
             <li>
-              <div class="flex justify-center">
-                <a href="{{ route(
-                  'ec-tipscoding.category', $categori->url) }}">
+              <div class="flex items-center justify-center">
+                <a href="">
                   <button
                     class="flex items-center cursor-pointer pl-3 pr-1.5 py-1.5 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200 whitespace-nowrap">
 
-                    <span class="text-[8px] text-black">
-                      {{ $categori->sc }}
+                    <span class="text-[11px] mr-1 text-black">
+                      {{ $category->sc }}
                     </span>
 
-                    @if ($categori->image)
-                      <img src="{{ asset($categori->image) }}"
+                    @if ($category->image)
+                      <img src="{{ asset($category->image) }}"
                         alt="category"
                         class="w-4.5 h-4.5 mr-1"
                       />
@@ -51,12 +48,12 @@
 
                     <span
                       class="mr-1 hover:underline hover:underline-offset-2 hover:decoration-blue-500">
-                      {{ $categori->name }}
+                      {{ $category->name }}
                     </span>
 
                     <span
                       class="px-1.5 py-0.5 text-black bg-gray-100 rounded-md text-[11px] ml-1 border border-gray-400 tracking-wider">
-                      {{ $categori->tipscodings_count }} Tips
+                      {{ $category->tipscodings_count }} Tips
                     </span>
                   </button>
                 </a>
@@ -66,11 +63,11 @@
         </ul>
 
         <div class="w-full p-2">
-          <a href="{{ route('ec-categori.index') }}"
+          <a href="{{ route('ec-category.index') }}"
             class="block w-full">
             <button
-              class="cursor-pointer w-full py-2 mb-1 mt-6 text-base font-semibold tracking-wide text-center text-black bg-blue-300 border border-gray-400 shadow-sm rounded-[14px] hover:bg-blue-600 hover:text-white">
-              Semua category
+              class="cursor-pointer w-full py-2 mb-1 mt-6 text-base font-semibold tracking-wide text-center text-black bg-blue-200 border border-gray-400 shadow-sm rounded-[14px] hover:bg-blue-600 hover:text-white">
+              🔹Semua category
             </button>
           </a>
         </div>
