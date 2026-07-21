@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Tipscoding\{Category, Tipscoding};
+// use App\Models\Tipscoding\{Category, Tipscoding};
 use Database\Seeders\View\{PathviewSeeder, TipscodingviewSeeder,};
 use Database\Seeders\Managemenu\{MenuSeeder, SubmenuSeeder};
 use Database\Seeders\Manageuser\{UserSeeder, RoleSeeder, PermissionSeeder,};
@@ -12,10 +12,10 @@ use Database\Seeders\Published\StatusSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-// use Database\Seeders\Tipscoding\{
-//   CategorySeeder,
-//   TipscodingSeeder
-// };
+use Database\Seeders\Tipscoding\{
+  CategorySeeder,
+  TipscodingSeeder
+};
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,8 +37,8 @@ class DatabaseSeeder extends Seeder
       RoadmapSeeder::class,
       PlaylistSeeder::class,
       PostSeeder::class,
-      // CategorySeeder::class,
-      // TipscodingSeeder::class,
+      CategorySeeder::class,
+      TipscodingSeeder::class,
       PathviewSeeder::class,
     ]);
 
@@ -56,8 +56,8 @@ class DatabaseSeeder extends Seeder
     //       )
     //   )->create();
 
-    Category::factory()->count(20)->create();
-    Tipscoding::factory()->count(80)->create();
+    // Category::factory()->count(20)->create();
+    // Tipscoding::factory()->count(80)->create();
 
     $this->call(TipscodingviewSeeder::class);
   }

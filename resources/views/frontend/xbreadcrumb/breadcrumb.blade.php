@@ -4,7 +4,9 @@
     :image="asset('frontend/img/navigation/tipscodings.png')"
   />
 
+  // slash or titik 2
   <x-slash/>
+  <li class="text-xs text-gray-700">:</li>
 
   <x-breadcrumb-name name="tipscodings" class="text-blue-600"/>
 </ol>

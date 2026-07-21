@@ -51,7 +51,7 @@
     />
 
     <x-mobile-menu-utama
-      :route="route('ec-tipscoding.index')"
+      :route="route('ec-tipscodings.index')"
       :image="asset('frontend/img/navigation/tipscodings.png')"
       menu="✅Tips coding"
       description="tips pengetahuan pemrograman"

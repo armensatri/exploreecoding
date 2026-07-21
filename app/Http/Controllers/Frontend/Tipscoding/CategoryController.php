@@ -28,7 +28,7 @@ class CategoryController extends Controller
     $tipscodings = Tipscoding::count();
 
     return view('frontend.tipscoding.category.index', [
-      'title' => 'Tips categori',
+      'title' => 'Tipscoding categories',
       'categories' => $categories,
       'tipscodings' => $tipscodings
     ]);

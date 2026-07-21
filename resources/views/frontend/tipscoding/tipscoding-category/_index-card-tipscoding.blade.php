@@ -44,7 +44,6 @@
       <div class="hs-tooltip [--placement:auto]">
         <div
           class="relative hs-tooltip-toggle mt-3 ml-1 mb-2 text-[19px] font-semibold text-gray-700 hover:underline hover:underline-offset-2 hover:decoration-blue-500 line-clamp-1 tracking-tight">
-
           <a href="">
             {{ $tipscoding->title }}
           </a>
@@ -79,10 +78,7 @@
         </span>
       </a>
 
-      <a href="{{ route('ec-tipscodings.show', [
-        'category' => $tipscoding->category->slug,
-        'tipscoding' => $tipscoding->slug
-      ]) }}">
+      <a href="">
         <div class="flex items-center">
           <div class="hs-tooltip [--placement:auto]">
             <div

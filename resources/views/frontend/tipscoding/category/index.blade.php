@@ -29,7 +29,7 @@
           <span class="text-blue-600">
             tips coding
           </span>
-          panduan praktis sederhana dan wawasan pengembangan pengetahuan
+          praktis panduan sederhana dan wawasan pengembangan pengetahuan
         </p>
       </div>
     </div>
@@ -54,9 +54,10 @@
             class="flex flex-wrap items-center justify-center gap-3">
             @foreach ($categories as $category)
               <div>
-                <a href="">
+                <a href="{{  route('ec-tipscodings.category', $category->slug) }}">
                   <button
                     class="flex items-center cursor-pointer pl-3 pr-1.5 py-1.5 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200">
+                    🔹
                     <span class="mr-1 text-[11px] text-black">
                       {{ $category->sc }}
                     </span>

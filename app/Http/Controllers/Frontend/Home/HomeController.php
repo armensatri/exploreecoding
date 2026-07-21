@@ -66,7 +66,7 @@ class HomeController extends Controller
       ->whereIn('id', [1, 2, 3, 4, 5])
       ->withCount('tipscodingviews')
       ->with([
-        'category:id,name',
+        'category:id,name,slug',
         'user:id,username'
       ])->get();
 

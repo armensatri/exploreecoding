@@ -43,6 +43,14 @@ class TipscodingSeeder extends Seeder
         'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
       ],
+      [
+        'user_id' => 4,
+        'category_id' => 2,
+        'title' => 'Sejarah css perkembangan',
+        'slug' => 'sejarah-css-perkembangan',
+        'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur',
+        'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
+      ],
 
       [
         'user_id' => 1,

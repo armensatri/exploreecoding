@@ -29,7 +29,6 @@
                 <a href="{{ route('ec-tipscodings.category', $category->slug) }}">
                   <button
                     class="flex items-center cursor-pointer pl-3 pr-1.5 py-1.5 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200 whitespace-nowrap">
-                    🔹
                     <span class="text-[11px] mr-1 text-black">
                       {{ $category->sc }}
                     </span>

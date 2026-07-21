@@ -16,7 +16,7 @@
 
       <span
         class="px-1.5 py-0.5 text-green-700 bg-gray-100 rounded-md text-[11px] ml-1 border border-gray-400 tracking-wider">
-        {{ $tipscodings }} Tips
+        {{ $tipstotal }} Tips
       </span>
     </button>
   </a>
