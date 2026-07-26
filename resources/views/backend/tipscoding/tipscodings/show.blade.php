@@ -86,13 +86,17 @@
                 <div class="bg-slate-50
                   px-2.5 py-0.5 rounded-xl text-base tracking-wide">
                   <article class="px-4 text-gray-800 prose max-w-none
-                    prose-slate lg:prose-[17px]
+                    prose-slate lg:prose-lg
                     prose-h2:text-green-600
                     prose-h2:font-bold
                     prose-h3:text-green-600
                     prose-h3:font-semibold
                     prose-h4:text-gray-900
                     prose-a:text-blue-600
+                    prose-pre:max-h-112.5
+                    prose-pre:overflow-y-auto
+                    prose-pre:overflow-x-auto
+                    prose-pre:rounded-2xl
                     prose-pre:leading-10
                     prose-code:leading-10">
                     <x-markdown>

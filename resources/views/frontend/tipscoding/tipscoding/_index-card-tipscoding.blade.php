@@ -1,12 +1,16 @@
-<div class="flex flex-col items-center h-full px-6 py-5
+<div
+  class="flex flex-col items-center h-full px-6 py-5
   bg-linear-to-t from-blue-200 to-sky-100 rounded-3xl">
   <div class="">
     <div class="flex items-start justify-between w-full mb-4">
       <div class="flex items-center gap-2">
         <img
-          src="{{ asset('frontend/img/user/user.png') }}"
+          src="{{ $tipscoding->user->image ?
+            asset('storage/' . $tipscoding->user->image) :
+            asset('image/user.png')
+          }}"
           alt="author"
-          class="object-cover w-12 h-12 border border-gray-300 rounded-full"
+          class="object-cover object-top w-12 h-12 border border-gray-500 rounded-full p-px"
         />
 
         <div>
@@ -43,9 +47,11 @@
     <div class="flex items-center">
       <div class="hs-tooltip [--placement:auto]">
         <div
-          class="relative hs-tooltip-toggle mt-3 ml-1 mb-2 text-[19px] font-semibold text-gray-700 hover:underline hover:underline-offset-2 hover:decoration-blue-500 line-clamp-1 tracking-tight">
-
-          <a href="">
+          class="relative hs-tooltip-toggle mt-3 ml-1 mb-2 text-[19px] font-semibold text-gray-800 hover:underline hover:underline-offset-2 hover:decoration-blue-500 line-clamp-1 tracking-tight">
+          <a href="{{ route('ec-tipscodings.show', [
+            'category' => $tipscoding->category->slug,
+            'tipscoding' => $tipscoding->slug
+            ]) }}">
             {{ $tipscoding->title }}
           </a>
 
@@ -67,7 +73,10 @@
           class="flex items-center px-2 py-1 text-[13px] font-medium text-blue-600 rounded-[9px] bg-white tracking-wider border border-blue-400 hover:bg-gray-200 hover:text-black">
           🔹
           <img
-            src="{{ asset('frontend/img/explore/app-laravel.png') }}"
+            src="{{ $tipscoding->category->image ?
+              asset('storage/' . $tipscoding->category->image) :
+              asset('image/default.png')
+            }}"
             alt="image"
             class="w-4 h-4 mr-1"
           />
@@ -82,12 +91,12 @@
       <a href="{{ route('ec-tipscodings.show', [
         'category' => $tipscoding->category->slug,
         'tipscoding' => $tipscoding->slug
-      ]) }}">
+        ]) }}">
         <div class="flex items-center">
           <div class="hs-tooltip [--placement:auto]">
             <div
               class="relative flex items-center px-2 py-1 text-sm font-medium tracking-wider text-white bg-blue-600 rounded-[9px] shadow-sm hs-tooltip-toggle hover:bg-blue-700">
-              baca
+              🔹baca
               <i class="ml-1 text-xs bi bi-box-arrow-up-right"></i>
 
               <span

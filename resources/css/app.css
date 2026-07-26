@@ -77,13 +77,14 @@
 @layer components {
   .prose pre,
   .prose code {
-    font-family: "JetBrains Mono", monospace;
+    font-family: "JetBrains Mono";
+    font-size: 15px;
   }
 }
 
 /* markdown inline code */
 .x {
-  @apply text-red-700 bg-red-50 rounded-lg px-2 inline-flex
+  @apply text-red-700 bg-gray-200 rounded-xs px-2 inline-flex
   items-center text-sm;
 }
 

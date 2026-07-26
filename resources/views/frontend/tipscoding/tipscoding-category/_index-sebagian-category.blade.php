@@ -6,7 +6,7 @@
         <button
           class="flex items-center cursor-pointer pl-3 pr-1.5 py-1.5 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200">
           <span class="mr-1 text-[11px] text-black">
-            {{ $category->sc }}
+            🔹{{ $category->sc }}
           </span>
 
           @if ($category->image)

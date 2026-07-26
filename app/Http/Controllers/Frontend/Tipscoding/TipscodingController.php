@@ -38,8 +38,8 @@ class TipscodingController extends Controller
       ])
       ->withCount('tipscodingviews')
       ->with([
-        'category:id,name,slug',
-        'user:id,username'
+        'category:id,name,slug,image',
+        'user:id,username,image'
       ])
       ->orderBy('id', 'desc')
       ->paginate(12);
@@ -81,8 +81,8 @@ class TipscodingController extends Controller
       ])
       ->withCount('tipscodingviews')
       ->with([
-        'category:id,name,slug',
-        'user:id,username'
+        'category:id,name,slug,image',
+        'user:id,username,image'
       ])
       ->orderBy('id', 'desc')
       ->paginate(12);
@@ -101,23 +101,11 @@ class TipscodingController extends Controller
   public function show(Category $category, Tipscoding $tipscoding)
   {
     $tipstotal = Tipscoding::count();
-
-    $categories = Category::query()
-      ->select([
-        'id',
-        'sc',
-        'name',
-        'image',
-        'slug'
-      ])
-      ->withCount('tipscodings')
-      ->orderBy('sc', 'asc')
-      ->limit(15)
-      ->get();
+    $categorytotal = Category::count();
 
     $tipscoding->load([
-      'category:id,name,slug',
-      'user:id,username',
+      'category:id,name,slug,image',
+      'user:id,username,image',
     ]);
 
     $tipscoding->loadCount('tipscodingviews');
@@ -127,7 +115,7 @@ class TipscodingController extends Controller
       'category' => $category,
       'tipscoding' => $tipscoding,
       'tipstotal' => $tipstotal,
-      'categories' => $categories
+      'categorytotal' => $categorytotal
     ]);
   }
 }

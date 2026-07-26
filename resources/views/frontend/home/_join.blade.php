@@ -12,7 +12,7 @@
 
   <div
     class="max-w-sm mx-auto mt-3 text-2xl font-bold tracking-tight text-center text-gray-900 leading-11 sm:text-3xl sm:max-w-3xl lg:text-4xl">
-    belajar coding lebih ter'arah dan terstruktur hanya di sini
+    belajar coding dari dasar lebih ter'arah dan terstruktur hanya di sini
   </div>
 
   <div class="flex justify-center mt-5">
