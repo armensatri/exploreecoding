@@ -6,76 +6,76 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class SubmenuUr extends FormRequest
 {
-  public function authorize(): bool
-  {
-    return true;
-  }
+    public function authorize(): bool
+    {
+        return true;
+    }
 
-  public function rules(): array
-  {
-    return [
-      'menu_id' => [
-        'required'
-      ],
+    public function rules(): array
+    {
+        return [
+            'menu_id' => [
+                'required',
+            ],
 
-      'ssm' => [
-        'required',
-        'numeric'
-      ],
+            'ssm' => [
+                'required',
+                'numeric',
+            ],
 
-      'name' => [
-        'required',
-        'min:3',
-        'max:75',
-      ],
+            'name' => [
+                'required',
+                'min:3',
+                'max:75',
+            ],
 
-      'slug' => [
-        'required',
-        'min:3',
-        'max:75',
-      ],
+            'slug' => [
+                'required',
+                'min:3',
+                'max:75',
+            ],
 
-      'route' => [
-        'required'
-      ],
+            'route' => [
+                'required',
+            ],
 
-      'active' => [
-        'required'
-      ],
+            'active' => [
+                'required',
+            ],
 
-      'routename' => [
-        'required'
-      ],
+            'routename' => [
+                'required',
+            ],
 
-      'description' => [
-        'required'
-      ],
-    ];
-  }
+            'description' => [
+                'required',
+            ],
+        ];
+    }
 
-  public function messages()
-  {
-    return [
-      'menu_id.required' => 'Submenu..menu! harus di isi',
+    public function messages()
+    {
+        return [
+            'menu_id.required' => 'Submenu..menu! harus di isi',
 
-      'ssm.required' => 'Submenu..sorting! harus di isi',
-      'ssm.numeric' => 'Submenu..sorting! hanya boleh angka',
+            'ssm.required' => 'Submenu..sorting! harus di isi',
+            'ssm.numeric' => 'Submenu..sorting! hanya boleh angka',
 
-      'name.required' => 'Submenu..name! harus di isi',
-      'name.min' => 'Submenu..name! minimal 3 karalter',
-      'name.max' => 'Submenu..name! maksimal 75 karakter',
+            'name.required' => 'Submenu..name! harus di isi',
+            'name.min' => 'Submenu..name! minimal 3 karalter',
+            'name.max' => 'Submenu..name! maksimal 75 karakter',
 
-      'slug.required' => 'Submenu..slug! harus di isi',
-      'slug.min' => 'Submenu..slug! minimal 3 karakter',
-      'slug.max' => 'Submenu..slug! maksimal 75 karakter',
+            'slug.required' => 'Submenu..slug! harus di isi',
+            'slug.min' => 'Submenu..slug! minimal 3 karakter',
+            'slug.max' => 'Submenu..slug! maksimal 75 karakter',
 
-      'route.required' => 'Submenu..route! harus di isi',
+            'route.required' => 'Submenu..route! harus di isi',
 
-      'active.required' => 'Submenu..active! harus di isi',
+            'active.required' => 'Submenu..active! harus di isi',
 
-      'routename.required' => 'Submenu..routename! harus di isi',
+            'routename.required' => 'Submenu..routename! harus di isi',
 
-      'description.required' => 'Submenu..description! harus di isi',
-    ];
-  }
+            'description.required' => 'Submenu..description! harus di isi',
+        ];
+    }
 }

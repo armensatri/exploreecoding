@@ -8,13 +8,13 @@ use Illuminate\View\Component;
 
 class Description extends Component
 {
-  public function __construct(
-    public string $tableName,
-    public mixed $pageData,
-  ) {}
+    public function __construct(
+        public string $tableName,
+        public mixed $pageData,
+    ) {}
 
-  public function render(): View|Closure|string
-  {
-    return view('components.backend.table-header.description');
-  }
+    public function render(): View|Closure|string
+    {
+        return view('components.backend.table-header.description');
+    }
 }

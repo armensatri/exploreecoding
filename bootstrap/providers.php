@@ -1,11 +1,19 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+use App\Providers\AuthServiceProvider;
+use App\Providers\BackendServiceProvider;
+use App\Providers\FrontendfooterpopulerpathsServiceProvider;
+use App\Providers\FrontendServiceProvider;
+use App\Providers\RouteServiceProvider;
+use App\Providers\SidebarServiceProvider;
+
 return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\AuthServiceProvider::class,
-    App\Providers\BackendServiceProvider::class,
-    App\Providers\FrontendServiceProvider::class,
-    App\Providers\FrontendfooterpopulerpathsServiceProvider::class,
-    App\Providers\RouteServiceProvider::class,
-    App\Providers\SidebarServiceProvider::class,
+    AppServiceProvider::class,
+    AuthServiceProvider::class,
+    BackendServiceProvider::class,
+    FrontendServiceProvider::class,
+    FrontendfooterpopulerpathsServiceProvider::class,
+    RouteServiceProvider::class,
+    SidebarServiceProvider::class,
 ];

@@ -8,15 +8,15 @@ use Illuminate\View\Component;
 
 class Question extends Component
 {
-  public function __construct(
-    public string $heading,
-    public mixed $collapse,
-    public string $question,
-    public string $answer,
-  ) {}
+    public function __construct(
+        public string $heading,
+        public mixed $collapse,
+        public string $question,
+        public string $answer,
+    ) {}
 
-  public function render(): View|Closure|string
-  {
-    return view('components.frontend.home.question');
-  }
+    public function render(): View|Closure|string
+    {
+        return view('components.frontend.home.question');
+    }
 }

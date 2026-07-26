@@ -6,22 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-  public function up(): void
-  {
-    Schema::create('statuses', function (Blueprint $table) {
-      $table->id();
-      $table->integer('ss')->index();
-      $table->string('name')->unique();
-      $table->string('slug')->unique();
-      $table->string('bg');
-      $table->string('text');
-      $table->text('description');
-      $table->timestamps();
-    });
-  }
+    public function up(): void
+    {
+        Schema::create('statuses', function (Blueprint $table) {
+            $table->id();
+            $table->integer('ss')->index();
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
+            $table->string('bg');
+            $table->string('text');
+            $table->text('description');
+            $table->timestamps();
+        });
+    }
 
-  public function down(): void
-  {
-    Schema::dropIfExists('statuses');
-  }
+    public function down(): void
+    {
+        Schema::dropIfExists('statuses');
+    }
 };

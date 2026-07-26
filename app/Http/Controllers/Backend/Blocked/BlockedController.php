@@ -6,17 +6,17 @@ use App\Http\Controllers\Controller;
 
 class BlockedController extends Controller
 {
-  public function blocked()
-  {
-    return view('backend.blocked.blocked', [
-      'title' => 'Access blocked'
-    ]);
-  }
+    public function blocked()
+    {
+        return view('backend.blocked.blocked', [
+            'title' => 'Access blocked',
+        ]);
+    }
 
-  public function blockedpermission()
-  {
-    return view('backend.blocked.blocked-permission', [
-      'title' => 'Permission blocked'
-    ]);
-  }
+    public function blockedpermission()
+    {
+        return view('backend.blocked.blocked-permission', [
+            'title' => 'Permission blocked',
+        ]);
+    }
 }

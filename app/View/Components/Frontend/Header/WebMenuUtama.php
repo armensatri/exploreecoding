@@ -8,16 +8,16 @@ use Illuminate\View\Component;
 
 class WebMenuUtama extends Component
 {
-  public function __construct(
-    public string $route,
-    public string $image,
-    public string $menu,
-    public string $description,
-    public string $buttonName,
-  ) {}
+    public function __construct(
+        public string $route,
+        public string $image,
+        public string $menu,
+        public string $description,
+        public string $buttonName,
+    ) {}
 
-  public function render(): View|Closure|string
-  {
-    return view('components.frontend.header.web-menu-utama');
-  }
+    public function render(): View|Closure|string
+    {
+        return view('components.frontend.header.web-menu-utama');
+    }
 }

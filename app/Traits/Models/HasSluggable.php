@@ -6,17 +6,17 @@ use Cviebrock\EloquentSluggable\Sluggable;
 
 trait HasSluggable
 {
-  use Sluggable;
+    use Sluggable;
 
-  public function sluggable(): array
-  {
-    $source = property_exists($this, 'sluggable')
-      ? $this->sluggable : 'name';
+    public function sluggable(): array
+    {
+        $source = property_exists($this, 'sluggable')
+          ? $this->sluggable : 'name';
 
-    return [
-      'slug' => [
-        'source' => $source
-      ]
-    ];
-  }
+        return [
+            'slug' => [
+                'source' => $source,
+            ],
+        ];
+    }
 }

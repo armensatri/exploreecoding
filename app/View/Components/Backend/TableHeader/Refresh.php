@@ -8,12 +8,12 @@ use Illuminate\View\Component;
 
 class Refresh extends Component
 {
-  public function __construct(
-    public string $route,
-  ) {}
+    public function __construct(
+        public string $route,
+    ) {}
 
-  public function render(): View|Closure|string
-  {
-    return view('components.backend.table-header.refresh');
-  }
+    public function render(): View|Closure|string
+    {
+        return view('components.backend.table-header.refresh');
+    }
 }

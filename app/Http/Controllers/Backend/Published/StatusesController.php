@@ -2,178 +2,175 @@
 
 namespace App\Http\Controllers\Backend\Published;
 
-use Illuminate\Http\Request;
-use App\Models\Published\Status;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\Published\Status\StatusSr;
+use App\Http\Requests\Published\Status\StatusUr;
+use App\Models\Published\Status;
 use App\Traits\Controller\ValidationUnique;
 use Cviebrock\EloquentSluggable\Services\SlugService;
-
-use App\Http\Requests\Published\Status\{
-  StatusSr,
-  StatusUr
-};
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class StatusesController extends Controller
 {
-  use ValidationUnique;
+    use ValidationUnique;
 
-  /**
-   * Display a listing of the resource.
-   */
-  public function index()
-  {
-    $filters = request(['search']);
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $filters = request(['search']);
 
-    $cacheKey = 'statuses.index.ids.'
-      . Status::cacheVersion() . '.'
-      . md5(json_encode($filters));
+        $cacheKey = 'statuses.index.ids.'
+          .Status::cacheVersion().'.'
+          .md5(json_encode($filters));
 
-    $ids = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      fn() => Status::query()
-        ->search($filters)
-        ->orderBy('ss', 'asc')
-        ->pluck('id')
-        ->toArray()
-    );
+        $ids = Cache::remember(
+            $cacheKey,
+            now()->addMinutes(10),
+            fn () => Status::query()
+                ->search($filters)
+                ->orderBy('ss', 'asc')
+                ->pluck('id')
+                ->toArray()
+        );
 
-    $statuses = Status::query()
-      ->whereIn('id', $ids)
-      ->select([
-        'id',
-        'ss',
-        'name',
-        'slug',
-        'bg',
-        'text',
-        'description',
-      ])->orderBy('ss', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+        $statuses = Status::query()
+            ->whereIn('id', $ids)
+            ->select([
+                'id',
+                'ss',
+                'name',
+                'slug',
+                'bg',
+                'text',
+                'description',
+            ])->orderBy('ss', 'asc')
+            ->paginate(10)
+            ->withQueryString();
 
-    return view('backend.published.statuses.index', [
-      'title' => 'Semua data statuses',
-      'statuses' => $statuses
-    ]);
-  }
+        return view('backend.published.statuses.index', [
+            'title' => 'Semua data statuses',
+            'statuses' => $statuses,
+        ]);
+    }
 
-  /**
-   * Show the form for creating a new resource.
-   */
-  public function create()
-  {
-    return view('backend.published.statuses.create', [
-      'title' => 'Create data status'
-    ]);
-  }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('backend.published.statuses.create', [
+            'title' => 'Create data status',
+        ]);
+    }
 
-  /**
-   * Store a newly created resource in storage.
-   */
-  public function store(StatusSr $request)
-  {
-    $datastore = $request->validated();
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StatusSr $request)
+    {
+        $datastore = $request->validated();
 
-    $status = Status::create($datastore);
+        $status = Status::create($datastore);
 
-    Alert::html(
-      'success',
-      "Data status!
+        Alert::html(
+            'success',
+            "Data status!
         <span style='color:#2563eb;'>
           {$status->name}
         </span> berhasil di tambahkan",
-      'success'
-    );
+            'success'
+        );
 
-    return redirect()->route('statuses.index');
-  }
+        return redirect()->route('statuses.index');
+    }
 
-  /**
-   * Display the specified resource.
-   */
-  public function show(Status $status)
-  {
-    return view('backend.published.statuses.show', [
-      'title' => 'Detail data status',
-      'status' => $status
-    ]);
-  }
+    /**
+     * Display the specified resource.
+     */
+    public function show(Status $status)
+    {
+        return view('backend.published.statuses.show', [
+            'title' => 'Detail data status',
+            'status' => $status,
+        ]);
+    }
 
-  /**
-   * Show the form for editing the specified resource.
-   */
-  public function edit(Status $status)
-  {
-    return view('backend.published.statuses.edit', [
-      'title' => 'Edit data status',
-      'status' => $status
-    ]);
-  }
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Status $status)
+    {
+        return view('backend.published.statuses.edit', [
+            'title' => 'Edit data status',
+            'status' => $status,
+        ]);
+    }
 
-  /**
-   * Update the specified resource in storage.
-   */
-  public function update(StatusUr $request, Status $status)
-  {
-    $dataupdate = $request->validated();
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(StatusUr $request, Status $status)
+    {
+        $dataupdate = $request->validated();
 
-    $this->fieldUnique(
-      $request,
-      $status,
-      ['name', 'slug'],
-      [
-        'name.unique' => 'Status..name! sudah terdaptar',
-        'slug.unique'    => 'Status..slug! sudah terdaptar',
-      ]
-    );
+        $this->fieldUnique(
+            $request,
+            $status,
+            ['name', 'slug'],
+            [
+                'name.unique' => 'Status..name! sudah terdaptar',
+                'slug.unique' => 'Status..slug! sudah terdaptar',
+            ]
+        );
 
-    $status->update($dataupdate);
+        $status->update($dataupdate);
 
-    Alert::html(
-      'success',
-      "Data status!
+        Alert::html(
+            'success',
+            "Data status!
         <span style='color:#2563eb;'>
           {$status->name}
         </span> berhasil di update",
-      'success'
-    );
+            'success'
+        );
 
-    return redirect()->route('statuses.index');
-  }
+        return redirect()->route('statuses.index');
+    }
 
-  /**
-   * Remove the specified resource from storage.
-   */
-  public function destroy(Status $status)
-  {
-    Status::destroy($status->id);
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Status $status)
+    {
+        Status::destroy($status->id);
 
-    Alert::html(
-      'success',
-      "Data status!
+        Alert::html(
+            'success',
+            "Data status!
         <span style='color:#2563eb;'>
           {$status->name}
         </span> berhasil di delete",
-      'success'
-    );
+            'success'
+        );
 
-    return redirect()->route('statuses.index');
-  }
+        return redirect()->route('statuses.index');
+    }
 
-  /**
-   * Generate resource slug otomatis.
-   */
-  public function slug(Request $request)
-  {
-    $slug = SlugService::createSlug(
-      Status::class,
-      'slug',
-      $request->name
-    );
+    /**
+     * Generate resource slug otomatis.
+     */
+    public function slug(Request $request)
+    {
+        $slug = SlugService::createSlug(
+            Status::class,
+            'slug',
+            $request->name
+        );
 
-    return response()->json(['slug' => $slug]);
-  }
+        return response()->json(['slug' => $slug]);
+    }
 }

@@ -8,14 +8,14 @@ use Illuminate\View\Component;
 
 class InputImagePreview extends Component
 {
-  public function __construct(
-    public string $labelFor,
-    public string $labelName,
-    public ?string $image = null,
-  ) {}
+    public function __construct(
+        public string $labelFor,
+        public string $labelName,
+        public ?string $image = null,
+    ) {}
 
-  public function render(): View|Closure|string
-  {
-    return view('components.backend.input.input-image-preview');
-  }
+    public function render(): View|Closure|string
+    {
+        return view('components.backend.input.input-image-preview');
+    }
 }

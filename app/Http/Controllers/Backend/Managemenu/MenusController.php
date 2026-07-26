@@ -2,199 +2,196 @@
 
 namespace App\Http\Controllers\Backend\Managemenu;
 
-use Illuminate\Http\Request;
-use App\Models\Managemenu\Menu;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\Managemenu\Menu\MenuSr;
+use App\Http\Requests\Managemenu\Menu\MenuUr;
+use App\Models\Managemenu\Menu;
 use App\Traits\Controller\ValidationUnique;
 use Cviebrock\EloquentSluggable\Services\SlugService;
-
-use App\Http\Requests\Managemenu\Menu\{
-  MenuSr,
-  MenuUr
-};
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MenusController extends Controller
 {
-  use ValidationUnique;
+    use ValidationUnique;
 
-  /**
-   * Display a listing of the resource.
-   */
-  public function index()
-  {
-    $filters = request(['search']);
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $filters = request(['search']);
 
-    $cacheKey = 'menus.index.ids.'
-      . Menu::cacheVersion() . '.'
-      . md5(json_encode($filters));
+        $cacheKey = 'menus.index.ids.'
+          .Menu::cacheVersion().'.'
+          .md5(json_encode($filters));
 
-    $ids = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      fn() => Menu::query()
-        ->search($filters)
-        ->orderBy('sm', 'asc')
-        ->pluck('id')
-        ->toArray()
-    );
+        $ids = Cache::remember(
+            $cacheKey,
+            now()->addMinutes(10),
+            fn () => Menu::query()
+                ->search($filters)
+                ->orderBy('sm', 'asc')
+                ->pluck('id')
+                ->toArray()
+        );
 
-    $menus = Menu::query()
-      ->whereIn('id', $ids)
-      ->select([
-        'id',
-        'sm',
-        'name',
-        'slug',
-        'description',
-      ])
-      ->orderBy('sm', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+        $menus = Menu::query()
+            ->whereIn('id', $ids)
+            ->select([
+                'id',
+                'sm',
+                'name',
+                'slug',
+                'description',
+            ])
+            ->orderBy('sm', 'asc')
+            ->paginate(10)
+            ->withQueryString();
 
-    return view('backend.managemenu.menus.index', [
-      'title' => 'Semua data menus',
-      'menus' => $menus
-    ]);
-  }
+        return view('backend.managemenu.menus.index', [
+            'title' => 'Semua data menus',
+            'menus' => $menus,
+        ]);
+    }
 
-  /**
-   * Show the form for creating a new resource.
-   */
-  public function create()
-  {
-    return view('backend.managemenu.menus.create', [
-      'title' => 'Create data menu'
-    ]);
-  }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('backend.managemenu.menus.create', [
+            'title' => 'Create data menu',
+        ]);
+    }
 
-  /**
-   * Store a newly created resource in storage.
-   */
-  public function store(MenuSr $request)
-  {
-    $datastore = $request->validated();
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(MenuSr $request)
+    {
+        $datastore = $request->validated();
 
-    $menu = Menu::create($datastore);
+        $menu = Menu::create($datastore);
 
-    Alert::html(
-      'success',
-      "Data menu!
+        Alert::html(
+            'success',
+            "Data menu!
         <span style='color:#2563eb;'>
           {$menu->name}
         </span> berhasil di tambahkan",
-      'success'
-    );
+            'success'
+        );
 
-    return redirect()->route('menus.index');
-  }
+        return redirect()->route('menus.index');
+    }
 
-  /**
-   * Display the specified resource.
-   */
-  public function show(Menu $menu)
-  {
-    return view('backend.managemenu.menus.show', [
-      'title' => 'Detail data menu',
-      'menu' => $menu
-    ]);
-  }
+    /**
+     * Display the specified resource.
+     */
+    public function show(Menu $menu)
+    {
+        return view('backend.managemenu.menus.show', [
+            'title' => 'Detail data menu',
+            'menu' => $menu,
+        ]);
+    }
 
-  /**
-   * Show the form for editing the specified resource.
-   */
-  public function edit(Menu $menu)
-  {
-    return view('backend.managemenu.menus.edit', [
-      'title' => 'Edit data menu',
-      'menu' => $menu
-    ]);
-  }
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Menu $menu)
+    {
+        return view('backend.managemenu.menus.edit', [
+            'title' => 'Edit data menu',
+            'menu' => $menu,
+        ]);
+    }
 
-  /**
-   * Update the specified resource in storage.
-   */
-  public function update(MenuUr $request, Menu $menu)
-  {
-    $dataupdate = $request->validated();
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(MenuUr $request, Menu $menu)
+    {
+        $dataupdate = $request->validated();
 
-    $this->fieldUnique(
-      $request,
-      $menu,
-      ['name', 'slug'],
-      [
-        'name.unique' => 'Menu..name! sudah terdaptar',
-        'slug.unique' => 'Menu..slug! sudah terdaptar',
-      ]
-    );
+        $this->fieldUnique(
+            $request,
+            $menu,
+            ['name', 'slug'],
+            [
+                'name.unique' => 'Menu..name! sudah terdaptar',
+                'slug.unique' => 'Menu..slug! sudah terdaptar',
+            ]
+        );
 
-    $menu->update($dataupdate);
+        $menu->update($dataupdate);
 
-    Alert::html(
-      'success',
-      "Data menu!
+        Alert::html(
+            'success',
+            "Data menu!
         <span style='color:#2563eb;'>
           {$menu->name}
         </span> berhasil di update",
-      'success'
-    );
+            'success'
+        );
 
-    return redirect()->route('menus.index');
-  }
+        return redirect()->route('menus.index');
+    }
 
-  /**
-   * Remove the specified resource from storage.
-   */
-  public function destroy(Menu $menu)
-  {
-    if (in_array($menu->name, [
-      'owner',
-      'superadmin',
-      'creator',
-      'member',
-      'account',
-      'managedata',
-      'manageuser',
-      'managemenu'
-    ])) {
-      Alert::html(
-        'Oops...',
-        "Data menu!
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Menu $menu)
+    {
+        if (in_array($menu->name, [
+            'owner',
+            'superadmin',
+            'creator',
+            'member',
+            'account',
+            'managedata',
+            'manageuser',
+            'managemenu',
+        ])) {
+            Alert::html(
+                'Oops...',
+                "Data menu!
           <span style='color:#2563eb;'>
             {$menu->name}
           </span> tidak boleh di delete",
-        'warning'
-      );
+                'warning'
+            );
 
-      return redirect()->route('menus.index');
-    }
+            return redirect()->route('menus.index');
+        }
 
-    Menu::destroy($menu->id);
+        Menu::destroy($menu->id);
 
-    Alert::html(
-      'success',
-      "Data menu!
+        Alert::html(
+            'success',
+            "Data menu!
         <span style='color:#2563eb;'>
           {$menu->name}
         </span> berhasil di delete",
-      'success'
-    );
+            'success'
+        );
 
-    return redirect()->route('menus.index');
-  }
+        return redirect()->route('menus.index');
+    }
 
-  /**
-   * Generate resource slug otomatis.
-   */
-  public function slug(Request $request)
-  {
-    $slug = SlugService::createSlug(
-      Menu::class,
-      'slug',
-      $request->name
-    );
+    /**
+     * Generate resource slug otomatis.
+     */
+    public function slug(Request $request)
+    {
+        $slug = SlugService::createSlug(
+            Menu::class,
+            'slug',
+            $request->name
+        );
 
-    return response()->json(['slug' => $slug]);
-  }
+        return response()->json(['slug' => $slug]);
+    }
 }

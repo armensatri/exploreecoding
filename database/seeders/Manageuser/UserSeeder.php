@@ -2,50 +2,49 @@
 
 namespace Database\Seeders\Manageuser;
 
-use App\Helpers\RandomUrl;
-use Illuminate\Database\Seeder;
 use App\Models\Manageuser\User;
+use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
-  public function run(): void
-  {
-    $users = [
-      [
-        'name' => 'Armen Satri',
-        'username' => 'armensatri',
-        'email' => 'armensatri@gmail.com',
-        'password' => bcrypt('Coba123#'),
-        'role_id' => 1,
-      ],
+    public function run(): void
+    {
+        $users = [
+            [
+                'name' => 'Armen Satri',
+                'username' => 'armensatri',
+                'email' => 'armensatri@gmail.com',
+                'password' => bcrypt('Coba123#'),
+                'role_id' => 1,
+            ],
 
-      [
-        'name' => 'Super Admin',
-        'username' => 'superadmin',
-        'email' => 'superadmin@gmail.com',
-        'password' => bcrypt('Coba123#'),
-        'role_id' => 2,
-      ],
+            [
+                'name' => 'Super Admin',
+                'username' => 'superadmin',
+                'email' => 'superadmin@gmail.com',
+                'password' => bcrypt('Coba123#'),
+                'role_id' => 2,
+            ],
 
-      [
-        'name' => 'Creator',
-        'username' => 'creator',
-        'email' => 'creator@gmail.com',
-        'password' => bcrypt('Coba123#'),
-        'role_id' => 3,
-      ],
+            [
+                'name' => 'Creator',
+                'username' => 'creator',
+                'email' => 'creator@gmail.com',
+                'password' => bcrypt('Coba123#'),
+                'role_id' => 3,
+            ],
 
-      [
-        'name' => 'Member',
-        'username' => 'member',
-        'email' => 'member@gmail.com',
-        'password' => bcrypt('Coba123#'),
-        'role_id' => 4,
-      ],
-    ];
+            [
+                'name' => 'Member',
+                'username' => 'member',
+                'email' => 'member@gmail.com',
+                'password' => bcrypt('Coba123#'),
+                'role_id' => 4,
+            ],
+        ];
 
-    foreach ($users as $user) {
-      User::create($user);
+        foreach ($users as $user) {
+            User::create($user);
+        }
     }
-  }
 }

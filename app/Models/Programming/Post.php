@@ -4,76 +4,69 @@ namespace App\Models\Programming;
 
 use App\Models\Manageuser\User;
 use App\Models\Published\Status;
-use App\Models\Programming\Playlist;
+use App\Traits\Models\HasCacheVersion;
+use App\Traits\Models\HasSearchable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-use Illuminate\Database\Eloquent\{
-  Model,
-  Builder
-};
-
-use App\Traits\Models\{
-  HasSearchable,
-  HasCacheVersion,
-};
+use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-  use HasCacheVersion;
-  use HasSearchable, HasFactory;
+    use HasCacheVersion;
+    use HasFactory, HasSearchable;
 
-  protected $table = 'posts';
+    protected $table = 'posts';
 
-  protected $fillable = [
-    'user_id',
-    'status_id',
-    'playlist_id',
-    'sp',
-    'title',
-    'slug',
-    'excerpt',
-    'content',
-    'image',
-  ];
+    protected $fillable = [
+        'user_id',
+        'status_id',
+        'playlist_id',
+        'sp',
+        'title',
+        'slug',
+        'excerpt',
+        'content',
+        'image',
+    ];
 
-  protected $sFields = [
-    'title'
-  ];
+    protected $sFields = [
+        'title',
+    ];
 
-  protected $sRelations = [
-    'status' => 'name',
-    'playlist' => 'name',
-    'user' => 'username',
-  ];
+    protected $sRelations = [
+        'status' => 'name',
+        'playlist' => 'name',
+        'user' => 'username',
+    ];
 
-  public function getRouteKeyName()
-  {
-    return 'slug';
-  }
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
-  public function status()
-  {
-    return $this->belongsTo(Status::class);
-  }
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 
-  public function playlist()
-  {
-    return $this->belongsTo(Playlist::class);
-  }
+    public function playlist()
+    {
+        return $this->belongsTo(Playlist::class);
+    }
 
-  public function user()
-  {
-    return $this->belongsTo(User::class);
-  }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-  public function scopeAccessPosts(Builder $query, User $user)
-  {
-    $role = $user->role?->name;
+    public function scopeAccessPosts(Builder $query, User $user)
+    {
+        $role = $user->role?->name;
 
-    return match ($role) {
-      'creator' => $query->where('user_id', $user->id),
-      'member'  => $query->whereKey([]),
-      default   => $query,
-    };
-  }
+        return match ($role) {
+            'creator' => $query->where('user_id', $user->id),
+            'member' => $query->whereKey([]),
+            default => $query,
+        };
+    }
 }

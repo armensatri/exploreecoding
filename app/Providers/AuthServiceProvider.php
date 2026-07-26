@@ -8,13 +8,13 @@ use Illuminate\Support\ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
-  public function register(): void
-  {
-    //
-  }
+    public function register(): void
+    {
+        //
+    }
 
-  public function boot(): void
-  {
-    Blade::component('message', Message::class);
-  }
+    public function boot(): void
+    {
+        Blade::component('message', Message::class);
+    }
 }

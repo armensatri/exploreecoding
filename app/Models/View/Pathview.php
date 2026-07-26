@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pathview extends Model
 {
-  protected $table = 'path_view';
+    protected $table = 'path_view';
 
-  protected $fillable = [
-    'path_id',
-    'user_id'
-  ];
+    protected $fillable = [
+        'path_id',
+        'user_id',
+    ];
 
-  public function path()
-  {
-    return $this->belongsTo(Path::class);
-  }
+    public function path()
+    {
+        return $this->belongsTo(Path::class);
+    }
 
-  public function user()
-  {
-    return $this->belongsTo(User::class);
-  }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

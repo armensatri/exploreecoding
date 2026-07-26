@@ -2,87 +2,87 @@
 
 namespace App\Http\Controllers\Backend\Managedata;
 
-use App\Models\Manageuser\User;
 use App\Http\Controllers\Controller;
+use App\Models\Manageuser\User;
 use Illuminate\Support\Facades\Cache;
 
 class VisitorController extends Controller
 {
-  public function index()
-  {
-    $filters = request(['search', 'role']);
+    public function index()
+    {
+        $filters = request(['search', 'role']);
 
-    $cacheKey = 'visitor.index.ids.'
-      . User::cacheVersion() . '.'
-      . md5(json_encode($filters));
+        $cacheKey = 'visitor.index.ids.'
+          .User::cacheVersion().'.'
+          .md5(json_encode($filters));
 
-    $ids = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      fn() => User::query()
-        ->search($filters)
-        ->where('status', 1)
-        ->orderBy('id', 'asc')
-        ->pluck('id')
-        ->toArray()
-    );
+        $ids = Cache::remember(
+            $cacheKey,
+            now()->addMinutes(10),
+            fn () => User::query()
+                ->search($filters)
+                ->where('status', 1)
+                ->orderBy('id', 'asc')
+                ->pluck('id')
+                ->toArray()
+        );
 
-    $users = User::query()
-      ->whereIn('id', $ids)
-      ->select([
-        'id',
-        'username',
-        'role_id',
-        'status_on_of',
-        'last_seen',
-        'status',
-      ])->with(['role:id,name,bg,text'])
-      ->orderBy('id', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+        $users = User::query()
+            ->whereIn('id', $ids)
+            ->select([
+                'id',
+                'username',
+                'role_id',
+                'status_on_of',
+                'last_seen',
+                'status',
+            ])->with(['role:id,name,bg,text'])
+            ->orderBy('id', 'asc')
+            ->paginate(10)
+            ->withQueryString();
 
-    return view('backend.managedata.visitor.index', [
-      'title' => 'Visitor',
-      'users' => $users
-    ]);
-  }
+        return view('backend.managedata.visitor.index', [
+            'title' => 'Visitor',
+            'users' => $users,
+        ]);
+    }
 
-  public function banned()
-  {
-    $filters = request(['search', 'role']);
-    $page = request('page', 1);
+    public function banned()
+    {
+        $filters = request(['search', 'role']);
+        $page = request('page', 1);
 
-    $cacheKey = 'visitor.banned.ids.'
-      . User::cacheVersion() . '.'
-      . md5(json_encode([$filters, $page]));
+        $cacheKey = 'visitor.banned.ids.'
+          .User::cacheVersion().'.'
+          .md5(json_encode([$filters, $page]));
 
-    $ids = Cache::remember(
-      $cacheKey,
-      now()->addMinutes(10),
-      fn() => User::query()
-        ->search($filters)
-        ->where('status', 0)
-        ->orderBy('id', 'asc')
-        ->forPage($page, 10)
-        ->pluck('id')
-        ->toArray()
-    );
+        $ids = Cache::remember(
+            $cacheKey,
+            now()->addMinutes(10),
+            fn () => User::query()
+                ->search($filters)
+                ->where('status', 0)
+                ->orderBy('id', 'asc')
+                ->forPage($page, 10)
+                ->pluck('id')
+                ->toArray()
+        );
 
-    $users = User::query()
-      ->whereIn('id', $ids)
-      ->select([
-        'id',
-        'username',
-        'role_id',
-        'status',
-      ])->with(['role:id,name,bg,text'])
-      ->orderBy('id', 'asc')
-      ->paginate(10)
-      ->withQueryString();
+        $users = User::query()
+            ->whereIn('id', $ids)
+            ->select([
+                'id',
+                'username',
+                'role_id',
+                'status',
+            ])->with(['role:id,name,bg,text'])
+            ->orderBy('id', 'asc')
+            ->paginate(10)
+            ->withQueryString();
 
-    return view('backend.managedata.visitor.banned', [
-      'title' => 'Visitor banned',
-      'users' => $users
-    ]);
-  }
+        return view('backend.managedata.visitor.banned', [
+            'title' => 'Visitor banned',
+            'users' => $users,
+        ]);
+    }
 }
