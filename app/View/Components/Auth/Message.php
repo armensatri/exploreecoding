@@ -8,12 +8,12 @@ use Illuminate\View\Component;
 
 class Message extends Component
 {
-    public function __construct(
-        public ?string $error = null,
-    ) {}
+  public function __construct(
+    public ?string $error = null,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.auth.message');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.auth.message');
+  }
 }

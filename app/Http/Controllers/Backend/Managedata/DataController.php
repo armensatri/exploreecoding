@@ -18,23 +18,23 @@ use App\Models\Tipscoding\Tipscoding;
 
 class DataController extends Controller
 {
-    public function index()
-    {
-        return view('backend.managedata.data.index', [
-            'title' => 'Data',
+  public function index()
+  {
+    return view('backend.managedata.data.index', [
+      'title' => 'Data',
 
-            'users' => User::count(),
-            'roles' => Role::count(),
-            'permissions' => Permission::count(),
-            'menus' => Menu::count(),
-            'submenus' => Submenu::count(),
-            'statuses' => Status::count(),
-            'paths' => Path::count(),
-            'roadmaps' => Roadmap::count(),
-            'playlists' => Playlist::count(),
-            'posts' => Post::count(),
-            'tipscodings' => Tipscoding::count(),
-            'categories' => Category::count(),
-        ]);
-    }
+      'users' => User::count(),
+      'roles' => Role::count(),
+      'permissions' => Permission::count(),
+      'menus' => Menu::count(),
+      'submenus' => Submenu::count(),
+      'statuses' => Status::count(),
+      'paths' => Path::count(),
+      'roadmaps' => Roadmap::count(),
+      'playlists' => Playlist::count(),
+      'posts' => Post::count(),
+      'tipscodings' => Tipscoding::count(),
+      'categories' => Category::count(),
+    ]);
+  }
 }

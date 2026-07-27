@@ -8,16 +8,16 @@ use Illuminate\View\Component;
 
 class Submenu extends Component
 {
-    public function __construct(
-        public string $route,
-        public string $active,
-        public string $ssm,
-        public string $subMenu,
-        public string $image,
-    ) {}
+  public function __construct(
+    public string $route,
+    public string $active,
+    public string $ssm,
+    public string $subMenu,
+    public string $image,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.backend.sidebar.submenu');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.backend.sidebar.submenu');
+  }
 }

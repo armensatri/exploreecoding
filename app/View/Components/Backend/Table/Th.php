@@ -8,12 +8,12 @@ use Illuminate\View\Component;
 
 class Th extends Component
 {
-    public function __construct(
-        public string $name,
-    ) {}
+  public function __construct(
+    public string $name,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.backend.table.th');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.backend.table.th');
+  }
 }

@@ -8,12 +8,12 @@ use Illuminate\View\Component;
 
 class BreadcrumbIcon extends Component
 {
-    public function __construct(
-        public string $image,
-    ) {}
+  public function __construct(
+    public string $image,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.backend.breadcrumb.breadcrumb-icon');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.backend.breadcrumb.breadcrumb-icon');
+  }
 }

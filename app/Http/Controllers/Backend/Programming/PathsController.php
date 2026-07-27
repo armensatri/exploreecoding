@@ -15,166 +15,166 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class PathsController extends Controller
 {
-    use ImageStore, ImageUpdate;
+  use ImageStore, ImageUpdate;
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $filters = request(['search', 'status']);
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+    $filters = request(['search', 'status']);
 
-        $cacheKey = 'paths.index.ids.'
-          .Path::cacheVersion().'.'
-          .md5(json_encode($filters));
+    $cacheKey = 'paths.index.ids.'
+      . Path::cacheVersion() . '.'
+      . md5(json_encode($filters));
 
-        $ids = Cache::remember(
-            $cacheKey,
-            now()->addMinutes(10),
-            fn () => Path::query()
-                ->search($filters)
-                ->orderBy('sp', 'asc')
-                ->pluck('id')
-                ->toArray()
-        );
+    $ids = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => Path::query()
+        ->search($filters)
+        ->orderBy('sp', 'asc')
+        ->pluck('id')
+        ->toArray()
+    );
 
-        $paths = Path::query()
-            ->whereIn('id', $ids)
-            ->select([
-                'id',
-                'sp',
-                'name',
-                'slug',
-                'status_id',
-            ])->with(['status:id,name,bg,text'])
-            ->orderBy('sp', 'asc')
-            ->paginate(10)
-            ->withQueryString();
+    $paths = Path::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'sp',
+        'name',
+        'slug',
+        'status_id',
+      ])->with(['status:id,name,bg,text'])
+      ->orderBy('sp', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
-        return view('backend.programming.paths.index', [
-            'title' => 'Semua data paths',
-            'paths' => $paths,
-        ]);
-    }
+    return view('backend.programming.paths.index', [
+      'title' => 'Semua data paths',
+      'paths' => $paths,
+    ]);
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Path $path)
-    {
-        $statuses = Status::query()->select('id', 'name')
-            ->orderBy('id', 'asc')
-            ->get();
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create(Path $path)
+  {
+    $statuses = Status::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
 
-        return view('backend.programming.paths.create', [
-            'title' => 'Create data path',
-            'path' => $path,
-            'statuses' => $statuses,
-        ]);
-    }
+    return view('backend.programming.paths.create', [
+      'title' => 'Create data path',
+      'path' => $path,
+      'statuses' => $statuses,
+    ]);
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(PathSr $request)
-    {
-        $datastore = $request->validated();
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(PathSr $request)
+  {
+    $datastore = $request->validated();
 
-        $datastore['image'] = $this->handleImageStore(
-            $request,
-            'image',
-            'programming/paths'
-        );
+    $datastore['image'] = $this->handleImageStore(
+      $request,
+      'image',
+      'programming/paths'
+    );
 
-        $path = Path::create($datastore);
+    $path = Path::create($datastore);
 
-        Alert::html(
-            'success',
-            "Data path!
+    Alert::html(
+      'success',
+      "Data path!
         <span style='color:#2563eb;'>
           {$path->name}
         </span> berhasil di tambahkan",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('paths.index');
-    }
+    return redirect()->route('paths.index');
+  }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Path $path)
-    {
-        return view('backend.programming.paths.show', [
-            'title' => 'Detail data path',
-            'path' => $path,
-        ]);
-    }
+  /**
+   * Display the specified resource.
+   */
+  public function show(Path $path)
+  {
+    return view('backend.programming.paths.show', [
+      'title' => 'Detail data path',
+      'path' => $path,
+    ]);
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Path $path)
-    {
-        $statuses = Status::query()->select('id', 'name')
-            ->orderBy('id', 'asc')
-            ->get();
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(Path $path)
+  {
+    $statuses = Status::query()->select('id', 'name')
+      ->orderBy('id', 'asc')
+      ->get();
 
-        return view('backend.programming.paths.edit', [
-            'title' => 'Edit data path',
-            'path' => $path,
-            'statuses' => $statuses,
-        ]);
-    }
+    return view('backend.programming.paths.edit', [
+      'title' => 'Edit data path',
+      'path' => $path,
+      'statuses' => $statuses,
+    ]);
+  }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(PathUr $request, Path $path)
-    {
-        $dataupdate = $request->validated();
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(PathUr $request, Path $path)
+  {
+    $dataupdate = $request->validated();
 
-        $dataupdate['image'] = $this->handleImageUpdate(
-            $request,
-            $path,
-            'image',
-            'programming/paths'
-        );
+    $dataupdate['image'] = $this->handleImageUpdate(
+      $request,
+      $path,
+      'image',
+      'programming/paths'
+    );
 
-        $path->update($dataupdate);
+    $path->update($dataupdate);
 
-        Alert::html(
-            'success',
-            "Data path!
+    Alert::html(
+      'success',
+      "Data path!
         <span style='color:#2563eb;'>
           {$path->name}
         </span> berhasil di update",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('paths.index');
+    return redirect()->route('paths.index');
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(Path $path)
+  {
+    if ($path->image) {
+      Storage::delete($path->image);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Path $path)
-    {
-        if ($path->image) {
-            Storage::delete($path->image);
-        }
+    Path::destroy($path->id);
 
-        Path::destroy($path->id);
-
-        Alert::html(
-            'success',
-            "Data path!
+    Alert::html(
+      'success',
+      "Data path!
         <span style='color:#2563eb;'>
           {$path->name}
         </span> berhasil di delete",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('paths.index');
-    }
+    return redirect()->route('paths.index');
+  }
 }

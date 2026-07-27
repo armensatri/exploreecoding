@@ -10,17 +10,17 @@ use Illuminate\Support\Facades\Redirect;
 
 class LogoutController extends Controller
 {
-    public function logout(Request $request)
-    {
-        User::where('id', Auth::id())->update([
-            'status_on_of' => 0,
-        ]);
+  public function logout(Request $request)
+  {
+    User::where('id', Auth::id())->update([
+      'status_on_of' => 0,
+    ]);
 
-        Auth::logout();
+    Auth::logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-        return Redirect::route('home');
-    }
+    return Redirect::route('home');
+  }
 }

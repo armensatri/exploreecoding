@@ -31,30 +31,30 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        //
-    }
+  public function register(): void
+  {
+    //
+  }
 
-    public function boot(): void
-    {
-        Model::preventLazyLoading(! app()->isProduction());
+  public function boot(): void
+  {
+    Model::preventLazyLoading(! app()->isProduction());
 
-        User::observe(UserObserver::class);
-        Role::observe(RoleObserver::class);
-        Permission::observe(PermissionObserver::class);
+    User::observe(UserObserver::class);
+    Role::observe(RoleObserver::class);
+    Permission::observe(PermissionObserver::class);
 
-        Menu::observe(MenuObserver::class);
-        Submenu::observe(SubmenuObserver::class);
+    Menu::observe(MenuObserver::class);
+    Submenu::observe(SubmenuObserver::class);
 
-        Status::observe(StatusObserver::class);
+    Status::observe(StatusObserver::class);
 
-        Path::observe(PathObserver::class);
-        Roadmap::observe(RoadmapObserver::class);
-        Playlist::observe(PlaylistObserver::class);
-        Post::observe(PostObserver::class);
+    Path::observe(PathObserver::class);
+    Roadmap::observe(RoadmapObserver::class);
+    Playlist::observe(PlaylistObserver::class);
+    Post::observe(PostObserver::class);
 
-        Tipscoding::observe(TipscodingObserver::class);
-        Category::observe(CategoryObserver::class);
-    }
+    Tipscoding::observe(TipscodingObserver::class);
+    Category::observe(CategoryObserver::class);
+  }
 }

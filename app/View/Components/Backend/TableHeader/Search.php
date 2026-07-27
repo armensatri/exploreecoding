@@ -8,13 +8,13 @@ use Illuminate\View\Component;
 
 class Search extends Component
 {
-    public function __construct(
-        public string $search,
-        public string $placeholder,
-    ) {}
+  public function __construct(
+    public string $search,
+    public string $placeholder,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.backend.table-header.search');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.backend.table-header.search');
+  }
 }

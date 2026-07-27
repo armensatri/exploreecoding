@@ -8,12 +8,12 @@ use Illuminate\View\Component;
 
 class TdVarCenter extends Component
 {
-    public function __construct(
-        public mixed $var,
-    ) {}
+  public function __construct(
+    public mixed $var,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.backend.table.td-var-center');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.backend.table.td-var-center');
+  }
 }

@@ -8,13 +8,13 @@ use Illuminate\View\Component;
 
 class Indexs extends Component
 {
-    public function __construct(
-        public string $route,
-        public string $buttonName,
-    ) {}
+  public function __construct(
+    public string $route,
+    public string $buttonName,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.backend.button.indexs');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.backend.button.indexs');
+  }
 }

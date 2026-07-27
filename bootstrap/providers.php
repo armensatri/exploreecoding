@@ -9,11 +9,11 @@ use App\Providers\RouteServiceProvider;
 use App\Providers\SidebarServiceProvider;
 
 return [
-    AppServiceProvider::class,
-    AuthServiceProvider::class,
-    BackendServiceProvider::class,
-    FrontendServiceProvider::class,
-    FrontendfooterpopulerpathsServiceProvider::class,
-    RouteServiceProvider::class,
-    SidebarServiceProvider::class,
+  AppServiceProvider::class,
+  AuthServiceProvider::class,
+  BackendServiceProvider::class,
+  FrontendServiceProvider::class,
+  FrontendfooterpopulerpathsServiceProvider::class,
+  RouteServiceProvider::class,
+  SidebarServiceProvider::class,
 ];

@@ -9,29 +9,29 @@ use Illuminate\Database\Seeder;
 
 class PathviewSeeder extends Seeder
 {
-    public function run(): void
-    {
-        $users = User::pluck('id');
+  public function run(): void
+  {
+    $users = User::pluck('id');
 
-        $paths = Path::select('id', 'name')->get();
+    $paths = Path::select('id', 'name')->get();
 
-        foreach ($users as $userId) {
+    foreach ($users as $userId) {
 
-            // Setiap user melihat 3 path secara acak
-            $randomPaths = $paths->random(3);
+      // Setiap user melihat 3 path secara acak
+      $randomPaths = $paths->random(3);
 
-            foreach ($randomPaths as $path) {
+      foreach ($randomPaths as $path) {
 
-                Pathview::firstOrCreate(
-                    [
-                        'user_id' => $userId,
-                        'path_id' => $path->id,
-                    ],
-                    [
-                        'path_name' => $path->name,
-                    ]
-                );
-            }
-        }
+        Pathview::firstOrCreate(
+          [
+            'user_id' => $userId,
+            'path_id' => $path->id,
+          ],
+          [
+            'path_name' => $path->name,
+          ]
+        );
+      }
     }
+  }
 }

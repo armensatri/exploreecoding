@@ -8,13 +8,13 @@ use Illuminate\View\Component;
 
 class Menu extends Component
 {
-    public function __construct(
-        public mixed $sm,
-        public mixed $menu,
-    ) {}
+  public function __construct(
+    public mixed $sm,
+    public mixed $menu,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.backend.sidebar.menu');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.backend.sidebar.menu');
+  }
 }

@@ -25,46 +25,46 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
+  use WithoutModelEvents;
 
-    public function run(): void
-    {
-        $this->call([
-            RoleSeeder::class,
-            UserSeeder::class,
-            MenuSeeder::class,
-            SubmenuSeeder::class,
-            RoleHasMenuSeeder::class,
-            RoleHasSubmenuSeeder::class,
-            PermissionSeeder::class,
-            RoleHasPermissionSeeder::class,
-            StatusSeeder::class,
-            PathSeeder::class,
-            RoadmapSeeder::class,
-            PlaylistSeeder::class,
-            PostSeeder::class,
-            CategorySeeder::class,
-            TipscodingSeeder::class,
-            PathviewSeeder::class,
-        ]);
+  public function run(): void
+  {
+    $this->call([
+      RoleSeeder::class,
+      UserSeeder::class,
+      MenuSeeder::class,
+      SubmenuSeeder::class,
+      RoleHasMenuSeeder::class,
+      RoleHasSubmenuSeeder::class,
+      PermissionSeeder::class,
+      RoleHasPermissionSeeder::class,
+      StatusSeeder::class,
+      PathSeeder::class,
+      RoadmapSeeder::class,
+      PlaylistSeeder::class,
+      PostSeeder::class,
+      CategorySeeder::class,
+      TipscodingSeeder::class,
+      PathviewSeeder::class,
+    ]);
 
-        // Path::factory()
-        //   ->count(5)
-        //   ->has(
-        //     Roadmap::factory()
-        //       ->count(4)
-        //       ->has(
-        //         Playlist::factory()
-        //           ->count(3)
-        //           ->has(
-        //             Post::factory()->count(10)
-        //           )
-        //       )
-        //   )->create();
+    // Path::factory()
+    //   ->count(5)
+    //   ->has(
+    //     Roadmap::factory()
+    //       ->count(4)
+    //       ->has(
+    //         Playlist::factory()
+    //           ->count(3)
+    //           ->has(
+    //             Post::factory()->count(10)
+    //           )
+    //       )
+    //   )->create();
 
-        // Category::factory()->count(20)->create();
-        // Tipscoding::factory()->count(80)->create();
+    // Category::factory()->count(20)->create();
+    // Tipscoding::factory()->count(80)->create();
 
-        $this->call(TipscodingviewSeeder::class);
-    }
+    $this->call(TipscodingviewSeeder::class);
+  }
 }

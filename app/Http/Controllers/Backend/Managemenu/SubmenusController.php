@@ -15,190 +15,190 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class SubmenusController extends Controller
 {
-    use ValidationUnique;
+  use ValidationUnique;
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $filters = request(['search', 'menu']);
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+    $filters = request(['search', 'menu']);
 
-        $cacheKey = 'submenus.index.ids.'
-          .Submenu::cacheVersion().'.'
-          .md5(json_encode($filters));
+    $cacheKey = 'submenus.index.ids.'
+      . Submenu::cacheVersion() . '.'
+      . md5(json_encode($filters));
 
-        $ids = Cache::remember(
-            $cacheKey,
-            now()->addMinutes(10),
-            fn () => Submenu::query()
-                ->search($filters)
-                ->orderBy('menu_id', 'asc')
-                ->pluck('id')
-                ->toArray()
-        );
+    $ids = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => Submenu::query()
+        ->search($filters)
+        ->orderBy('menu_id', 'asc')
+        ->pluck('id')
+        ->toArray()
+    );
 
-        $submenus = Submenu::query()
-            ->whereIn('id', $ids)
-            ->select([
-                'id',
-                'menu_id',
-                'ssm',
-                'name',
-                'slug',
-                'description',
-            ])->with(['menu:id,name'])
-            ->orderBy('menu_id', 'asc')
-            ->paginate(10)
-            ->withQueryString();
+    $submenus = Submenu::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'menu_id',
+        'ssm',
+        'name',
+        'slug',
+        'description',
+      ])->with(['menu:id,name'])
+      ->orderBy('menu_id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
-        return view('backend.managemenu.submenus.index', [
-            'title' => 'Semua data submenus',
-            'submenus' => $submenus,
-        ]);
-    }
+    return view('backend.managemenu.submenus.index', [
+      'title' => 'Semua data submenus',
+      'submenus' => $submenus,
+    ]);
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $menus = Menu::query()->select('id', 'name')
-            ->orderBy('sm', 'asc')
-            ->get();
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create()
+  {
+    $menus = Menu::query()->select('id', 'name')
+      ->orderBy('sm', 'asc')
+      ->get();
 
-        return view('backend.managemenu.submenus.create', [
-            'title' => 'Create data submenu',
-            'menus' => $menus,
-        ]);
-    }
+    return view('backend.managemenu.submenus.create', [
+      'title' => 'Create data submenu',
+      'menus' => $menus,
+    ]);
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(SubmenuSr $request)
-    {
-        $datastore = $request->validated();
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(SubmenuSr $request)
+  {
+    $datastore = $request->validated();
 
-        $submenu = Submenu::create($datastore);
+    $submenu = Submenu::create($datastore);
 
-        Alert::html(
-            'success',
-            "Data submenu!
+    Alert::html(
+      'success',
+      "Data submenu!
         <span style='color:#2563eb;'>
           {$submenu->name}
         </span> berhasil di tambahkan",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('submenus.index');
-    }
+    return redirect()->route('submenus.index');
+  }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Submenu $submenu)
-    {
-        return view('backend.managemenu.submenus.show', [
-            'title' => 'Detail data submenu',
-            'submenu' => $submenu,
-        ]);
-    }
+  /**
+   * Display the specified resource.
+   */
+  public function show(Submenu $submenu)
+  {
+    return view('backend.managemenu.submenus.show', [
+      'title' => 'Detail data submenu',
+      'submenu' => $submenu,
+    ]);
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Submenu $submenu)
-    {
-        $menus = Menu::query()->select('id', 'name')
-            ->orderBy('sm', 'asc')
-            ->get();
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(Submenu $submenu)
+  {
+    $menus = Menu::query()->select('id', 'name')
+      ->orderBy('sm', 'asc')
+      ->get();
 
-        return view('backend.managemenu.submenus.edit', [
-            'title' => 'Edit data submenu',
-            'submenu' => $submenu,
-            'menus' => $menus,
-        ]);
-    }
+    return view('backend.managemenu.submenus.edit', [
+      'title' => 'Edit data submenu',
+      'submenu' => $submenu,
+      'menus' => $menus,
+    ]);
+  }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(SubmenuUr $request, Submenu $submenu)
-    {
-        $dataupdate = $request->validated();
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(SubmenuUr $request, Submenu $submenu)
+  {
+    $dataupdate = $request->validated();
 
-        $this->fieldUnique(
-            $request,
-            $submenu,
-            ['name', 'slug'],
-            [
-                'name.unique' => 'Submenu..name! sudah terdaptar',
-                'slug.unique' => 'Submenu..slug! sudah terdaptar',
-            ]
-        );
+    $this->fieldUnique(
+      $request,
+      $submenu,
+      ['name', 'slug'],
+      [
+        'name.unique' => 'Submenu..name! sudah terdaptar',
+        'slug.unique' => 'Submenu..slug! sudah terdaptar',
+      ]
+    );
 
-        $submenu->update($dataupdate);
+    $submenu->update($dataupdate);
 
-        Alert::html(
-            'success',
-            "Data submenu!
+    Alert::html(
+      'success',
+      "Data submenu!
         <span style='color:#2563eb;'>
           {$submenu->name}
         </span> berhasil di update",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('submenus.index');
-    }
+    return redirect()->route('submenus.index');
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Submenu $submenu)
-    {
-        if (in_array($submenu->name, [
-            'access',
-            'menus',
-            'submenus',
-        ])) {
-            Alert::html(
-                'Oops...',
-                "Data submenu!
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(Submenu $submenu)
+  {
+    if (in_array($submenu->name, [
+      'access',
+      'menus',
+      'submenus',
+    ])) {
+      Alert::html(
+        'Oops...',
+        "Data submenu!
         <span style='color:#2563eb;'>
           {$submenu->name}
         </span> tidak boleh di delete",
-                'warning'
-            );
+        'warning'
+      );
 
-            return redirect()->route('submenus.index');
-        }
+      return redirect()->route('submenus.index');
+    }
 
-        Submenu::destroy($submenu->id);
+    Submenu::destroy($submenu->id);
 
-        Alert::html(
-            'success',
-            "Data submenu!
+    Alert::html(
+      'success',
+      "Data submenu!
         <span style='color:#2563eb;'>
           {$submenu->name}
         </span> berhasil di delete",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('submenus.index');
-    }
+    return redirect()->route('submenus.index');
+  }
 
-    /**
-     * Generate resource slug otomatis.
-     */
-    public function slug(Request $request)
-    {
-        $slug = SlugService::createSlug(
-            Submenu::class,
-            'slug',
-            $request->name
-        );
+  /**
+   * Generate resource slug otomatis.
+   */
+  public function slug(Request $request)
+  {
+    $slug = SlugService::createSlug(
+      Submenu::class,
+      'slug',
+      $request->name
+    );
 
-        return response()->json(['slug' => $slug]);
-    }
+    return response()->json(['slug' => $slug]);
+  }
 }

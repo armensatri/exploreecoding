@@ -6,15 +6,15 @@ use Illuminate\Support\ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public const HOME = '/';
+  public const HOME = '/';
 
-    public function register(): void
-    {
-        //
-    }
+  public function register(): void
+  {
+    //
+  }
 
-    public function boot(): void
-    {
-        //
-    }
+  public function boot(): void
+  {
+    //
+  }
 }

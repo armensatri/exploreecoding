@@ -6,52 +6,52 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class MenuUr extends FormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
+  public function authorize(): bool
+  {
+    return true;
+  }
 
-    public function rules(): array
-    {
-        return [
-            'sm' => [
-                'required',
-                'numeric',
-            ],
+  public function rules(): array
+  {
+    return [
+      'sm' => [
+        'required',
+        'numeric',
+      ],
 
-            'name' => [
-                'required',
-                'min:3',
-                'max:75',
-            ],
+      'name' => [
+        'required',
+        'min:3',
+        'max:75',
+      ],
 
-            'slug' => [
-                'required',
-                'min:3',
-                'max:75',
-            ],
+      'slug' => [
+        'required',
+        'min:3',
+        'max:75',
+      ],
 
-            'description' => [
-                'required',
-            ],
-        ];
-    }
+      'description' => [
+        'required',
+      ],
+    ];
+  }
 
-    public function messages()
-    {
-        return [
-            'sm.required' => 'Menu..sorting! harus di isi',
-            'sm.numeric' => 'Menu..sorting! hanya boleh angka',
+  public function messages()
+  {
+    return [
+      'sm.required' => 'Menu..sorting! harus di isi',
+      'sm.numeric' => 'Menu..sorting! hanya boleh angka',
 
-            'name.required' => 'Menu..name! harus di isi',
-            'name.min' => 'Menu..name! minimal 3 karakter',
-            'name.max' => 'Menu..name! maksimal 75 karakter',
+      'name.required' => 'Menu..name! harus di isi',
+      'name.min' => 'Menu..name! minimal 3 karakter',
+      'name.max' => 'Menu..name! maksimal 75 karakter',
 
-            'slug.required' => 'Menu..slug! harus di isi',
-            'slug.min' => 'Menu..slug! minimal 3 karakter',
-            'slug.max' => 'Menu..slug! maksimal 75 karakter',
+      'slug.required' => 'Menu..slug! harus di isi',
+      'slug.min' => 'Menu..slug! minimal 3 karakter',
+      'slug.max' => 'Menu..slug! maksimal 75 karakter',
 
-            'description.required' => 'Menu..description! harus di isi',
-        ];
-    }
+      'description.required' => 'Menu..description! harus di isi',
+    ];
+  }
 }

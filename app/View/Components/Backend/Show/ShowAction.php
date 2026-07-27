@@ -8,15 +8,15 @@ use Illuminate\View\Component;
 
 class ShowAction extends Component
 {
-    public function __construct(
-        public string $name,
-        public string $edit,
-        public string $indexs,
-        public string $delete,
-    ) {}
+  public function __construct(
+    public string $name,
+    public string $edit,
+    public string $indexs,
+    public string $delete,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.backend.show.show-action');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.backend.show.show-action');
+  }
 }

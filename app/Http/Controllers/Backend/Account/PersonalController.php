@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class PersonalController extends Controller
 {
-    public function index()
-    {
-        $user = Auth::user();
+  public function index()
+  {
+    $user = Auth::user();
 
-        return view('backend.account.personal.index', [
-            'title' => 'Personal',
-            'user' => $user,
-        ]);
-    }
+    return view('backend.account.personal.index', [
+      'title' => 'Personal',
+      'user' => $user,
+    ]);
+  }
 }

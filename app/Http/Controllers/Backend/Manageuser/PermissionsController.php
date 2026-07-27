@@ -14,161 +14,161 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class PermissionsController extends Controller
 {
-    use ValidationUnique;
+  use ValidationUnique;
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $filters = request(['search']);
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+    $filters = request(['search']);
 
-        $cacheKey = 'permissions.index.ids.'
-          .Permission::cacheVersion().'.'
-          .md5(json_encode($filters));
+    $cacheKey = 'permissions.index.ids.'
+      . Permission::cacheVersion() . '.'
+      . md5(json_encode($filters));
 
-        $ids = Cache::remember(
-            $cacheKey,
-            now()->addMinutes(10),
-            fn () => Permission::query()
-                ->search($filters)
-                ->orderBy('id', 'asc')
-                ->pluck('id')
-                ->toArray()
-        );
+    $ids = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => Permission::query()
+        ->search($filters)
+        ->orderBy('id', 'asc')
+        ->pluck('id')
+        ->toArray()
+    );
 
-        $permissions = Permission::query()
-            ->whereIn('id', $ids)
-            ->select([
-                'id',
-                'name',
-                'slug',
-                'guard_name',
-            ])
-            ->orderBy('id', 'asc')
-            ->paginate(10)
-            ->withQueryString();
+    $permissions = Permission::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'name',
+        'slug',
+        'guard_name',
+      ])
+      ->orderBy('id', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
-        return view('backend.manageuser.permissions.index', [
-            'title' => 'Semua data permissions',
-            'permissions' => $permissions,
-        ]);
-    }
+    return view('backend.manageuser.permissions.index', [
+      'title' => 'Semua data permissions',
+      'permissions' => $permissions,
+    ]);
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('backend.manageuser.permissions.create', [
-            'title' => 'Create data permission',
-        ]);
-    }
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create()
+  {
+    return view('backend.manageuser.permissions.create', [
+      'title' => 'Create data permission',
+    ]);
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(PermissionSr $request)
-    {
-        $datastore = $request->validated();
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(PermissionSr $request)
+  {
+    $datastore = $request->validated();
 
-        $permission = Permission::create($datastore);
+    $permission = Permission::create($datastore);
 
-        Alert::html(
-            'success',
-            "Data permission!
+    Alert::html(
+      'success',
+      "Data permission!
         <span style='color:#2563eb;'>
           {$permission->name}
         </span> berhasil di tambahkan",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('permissions.index');
-    }
+    return redirect()->route('permissions.index');
+  }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Permission $permission)
-    {
-        return view('backend.manageuser.permissions.show', [
-            'title' => 'Detail data permission',
-            'permission' => $permission,
-        ]);
-    }
+  /**
+   * Display the specified resource.
+   */
+  public function show(Permission $permission)
+  {
+    return view('backend.manageuser.permissions.show', [
+      'title' => 'Detail data permission',
+      'permission' => $permission,
+    ]);
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Permission $permission)
-    {
-        return view('backend.manageuser.permissions.edit', [
-            'title' => 'Edit data permissions',
-            'permission' => $permission,
-        ]);
-    }
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(Permission $permission)
+  {
+    return view('backend.manageuser.permissions.edit', [
+      'title' => 'Edit data permissions',
+      'permission' => $permission,
+    ]);
+  }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(PermissionUr $request, Permission $permission)
-    {
-        $dataupdate = $request->validated();
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(PermissionUr $request, Permission $permission)
+  {
+    $dataupdate = $request->validated();
 
-        $this->fieldUnique(
-            $request,
-            $permission,
-            ['name', 'slug'],
-            [
-                'name.unique' => 'Permission..name! sudah terdaptar',
-                'slug.unique' => 'Permission..slug! sudah terdaptar',
-            ]
-        );
+    $this->fieldUnique(
+      $request,
+      $permission,
+      ['name', 'slug'],
+      [
+        'name.unique' => 'Permission..name! sudah terdaptar',
+        'slug.unique' => 'Permission..slug! sudah terdaptar',
+      ]
+    );
 
-        $permission->update($dataupdate);
+    $permission->update($dataupdate);
 
-        Alert::html(
-            'success',
-            "Data permission!
+    Alert::html(
+      'success',
+      "Data permission!
         <span style='color:#2563eb;'>
           {$permission->name}
         </span> berhasil di update",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('permissions.index');
-    }
+    return redirect()->route('permissions.index');
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Permission $permission)
-    {
-        Permission::destroy($permission->id);
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(Permission $permission)
+  {
+    Permission::destroy($permission->id);
 
-        Alert::html(
-            'success',
-            "Data permission!
+    Alert::html(
+      'success',
+      "Data permission!
         <span style='color:#2563eb;'>
           {$permission->name}
         </span> berhasil di delete",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('permissions.index');
-    }
+    return redirect()->route('permissions.index');
+  }
 
-    /**
-     * Generate resource slug otomatis.
-     */
-    public function slug(Request $request)
-    {
-        $slug = SlugService::createSlug(
-            Permission::class,
-            'slug',
-            $request->name
-        );
+  /**
+   * Generate resource slug otomatis.
+   */
+  public function slug(Request $request)
+  {
+    $slug = SlugService::createSlug(
+      Permission::class,
+      'slug',
+      $request->name
+    );
 
-        return response()->json(['slug' => $slug]);
-    }
+    return response()->json(['slug' => $slug]);
+  }
 }

@@ -8,12 +8,12 @@ use Illuminate\View\Component;
 
 class Paginate extends Component
 {
-    public function __construct(
-        public mixed $pagination,
-    ) {}
+  public function __construct(
+    public mixed $pagination,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.frontend.paginate.paginate');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.frontend.paginate.paginate');
+  }
 }

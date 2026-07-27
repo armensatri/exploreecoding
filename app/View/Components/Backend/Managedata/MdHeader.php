@@ -8,15 +8,15 @@ use Illuminate\View\Component;
 
 class MdHeader extends Component
 {
-    public function __construct(
-        public string $image,
-        public string $alt,
-        public string $title,
-        public string $description,
-    ) {}
+  public function __construct(
+    public string $image,
+    public string $alt,
+    public string $title,
+    public string $description,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.backend.managedata.md-header');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.backend.managedata.md-header');
+  }
 }

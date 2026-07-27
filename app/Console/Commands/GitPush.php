@@ -12,19 +12,19 @@ use Symfony\Component\Process\Process;
 
 class GitPush extends Command
 {
-    public function handle()
-    {
-        $message = $this->argument('message');
+  public function handle()
+  {
+    $message = $this->argument('message');
 
-        $this->info('run: git add .');
-        (new Process(['git', 'add', '.']))->run();
+    $this->info('run: git add .');
+    (new Process(['git', 'add', '.']))->run();
 
-        $this->info("run: git commit -m \"$message\"");
-        (new Process(['git', 'commit', '-m', $message]))->run();
+    $this->info("run: git commit -m \"$message\"");
+    (new Process(['git', 'commit', '-m', $message]))->run();
 
-        $this->info('run: git push -u origin main');
-        (new Process(['git', 'push', '-u', 'origin', 'main']))->run();
+    $this->info('run: git push -u origin main');
+    (new Process(['git', 'push', '-u', 'origin', 'main']))->run();
 
-        $this->info('✅ Push selesai.');
-    }
+    $this->info('✅ Push selesai.');
+  }
 }

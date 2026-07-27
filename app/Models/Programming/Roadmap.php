@@ -10,47 +10,47 @@ use Illuminate\Database\Eloquent\Model;
 
 class Roadmap extends Model
 {
-    use HasCacheVersion;
-    use HasFactory, HasSearchable;
+  use HasCacheVersion;
+  use HasFactory, HasSearchable;
 
-    protected $table = 'roadmaps';
+  protected $table = 'roadmaps';
 
-    protected $fillable = [
-        'status_id',
-        'path_id',
-        'sr',
-        'name',
-        'slug',
-        'description',
-        'image',
-    ];
+  protected $fillable = [
+    'status_id',
+    'path_id',
+    'sr',
+    'name',
+    'slug',
+    'description',
+    'image',
+  ];
 
-    protected $sFields = [
-        'name',
-    ];
+  protected $sFields = [
+    'name',
+  ];
 
-    protected $sRelations = [
-        'path' => 'name',
-        'status' => 'name',
-    ];
+  protected $sRelations = [
+    'path' => 'name',
+    'status' => 'name',
+  ];
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+  public function getRouteKeyName()
+  {
+    return 'slug';
+  }
 
-    public function status()
-    {
-        return $this->belongsTo(Status::class);
-    }
+  public function status()
+  {
+    return $this->belongsTo(Status::class);
+  }
 
-    public function path()
-    {
-        return $this->belongsTo(Path::class);
-    }
+  public function path()
+  {
+    return $this->belongsTo(Path::class);
+  }
 
-    public function playlists()
-    {
-        return $this->hasMany(Playlist::class);
-    }
+  public function playlists()
+  {
+    return $this->hasMany(Playlist::class);
+  }
 }

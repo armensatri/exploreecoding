@@ -8,108 +8,108 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
 #[Signature(
-    'manage:cache {--max=100 : Batas maksimal ukuran cache dalam MB}'
+  'manage:cache {--max=100 : Batas maksimal ukuran cache dalam MB}'
 )]
 #[Description(
-    'Menampilkan jumlah file dan membersihkan cache di storage/framework/cache/data jika ukuran melebihi batas'
+  'Menampilkan jumlah file dan membersihkan cache di storage/framework/cache/data jika ukuran melebihi batas'
 )]
 
 class ManageCache extends Command
 {
-    public function handle()
-    {
-        $path = storage_path('framework/cache/data');
+  public function handle()
+  {
+    $path = storage_path('framework/cache/data');
 
-        $maxSizeMB = (int) $this->option('max');
+    $maxSizeMB = (int) $this->option('max');
 
-        if (! is_dir($path)) {
-            $this->error("Folder tidak ditemukan: {$path}");
+    if (! is_dir($path)) {
+      $this->error("Folder tidak ditemukan: {$path}");
 
-            return 1;
-        }
-
-        $totalSizeBytes = $this->folderSize($path);
-        $totalFiles = $this->countFiles($path);
-
-        $this->info("Folder: {$path}");
-        $this->info("Jumlah file: {$totalFiles}");
-        $this->info('Ukuran total: '.$this->humanFilesize($totalSizeBytes));
-
-        $maxSizeBytes = $maxSizeMB * 1024 * 1024;
-
-        if ($totalSizeBytes > $maxSizeBytes) {
-            $this->warn(
-                "Ukuran cache melebihi {$maxSizeMB} MB, membersihkan cache..."
-            );
-
-            $this->clearCache($path);
-            $this->info('Cache berhasil dibersihkan.');
-        } else {
-            $this->info('Ukuran cache masih dalam batas aman.');
-        }
-
-        return 0;
+      return 1;
     }
 
-    private function folderSize(string $dir): int
-    {
-        $size = 0;
+    $totalSizeBytes = $this->folderSize($path);
+    $totalFiles = $this->countFiles($path);
 
-        foreach (scandir($dir) as $file) {
-            if ($file === '.' || $file === '..') {
-                continue;
-            }
+    $this->info("Folder: {$path}");
+    $this->info("Jumlah file: {$totalFiles}");
+    $this->info('Ukuran total: ' . $this->humanFilesize($totalSizeBytes));
 
-            $path = $dir.DIRECTORY_SEPARATOR.$file;
+    $maxSizeBytes = $maxSizeMB * 1024 * 1024;
 
-            if (is_file($path)) {
-                $size += filesize($path);
-            } elseif (is_dir($path)) {
-                $size += $this->folderSize($path);
-            }
-        }
+    if ($totalSizeBytes > $maxSizeBytes) {
+      $this->warn(
+        "Ukuran cache melebihi {$maxSizeMB} MB, membersihkan cache..."
+      );
 
-        return $size;
+      $this->clearCache($path);
+      $this->info('Cache berhasil dibersihkan.');
+    } else {
+      $this->info('Ukuran cache masih dalam batas aman.');
     }
 
-    private function countFiles(string $dir): int
-    {
-        $count = 0;
+    return 0;
+  }
 
-        foreach (scandir($dir) as $file) {
-            if ($file === '.' || $file === '..') {
-                continue;
-            }
+  private function folderSize(string $dir): int
+  {
+    $size = 0;
 
-            $path = $dir.DIRECTORY_SEPARATOR.$file;
-            if (is_file($path)) {
-                $count++;
-            } elseif (is_dir($path)) {
-                $count += $this->countFiles($path);
-            }
-        }
+    foreach (scandir($dir) as $file) {
+      if ($file === '.' || $file === '..') {
+        continue;
+      }
 
-        return $count;
+      $path = $dir . DIRECTORY_SEPARATOR . $file;
+
+      if (is_file($path)) {
+        $size += filesize($path);
+      } elseif (is_dir($path)) {
+        $size += $this->folderSize($path);
+      }
     }
 
-    private function clearCache(string $dir): void
-    {
-        File::cleanDirectory($dir);
+    return $size;
+  }
+
+  private function countFiles(string $dir): int
+  {
+    $count = 0;
+
+    foreach (scandir($dir) as $file) {
+      if ($file === '.' || $file === '..') {
+        continue;
+      }
+
+      $path = $dir . DIRECTORY_SEPARATOR . $file;
+      if (is_file($path)) {
+        $count++;
+      } elseif (is_dir($path)) {
+        $count += $this->countFiles($path);
+      }
     }
 
-    private function humanFilesize(int $bytes, int $decimals = 2): string
-    {
-        $size = ['B', 'KB', 'MB', 'GB', 'TB'];
+    return $count;
+  }
 
-        if ($bytes == 0) {
-            return '0 B';
-        }
+  private function clearCache(string $dir): void
+  {
+    File::cleanDirectory($dir);
+  }
 
-        $factor = (int) floor((strlen((string) $bytes) - 1) / 3);
+  private function humanFilesize(int $bytes, int $decimals = 2): string
+  {
+    $size = ['B', 'KB', 'MB', 'GB', 'TB'];
 
-        return sprintf(
-            "%.{$decimals}f",
-            $bytes / pow(1024, $factor)
-        ).' '.$size[$factor];
+    if ($bytes == 0) {
+      return '0 B';
     }
+
+    $factor = (int) floor((strlen((string) $bytes) - 1) / 3);
+
+    return sprintf(
+      "%.{$decimals}f",
+      $bytes / pow(1024, $factor)
+    ) . ' ' . $size[$factor];
+  }
 }

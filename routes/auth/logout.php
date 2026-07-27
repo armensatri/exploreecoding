@@ -4,13 +4,13 @@ use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(
-    [
-        'middleware' => [
-            'auth',
-        ],
+  [
+    'middleware' => [
+      'auth',
     ],
-    function () {
-        Route::post('/auth/logout', [LogoutController::class, 'logout'])
-            ->name('logout');
-    }
+  ],
+  function () {
+    Route::post('/auth/logout', [LogoutController::class, 'logout'])
+      ->name('logout');
+  }
 );

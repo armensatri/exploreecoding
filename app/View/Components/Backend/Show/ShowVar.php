@@ -8,13 +8,13 @@ use Illuminate\View\Component;
 
 class ShowVar extends Component
 {
-    public function __construct(
-        public string $name,
-        public mixed $var,
-    ) {}
+  public function __construct(
+    public string $name,
+    public mixed $var,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.backend.show.show-var');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.backend.show.show-var');
+  }
 }

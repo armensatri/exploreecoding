@@ -8,111 +8,111 @@ use App\Models\Tipscoding\Tipscoding;
 
 class TipscodingController extends Controller
 {
-    public function index()
-    {
-        $categories = Category::query()
-            ->select([
-                'id',
-                'sc',
-                'name',
-                'image',
-                'slug',
-            ])
-            ->withCount('tipscodings')
-            ->orderBy('sc', 'asc')
-            ->limit(15)
-            ->get();
+  public function index()
+  {
+    $categories = Category::query()
+      ->select([
+        'id',
+        'sc',
+        'name',
+        'image',
+        'slug',
+      ])
+      ->withCount('tipscodings')
+      ->orderBy('sc', 'asc')
+      ->limit(15)
+      ->get();
 
-        $tipscodings = Tipscoding::query()
-            ->select([
-                'id',
-                'title',
-                'excerpt',
-                'category_id',
-                'user_id',
-                'created_at',
-                'slug',
-            ])
-            ->withCount('tipscodingviews')
-            ->with([
-                'category:id,name,slug,image',
-                'user:id,username,image',
-            ])
-            ->orderBy('id', 'desc')
-            ->paginate(12);
+    $tipscodings = Tipscoding::query()
+      ->select([
+        'id',
+        'title',
+        'excerpt',
+        'category_id',
+        'user_id',
+        'created_at',
+        'slug',
+      ])
+      ->withCount('tipscodingviews')
+      ->with([
+        'category:id,name,slug,image',
+        'user:id,username,image',
+      ])
+      ->orderBy('id', 'desc')
+      ->paginate(12);
 
-        return view('frontend.tipscoding.tipscoding.index', [
-            'title' => 'Semua tipscodings',
-            'categories' => $categories,
-            'tipscodings' => $tipscodings,
-        ]);
-    }
+    return view('frontend.tipscoding.tipscoding.index', [
+      'title' => 'Semua tipscodings',
+      'categories' => $categories,
+      'tipscodings' => $tipscodings,
+    ]);
+  }
 
-    public function category(Category $category)
-    {
-        $categories = Category::query()
-            ->select([
-                'id',
-                'sc',
-                'name',
-                'image',
-                'slug',
-            ])
-            ->withCount('tipscodings')
-            ->orderBy('sc', 'asc')
-            ->limit(15)
-            ->get();
+  public function category(Category $category)
+  {
+    $categories = Category::query()
+      ->select([
+        'id',
+        'sc',
+        'name',
+        'image',
+        'slug',
+      ])
+      ->withCount('tipscodings')
+      ->orderBy('sc', 'asc')
+      ->limit(15)
+      ->get();
 
-        $tipscodings = Tipscoding::query()
-            ->whereHas('category', function ($q) use ($category) {
-                $q->where('slug', $category->slug);
-            })
-            ->select([
-                'id',
-                'title',
-                'slug',
-                'excerpt',
-                'category_id',
-                'user_id',
-                'created_at',
-            ])
-            ->withCount('tipscodingviews')
-            ->with([
-                'category:id,name,slug,image',
-                'user:id,username,image',
-            ])
-            ->orderBy('id', 'desc')
-            ->paginate(12);
+    $tipscodings = Tipscoding::query()
+      ->whereHas('category', function ($q) use ($category) {
+        $q->where('slug', $category->slug);
+      })
+      ->select([
+        'id',
+        'title',
+        'slug',
+        'excerpt',
+        'category_id',
+        'user_id',
+        'created_at',
+      ])
+      ->withCount('tipscodingviews')
+      ->with([
+        'category:id,name,slug,image',
+        'user:id,username,image',
+      ])
+      ->orderBy('id', 'desc')
+      ->paginate(12);
 
-        $tipstotal = Tipscoding::count();
+    $tipstotal = Tipscoding::count();
 
-        return view('frontend.tipscoding.tipscoding-category.index', [
-            'title' => "Tipscodings category $category->slug",
-            'category' => $category,
-            'categories' => $categories,
-            'tipscodings' => $tipscodings,
-            'tipstotal' => $tipstotal,
-        ]);
-    }
+    return view('frontend.tipscoding.tipscoding-category.index', [
+      'title' => "Tipscodings category $category->slug",
+      'category' => $category,
+      'categories' => $categories,
+      'tipscodings' => $tipscodings,
+      'tipstotal' => $tipstotal,
+    ]);
+  }
 
-    public function show(Category $category, Tipscoding $tipscoding)
-    {
-        $tipstotal = Tipscoding::count();
-        $categorytotal = Category::count();
+  public function show(Category $category, Tipscoding $tipscoding)
+  {
+    $tipstotal = Tipscoding::count();
+    $categorytotal = Category::count();
 
-        $tipscoding->load([
-            'category:id,name,slug,image',
-            'user:id,username,image',
-        ]);
+    $tipscoding->load([
+      'category:id,name,slug,image',
+      'user:id,username,image',
+    ]);
 
-        $tipscoding->loadCount('tipscodingviews');
+    $tipscoding->loadCount('tipscodingviews');
 
-        return view('frontend.tipscoding.show.index', [
-            'title' => "tipscodings $category->slug $tipscoding->slug",
-            'category' => $category,
-            'tipscoding' => $tipscoding,
-            'tipstotal' => $tipstotal,
-            'categorytotal' => $categorytotal,
-        ]);
-    }
+    return view('frontend.tipscoding.show.index', [
+      'title' => "tipscodings $category->slug $tipscoding->slug",
+      'category' => $category,
+      'tipscoding' => $tipscoding,
+      'tipstotal' => $tipstotal,
+      'categorytotal' => $categorytotal,
+    ]);
+  }
 }

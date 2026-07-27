@@ -14,155 +14,155 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoriesController extends Controller
 {
-    use ImageStore, ImageUpdate;
+  use ImageStore, ImageUpdate;
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $filters = request(['search']);
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+    $filters = request(['search']);
 
-        $cacheKey = 'categories.index.ids.'
-          .Category::cacheVersion().'.'
-          .md5(json_encode($filters));
+    $cacheKey = 'categories.index.ids.'
+      . Category::cacheVersion() . '.'
+      . md5(json_encode($filters));
 
-        $ids = Cache::remember(
-            $cacheKey,
-            now()->addMinutes(10),
-            fn () => Category::query()
-                ->search($filters)
-                ->orderBy('sc', 'asc')
-                ->pluck('id')
-                ->toArray()
-        );
+    $ids = Cache::remember(
+      $cacheKey,
+      now()->addMinutes(10),
+      fn() => Category::query()
+        ->search($filters)
+        ->orderBy('sc', 'asc')
+        ->pluck('id')
+        ->toArray()
+    );
 
-        $categories = Category::query()
-            ->whereIn('id', $ids)
-            ->select([
-                'id',
-                'sc',
-                'name',
-                'slug',
-            ])
-            ->orderBy('sc', 'asc')
-            ->paginate(10)
-            ->withQueryString();
+    $categories = Category::query()
+      ->whereIn('id', $ids)
+      ->select([
+        'id',
+        'sc',
+        'name',
+        'slug',
+      ])
+      ->orderBy('sc', 'asc')
+      ->paginate(10)
+      ->withQueryString();
 
-        return view('backend.tipscoding.categories.index', [
-            'title' => 'Semua data categories',
-            'categories' => $categories,
-        ]);
-    }
+    return view('backend.tipscoding.categories.index', [
+      'title' => 'Semua data categories',
+      'categories' => $categories,
+    ]);
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Category $category)
-    {
-        return view('backend.tipscoding.categories.create', [
-            'title' => 'Create data category',
-            'category' => $category,
-        ]);
-    }
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create(Category $category)
+  {
+    return view('backend.tipscoding.categories.create', [
+      'title' => 'Create data category',
+      'category' => $category,
+    ]);
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(CategorySr $request)
-    {
-        $datastore = $request->validated();
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(CategorySr $request)
+  {
+    $datastore = $request->validated();
 
-        $datastore['image'] = $this->handleImageStore(
-            $request,
-            'image',
-            'tipscoding/categories'
-        );
+    $datastore['image'] = $this->handleImageStore(
+      $request,
+      'image',
+      'tipscoding/categories'
+    );
 
-        $category = Category::create($datastore);
+    $category = Category::create($datastore);
 
-        Alert::html(
-            'success',
-            "Data category!
+    Alert::html(
+      'success',
+      "Data category!
         <span style='color:#2563eb;'>
           {$category->name}
         </span> berhasil di tambahkan",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('categories.index');
-    }
+    return redirect()->route('categories.index');
+  }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        return view('backend.tipscoding.categories.show', [
-            'title' => 'Detail data category',
-            'category' => $category,
-        ]);
-    }
+  /**
+   * Display the specified resource.
+   */
+  public function show(Category $category)
+  {
+    return view('backend.tipscoding.categories.show', [
+      'title' => 'Detail data category',
+      'category' => $category,
+    ]);
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        return view('backend.tipscoding.categories.edit', [
-            'title' => 'Edit data category',
-            'category' => $category,
-        ]);
-    }
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(Category $category)
+  {
+    return view('backend.tipscoding.categories.edit', [
+      'title' => 'Edit data category',
+      'category' => $category,
+    ]);
+  }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(CategoryUr $request, Category $category)
-    {
-        $dataupdate = $request->validated();
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(CategoryUr $request, Category $category)
+  {
+    $dataupdate = $request->validated();
 
-        $dataupdate['image'] = $this->handleImageUpdate(
-            $request,
-            $category,
-            'image',
-            'tipscoding/categories'
-        );
+    $dataupdate['image'] = $this->handleImageUpdate(
+      $request,
+      $category,
+      'image',
+      'tipscoding/categories'
+    );
 
-        $category->update($dataupdate);
+    $category->update($dataupdate);
 
-        Alert::html(
-            'success',
-            "Data category!
+    Alert::html(
+      'success',
+      "Data category!
         <span style='color:#2563eb;'>
           {$category->name}
         </span> berhasil di update",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('categories.index');
+    return redirect()->route('categories.index');
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(Category $category)
+  {
+    if ($category->image) {
+      Storage::delete($category->image);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Category $category)
-    {
-        if ($category->image) {
-            Storage::delete($category->image);
-        }
+    Category::destroy($category->id);
 
-        Category::destroy($category->id);
-
-        Alert::html(
-            'success',
-            "Data category!
+    Alert::html(
+      'success',
+      "Data category!
         <span style='color:#2563eb;'>
           {$category->name}
         </span> berhasil di delete",
-            'success'
-        );
+      'success'
+    );
 
-        return redirect()->route('categories.index');
-    }
+    return redirect()->route('categories.index');
+  }
 }

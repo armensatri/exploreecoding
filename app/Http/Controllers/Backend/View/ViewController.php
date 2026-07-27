@@ -7,29 +7,29 @@ use App\Models\Programming\Path;
 
 class ViewController extends Controller
 {
-    public function index()
-    {
-        return view('backend.view.index', [
-            'title' => 'Data views content',
-        ]);
-    }
+  public function index()
+  {
+    return view('backend.view.index', [
+      'title' => 'Data views content',
+    ]);
+  }
 
-    public function viewpath()
-    {
-        $paths = Path::query()
-            ->select([
-                'id',
-                'sp',
-                'name',
-            ])
-            ->withCount('pathviews')
-            ->orderByDesc('pathviews_count')
-            ->paginate(10)
-            ->withQueryString();
+  public function viewpath()
+  {
+    $paths = Path::query()
+      ->select([
+        'id',
+        'sp',
+        'name',
+      ])
+      ->withCount('pathviews')
+      ->orderByDesc('pathviews_count')
+      ->paginate(10)
+      ->withQueryString();
 
-        return view('backend.view.path', [
-            'title' => 'Data view path',
-            'paths' => $paths,
-        ]);
-    }
+    return view('backend.view.path', [
+      'title' => 'Data view path',
+      'paths' => $paths,
+    ]);
+  }
 }

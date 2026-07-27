@@ -5,17 +5,17 @@ use App\Http\Controllers\Backend\Tipscoding\TipscodingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(
-    [
-        'middleware' => [
-            'auth',
-            'submenu.access',
-            'permission',
-        ],
+  [
+    'middleware' => [
+      'auth',
+      'submenu.access',
+      'permission',
     ],
-    function () {
-        Route::resources([
-            '/tipscodings' => TipscodingsController::class,
-            '/categories' => CategoriesController::class,
-        ]);
-    }
+  ],
+  function () {
+    Route::resources([
+      '/tipscodings' => TipscodingsController::class,
+      '/categories' => CategoriesController::class,
+    ]);
+  }
 );

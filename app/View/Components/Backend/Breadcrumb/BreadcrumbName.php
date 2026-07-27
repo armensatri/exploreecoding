@@ -8,12 +8,12 @@ use Illuminate\View\Component;
 
 class BreadcrumbName extends Component
 {
-    public function __construct(
-        public string $name,
-    ) {}
+  public function __construct(
+    public string $name,
+  ) {}
 
-    public function render(): View|Closure|string
-    {
-        return view('components.backend.breadcrumb.breadcrumb-name');
-    }
+  public function render(): View|Closure|string
+  {
+    return view('components.backend.breadcrumb.breadcrumb-name');
+  }
 }

@@ -9,26 +9,26 @@ use Illuminate\Database\Seeder;
 
 class TipscodingviewSeeder extends Seeder
 {
-    public function run(): void
-    {
-        $users = User::pluck('id');
+  public function run(): void
+  {
+    $users = User::pluck('id');
 
-        $tipscodings = Tipscoding::select('id', 'title')->get();
+    $tipscodings = Tipscoding::select('id', 'title')->get();
 
-        foreach ($users as $userId) {
-            $randomTipscodings = $tipscodings->random(3);
+    foreach ($users as $userId) {
+      $randomTipscodings = $tipscodings->random(3);
 
-            foreach ($randomTipscodings as $tipscoding) {
-                Tipscodingview::firstOrCreate(
-                    [
-                        'user_id' => $userId,
-                        'tipscoding_id' => $tipscoding->id,
-                    ],
-                    [
-                        'tipscoding_title' => $tipscoding->title,
-                    ]
-                );
-            }
-        }
+      foreach ($randomTipscodings as $tipscoding) {
+        Tipscodingview::firstOrCreate(
+          [
+            'user_id' => $userId,
+            'tipscoding_id' => $tipscoding->id,
+          ],
+          [
+            'tipscoding_title' => $tipscoding->title,
+          ]
+        );
+      }
     }
+  }
 }

@@ -14,55 +14,55 @@ use Illuminate\Support\Str;
 
 class RoutePermission extends Command
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
+  public function __construct()
+  {
+    parent::__construct();
+  }
 
-    public function handle()
-    {
-        $routes = collect(Route::getRoutes())->filter(
-            function ($route) {
+  public function handle()
+  {
+    $routes = collect(Route::getRoutes())->filter(
+      function ($route) {
 
-                $hasNameAndWeb = $route->getName() && in_array(
-                    'web',
-                    $route->middleware()
-                );
-
-                $isBackend = Str::startsWith($route->uri(), 'backend') || Str::startsWith($route->getName(), 'backend.');
-
-                return $hasNameAndWeb && $isBackend;
-            }
+        $hasNameAndWeb = $route->getName() && in_array(
+          'web',
+          $route->middleware()
         );
 
-        $created = 0;
-        $skipped = 0;
+        $isBackend = Str::startsWith($route->uri(), 'backend') || Str::startsWith($route->getName(), 'backend.');
 
-        foreach ($routes as $route) {
-            $permission = Permission::firstOrCreate([
-                'name' => $route->getName(),
-            ]);
+        return $hasNameAndWeb && $isBackend;
+      }
+    );
 
-            if ($permission->wasRecentlyCreated) {
-                $this->info(
-                    '✅ permission created: '.$route->getName()
-                );
+    $created = 0;
+    $skipped = 0;
 
-                $created++;
-            } else {
-                $this->warn(
-                    '⚠️ permission already exists: '.$route->getName()
-                );
+    foreach ($routes as $route) {
+      $permission = Permission::firstOrCreate([
+        'name' => $route->getName(),
+      ]);
 
-                $skipped++;
-            }
-        }
-
+      if ($permission->wasRecentlyCreated) {
         $this->info(
-            "🎉 permission generate completed
+          '✅ permission created: ' . $route->getName()
+        );
+
+        $created++;
+      } else {
+        $this->warn(
+          '⚠️ permission already exists: ' . $route->getName()
+        );
+
+        $skipped++;
+      }
+    }
+
+    $this->info(
+      "🎉 permission generate completed
         created: $created
         skipped: $skipped
       "
-        );
-    }
+    );
+  }
 }

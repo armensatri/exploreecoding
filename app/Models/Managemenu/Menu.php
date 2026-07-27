@@ -10,39 +10,39 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-    use HasCacheVersion;
-    use HasSearchable, HasSluggable;
+  use HasCacheVersion;
+  use HasSearchable, HasSluggable;
 
-    protected $table = 'menus';
+  protected $table = 'menus';
 
-    protected $fillable = [
-        'sm',
-        'name',
-        'slug',
-        'description',
-    ];
+  protected $fillable = [
+    'sm',
+    'name',
+    'slug',
+    'description',
+  ];
 
-    protected $sFields = [
-        'name',
-    ];
+  protected $sFields = [
+    'name',
+  ];
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+  public function getRouteKeyName()
+  {
+    return 'slug';
+  }
 
-    public function submenus()
-    {
-        return $this->hasMany(Submenu::class);
-    }
+  public function submenus()
+  {
+    return $this->hasMany(Submenu::class);
+  }
 
-    public function roles()
-    {
-        return $this->belongsToMany(
-            Role::class,
-            'role_has_menu',
-            'menu_id',
-            'role_id'
-        );
-    }
+  public function roles()
+  {
+    return $this->belongsToMany(
+      Role::class,
+      'role_has_menu',
+      'menu_id',
+      'role_id'
+    );
+  }
 }
