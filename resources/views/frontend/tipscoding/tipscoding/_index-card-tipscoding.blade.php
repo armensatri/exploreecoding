@@ -1,6 +1,5 @@
 <div
-  class="flex flex-col items-center h-full px-6 py-5
-  bg-linear-to-t from-blue-200 to-sky-100 rounded-3xl">
+  class="flex flex-col items-center h-full px-6 py-5 bg-linear-to-t from-blue-200 to-sky-100 rounded-3xl">
   <div class="">
     <div class="flex items-start justify-between w-full mb-4">
       <div class="flex items-center gap-2">
@@ -10,7 +9,7 @@
             asset('image/user.png')
           }}"
           alt="author"
-          class="object-cover object-top w-12 h-12 border border-gray-500 rounded-full p-px"
+          class="object-cover object-top w-12 h-12 p-px bg-gray-500 rounded-full"
         />
 
         <div>

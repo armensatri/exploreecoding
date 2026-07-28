@@ -75,10 +75,36 @@
 
 /* markdown font prose pre and code */
 @layer components {
-  .prose pre,
-  .prose code {
-    font-family: "JetBrains Mono";
+  .prose pre.shiki {
+    font-family: "JetBrains Mono", monospace;
     font-size: 15px;
+    max-height: 450px;
+    overflow: auto;
+  }
+
+  .prose pre.shiki code {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .prose :not(pre) > code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.875rem;
+  }
+}
+
+/* header title h1, h2, h3, h4, h5, h6 gar ke lihatan di content */
+@layer components {
+  .prose h2 {
+    @apply scroll-mt-24;
+  }
+
+  .prose h3 {
+    @apply scroll-mt-24;
+  }
+
+  .prose h4 {
+    @apply scroll-mt-24;
   }
 }
 

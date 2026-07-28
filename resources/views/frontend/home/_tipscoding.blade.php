@@ -26,11 +26,9 @@
           class="flex transition-transform duration hs-carousel-body gap-x-6">
           @foreach ($tipscodings as $tipscoding)
             <div class="w-full hs-carousel-slide">
-              <div class="flex flex-col items-center h-full px-7 py-5
-                bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
+              <div class="flex flex-col items-center h-full py-5 px-7 bg-linear-to-t from-blue-200 to-sky-100 rounded-b-3xl">
                 <div>
-                  <div class="flex items-start justify-between w-full
-                    mb-4">
+                  <div class="flex items-start justify-between w-full mb-4">
                     <div class="flex items-center gap-2">
                       <img
                         src="{{ $tipscoding->user->image ?
@@ -38,7 +36,7 @@
                           asset('image/user.png')
                         }}"
                         alt="author"
-                        class="object-cover w-12 h-12 border border-gray-500 p-px rounded-full object-top"
+                        class="object-cover object-top w-12 h-12 p-px bg-gray-500 rounded-full"
                       />
 
                       <div>

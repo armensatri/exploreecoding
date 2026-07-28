@@ -1,5 +1,6 @@
 import "./bootstrap";
 
+import "./toc";
 import "preline";
 import "flowbite";
 import Alpine from "alpinejs";
