@@ -107,10 +107,63 @@ class TipscodingController extends Controller
 
     $tipscoding->loadCount('tipscodingviews');
 
+    $relatedTips = Tipscoding::query()
+      ->select([
+        'id',
+        'category_id',
+        'user_id',
+        'title',
+        'slug',
+        'image',
+        'created_at',
+      ])
+      ->where('category_id', $tipscoding->category_id)
+      ->whereKeyNot($tipscoding->id)
+      ->with([
+        'category:id,name,slug,image',
+        'user:id,username',
+      ])
+      ->withCount('tipscodingviews')
+      ->orderByDesc('tipscodingviews_count')
+      ->orderByDesc('created_at')
+      ->limit(5)
+      ->get();
+
+    if ($relatedTips->count() < 5) {
+
+      $excludeIds = $relatedTips
+        ->pluck('id')
+        ->push($tipscoding->id);
+
+      $additionalTips = Tipscoding::query()
+        ->select([
+          'id',
+          'category_id',
+          'user_id',
+          'title',
+          'slug',
+          'image',
+          'created_at',
+        ])
+        ->whereNotIn('id', $excludeIds)
+        ->with([
+          'category:id,name,slug,image',
+          'user:id,username',
+        ])
+        ->withCount('tipscodingviews')
+        ->orderByDesc('tipscodingviews_count')
+        ->orderByDesc('created_at')
+        ->limit(5 - $relatedTips->count())
+        ->get();
+
+      $relatedTips = $relatedTips->concat($additionalTips);
+    }
+
     return view('frontend.tipscoding.show.index', [
       'title' => "tipscodings $category->slug $tipscoding->slug",
       'category' => $category,
       'tipscoding' => $tipscoding,
+      'relatedTips'   => $relatedTips,
       'tipstotal' => $tipstotal,
       'categorytotal' => $categorytotal,
     ]);

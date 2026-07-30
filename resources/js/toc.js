@@ -17,9 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Tambahkan icon berdasarkan level heading
     if (heading.tagName === "H2" || heading.tagName === "H3") {
-      a.textContent = `🔹 ${heading.textContent}`;
+      a.textContent = `🔹  ${heading.textContent}`;
     } else if (heading.tagName === "H4") {
-      a.textContent = `-- ${heading.textContent}`;
+      a.textContent = `🔸  ${heading.textContent}`;
     }
 
     a.classList.add(
@@ -28,15 +28,24 @@ document.addEventListener("DOMContentLoaded", () => {
       "gap-2",
       "block",
       "py-1",
+      "tracking-wide",
       "text-base",
       "font-normal",
       "text-gray-700",
-      "hover:text-green-600",
+      "hover:text-green-700",
       "transition-colors",
       "duration-200",
     );
 
     // Indent H4
+    if (heading.tagName === "H2") {
+      a.classList.add("ml-1");
+    }
+
+    if (heading.tagName === "H3") {
+      a.classList.add("ml-1");
+    }
+
     if (heading.tagName === "H4") {
       a.classList.add("ml-8");
     }

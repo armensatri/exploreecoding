@@ -11,7 +11,7 @@
                 asset('storage/' . $tipscoding->image) :
                 asset('image/default-content.jpg')
               }}"
-              alt="Prospek Karier Android Developer"
+              alt="image"
               class="object-cover object-center w-full xl:h-60 h-62 sm:h-80 md:h-57.5 lg:h-52"
             />
           </div>
@@ -75,10 +75,10 @@
     </div>
   </div>
 
-  <div class="px-5 mt-10">
+  <div class="w-full px-5 mt-10">
     <article
       id="daftar-isi-tipscoding"
-      class="prose text-gray-800 prose-slate lg:prose-lg prose-h2:text-green-600 prose-h2:font-bold prose-h3:text-green-600 prose-h3:font-medium prose-h4:text-gray-900 prose-a:text-blue-600 prose-pre:rounded-2xl prose-code:leading-10">
+      class="prose text-gray-800 max-w-none prose-slate lg:prose-lg prose-h2:text-green-600 prose-h2:font-bold prose-h3:text-green-600 prose-h3:font-medium prose-h4:text-gray-900 prose-a:text-blue-600 prose-pre:rounded-3xl prose-code:leading-10">
       <x-markdown>
         {!! $tipscoding->content !!}
       </x-markdown>

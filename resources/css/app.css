@@ -108,6 +108,44 @@
   }
 }
 
+/* copy code */
+@layer components {
+  /* Wrapper code */
+  .code-wrapper {
+    position: relative;
+  }
+
+  /* scroll berada di dalam pre */
+  .code-wrapper pre {
+    max-height: 450px;
+    overflow: auto;
+    border-radius: 1rem;
+  }
+
+  /* tombol copy code */
+  .copy-btn {
+    @apply absolute top-3 mr-3 right-3
+      px-3 py-1.5 tracking-wide
+      text-xs font-medium
+      text-white
+      bg-slate-500
+      rounded-lg
+      border
+      border-blue-600
+      transition-colors
+      duration-200
+      cursor-pointer;
+    z-index: 10;
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  /* tombol copy code hover */
+  .copy-btn:hover {
+    @apply bg-green-600 text-white text-xs font-medium;
+    font-family: "JetBrains Mono", monospace;
+  }
+}
+
 /* markdown inline code */
 .x {
   @apply text-red-700 bg-gray-200 rounded-xs px-2 inline-flex
