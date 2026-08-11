@@ -7,8 +7,8 @@ use App\Models\View\Tipscodingview;
 use App\Traits\Models\HasCacheVersion;
 use App\Traits\Models\HasSearchable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Tipscoding extends Model
 {

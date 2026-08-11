@@ -3,6 +3,8 @@
 namespace App\Models\Programming;
 
 use App\Models\Manageuser\User;
+use App\Models\Programming\Playlist;
+use App\Models\Programming\Roadmap;
 use App\Models\Published\Status;
 use App\Traits\Models\HasCacheVersion;
 use App\Traits\Models\HasSearchable;
@@ -44,6 +46,17 @@ class Post extends Model
     return 'slug';
   }
 
+  public function scopeAccessPosts(Builder $query, User $user): Builder
+  {
+    $roleName = $user->role?->name ?? $user->role?->slug;
+
+    return match (strtolower((string) $roleName)) {
+      'creator' => $query->where('user_id', $user->id),
+      'member'  => $query->whereRaw('1 = 0'),
+      default   => $query,
+    };
+  }
+
   public function status()
   {
     return $this->belongsTo(Status::class);
@@ -59,14 +72,15 @@ class Post extends Model
     return $this->belongsTo(User::class);
   }
 
-  public function scopeAccessPosts(Builder $query, User $user)
+  public function roadmap()
   {
-    $role = $user->role?->name;
-
-    return match ($role) {
-      'creator' => $query->where('user_id', $user->id),
-      'member' => $query->whereKey([]),
-      default => $query,
-    };
+    return $this->hasOneThrough(
+      Roadmap::class,
+      Playlist::class,
+      'id',
+      'id',
+      'playlist_id',
+      'roadmap_id'
+    );
   }
 }

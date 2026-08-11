@@ -18,8 +18,8 @@ class ChangePasswordUr extends FormRequest
     return [
       'username' => [
         'required',
-        'min:3',
-        'max:14',
+        'min:4',
+        'max:10',
         'regex:/^[a-z]+$/',
       ],
 
@@ -51,8 +51,8 @@ class ChangePasswordUr extends FormRequest
   {
     return [
       'username.required' => 'User..username! harus di isi',
-      'username.min' => 'User..username! minimal 3 karakter',
-      'username.max' => 'User..username! maksimal 14 karakter',
+      'username.min' => 'User..username! minimal 4 karakter',
+      'username.max' => 'User..username! maksimal 10 karakter',
       'username.regex' => 'User..username! hanya boleh huruf kecil saja dan tanpa spasi',
 
       'current.required' => 'Password..lama! harus di isi',

@@ -4,7 +4,7 @@
 
   <span class="text-xs text-blue-700">
     @if(Auth::user()->hasSubmenu($subMenu))
-      <i class="bi bi-check2 text-2xs text-green-600"></i>
+      <i class="text-green-600 bi bi-check2 text-2xs"></i>
     @else
       <i class="bi bi-x text-[11px] text-red-600"></i>
     @endif
@@ -16,7 +16,7 @@
   />
 
   <div>
-    <span class="text-2xs text-black">
+    <span class="text-black text-2xs">
       {{ $ssm }}
     </span>
     <span class="text-[16px] font-normal tracking-wide text-blue-600">

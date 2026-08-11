@@ -46,7 +46,7 @@ class LoginController extends Controller
 
       RateLimiter::clear($key);
 
-      return Redirect::route('dashboard');
+      return Redirect::route('home');
     }
 
     RateLimiter::hit($key, 60);

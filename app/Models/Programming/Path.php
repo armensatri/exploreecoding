@@ -2,6 +2,8 @@
 
 namespace App\Models\Programming;
 
+use App\Models\Programming\Playlist;
+use App\Models\Programming\Roadmap;
 use App\Models\Published\Status;
 use App\Models\View\Pathview;
 use App\Traits\Models\HasCacheVersion;
@@ -52,7 +54,11 @@ class Path extends Model
   {
     return $this->hasManyThrough(
       Playlist::class,
-      Roadmap::class
+      Roadmap::class,
+      'path_id',
+      'roadmap_id',
+      'id',
+      'id'
     );
   }
 

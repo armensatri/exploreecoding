@@ -16,6 +16,7 @@ use App\View\Components\Frontend\Home\Question;
 use App\View\Components\Frontend\Paginate\Paginate;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\View\Components\Frontend\Tipscoding\TipscodingShowShareOnSosmed;
 
 class FrontendServiceProvider extends ServiceProvider
 {
@@ -48,5 +49,11 @@ class FrontendServiceProvider extends ServiceProvider
 
     // PAGINATE
     Blade::component('paginate', Paginate::class);
+
+    // TIPSCODING
+    Blade::component(
+      'tipscoding-show-share-on-sosmed',
+      TipscodingShowShareOnSosmed::class
+    );
   }
 }

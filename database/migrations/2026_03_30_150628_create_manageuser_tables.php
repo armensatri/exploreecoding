@@ -8,48 +8,54 @@ return new class extends Migration
 {
   public function up(): void
   {
+    Schema::create('roles', function (Blueprint $table) {
+      $table->id();
+      $table->integer('sr')->index();
+      $table->string('name');
+      $table->string('slug')->unique();
+      $table->string('bg');
+      $table->string('text');
+      $table->text('description');
+      $table->string('guard_name')->default('web');
+      $table->timestamps();
+
+      $table->unique(['name', 'guard_name']);
+    });
+
+    Schema::create('permissions', function (Blueprint $table) {
+      $table->id();
+      $table->string('name');
+      $table->string('slug')->unique();
+      $table->string('guard_name')->default('web');
+      $table->timestamps();
+
+      $table->unique(['name', 'guard_name']);
+    });
+
     Schema::create('users', function (Blueprint $table) {
       $table->id();
-      $table->string('name')->index();
+      $table->string('name');
       $table->string('username')->unique();
       $table->string('email')->unique();
+      $table->boolean('status')->default(true);
       $table->string('password');
       $table->string('image')->nullable();
       $table->foreignId('role_id')
         ->constrained('roles')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
-      $table->boolean('status_on_of')->default(0)->index();
-      $table->timestamp('last_seen')->nullable()->index();
-      $table->boolean('status')->default(true)->after('email');
+      $table->boolean('status_on_of')->default(false);
+      $table->timestamp('last_seen')->nullable();
       $table->timestamps();
-    });
 
-    Schema::create('roles', function (Blueprint $table) {
-      $table->id();
-      $table->integer('sr')->index();
-      $table->string('name')->unique();
-      $table->string('slug')->unique();
-      $table->string('bg');
-      $table->string('text');
-      $table->text('description');
-      $table->string('guard_name')->default('web')->index();
-      $table->timestamps();
-    });
-
-    Schema::create('permissions', function (Blueprint $table) {
-      $table->id();
-      $table->string('name')->unique();
-      $table->string('slug')->unique();
-      $table->string('guard_name')->default('web')->index();
-      $table->timestamps();
+      $table->index(['status_on_of', 'last_seen']);
     });
   }
 
   public function down(): void
   {
     Schema::dropIfExists('users');
-    Schema::dropIfExists('roles');
     Schema::dropIfExists('permissions');
+    Schema::dropIfExists('roles');
   }
 };

@@ -1,5 +1,5 @@
 <li class="py-4 list-none">
-  <span class="ml-3 text-[10px] text-black">
+  <span class="ml-3 text-2xs text-black">
     {{ $sm }}
   </span>
 

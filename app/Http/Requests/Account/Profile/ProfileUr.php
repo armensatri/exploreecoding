@@ -17,15 +17,15 @@ class ProfileUr extends FormRequest
     return [
       'name' => [
         'required',
-        'min:3',
+        'min:4',
         'max:25',
         'regex:/^[a-zA-Z\s]+$/',
       ],
 
       'username' => [
         'required',
-        'min:3',
-        'max:14',
+        'min:4',
+        'max:10',
         'regex:/^[a-z]+$/',
         'unique:users,username,' . Auth::id(),
       ],
@@ -43,13 +43,13 @@ class ProfileUr extends FormRequest
   {
     return [
       'name.required' => 'User..name! harus di isi',
-      'name.min' => 'User..name! minimal 3 karakter',
+      'name.min' => 'User..name! minimal 4 karakter',
       'name.max' => 'User..name! maksimal 25 karakter',
       'name.regex' => 'User..name! hanya boleh huruf kecil atau besar saja',
 
       'username.required' => 'User..username! harus di isi',
-      'username.min' => 'User..username! minimal 3 karakter',
-      'username.max' => 'User..username! maksimal 14 karakter',
+      'username.min' => 'User..username! minimal 4 karakter',
+      'username.max' => 'User..username! maksimal 10 karakter',
       'username.regex' => 'User..username! hanya boleh huruf kecil saja dan tanpa spasi',
       'username.unique' => 'User..username! sudah terdaptar',
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend\Tipscoding;
 use App\Http\Controllers\Controller;
 use App\Models\Tipscoding\Category;
 use App\Models\Tipscoding\Tipscoding;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TipscodingController extends Controller
 {
@@ -97,67 +99,65 @@ class TipscodingController extends Controller
 
   public function show(Category $category, Tipscoding $tipscoding)
   {
-    $tipstotal = Tipscoding::count();
-    $categorytotal = Category::count();
+    if (!Auth::check()) {
+      Alert::html(
+        'Oops...',
+        "Login dulu!
+        <span style='color:#2563eb;'>
+          untuk membaca
+        </span> tipscoding",
+        'warning'
+      );
+
+      return redirect()->route('login');
+    }
+
+    $tipscoding->tipscodingviews()->firstOrCreate([
+      'user_id' => Auth::id()
+    ]);
 
     $tipscoding->load([
       'category:id,name,slug,image',
       'user:id,username,image',
-    ]);
+    ])->loadCount('tipscodingviews');
 
-    $tipscoding->loadCount('tipscodingviews');
+    $tipstotal = Tipscoding::count();
+    $categorytotal = Category::count();
 
-    $relatedTips = Tipscoding::query()
+    $baseQuery = fn() => Tipscoding::query()
       ->select([
         'id',
-        'category_id',
         'user_id',
+        'category_id',
         'title',
         'slug',
         'image',
-        'created_at',
-      ])
+        'created_at'
+      ])->latest();
+
+    $relatedTips = $baseQuery()
       ->where('category_id', $tipscoding->category_id)
       ->whereKeyNot($tipscoding->id)
-      ->with([
-        'category:id,name,slug,image',
-        'user:id,username',
-      ])
-      ->withCount('tipscodingviews')
-      ->orderByDesc('tipscodingviews_count')
-      ->orderByDesc('created_at')
       ->limit(5)
       ->get();
 
-    if ($relatedTips->count() < 5) {
-
+    if (($needed = 5 - $relatedTips->count()) > 0) {
       $excludeIds = $relatedTips
         ->pluck('id')
         ->push($tipscoding->id);
 
-      $additionalTips = Tipscoding::query()
-        ->select([
-          'id',
-          'category_id',
-          'user_id',
-          'title',
-          'slug',
-          'image',
-          'created_at',
-        ])
+      $additionalTips = $baseQuery()
         ->whereNotIn('id', $excludeIds)
-        ->with([
-          'category:id,name,slug,image',
-          'user:id,username',
-        ])
-        ->withCount('tipscodingviews')
-        ->orderByDesc('tipscodingviews_count')
-        ->orderByDesc('created_at')
-        ->limit(5 - $relatedTips->count())
+        ->limit($needed)
         ->get();
 
       $relatedTips = $relatedTips->concat($additionalTips);
     }
+
+    $relatedTips->load([
+      'user:id,username',
+      'category:id,slug'
+    ]);
 
     return view('frontend.tipscoding.show.index', [
       'title' => "tipscodings $category->slug $tipscoding->slug",

@@ -14,12 +14,14 @@ return new class extends Migration
         ->constrained('statuses')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
-      $table->integer('sp')->index();
+      $table->integer('sp');
       $table->string('name');
       $table->string('slug');
       $table->text('description');
       $table->string('image')->nullable();
       $table->timestamps();
+
+      $table->index(['status_id', 'sp']);
     });
 
     Schema::create('roadmaps', function (Blueprint $table) {
@@ -32,12 +34,14 @@ return new class extends Migration
         ->constrained('paths')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
-      $table->integer('sr')->index();
+      $table->integer('sr');
       $table->string('name');
       $table->string('slug');
       $table->text('description');
       $table->string('image')->nullable();
       $table->timestamps();
+
+      $table->index(['path_id', 'status_id', 'sr']);
     });
 
     Schema::create('playlists', function (Blueprint $table) {
@@ -50,12 +54,14 @@ return new class extends Migration
         ->constrained('roadmaps')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
-      $table->integer('spl')->index();
+      $table->integer('spl');
       $table->string('name');
       $table->string('slug');
       $table->text('description');
       $table->string('image')->nullable();
       $table->timestamps();
+
+      $table->index(['roadmap_id', 'status_id', 'spl']);
     });
 
     Schema::create('posts', function (Blueprint $table) {
@@ -72,21 +78,23 @@ return new class extends Migration
         ->constrained('playlists')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
-      $table->integer('sp')->index();
+      $table->integer('sp');
       $table->string('title');
       $table->string('slug');
       $table->text('excerpt');
       $table->text('content');
       $table->string('image')->nullable();
       $table->timestamps();
+
+      $table->index(['playlist_id', 'status_id', 'sp']);
     });
   }
 
   public function down(): void
   {
-    Schema::dropIfExists('paths');
-    Schema::dropIfExists('roadmaps');
-    Schema::dropIfExists('playlists');
     Schema::dropIfExists('posts');
+    Schema::dropIfExists('playlists');
+    Schema::dropIfExists('roadmaps');
+    Schema::dropIfExists('paths');
   }
 };

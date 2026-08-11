@@ -19,7 +19,7 @@ use Database\Seeders\Published\StatusSeeder;
 use Database\Seeders\Tipscoding\CategorySeeder;
 use Database\Seeders\Tipscoding\TipscodingSeeder;
 use Database\Seeders\View\PathviewSeeder;
-use Database\Seeders\View\TipscodingviewSeeder;
+// use Database\Seeders\View\TipscodingviewSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -65,6 +65,6 @@ class DatabaseSeeder extends Seeder
     // Category::factory()->count(20)->create();
     // Tipscoding::factory()->count(80)->create();
 
-    $this->call(TipscodingviewSeeder::class);
+    // $this->call(TipscodingviewSeeder::class);
   }
 }

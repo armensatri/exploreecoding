@@ -88,6 +88,14 @@
               )
             @endforeach
           </div>
+
+          <div class="flex items-center justify-center mt-16">
+            @if ($tipscodings->lastPage() > 1)
+              <x-pagination
+                :pagination="$tipscodings"
+              />
+            @endif
+          </div>
         </section>
       </div>
     </div>

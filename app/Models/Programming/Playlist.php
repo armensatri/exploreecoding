@@ -2,6 +2,9 @@
 
 namespace App\Models\Programming;
 
+use App\Models\Programming\Path;
+use App\Models\Programming\Post;
+use App\Models\Programming\Roadmap;
 use App\Models\Published\Status;
 use App\Traits\Models\HasCacheVersion;
 use App\Traits\Models\HasSearchable;
@@ -47,6 +50,18 @@ class Playlist extends Model
   public function roadmap()
   {
     return $this->belongsTo(Roadmap::class);
+  }
+
+  public function path()
+  {
+    return $this->hasOneThrough(
+      Path::class,
+      Roadmap::class,
+      'id',
+      'id',
+      'roadmap_id',
+      'path_id'
+    );
   }
 
   public function posts()
