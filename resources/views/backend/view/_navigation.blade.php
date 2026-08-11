@@ -35,7 +35,7 @@
 />
 
 <x-visitor-navigation
-  route=""
-  active=""
+  :route="route('view.tipscoding')"
+  active="view/tipscoding"
   menu-name="Tipscoding"
 />

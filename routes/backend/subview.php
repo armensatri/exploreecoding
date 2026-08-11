@@ -11,7 +11,12 @@ Route::group(
     ],
   ],
   function () {
-    Route::get('/view/path', [ViewController::class, 'viewpath'])
-      ->name('view.path');
+    Route::controller(ViewController::class)->group(
+      function () {
+        Route::get('/view/path', 'viewpath')->name('view.path');
+        Route::get('/view/tipscoding', 'viewtipscoding')
+          ->name('view.tipscoding');
+      }
+    );
   }
 );

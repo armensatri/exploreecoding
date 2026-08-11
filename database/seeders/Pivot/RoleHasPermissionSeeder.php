@@ -66,6 +66,7 @@ class RoleHasPermissionSeeder extends Seeder
         // VIEW
         'view.index',
         'view.path',
+        'view.tipscoding',
 
         // USERS
         'users.index',
@@ -216,6 +217,7 @@ class RoleHasPermissionSeeder extends Seeder
         // VIEW
         'view.index',
         'view.path',
+        'view.tipscoding',
 
         // USERS
         'users.index',
@@ -366,6 +368,7 @@ class RoleHasPermissionSeeder extends Seeder
         // VIEW
         // 'view.index',
         // 'view.path',
+        // 'view.tipscoding',
 
         // USERS
         // 'users.index',
@@ -516,6 +519,7 @@ class RoleHasPermissionSeeder extends Seeder
         // VIEW
         // 'view.index',
         // 'view.path',
+        // 'view.tipscoding',
 
         // USERS
         // 'users.index',

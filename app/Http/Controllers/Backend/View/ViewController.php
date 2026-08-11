@@ -32,4 +32,11 @@ class ViewController extends Controller
       'paths' => $paths,
     ]);
   }
+
+  public function viewtipscoding()
+  {
+    return view('backend.view.tipscoding', [
+      'title' => 'Data view tipscoding'
+    ]);
+  }
 }
