@@ -63,6 +63,15 @@
                                       :route="route('view.path')"
                                     />
                                   </div>
+
+                                  <div class="search">
+                                    <form action="/view/path">
+                                      <x-search
+                                        search="paths"
+                                        placeholder="Search data paths"
+                                      />
+                                    </form>
+                                  </div>
                                 </div>
                               </div>
                             </div>

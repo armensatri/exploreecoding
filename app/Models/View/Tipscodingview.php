@@ -15,6 +15,10 @@ class Tipscodingview extends Model
     'user_id',
   ];
 
+  protected $sFields = [
+    'title',
+  ];
+
   public function tipscoding()
   {
     return $this->belongsTo(Tipscoding::class);

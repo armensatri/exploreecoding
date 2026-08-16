@@ -38,8 +38,7 @@ class HomeController extends Controller
           ->join('roadmaps', 'playlists.roadmap_id', '=', 'roadmaps.id')
           ->whereColumn('roadmaps.path_id', 'paths.id'),
         'posts_count'
-      )
-      ->whereIn('sp', [1, 2, 3, 4, 5]);
+      )->whereIn('sp', [1, 2, 3, 4, 5]);
 
     $paths = $pathQuery
       ->orderBy('sp')

@@ -46,9 +46,6 @@
             'frontend.tipscoding.show._index-tipscoding-or-category'
           )
 
-          <div class="flex items-center justify-center px-2 py-2 text-base text-center rounded-lg sm:bg-red-200 md:bg-yellow-200 lg:bg-green-200 xl:bg-blue-200 fixed-top">
-          </div>
-
           <div>
             <div class="max-w-7xl mx-auto mt-20">
               <div class="grid grid-cols-1 gap-10 lg:grid-cols-12">
@@ -61,77 +58,4 @@
       </div>
     </div>
   </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const shareButtons = document.querySelectorAll(
-        '[data-share-button]'
-    );
-
-    shareButtons.forEach(button => {
-        button.addEventListener('click', async function () {
-
-            const container = this.closest(
-                '[data-share-platform]'
-            );
-
-            const platform = container.dataset.sharePlatform;
-
-            const shareCount = container.querySelector(
-                '[data-share-count]'
-            );
-
-            const shareUrl = container.dataset.shareUrl;
-
-            try {
-                const response = await fetch(shareUrl, {
-                    method: 'POST',
-
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-
-                        'X-CSRF-TOKEN': document
-                            .querySelector(
-                                'meta[name="csrf-token"]'
-                            )
-                            .getAttribute('content')
-                    },
-
-                    body: JSON.stringify({
-                        platform: platform
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(
-                        'Gagal melakukan share.'
-                    );
-                }
-
-                const data = await response.json();
-
-                if (data.success) {
-
-                    // Update jumlah share
-                    shareCount.innerHTML = `
-                        <i class="text-2xs bi bi-share"></i>
-                        ${data.share_count}
-                    `;
-
-                    // Buka halaman LinkedIn
-                    window.open(
-                        data.share_url,
-                        '_blank',
-                        'width=700,height=600'
-                    );
-                }
-
-            } catch (error) {
-                console.error(error);
-            }
-        });
-    });
-});
-  </script>
 @endsection

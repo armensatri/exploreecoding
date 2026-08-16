@@ -138,10 +138,10 @@ class TipscodingController extends Controller
     $relatedTips = $baseQuery()
       ->where('category_id', $tipscoding->category_id)
       ->whereKeyNot($tipscoding->id)
-      ->limit(5)
+      ->limit(6)
       ->get();
 
-    if (($needed = 5 - $relatedTips->count()) > 0) {
+    if (($needed = 6 - $relatedTips->count()) > 0) {
       $excludeIds = $relatedTips
         ->pluck('id')
         ->push($tipscoding->id);
@@ -159,6 +159,18 @@ class TipscodingController extends Controller
       'category:id,slug'
     ]);
 
+    $relatedcategories = Category::query()
+      ->select([
+        'id',
+        'name',
+        'slug',
+        'image'
+      ])
+      ->where('id', '!=', $category->id)
+      ->inRandomOrder()
+      ->limit(10)
+      ->get();
+
     return view('frontend.tipscoding.show.index', [
       'title' => "tipscodings $category->slug $tipscoding->slug",
       'category' => $category,
@@ -166,6 +178,7 @@ class TipscodingController extends Controller
       'relatedTips'   => $relatedTips,
       'tipstotal' => $tipstotal,
       'categorytotal' => $categorytotal,
+      'relatedcategories' => $relatedcategories
     ]);
   }
 }

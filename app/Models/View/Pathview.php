@@ -15,6 +15,10 @@ class Pathview extends Model
     'user_id',
   ];
 
+  protected $sFields = [
+    'name',
+  ];
+
   public function path()
   {
     return $this->belongsTo(Path::class);

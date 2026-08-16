@@ -23,7 +23,7 @@
             <a href="{{ route(
               'ec-tipscodings.category', $category->slug) }}">
               <span
-                class="inline-block border border-gray-400 text-gray-600 text-[13px] font-medium px-2.5 py-0.5 rounded mb-4 underline underline-offset-2 decoration-blue-500 hover:bg-blue-300 hover:no-underline hover:text-black">
+                class="inline-block border border-gray-400 text-gray-800 text-[13px] font-medium px-2.5 py-0.5 rounded mb-4 underline underline-offset-2 decoration-blue-500 hover:bg-blue-300 hover:no-underline hover:text-black">
                 🔹{{ $tipscoding->category->name }}
               </span>
             </a>

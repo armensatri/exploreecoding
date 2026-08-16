@@ -38,7 +38,7 @@
             </div>
           </div>
 
-          {{-- <div class="w-full">
+          <div class="w-full">
             <div class="mt-16">
               <div class="content">
                 <section class="flex w-full px-3 mt-8 mb-5 overflow-x-auto overflow-y-hidden">
@@ -46,13 +46,12 @@
                     <div class="flex flex-col">
                       <div class="-m-1.5 overflow-x-auto min-w-full">
                         <div class="p-1.5 inline-block xl:max-w-full">
-
                           <div class="overflow-hidden table-border">
                             <div class="grid table-grid">
                               <div class="description">
                                 <x-description
-                                  table-name="View path"
-                                  :page-data="$paths"
+                                  table-name="View tipscoding"
+                                  :page-data="$tipscodings"
                                 />
                               </div>
 
@@ -60,8 +59,17 @@
                                 <div class="inline-flex items-center gap-x-2">
                                   <div class="refresh">
                                     <x-refresh
-                                      :route="route('view.path')"
+                                      :route="route('view.tipscoding')"
                                     />
+                                  </div>
+
+                                  <div class="search">
+                                    <form action="/view/tipscoding">
+                                      <x-search
+                                        search="tipscodings"
+                                        placeholder="Search data tipscodings"
+                                      />
+                                    </form>
                                   </div>
                                 </div>
                               </div>
@@ -77,10 +85,7 @@
                                     name="id"
                                   />
                                   <x-th
-                                    name="sp"
-                                  />
-                                  <x-th
-                                    name="name"
+                                    name="title"
                                   />
                                   <x-th
                                     name="view"
@@ -89,7 +94,7 @@
                               </thead>
 
                               <tbody class="tbody">
-                                @foreach ($paths as $path)
+                                @foreach ($tipscodings as $tipscoding)
                                   <tr>
                                     <td class="h-px whitespace-nowrap">
                                       <x-td-var-center
@@ -99,26 +104,22 @@
 
                                     <td class="h-px whitespace-nowrap">
                                       <x-td-var-center
-                                        :var="$path->id"
-                                      />
-                                    </td>
-
-                                    <td class="h-px whitespace-nowrap">
-                                      <x-td-var-center
-                                        :var="$path->sp"
+                                        :var="$tipscoding->id"
                                       />
                                     </td>
 
                                     <td class="h-px whitespace-nowrap">
                                       <x-td-var
-                                        :var="$path->name"
+                                        :var="$tipscoding->title"
                                       />
                                     </td>
 
                                     <td class="h-px whitespace-nowrap">
                                       <x-td-var-center
                                         :var="
-                                          \App\Helpers\FormatNumber::short($path->pathviews_count)"
+                                          \App\Helpers\FormatNumber::short(
+                                            $tipscoding->tipscodingviews_count
+                                        )"
                                       />
                                     </td>
                                   </tr>
@@ -127,9 +128,9 @@
                             </table>
 
                             <div class="grid table-pagination">
-                              @if ($paths->lastPage() > 1)
+                              @if ($tipscodings->lastPage() > 1)
                                 <x-pagination
-                                  :pagination="$paths"
+                                  :pagination="$tipscodings"
                                 />
                               @endif
                             </div>
@@ -141,7 +142,7 @@
                 </section>
               </div>
             </div>
-          </div> --}}
+          </div>
         </div>
       </section>
     </div>
