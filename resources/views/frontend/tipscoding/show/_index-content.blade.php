@@ -84,4 +84,45 @@
       </x-markdown>
     </article>
   </div>
+
+  <div class="w-full px-5 mt-10">
+    <div class="py-0.5 rounded-2xl bg-blue-200">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-4">
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <div class="text-[17px] font-semibold text-slate-800">
+                Di tulis oleh
+                <span class="text-blue-600">
+                  {{ $tipscoding->user->role->name }}<span>@</span>{{ $tipscoding->user->username }}
+                </span>
+              </div>
+            </div>
+
+            <p class="max-w-xl mt-2 text-base leading-6 text-slate-600">
+              Bio: Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere ab sed aperiam animi soluta, magnam debitis iste harum blanditiis error.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-6 mt-7 md:flex-row md:items-end md:justify-between">
+          <div>
+            <div class="flex items-center mb-2 text-base font-medium text-slate-800">
+              Follow sosial media saya
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="flex gap-3">
+                <x-social-media
+                  link=""
+                  :image="asset('frontend/img/sosmed/threads.png')"
+                  tooltip=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

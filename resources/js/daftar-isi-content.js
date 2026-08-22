@@ -16,7 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
     a.dataset.target = heading.id;
 
     // Tambahkan icon berdasarkan level heading
-    if (heading.tagName === "H2" || heading.tagName === "H3") {
+    if (heading.tagName === "H2") {
+      a.textContent = `🔹  ${heading.textContent}`;
+    } else if (heading.tagName === "H3") {
       a.textContent = `🔹  ${heading.textContent}`;
     } else if (heading.tagName === "H4") {
       a.textContent = `🔸  ${heading.textContent}`;

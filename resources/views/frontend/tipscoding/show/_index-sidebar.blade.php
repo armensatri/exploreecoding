@@ -1,6 +1,6 @@
 <aside class="lg:col-span-4">
   <div class="sticky space-y-8 top-24">
-    <div class="hidden lg:block">
+    <div class="hidden ml-5 lg:block">
       <h3 class="mb-4 text-[20px] font-semibold text-gray-800">
         Daftar isi content
       </h3>
@@ -10,13 +10,13 @@
       </div>
     </div>
 
-    <div>
+    <div class="ml-5">
       <h3 class="mb-4 text-[20px] font-semibold text-gray-800">
         Related tips content
       </h3>
 
       <div
-        class="ml-2 space-y-5 grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-1">
+        class="grid grid-cols-1 gap-4 ml-2 space-y-5 md:grid-cols-2 lg:grid-cols-1">
         @foreach ($relatedTips as $related)
           <div class="flex gap-3 group">
             <img
@@ -90,7 +90,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="ml-5">
       <h3 class="mb-4 text-[20px] font-semibold text-gray-800">
         Share on social media
       </h3>
@@ -138,7 +138,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="ml-5">
       <h3 class="mb-4 text-[20px] font-semibold text-gray-800">
         Related categories
       </h3>
@@ -150,7 +150,7 @@
               <a href="{{ route('ec-tipscodings.category',
                 $category->slug) }}">
                 <button
-                  class="flex items-center cursor-pointer pl-0.5 pr-1.5 py-1 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200">
+                  class="flex items-center cursor-pointer pl-1 pr-2 py-1 rounded-[10px] border text-[15px] font-medium text-blue-600 border-blue-400 bg-gray-100 tracking-wide hover:text-black hover:bg-gray-200">
                   🔹
                   @if ($category->image)
                     <img src="{{ asset($category->image) }}"

@@ -1,9 +1,10 @@
 import "./bootstrap";
 
-import "./toc";
-import "./copy-code";
 import "preline";
 import "flowbite";
+import "./copy-code";
+import "./data-region";
+import "./daftar-isi-content";
 import Alpine from "alpinejs";
 import Editor from "@toast-ui/editor";
 import "@toast-ui/editor/dist/toastui-editor.css";

@@ -4,7 +4,6 @@ namespace App\View\Components\Backend\Input;
 
 use Closure;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\Component;
 
 class InputSelect extends Component
@@ -14,11 +13,14 @@ class InputSelect extends Component
     public ?string $labelName = null,
     public ?string $id = null,
     public ?string $name = null,
-    public ?Collection $items = null,
+    public mixed $items = null,
     public mixed $valueOld = null,
     public mixed $valueDefault = null,
     public ?string $error = null,
     public ?string $placeholder = null,
+    public ?string $valueKey = 'id',
+    public ?string $labelKey = 'name',
+    public ?string $dataUrl = null,
   ) {}
 
   public function render(): View|Closure|string

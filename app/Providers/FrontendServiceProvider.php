@@ -13,6 +13,7 @@ use App\View\Components\Frontend\Header\WebDefault;
 use App\View\Components\Frontend\Header\WebExploreLainnya;
 use App\View\Components\Frontend\Header\WebMenuUtama;
 use App\View\Components\Frontend\Home\Question;
+use App\View\Components\Frontend\Media\SocialMedia;
 use App\View\Components\Frontend\Paginate\Paginate;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -55,5 +56,8 @@ class FrontendServiceProvider extends ServiceProvider
       'tipscoding-show-share-on-sosmed',
       TipscodingShowShareOnSosmed::class
     );
+
+    // MEDIA
+    Blade::component('social-media', SocialMedia::class);
   }
 }

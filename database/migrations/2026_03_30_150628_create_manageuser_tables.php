@@ -37,6 +37,7 @@ return new class extends Migration
       $table->string('name');
       $table->string('username')->unique();
       $table->string('email')->unique();
+      $table->string('gender')->nullable()->after('name');
       $table->boolean('status')->default(true);
       $table->string('password');
       $table->string('image')->nullable();
@@ -46,6 +47,17 @@ return new class extends Migration
         ->cascadeOnUpdate();
       $table->boolean('status_on_of')->default(false);
       $table->timestamp('last_seen')->nullable();
+      $table->unsignedBigInteger('province_code')->nullable();
+      $table->unsignedBigInteger('city_code')->nullable();
+      $table->unsignedBigInteger('district_code')->nullable();
+      $table->text('bio')->nullable();
+      $table->string('threads')->nullable();
+      $table->string('instagram')->nullable();
+      $table->string('x')->nullable();
+      $table->string('facebook')->nullable();
+      $table->string('tiktok')->nullable();
+      $table->string('github')->nullable();
+      $table->string('linkedin')->nullable();
       $table->timestamps();
 
       $table->index(['status_on_of', 'last_seen']);

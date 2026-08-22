@@ -118,7 +118,8 @@ class TipscodingController extends Controller
 
     $tipscoding->load([
       'category:id,name,slug,image',
-      'user:id,username,image',
+      'user:id,username,image,role_id',
+      'user.role:id,name'
     ])->loadCount('tipscodingviews');
 
     $tipstotal = Tipscoding::count();

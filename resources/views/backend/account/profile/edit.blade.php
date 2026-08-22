@@ -24,6 +24,10 @@
             @csrf
 
             <div class="x-border">
+              <div class="mb-4 tracking-wide font-semibold text-[26px] text-slate-800">
+                Data personal
+              </div>
+
               <div class="gap-8 xl:gap-14 max-auto md:flex">
                 <x-input
                   label-for="name"
@@ -51,6 +55,34 @@
               </div>
 
               <div class="gap-8 xl:gap-14 max-auto md:flex">
+                <x-input-disable
+                  label-for="email"
+                  label-name="User..email"
+                  type="text"
+                  id="email"
+                  name="email"
+                  value-old="email"
+                  :value-default="$user->email"
+                  error="email"
+                  placeholder="Masukkan email user"
+                />
+
+                <x-input-select
+    label-for="gender"
+    label-name="Jenis Kelamin"
+    id="gender"
+    name="gender"
+    :items="$genders"
+    value-old="gender"
+    :value-default="$user->gender"
+    error="gender"
+    placeholder="Pilih Jenis Kelamin"
+    value-key="code"
+    label-key="name"
+/>
+              </div>
+
+              <div class="gap-8 xl:gap-14 max-auto md:flex">
                 <x-input-image
                   label-for="image"
                   label-name="User..image"
@@ -64,6 +96,164 @@
                   label-for="image"
                   label-name="User..preview"
                   :image="$user->image"
+                />
+              </div>
+
+              <div class="mb-4 mt-20 tracking-wide font-semibold text-[26px] text-slate-800">
+                Data region
+              </div>
+
+              <div class="gap-8 xl:gap-14 max-auto md:flex">
+                <x-input-select
+                  label-for="province_code"
+                  label-name="Provinsi"
+                  id="province_code"
+                  name="province_code"
+                  :items="$provinces"
+                  value-old="province_code"
+                  :value-default="$user->province_code"
+                  value-key="code"
+                  error="province_code"
+                  placeholder="Select provinsi"
+                />
+
+                <x-input-select
+                  label-for="city_code"
+                  label-name="Kabupaten/Kota"
+                  id="city_code"
+                  name="city_code"
+                  :items="$cities"
+                  value-old="city_code"
+                  :value-default="$user->city_code"
+                  error="city_code"
+                  placeholder="Select Kabupaten/kota"
+                  value-key="code"
+                  :data-url="route('profile.cities', ':provinceCode')"
+                />
+              </div>
+
+              <div class="gap-8 xl:gap-14 max-auto md:flex">
+                <x-input-select
+                  label-for="district_code"
+                  label-name="Kecamatan"
+                  id="district_code"
+                  name="district_code"
+                  :items="$districts"
+                  value-old="district_code"
+                  :value-default="$user->district_code"
+                  error="district_code"
+                  placeholder="Select Kecamatan"
+                  value-key="code"
+                  :data-url="route('profile.districts', ':cityCode')"
+                />
+              </div>
+
+              <div class="mb-4 mt-20 tracking-wide font-semibold text-[26px] text-slate-800">
+                Data optional
+              </div>
+
+              <div class="gap-8 xl:gap-14 max-auto md:flex">
+                <x-input-textarea
+                  label-for="bio"
+                  label-name="Bio singkat tentang saya"
+                  id="bio"
+                  name="bio"
+                  value-old="bio"
+                  value-default=""
+                  error="bio"
+                  placeholder="Masukkan bio"
+                />
+              </div>
+
+              <div class="gap-8 xl:gap-14 max-auto md:flex">
+                <x-input
+                  label-for="threads"
+                  label-name="Account..threads"
+                  type="text"
+                  id="threads"
+                  name="threads"
+                  value-old="threads"
+                  value-default=""
+                  error="threads"
+                  placeholder="Masukkan username threads"
+                />
+
+                <x-input
+                  label-for="instagram"
+                  label-name="Account..instagram"
+                  type="text"
+                  id="instagram"
+                  name="instagram"
+                  value-old="instagram"
+                  value-default=""
+                  error="instagram"
+                  placeholder="Masukkan username instagram"
+                />
+              </div>
+
+              <div class="gap-8 xl:gap-14 max-auto md:flex">
+                <x-input
+                  label-for="x"
+                  label-name="Account..x"
+                  type="text"
+                  id="x"
+                  name="x"
+                  value-old="x"
+                  value-default=""
+                  error="x"
+                  placeholder="Masukkan username X"
+                />
+
+                <x-input
+                  label-for="facebook"
+                  label-name="Account..facebook"
+                  type="text"
+                  id="facebook"
+                  name="facebook"
+                  value-old="facebook"
+                  value-default=""
+                  error="facebook"
+                  placeholder="Masukkan username facebook"
+                />
+              </div>
+
+              <div class="gap-8 xl:gap-14 max-auto md:flex">
+                <x-input
+                  label-for="tiktok"
+                  label-name="Account..tiktok"
+                  type="text"
+                  id="tiktok"
+                  name="tiktok"
+                  value-old="tiktok"
+                  value-default=""
+                  error="tiktok"
+                  placeholder="Masukkan username tiktok"
+                />
+
+                <x-input
+                  label-for="github"
+                  label-name="Account..github"
+                  type="text"
+                  id="github"
+                  name="github"
+                  value-old="github"
+                  value-default=""
+                  error="github"
+                  placeholder="Masukkan username github"
+                />
+              </div>
+
+              <div class="gap-8 xl:gap-14 max-auto md:flex">
+                <x-input
+                  label-for="linkedin"
+                  label-name="Account..linkedin"
+                  type="text"
+                  id="linkedin"
+                  name="linkedin"
+                  value-old="linkedin"
+                  value-default=""
+                  error="linkedin"
+                  placeholder="Masukkan username linkedin"
                 />
               </div>
 

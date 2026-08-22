@@ -21,3 +21,13 @@ Route::group(
     );
   }
 );
+
+Route::get('/profile/cities/{provinceCode}', [
+  ProfileController::class,
+  'cities',
+])->name('profile.cities');
+
+Route::get('/profile/districts/{cityCode}', [
+  ProfileController::class,
+  'districts',
+])->name('profile.districts');

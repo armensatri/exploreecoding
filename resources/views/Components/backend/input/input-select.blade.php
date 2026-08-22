@@ -10,22 +10,25 @@
 
   <select id="{{ $id }}"
     name="{{ $name }}"
+    @if ($dataUrl)
+      data-url="{{ $dataUrl }}"
+    @endif
     class="bg-gray-50 border border-gray-300 text-gray-700
-    text-sm rounded-[14px] focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-[9px]
+    text-sm rounded-[14px] focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.25
     placeholder:tracking-wide
-    placeholder:ps-[13px] tracking-wide cursor-pointer">
+    placeholder:ps-3.25 tracking-wide cursor-pointer">
     <option disabled selected>
       {{ $placeholder }}
     </option>
 
     @foreach($items as $item)
-      @if (old($valueOld, $valueDefault) == $item->id)
-        <option value="{{ $item->id }}" selected>
-          {{ $item->id }} - {{ $item->name }}
+      @if (old($valueOld, $valueDefault) == $item->{$valueKey})
+        <option value="{{ $item->{$valueKey} }}" selected>
+          {{ $item->{$valueKey} }} - {{ $item->{$labelKey} }}
         </option>
       @else
-        <option value="{{ $item->id }}">
-          {{ $item->id }} - {{ $item->name }}
+        <option value="{{ $item->{$valueKey} }}">
+          {{ $item->{$valueKey} }} - {{ $item->{$labelKey} }}
         </option>
       @endif
     @endforeach

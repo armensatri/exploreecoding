@@ -120,7 +120,7 @@
 
                           <td class="h-px whitespace-nowrap">
                             <x-td-var
-                              :var="$user->username"
+                              :var="'@' . $user->username"
                             />
                           </td>
 

@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between px-4 mt-5 grow mb-11">
     <div class="flex items-center px-4 lg:hidden">
       <button @click.stop="sidebarToggle = !sidebarToggle"
-        class="block bg-white p-1.5 rounded-lg dark:border-strokedark dark:bg-boxdark lg:hidden shadow-sm hover:bg-gray-100">
+        class="block bg-white p-1.5 rounded-sm lg:hidden shadow-sm hover:bg-gray-100 cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"

@@ -21,12 +21,24 @@ class User extends Authenticatable
     'name',
     'username',
     'email',
+    'gender',
     'password',
     'image',
     'role_id',
     'status_on_of',
     'last_seen',
     'status',
+    'province_code',
+    'city_code',
+    'district_code',
+    'bio',
+    'threads',
+    'instagram',
+    'x',
+    'facebook',
+    'tiktok',
+    'github',
+    'linkedin'
   ];
 
   protected $sFields = [

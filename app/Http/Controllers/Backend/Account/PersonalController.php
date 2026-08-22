@@ -12,7 +12,7 @@ class PersonalController extends Controller
     $user = Auth::user();
 
     return view('backend.account.personal.index', [
-      'title' => 'Personal',
+      'title' => 'Personal for profile public',
       'user' => $user,
     ]);
   }

@@ -53,7 +53,7 @@
     <x-mobile-menu-utama
       :route="route('ec-tipscodings.index')"
       :image="asset('frontend/img/navigation/tipscodings.png')"
-      menu="✅Tips coding"
+      menu="Tips coding"
       description="tips pengetahuan pemrograman"
       button-name="Tips coding"
     />
@@ -77,7 +77,7 @@
     <x-mobile-menu-utama
       :route="route('ec-contact')"
       :image="asset('frontend/img/navigation/contact.png')"
-      menu="✅Contact"
+      menu="Contact"
       description="kontak resmi exploreecoding"
       button-name="Contact"
     />
