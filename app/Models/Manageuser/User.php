@@ -2,6 +2,7 @@
 
 namespace App\Models\Manageuser;
 
+use App\Models\Manageuser\Role;
 use App\Models\Programming\Post;
 use App\Models\Tipscoding\Tipscoding;
 use App\Models\View\Pathview;
@@ -32,13 +33,6 @@ class User extends Authenticatable
     'city_code',
     'district_code',
     'bio',
-    'threads',
-    'instagram',
-    'x',
-    'facebook',
-    'tiktok',
-    'github',
-    'linkedin'
   ];
 
   protected $sFields = [

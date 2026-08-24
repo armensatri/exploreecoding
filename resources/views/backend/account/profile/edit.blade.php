@@ -31,61 +31,61 @@
               <div class="gap-8 xl:gap-14 max-auto md:flex">
                 <x-input
                   label-for="name"
-                  label-name="User..name"
+                  label-name="Name"
                   type="text"
                   id="name"
                   name="name"
                   value-old="name"
                   :value-default="$user->name"
                   error="name"
-                  placeholder="Masukkan nama user"
+                  placeholder="Masukkan name"
                 />
 
                 <x-input
                   label-for="username"
-                  label-name="User..username"
+                  label-name="Username"
                   type="text"
                   id="username"
                   name="username"
                   value-old="username"
                   :value-default="$user->username"
                   error="username"
-                  placeholder="Masukkan username user"
+                  placeholder="Masukkan username"
                 />
               </div>
 
               <div class="gap-8 xl:gap-14 max-auto md:flex">
                 <x-input-disable
                   label-for="email"
-                  label-name="User..email"
+                  label-name="Email"
                   type="text"
                   id="email"
                   name="email"
                   value-old="email"
                   :value-default="$user->email"
                   error="email"
-                  placeholder="Masukkan email user"
+                  placeholder="Masukkan email"
                 />
 
                 <x-input-select
-    label-for="gender"
-    label-name="Jenis Kelamin"
-    id="gender"
-    name="gender"
-    :items="$genders"
-    value-old="gender"
-    :value-default="$user->gender"
-    error="gender"
-    placeholder="Pilih Jenis Kelamin"
-    value-key="code"
-    label-key="name"
-/>
+                  label-for="gender"
+                  label-name="Gender"
+                  id="gender"
+                  name="gender"
+                  :items="$genders"
+                  value-old="gender"
+                  :value-default="$user->gender"
+                  error="gender"
+                  placeholder="Select gender"
+                  value-key="code"
+                  label-key="name"
+                />
               </div>
 
               <div class="gap-8 xl:gap-14 max-auto md:flex">
                 <x-input-image
                   label-for="image"
-                  label-name="User..image"
+                  label-name="Profile image"
                   type="file"
                   id="image"
                   name="image"
@@ -94,7 +94,7 @@
 
                 <x-input-image-preview
                   label-for="image"
-                  label-name="User..preview"
+                  label-name="Profile image preview"
                   :image="$user->image"
                 />
               </div>
@@ -159,101 +159,9 @@
                   id="bio"
                   name="bio"
                   value-old="bio"
-                  value-default=""
+                  :value-default="$user->bio"
                   error="bio"
                   placeholder="Masukkan bio"
-                />
-              </div>
-
-              <div class="gap-8 xl:gap-14 max-auto md:flex">
-                <x-input
-                  label-for="threads"
-                  label-name="Account..threads"
-                  type="text"
-                  id="threads"
-                  name="threads"
-                  value-old="threads"
-                  value-default=""
-                  error="threads"
-                  placeholder="Masukkan username threads"
-                />
-
-                <x-input
-                  label-for="instagram"
-                  label-name="Account..instagram"
-                  type="text"
-                  id="instagram"
-                  name="instagram"
-                  value-old="instagram"
-                  value-default=""
-                  error="instagram"
-                  placeholder="Masukkan username instagram"
-                />
-              </div>
-
-              <div class="gap-8 xl:gap-14 max-auto md:flex">
-                <x-input
-                  label-for="x"
-                  label-name="Account..x"
-                  type="text"
-                  id="x"
-                  name="x"
-                  value-old="x"
-                  value-default=""
-                  error="x"
-                  placeholder="Masukkan username X"
-                />
-
-                <x-input
-                  label-for="facebook"
-                  label-name="Account..facebook"
-                  type="text"
-                  id="facebook"
-                  name="facebook"
-                  value-old="facebook"
-                  value-default=""
-                  error="facebook"
-                  placeholder="Masukkan username facebook"
-                />
-              </div>
-
-              <div class="gap-8 xl:gap-14 max-auto md:flex">
-                <x-input
-                  label-for="tiktok"
-                  label-name="Account..tiktok"
-                  type="text"
-                  id="tiktok"
-                  name="tiktok"
-                  value-old="tiktok"
-                  value-default=""
-                  error="tiktok"
-                  placeholder="Masukkan username tiktok"
-                />
-
-                <x-input
-                  label-for="github"
-                  label-name="Account..github"
-                  type="text"
-                  id="github"
-                  name="github"
-                  value-old="github"
-                  value-default=""
-                  error="github"
-                  placeholder="Masukkan username github"
-                />
-              </div>
-
-              <div class="gap-8 xl:gap-14 max-auto md:flex">
-                <x-input
-                  label-for="linkedin"
-                  label-name="Account..linkedin"
-                  type="text"
-                  id="linkedin"
-                  name="linkedin"
-                  value-old="linkedin"
-                  value-default=""
-                  error="linkedin"
-                  placeholder="Masukkan username linkedin"
                 />
               </div>
 

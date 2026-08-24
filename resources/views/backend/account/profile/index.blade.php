@@ -27,13 +27,9 @@
             />
           </div>
 
-          <div class="p-8 text-center">
-            <div class="mb-4 text-3xl font-extrabold tracking-wider text-gray-900 uppercase">
+          <div class="text-center mt-3">
+            <div class="text-3xl font-extrabold tracking-wider text-gray-900 uppercase">
               welcome back {{ $user->name }}
-            </div>
-
-            <div class="font-light tracking-wide text-gray-600 sm:text-xl">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptatem praesentium consequuntur mollitia incidunt maiores nostrum obcaecati quas quasi ea.
             </div>
 
             <div class="{{ $user->role->bg }}
@@ -45,13 +41,22 @@
             </div>
           </div>
 
-          <div class="flex justify-center mt-20">
+          <div
+            class="flex flex-col items-center justify-center gap-4 mt-20 sm:flex-row">
             <a href="{{ route('profile.edit', $user->username) }}"
-              class="uppercase px-3 py-1 font-medium text-sm mb-2
-              bg-blue-200 text-black border-gray-400 rounded-[10px]
+              class="w-fit inline-flex items-center justify-center uppercase px-3 py-1 font-medium text-sm mb-2
+              bg-blue-200 text-black border-gray-400 rounded-[8px]
               border hover:bg-blue-600 hover:text-white">
               <i class="mr-1.5 bi bi-pencil-square"></i>
               Edit profile
+            </a>
+
+            <a href=""
+              class="w-fit inline-flex items-center justify-center uppercase px-3 py-1 font-medium text-sm mb-2
+              bg-blue-200 text-black border-gray-400 rounded-[8px]
+              border hover:bg-blue-600 hover:text-white">
+              <i class="mr-1.5 bi bi-pencil-square"></i>
+              Edit sosmed
             </a>
           </div>
         </div>

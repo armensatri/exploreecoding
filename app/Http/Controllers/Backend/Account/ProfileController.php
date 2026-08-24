@@ -47,11 +47,11 @@ class ProfileController extends Controller
 
     $genders = collect([
       (object) [
-        'code' => 'male',
+        'code' => 'LK',
         'name' => 'Laki-laki',
       ],
       (object) [
-        'code' => 'female',
+        'code' => 'PR',
         'name' => 'Perempuan',
       ],
     ]);
@@ -92,8 +92,6 @@ class ProfileController extends Controller
     $user = User::find(Auth::id());
 
     $dataupdate = $request->validated();
-
-    // dd($dataupdate);
 
     $dataupdate['image'] = $this->handleImageUpdate(
       $request,
