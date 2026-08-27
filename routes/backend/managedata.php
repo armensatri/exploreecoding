@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\Managedata\AccessController;
 use App\Http\Controllers\Backend\Managedata\DataController;
+use App\Http\Controllers\Backend\Managedata\MonitoringController;
 use App\Http\Controllers\Backend\Managedata\StatisticController;
 use App\Http\Controllers\Backend\Managedata\VisitorController;
 use Illuminate\Support\Facades\Route;
@@ -26,5 +27,8 @@ Route::group(
 
     Route::get('/statistic', [StatisticController::class, 'index'])
       ->name('statistic');
+
+    Route::get('/monitoring', [MonitoringController::class, 'index'])
+      ->name('monitoring');
   }
 );

@@ -20,7 +20,7 @@ class MenuIcon
       'visitor' => 'visitor.jpg',
       'access' => 'access.png',
       'statistic' => 'statistic.jpg',
-      'view' => 'view.png',
+      'monitoring' => 'monitoring.png',
 
       // MANAGEUSER
       'users' => 'users.jpg',

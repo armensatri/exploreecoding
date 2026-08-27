@@ -4,7 +4,7 @@
 
   <div class="flex flex-col duration-300 ease-linear no-scrollbar">
     <div class="flex justify-center py-5">
-      <div class="px-3 py-4 text-base font-normal leading-none tracking-wide text-white bg-green-700 rounded-full">
+      <div class="px-3 py-2 text-base font-normal leading-none tracking-wide text-white bg-green-700 rounded-full">
         Exploreecoding
       </div>
     </div>

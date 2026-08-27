@@ -97,6 +97,16 @@ class SubmenuSeeder extends Seeder
         'routename' => '/statistic',
         'description' => 'data statistic system',
       ],
+      [
+        'menu_id' => 3,
+        'ssm' => 5,
+        'name' => 'monitoring',
+        'slug' => 'monitoring',
+        'route' => '/monitoring',
+        'active' => 'monitoring',
+        'routename' => '/monitoring',
+        'description' => 'data monitoring random system',
+      ],
 
       // ID 4 MANAGEUSER
       [

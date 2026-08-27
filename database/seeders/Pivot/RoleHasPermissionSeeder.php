@@ -65,6 +65,9 @@ class RoleHasPermissionSeeder extends Seeder
         // STATISTIC
         'statistic',
 
+        // MONITORING
+        'monitoring',
+
         // USERS
         'users.index',
         'users.create',
@@ -212,6 +215,9 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         'statistic',
+
+        // MONITORING
+        'monitoring',
 
         // USERS
         'users.index',
@@ -361,6 +367,9 @@ class RoleHasPermissionSeeder extends Seeder
         // STATISTIC
         // 'statistic',
 
+        // MONITORING
+        // 'monitoring',
+
         // USERS
         // 'users.index',
         // 'users.create',
@@ -508,6 +517,9 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         // 'statistic',
+
+        // MONITORING
+        // 'monitoring',
 
         // USERS
         // 'users.index',

@@ -1,6 +1,6 @@
 <img src="{{ $image }}"
   alt="{{ $alt }}"
-  class="w-24 h-24 object-cover object-top border-4 border-green-500 rounded-full"
+  class="object-cover object-top w-24 h-24 border-4 border-green-500 rounded-full"
 />
 
 <div class="mt-2 text-xl font-semibold">
