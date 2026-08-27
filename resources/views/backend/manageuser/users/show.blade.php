@@ -44,6 +44,13 @@
               :var="$user->created_at->diffForHumans()"
             />
 
+            <x-show-background
+              name="Role"
+              :bg="$user->role->bg"
+              :text="$user->role->text"
+              :var="$user->role->name"
+            />
+
             <x-show-var
               name="Name"
               :var="$user->name"
@@ -59,11 +66,48 @@
               :var="$user->email"
             />
 
+            <x-show-var
+              name="Gender"
+              :var="$gender?->name"
+            />
+
             <x-show-background
-              name="Role"
-              :bg="$user->role->bg"
-              :text="$user->role->text"
-              :var="$user->role->name"
+              name="Status banned"
+              :bg="$user->status()['bg']"
+              :text="$user->status()['text']"
+              :var="$user->status()['status']"
+            />
+
+            <x-show-background
+              name="Status on off"
+              :bg="$user->statusOnOf()['bg']"
+              :text="$user->statusOnOf()['text']"
+              :var="$user->statusOnOf()['statusOnOf']"
+            />
+
+            <x-show-var
+              name="Provinsi"
+              :var="$user->province?->code . ' - ' . $user->province?->name"
+            />
+
+            <x-show-var
+              name="Kabupaten/kota"
+              :var="$user->city?->code . ' - ' . $user->city?->name"
+            />
+
+            <x-show-var
+              name="Kecamatan"
+              :var="$user->district?->code . ' - ' . $user->district?->name"
+            />
+
+            <x-show-var
+              name="Last seen"
+              :var="\Carbon\Carbon::parse($user->last_seen)->diffForHumans()"
+            />
+
+            <x-show-var
+              name="Bio singkat"
+              :var="$user->bio"
             />
 
             <x-show-image

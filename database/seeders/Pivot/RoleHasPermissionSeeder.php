@@ -35,6 +35,8 @@ class RoleHasPermissionSeeder extends Seeder
         'profile',
         'profile.edit',
         'profile.update',
+        'profile.city',
+        'profile.district',
 
         // PERSONAL PUBLIC
         'personal',
@@ -62,11 +64,6 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         'statistic',
-
-        // VIEW
-        'view.index',
-        'view.path',
-        'view.tipscoding',
 
         // USERS
         'users.index',
@@ -186,6 +183,8 @@ class RoleHasPermissionSeeder extends Seeder
         'profile',
         'profile.edit',
         'profile.update',
+        'profile.city',
+        'profile.district',
 
         // PERSONAL PUBLIC
         'personal',
@@ -213,11 +212,6 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         'statistic',
-
-        // VIEW
-        'view.index',
-        'view.path',
-        'view.tipscoding',
 
         // USERS
         'users.index',
@@ -337,6 +331,8 @@ class RoleHasPermissionSeeder extends Seeder
         'profile',
         'profile.edit',
         'profile.update',
+        'profile.city',
+        'profile.district',
 
         // PERSONAL PUBLIC
         'personal',
@@ -364,11 +360,6 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         // 'statistic',
-
-        // VIEW
-        // 'view.index',
-        // 'view.path',
-        // 'view.tipscoding',
 
         // USERS
         // 'users.index',
@@ -488,6 +479,8 @@ class RoleHasPermissionSeeder extends Seeder
         'profile',
         'profile.edit',
         'profile.update',
+        'profile.city',
+        'profile.district',
 
         // PERSONAL PUBLIC
         'personal',
@@ -515,11 +508,6 @@ class RoleHasPermissionSeeder extends Seeder
 
         // STATISTIC
         // 'statistic',
-
-        // VIEW
-        // 'view.index',
-        // 'view.path',
-        // 'view.tipscoding',
 
         // USERS
         // 'users.index',

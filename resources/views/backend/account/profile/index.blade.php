@@ -27,7 +27,7 @@
             />
           </div>
 
-          <div class="text-center mt-3">
+          <div class="mt-3 text-center">
             <div class="text-3xl font-extrabold tracking-wider text-gray-900 uppercase">
               welcome back {{ $user->name }}
             </div>
@@ -49,14 +49,6 @@
               border hover:bg-blue-600 hover:text-white">
               <i class="mr-1.5 bi bi-pencil-square"></i>
               Edit profile
-            </a>
-
-            <a href=""
-              class="w-fit inline-flex items-center justify-center uppercase px-3 py-1 font-medium text-sm mb-2
-              bg-blue-200 text-black border-gray-400 rounded-[8px]
-              border hover:bg-blue-600 hover:text-white">
-              <i class="mr-1.5 bi bi-pencil-square"></i>
-              Edit sosmed
             </a>
           </div>
         </div>

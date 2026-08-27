@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use App\Models\Tipscoding\{Category, Tipscoding};
+
+use Database\Seeders\Account\SosmedSeeder;
 use Database\Seeders\Managemenu\MenuSeeder;
 use Database\Seeders\Managemenu\SubmenuSeeder;
 use Database\Seeders\Manageuser\PermissionSeeder;
@@ -18,7 +20,7 @@ use Database\Seeders\Programming\RoadmapSeeder;
 use Database\Seeders\Published\StatusSeeder;
 use Database\Seeders\Tipscoding\CategorySeeder;
 use Database\Seeders\Tipscoding\TipscodingSeeder;
-use Database\Seeders\View\PathviewSeeder;
+// use Database\Seeders\View\PathviewSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -44,7 +46,8 @@ class DatabaseSeeder extends Seeder
       PostSeeder::class,
       CategorySeeder::class,
       TipscodingSeeder::class,
-      PathviewSeeder::class,
+      // PathviewSeeder::class,
+      SosmedSeeder::class,
     ]);
 
     // Path::factory()

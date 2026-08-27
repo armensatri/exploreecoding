@@ -110,9 +110,23 @@ class UsersController extends Controller
    */
   public function show(User $user)
   {
+    $genders = collect([
+      (object) [
+        'code' => 'LK',
+        'name' => 'Laki-laki',
+      ],
+      (object) [
+        'code' => 'PR',
+        'name' => 'Perempuan',
+      ],
+    ]);
+
+    $gender = $genders->firstWhere('code', $user->gender);
+
     return view('backend.manageuser.users.show', [
       'title' => 'Detail data user',
       'user' => $user,
+      'gender' => $gender,
     ]);
   }
 

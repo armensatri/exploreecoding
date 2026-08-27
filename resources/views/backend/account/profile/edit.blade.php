@@ -128,7 +128,7 @@
                   error="city_code"
                   placeholder="Select Kabupaten/kota"
                   value-key="code"
-                  :data-url="route('profile.cities', ':provinceCode')"
+                  :data-url="route('profile.city', ':provinceCode')"
                 />
               </div>
 
@@ -144,7 +144,7 @@
                   error="district_code"
                   placeholder="Select Kecamatan"
                   value-key="code"
-                  :data-url="route('profile.districts', ':cityCode')"
+                  :data-url="route('profile.district', ':cityCode')"
                 />
               </div>
 

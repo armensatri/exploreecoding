@@ -7,11 +7,9 @@ use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 
 #[Signature('permission:cpr')]
 #[Description('Create permission routes')]
-
 class RoutePermission extends Command
 {
   public function __construct()
@@ -24,14 +22,19 @@ class RoutePermission extends Command
     $routes = collect(Route::getRoutes())->filter(
       function ($route) {
 
-        $hasNameAndWeb = $route->getName() && in_array(
-          'web',
+        $hasNameAndWeb = $route->getName()
+          && in_array(
+            'web',
+            $route->middleware()
+          );
+
+        $hasPermissionMiddleware = in_array(
+          'permission',
           $route->middleware()
         );
 
-        $isBackend = Str::startsWith($route->uri(), 'backend') || Str::startsWith($route->getName(), 'backend.');
-
-        return $hasNameAndWeb && $isBackend;
+        return $hasNameAndWeb
+          && $hasPermissionMiddleware;
       }
     );
 
@@ -60,9 +63,8 @@ class RoutePermission extends Command
 
     $this->info(
       "🎉 permission generate completed
-        created: $created
-        skipped: $skipped
-      "
+      created: $created
+      skipped: $skipped"
     );
   }
 }

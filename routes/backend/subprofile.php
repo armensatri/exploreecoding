@@ -17,17 +17,12 @@ Route::group(
           ->name('profile.edit');
         Route::patch('/profile/update', 'update')
           ->name('profile.update');
+
+        Route::get('/profile/cities/{provinceCode}', 'cities')
+          ->name('profile.city');
+        Route::get('/profile/districts/{cityCode}', 'districts')
+          ->name('profile.district');
       }
     );
   }
 );
-
-Route::get('/profile/cities/{provinceCode}', [
-  ProfileController::class,
-  'cities',
-])->name('profile.cities');
-
-Route::get('/profile/districts/{cityCode}', [
-  ProfileController::class,
-  'districts',
-])->name('profile.districts');

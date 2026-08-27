@@ -5,10 +5,13 @@ namespace App\Models\Manageuser;
 use App\Models\Manageuser\Role;
 use App\Models\Programming\Post;
 use App\Models\Tipscoding\Tipscoding;
-use App\Models\View\Pathview;
-use App\Models\View\Tipscodingview;
+// use App\Models\View\Pathview;
+// use App\Models\View\Tipscodingview;
 use App\Traits\Models\HasCacheVersion;
 use App\Traits\Models\HasSearchable;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\District;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -74,15 +77,15 @@ class User extends Authenticatable
     return $this->hasMany(Tipscoding::class);
   }
 
-  public function pathviews()
-  {
-    return $this->hasMany(Pathview::class);
-  }
+  // public function pathviews()
+  // {
+  //   return $this->hasMany(Pathview::class);
+  // }
 
-  public function tipscodingviews()
-  {
-    return $this->hasMany(Tipscodingview::class);
-  }
+  // public function tipscodingviews()
+  // {
+  //   return $this->hasMany(Tipscodingview::class);
+  // }
 
   public function hasSubmenu(string $submenu): bool
   {
@@ -96,6 +99,42 @@ class User extends Authenticatable
     return $this->role
       ?->permissions
       ?->contains('name', $permission) ?? false;
+  }
+
+  public function province()
+  {
+    return $this->belongsTo(
+      Province::class,
+      'province_code',
+      'code'
+    )->select([
+      'code',
+      'name',
+    ]);
+  }
+
+  public function city()
+  {
+    return $this->belongsTo(
+      City::class,
+      'city_code',
+      'code'
+    )->select([
+      'code',
+      'name',
+    ]);
+  }
+
+  public function district()
+  {
+    return $this->belongsTo(
+      District::class,
+      'district_code',
+      'code'
+    )->select([
+      'code',
+      'name',
+    ]);
   }
 
   public function statusOnOf()

@@ -26,3 +26,15 @@ Route::group(
     ])->name('changepassword');
   }
 );
+
+Route::group(
+  [
+    'middleware' => [
+      'auth',
+      'permission',
+    ],
+  ],
+  function () {
+    //
+  }
+);

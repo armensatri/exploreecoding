@@ -5,7 +5,7 @@ namespace App\Models\Programming;
 use App\Models\Programming\Playlist;
 use App\Models\Programming\Roadmap;
 use App\Models\Published\Status;
-use App\Models\View\Pathview;
+// use App\Models\View\Pathview;
 use App\Traits\Models\HasCacheVersion;
 use App\Traits\Models\HasSearchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -62,8 +62,8 @@ class Path extends Model
     );
   }
 
-  public function pathviews()
-  {
-    return $this->hasMany(Pathview::class);
-  }
+  // public function pathviews()
+  // {
+  //   return $this->hasMany(Pathview::class);
+  // }
 }
