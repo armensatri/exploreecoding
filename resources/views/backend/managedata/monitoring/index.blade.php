@@ -27,8 +27,15 @@
           </div>
 
           <div class="w-full mt-12">
-            <div class="flex justify-center gap-2 px-4 py-2 mx-auto border-gray-200 sm:border-b">
+            <div class="flex justify-center gap-2 px-4 py-4 mx-auto border-b border-gray-200">
               @include('backend.managedata.monitoring._navigation')
+            </div>
+
+            <div class="max-w-lg p-8 mx-auto text-center lg:max-w-2xl">
+              <div
+                class="text-lg font-normal tracking-tighter text-gray-600 xl:text-xl">
+                Monitoring data system adalah sistem yang digunakan untuk memantau, mengelola, dan memonitor data secara terstruktur agar informasi dapat dipantau dengan mudah dan akurat.
+              </div>
             </div>
           </div>
         </div>

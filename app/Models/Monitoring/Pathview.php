@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models\Monitoring;
+
+use App\Models\Manageuser\User;
+use App\Models\Programming\Path;
+use Illuminate\Database\Eloquent\Model;
+
+class Pathview extends Model
+{
+  protected $table = 'path_view';
+
+  protected $fillable = [
+    'path_id',
+    'user_id',
+  ];
+
+  protected $sFields = [
+    'name',
+  ];
+
+  public function path()
+  {
+    return $this->belongsTo(Path::class);
+  }
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+}

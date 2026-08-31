@@ -85,6 +85,13 @@
               :var="$user->statusOnOf()['statusOnOf']"
             />
 
+            <x-show-background
+              name="Account verify"
+              bg="bg-red-200"
+              text="text-red-800"
+              var="no verify"
+            />
+
             <x-show-var
               name="Provinsi"
               :var="$user->province?->code . ' - ' . $user->province?->name"

@@ -35,6 +35,6 @@ Route::group(
     ],
   ],
   function () {
-    //
+    // index sosmed di monitoring
   }
 );

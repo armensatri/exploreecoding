@@ -5,7 +5,7 @@
 </button>
 
 <div id="hs-slide-down-animation-modal"
-  class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
+  class="fixed top-0 hidden overflow-x-hidden overflow-y-auto pointer-events-none hs-overlay size-full inset-s-0 z-80">
 
   <div class="m-3 mt-0 transition-all ease-out opacity-0 hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 sm:max-w-lg sm:w-full sm:mx-auto">
 
@@ -35,7 +35,7 @@
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="flex-shrink-0 size-4 cursor-pointer">
+            class="cursor-pointer inset-s-0 size-4">
             <path d="M18 6 6 18"></path>
             <path d="m6 6 12 12"></path>
           </svg>
@@ -54,7 +54,7 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500 placeholder:tracking-wider placeholder:ps-1 placeholder:font-serif tracking-wide"
               />
 
-              <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-4">
+              <div class="absolute inset-y-0 flex items-center pointer-events-none inset-s-0 ps-4">
               </div>
             </div>
           </div>

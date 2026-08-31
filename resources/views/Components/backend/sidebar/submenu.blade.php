@@ -1,5 +1,5 @@
 <a href="{{ $route }}"
-  class="{{ Request::is($active) ? $active : '' }}
+  class="{{ Request::routeIs($active) ? $active : '' }}
   inline-flex w-full items-center p-2 hover:bg-linear-to-r hover:via-red-50 hover:from-gray-50 hover:to-green-50 hover:rounded-full">
 
   <span class="text-xs text-blue-700">

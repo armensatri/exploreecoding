@@ -19,6 +19,7 @@ require __DIR__ . '/backend/tipscoding.php';
 // SUB BACKEND
 require __DIR__ . '/backend/subaccess.php';
 require __DIR__ . '/backend/subchangepassword.php';
+require __DIR__ . '/backend/submonitoring.php';
 require __DIR__ . '/backend/subprofile.php';
 require __DIR__ . '/backend/subsosmed.php';
 require __DIR__ . '/backend/subvisitor.php';

@@ -3,12 +3,13 @@
 namespace App\Models\Tipscoding;
 
 use App\Models\Manageuser\User;
-// use App\Models\View\Tipscodingview;
+use App\Models\Monitoring\Tipscodingview;
+use App\Models\Tipscoding\Category;
 use App\Traits\Models\HasCacheVersion;
 use App\Traits\Models\HasSearchable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Tipscoding extends Model
 {
@@ -51,10 +52,10 @@ class Tipscoding extends Model
     return $this->belongsTo(Category::class);
   }
 
-  // public function tipscodingviews()
-  // {
-  //   return $this->hasMany(Tipscodingview::class);
-  // }
+  public function tipscodingviews()
+  {
+    return $this->hasMany(Tipscodingview::class);
+  }
 
   public function scopeAccessTipscodings(Builder $query, User $user)
   {

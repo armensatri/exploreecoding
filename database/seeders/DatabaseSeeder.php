@@ -10,6 +10,7 @@ use Database\Seeders\Managemenu\SubmenuSeeder;
 use Database\Seeders\Manageuser\PermissionSeeder;
 use Database\Seeders\Manageuser\RoleSeeder;
 use Database\Seeders\Manageuser\UserSeeder;
+use Database\Seeders\Monitoring\PathviewSeeder;
 use Database\Seeders\Pivot\RoleHasMenuSeeder;
 use Database\Seeders\Pivot\RoleHasPermissionSeeder;
 use Database\Seeders\Pivot\RoleHasSubmenuSeeder;
@@ -20,7 +21,6 @@ use Database\Seeders\Programming\RoadmapSeeder;
 use Database\Seeders\Published\StatusSeeder;
 use Database\Seeders\Tipscoding\CategorySeeder;
 use Database\Seeders\Tipscoding\TipscodingSeeder;
-// use Database\Seeders\View\PathviewSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
       PostSeeder::class,
       CategorySeeder::class,
       TipscodingSeeder::class,
-      // PathviewSeeder::class,
+      PathviewSeeder::class,
       SosmedSeeder::class,
     ]);
 

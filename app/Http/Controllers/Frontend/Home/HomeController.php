@@ -29,7 +29,7 @@ class HomeController extends Controller
       ->withCount([
         'roadmaps',
         'playlists',
-        // 'pathviews',
+        'pathviews',
       ])
       ->selectSub(
         Post::query()
@@ -45,7 +45,7 @@ class HomeController extends Controller
       ->get();
 
     $populerpaths = $paths
-      // ->sortByDesc('pathviews_count')
+      ->sortByDesc('pathviews_count')
       ->take(3)
       ->values();
 
@@ -60,7 +60,7 @@ class HomeController extends Controller
         'created_at',
       ])
       ->whereIn('id', [1, 2, 3, 4, 5])
-      // ->withCount('tipscodingviews')
+      ->withCount('tipscodingviews')
       ->with([
         'category:id,name,slug,image',
         'user:id,username,image',

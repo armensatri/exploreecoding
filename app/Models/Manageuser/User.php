@@ -3,16 +3,16 @@
 namespace App\Models\Manageuser;
 
 use App\Models\Manageuser\Role;
+use App\Models\Monitoring\Pathview;
+use App\Models\Monitoring\Tipscodingview;
 use App\Models\Programming\Post;
 use App\Models\Tipscoding\Tipscoding;
-// use App\Models\View\Pathview;
-// use App\Models\View\Tipscodingview;
 use App\Traits\Models\HasCacheVersion;
 use App\Traits\Models\HasSearchable;
-use Laravolt\Indonesia\Models\Province;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravolt\Indonesia\Models\Province;
 
 class User extends Authenticatable
 {
@@ -77,15 +77,15 @@ class User extends Authenticatable
     return $this->hasMany(Tipscoding::class);
   }
 
-  // public function pathviews()
-  // {
-  //   return $this->hasMany(Pathview::class);
-  // }
+  public function pathviews()
+  {
+    return $this->hasMany(Pathview::class);
+  }
 
-  // public function tipscodingviews()
-  // {
-  //   return $this->hasMany(Tipscodingview::class);
-  // }
+  public function tipscodingviews()
+  {
+    return $this->hasMany(Tipscodingview::class);
+  }
 
   public function hasSubmenu(string $submenu): bool
   {

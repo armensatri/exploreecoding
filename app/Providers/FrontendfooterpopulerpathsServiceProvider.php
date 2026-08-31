@@ -22,8 +22,8 @@ class FrontendfooterpopulerpathsServiceProvider extends ServiceProvider
           'id',
           'name',
         ])
-        // ->withCount('pathviews')
-        // ->orderByDesc('pathviews_count')
+        ->withCount('pathviews')
+        ->orderByDesc('pathviews_count')
         ->limit(3)
         ->get();
 
