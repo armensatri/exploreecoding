@@ -17,15 +17,30 @@ class FrontendfooterpopulerpathsServiceProvider extends ServiceProvider
   {
     View::composer('frontend.template.footer', function ($view) {
 
+      $getstarted = Path::query()
+        ->select([
+          'id',
+          'sp',
+          'name',
+        ])
+        ->where('sp', 1)
+        ->first();
+
       $populerpaths = Path::query()
         ->select([
           'id',
+          'sp',
           'name',
         ])
         ->withCount('pathviews')
+        ->where('sp', '!=', 1)
         ->orderByDesc('pathviews_count')
-        ->limit(3)
+        ->limit(2)
         ->get();
+
+      $populerpaths = collect([$getstarted])
+        ->merge($populerpaths)
+        ->values();
 
       $view->with(compact('populerpaths'));
     });

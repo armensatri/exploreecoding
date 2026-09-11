@@ -45,8 +45,10 @@ class HomeController extends Controller
       ->get();
 
     $populerpaths = $paths
+      ->where('sp', '!=', 1)
       ->sortByDesc('pathviews_count')
-      ->take(3)
+      ->take(2)
+      ->prepend($paths->firstWhere('sp', 1))
       ->values();
 
     $tipscodings = Tipscoding::query()

@@ -13,6 +13,7 @@ use App\View\Components\Frontend\Header\WebDefault;
 use App\View\Components\Frontend\Header\WebExploreLainnya;
 use App\View\Components\Frontend\Header\WebMenuUtama;
 use App\View\Components\Frontend\Home\Question;
+use App\View\Components\Frontend\Media\MonitoringSosialMedia;
 use App\View\Components\Frontend\Media\SocialMedia;
 use App\View\Components\Frontend\Paginate\Paginate;
 use Illuminate\Support\Facades\Blade;
@@ -59,5 +60,9 @@ class FrontendServiceProvider extends ServiceProvider
 
     // MEDIA
     Blade::component('social-media', SocialMedia::class);
+    Blade::component(
+      'monitoring-social-media',
+      MonitoringSosialMedia::class
+    );
   }
 }

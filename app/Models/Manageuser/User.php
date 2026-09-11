@@ -2,6 +2,7 @@
 
 namespace App\Models\Manageuser;
 
+use App\Models\Account\Sosmed;
 use App\Models\Manageuser\Role;
 use App\Models\Monitoring\Pathview;
 use App\Models\Monitoring\Tipscodingview;
@@ -75,6 +76,11 @@ class User extends Authenticatable
   public function tipscodings()
   {
     return $this->hasMany(Tipscoding::class);
+  }
+
+  public function sosmed()
+  {
+    return $this->hasOne(Sosmed::class, 'user_id');
   }
 
   public function pathviews()

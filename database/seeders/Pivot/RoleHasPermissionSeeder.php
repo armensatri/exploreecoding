@@ -38,6 +38,11 @@ class RoleHasPermissionSeeder extends Seeder
         'profile.city',
         'profile.district',
 
+        // SOSMED
+        'sosmeds.index',
+        'sosmeds.edit',
+        'sosmeds.update',
+
         // PERSONAL PUBLIC
         'personal',
 
@@ -192,6 +197,11 @@ class RoleHasPermissionSeeder extends Seeder
         'profile.update',
         'profile.city',
         'profile.district',
+
+        // SOSMED
+        'sosmeds.index',
+        'sosmeds.edit',
+        'sosmeds.update',
 
         // PERSONAL PUBLIC
         'personal',
@@ -348,6 +358,11 @@ class RoleHasPermissionSeeder extends Seeder
         'profile.city',
         'profile.district',
 
+        // SOSMED
+        // 'sosmeds.index',
+        'sosmeds.edit',
+        'sosmeds.update',
+
         // PERSONAL PUBLIC
         'personal',
 
@@ -502,6 +517,11 @@ class RoleHasPermissionSeeder extends Seeder
         'profile.update',
         'profile.city',
         'profile.district',
+
+        // SOSMED
+        // 'sosmeds.index',
+        'sosmeds.edit',
+        'sosmeds.update',
 
         // PERSONAL PUBLIC
         'personal',

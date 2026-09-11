@@ -8,14 +8,26 @@ return new class extends Migration
 {
   public function up(): void
   {
-    Schema::create('sosmed', function (Blueprint $table) {
+    Schema::create('sosmeds', function (Blueprint $table) {
       $table->id();
+      $table->foreignId('user_id')
+        ->constrained()
+        ->cascadeOnDelete();
+      $table->string('linkedin')->nullable();
+      $table->string('github')->nullable();
+      $table->string('threads')->nullable();
+      $table->string('instagram')->nullable();
+      $table->string('x')->nullable();
+      $table->string('facebook')->nullable();
+      $table->string('tiktok')->nullable();
       $table->timestamps();
+
+      $table->unique(['user_id']);
     });
   }
 
   public function down(): void
   {
-    Schema::dropIfExists('sosmed');
+    Schema::dropIfExists('sosmeds');
   }
 };

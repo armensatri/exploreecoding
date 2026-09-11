@@ -112,13 +112,43 @@
             </div>
 
             <div class="flex flex-wrap items-center gap-2">
-              <div class="flex gap-3">
-                <x-social-media
-                  link=""
-                  :image="asset('frontend/img/sosmed/threads.png')"
-                  tooltip=""
-                />
-              </div>
+               <div class="flex gap-3">
+                    <x-social-media
+                      link=""
+                      :image="asset('frontend/img/sosmed/github.png')"
+                      tooltip="https:://"
+                    />
+                    <x-social-media
+                      link=""
+                      :image="asset('frontend/img/sosmed/linkedin.png')"
+                      tooltip="https:://"
+                    />
+                    <x-social-media
+                      link=""
+                      :image="asset('frontend/img/sosmed/threads.png')"
+                      tooltip="https:://"
+                    />
+                    <x-social-media
+                      link=""
+                      :image="asset('frontend/img/sosmed/instagram.png')"
+                      tooltip="https:://"
+                    />
+                    <x-social-media
+                      link=""
+                      :image="asset('frontend/img/sosmed/x.png')"
+                      tooltip="https:://"
+                    />
+                    <x-social-media
+                      link=""
+                      :image="asset('frontend/img/sosmed/facebook.png')"
+                      tooltip="https:://"
+                    />
+                    <x-social-media
+                      link=""
+                      :image="asset('frontend/img/sosmed/tiktok.png')"
+                      tooltip="https:://"
+                    />
+                  </div>
             </div>
           </div>
         </div>

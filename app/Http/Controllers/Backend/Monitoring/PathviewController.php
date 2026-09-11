@@ -9,6 +9,16 @@ class PathviewController extends Controller
 {
   public function index()
   {
+    $getstarted = Path::query()
+      ->select([
+        'id',
+        'sp',
+        'name',
+      ])
+      ->where('sp', 1)
+      ->withCount('pathviews')
+      ->first();
+
     $paths = Path::query()
       ->search(request(['search']))
       ->select([
@@ -16,10 +26,13 @@ class PathviewController extends Controller
         'sp',
         'name',
       ])
+      ->where('sp', '!=', 1)
       ->withCount('pathviews')
       ->orderByDesc('pathviews_count')
-      ->paginate(10)
+      ->paginate(9)
       ->withQueryString();
+
+    $paths->prepend($getstarted);
 
     return view('backend.monitoring.pathview.index', [
       'title' => 'Monitoring path view',

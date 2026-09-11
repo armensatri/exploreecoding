@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Backend\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\Profile\ProfileUr;
+use App\Models\Account\Sosmed;
 use App\Models\Manageuser\User;
 use App\Traits\Controller\ImageUpdate;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
 use RealRashid\SweetAlert\Facades\Alert;
-use Laravolt\Indonesia\Models\District;
 
 class ProfileController extends Controller
 {
@@ -21,9 +22,28 @@ class ProfileController extends Controller
   {
     $user = Auth::user();
 
+    $genders = collect([
+      (object) [
+        'code' => 'LK',
+        'name' => 'Male',
+      ],
+      (object) [
+        'code' => 'PR',
+        'name' => 'Female',
+      ],
+    ]);
+
+    $gender = $genders->firstWhere('code', $user->gender);
+
+    $sosmed = Sosmed::query()
+      ->where('user_id', Auth::id())
+      ->first();
+
     return view('backend.account.profile.index', [
       'title' => 'My profile',
       'user' => $user,
+      'gender' => $gender,
+      'sosmed' => $sosmed
     ]);
   }
 
@@ -55,7 +75,6 @@ class ProfileController extends Controller
         'name' => 'Perempuan',
       ],
     ]);
-
 
     return view('backend.account.profile.edit', [
       'title' => 'Edit my account',

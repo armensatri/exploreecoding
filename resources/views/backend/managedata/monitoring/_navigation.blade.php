@@ -48,22 +48,22 @@
           <x-visitor-navigation
             :route="route('monitoring')"
             active="monitoring"
-            menu-name="Monitoring"
+            menu-name="🔹Monitoring"
           />
           <x-visitor-navigation
             :route="route('monitoring.path-view')"
             active="monitoring/path-view"
-            menu-name="Path view"
+            menu-name="🔹Path view"
           />
           <x-visitor-navigation
             :route="route('monitoring.tipscoding-view')"
             active="monitoring/tipscoding-view"
-            menu-name="Tipscoding view"
+            menu-name="🔹Tipscoding view"
           />
           <x-visitor-navigation
-            route=""
-            active=""
-            menu-name="User sosmed"
+            :route="route('sosmeds.index')"
+            active="monitoring/usersosmeds"
+            menu-name="🔹User sosmed"
           />
           <x-visitor-navigation
             route=""

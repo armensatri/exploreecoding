@@ -31,9 +31,9 @@
               @include('backend.managedata.monitoring._navigation')
             </div>
 
-            <div class="max-w-lg p-8 mx-auto text-center lg:max-w-2xl">
+            <div class="p-2 mx-auto text-center lg:max-w-2xl">
               <div
-                class="text-lg font-normal tracking-tighter text-gray-600 xl:text-xl">
+                class="text-[18px] font-normal tracking-tighter text-gray-600 md:text-xl xl:text-[20px] mx-auto">
                 Monitoring data system adalah sistem yang digunakan untuk memantau, mengelola, dan memonitor data secara terstruktur agar informasi dapat dipantau dengan mudah dan akurat.
               </div>
             </div>

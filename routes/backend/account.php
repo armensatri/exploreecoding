@@ -3,7 +3,9 @@
 use App\Http\Controllers\Backend\Account\ChangePasswordController;
 use App\Http\Controllers\Backend\Account\PersonalController;
 use App\Http\Controllers\Backend\Account\ProfileController;
+use App\Http\Controllers\Backend\Account\SosmedController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::group(
   [
@@ -35,6 +37,6 @@ Route::group(
     ],
   ],
   function () {
-    // index sosmed di monitoring
+    Route::get('/monitoring/usersosmeds', [SosmedController::class, 'index'])->name('sosmeds.index');
   }
 );

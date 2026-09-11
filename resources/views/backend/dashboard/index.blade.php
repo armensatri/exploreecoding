@@ -15,13 +15,14 @@
         @include('backend.xbreadcrumb.dashboard.index')
 
         <div class="x-border">
-          <div class="p-8 text-center">
-            <div class="mb-4 text-3xl font-extrabold tracking-wider text-gray-900 uppercase">
+          <div class="p-2 text-center">
+            <div class="mb-4 text-xl md:text-2xl lg:text-3xl font-extrabold tracking-wider text-gray-900 uppercase">
               welcome back {{ $user->name }}
             </div>
 
-            <div class="font-light tracking-wide text-gray-600 sm:text-xl">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptatem praesentium consequuntur mollitia incidunt maiores nostrum obcaecati quas quasi ea.
+            <div
+              class="text-[18px] font-normal tracking-tighter text-gray-600 md:text-xl xl:text-[22px] mx-auto lg:max-w-2xl">
+              Platform belajar pemrograman untuk menguasai coding dari dasar, kuasai teknologi programming melalui latihan konsisten proyek nyata serta pembelajaran coding yang terstruktur
             </div>
 
             <div class="{{ $user->role->bg }}

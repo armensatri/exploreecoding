@@ -113,11 +113,11 @@ class UsersController extends Controller
     $genders = collect([
       (object) [
         'code' => 'LK',
-        'name' => 'Laki-laki',
+        'name' => 'Male',
       ],
       (object) [
         'code' => 'PR',
-        'name' => 'Perempuan',
+        'name' => 'Female',
       ],
     ]);
 

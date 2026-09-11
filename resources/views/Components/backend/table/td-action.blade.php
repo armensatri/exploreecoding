@@ -6,7 +6,7 @@
       aria-haspopup="menu"
       aria-expanded="false"
       aria-label="Dropdown"
-      class="inline-flex items-center px-[6px] py-0.5 text-sm font-medium text-slate-900 cursor-pointer hs-dropdown-toggle
+      class="inline-flex items-center px-1.5 py-0.5 text-sm font-medium text-slate-900 cursor-pointer hs-dropdown-toggle
       hover:text-blue-600">
       <i class="bi bi-gear-fill"></i>
     </div>
@@ -15,7 +15,7 @@
       aria-orientation="vertical"
       aria-labelledby="hs-dropdown-hover-event-{{ $id }}"
       class="hs-dropdown-menu transition-[opacity,margin] duration
-      z-30 hs-dropdown-open:opacity-100 opacity-0 hidden min-w-max bg-slate-50 border border-gray-400 shadow-md rounded-2xl p-3 space-y-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:start-0 after:w-full before:h-4 before:absolute before:-top-4 before:start-0 before:w-full">
+      z-30 hs-dropdown-open:opacity-100 opacity-0 hidden min-w-max bg-slate-50 border border-gray-400 shadow-md rounded-2xl p-3 space-y-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:inset-s-0 after:w-full before:h-4 before:absolute before:-top-4 before:inset-s-0 before:w-full">
 
       <span class="block text-xs font-medium text-gray-800 uppercase">
         {{ $id }}
