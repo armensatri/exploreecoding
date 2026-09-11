@@ -13,8 +13,8 @@ return new class extends Migration
       $table->foreignId('user_id')
         ->constrained()
         ->cascadeOnDelete();
-      $table->string('linkedin')->nullable();
       $table->string('github')->nullable();
+      $table->string('linkedin')->nullable();
       $table->string('threads')->nullable();
       $table->string('instagram')->nullable();
       $table->string('x')->nullable();

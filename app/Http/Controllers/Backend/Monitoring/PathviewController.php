@@ -20,7 +20,6 @@ class PathviewController extends Controller
       ->first();
 
     $paths = Path::query()
-      ->search(request(['search']))
       ->select([
         'id',
         'sp',

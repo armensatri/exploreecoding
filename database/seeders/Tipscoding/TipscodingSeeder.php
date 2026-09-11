@@ -11,7 +11,7 @@ class TipscodingSeeder extends Seeder
   {
     $tipscodings = [
       [
-        'user_id' => 1,
+        'user_id' => 3,
         'category_id' => 1,
         'title' => 'Apa itu html',
         'slug' => 'apa-itu-html',
@@ -19,7 +19,7 @@ class TipscodingSeeder extends Seeder
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
       ],
       [
-        'user_id' => 2,
+        'user_id' => 4,
         'category_id' => 1,
         'title' => 'Sejarah html',
         'slug' => 'sejarah-html',
@@ -28,7 +28,7 @@ class TipscodingSeeder extends Seeder
       ],
 
       [
-        'user_id' => 3,
+        'user_id' => 5,
         'category_id' => 2,
         'title' => 'Apa itu css',
         'slug' => 'apa-itu-css',
@@ -36,7 +36,7 @@ class TipscodingSeeder extends Seeder
         'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolores! Animi blanditiis tenetur, et praesentium ea quasi quaerat quae molestiae.',
       ],
       [
-        'user_id' => 4,
+        'user_id' => 3,
         'category_id' => 2,
         'title' => 'Sejarah css',
         'slug' => 'sejarah-css',
@@ -53,7 +53,7 @@ class TipscodingSeeder extends Seeder
       ],
 
       [
-        'user_id' => 1,
+        'user_id' => 5,
         'category_id' => 3,
         'title' => 'Apa itu javascript',
         'slug' => 'apa-itu-javascript',

@@ -100,56 +100,37 @@
             </div>
 
             <p class="max-w-xl mt-2 text-base leading-6 text-slate-600">
-              Bio: Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere ab sed aperiam animi soluta, magnam debitis iste harum blanditiis error.
+              Bio : {{ $tipscoding->user?->bio ?: 'tidak ada bio' }}
             </p>
           </div>
         </div>
 
-        <div class="flex flex-col gap-6 mt-7 md:flex-row md:items-end md:justify-between">
+        <div
+          class="flex flex-col gap-6 mt-7 md:flex-row md:items-end md:justify-between">
           <div>
-            <div class="flex items-center mb-2 text-base font-medium text-slate-800">
+            <div
+              class="flex items-center mb-2 text-base font-medium text-slate-800">
               Follow sosial media saya
             </div>
 
-            <div class="flex flex-wrap items-center gap-2">
-               <div class="flex gap-3">
-                    <x-social-media
-                      link=""
-                      :image="asset('frontend/img/sosmed/github.png')"
-                      tooltip="https:://"
+            @if ($sosmed)
+              <div class="flex flex-wrap items-center justify-center gap-3">
+                @foreach ($socialMedias as $platform => $data)
+                  @if (filled($sosmed->$platform))
+                    <x-monitoring-social-media
+                      :link="$data['url'] . $sosmed->$platform"
+                      :image="asset('frontend/img/sosmed/' . $data['image'])"
+                      :tooltip="$sosmed->$platform"
                     />
-                    <x-social-media
-                      link=""
-                      :image="asset('frontend/img/sosmed/linkedin.png')"
-                      tooltip="https:://"
-                    />
-                    <x-social-media
-                      link=""
-                      :image="asset('frontend/img/sosmed/threads.png')"
-                      tooltip="https:://"
-                    />
-                    <x-social-media
-                      link=""
-                      :image="asset('frontend/img/sosmed/instagram.png')"
-                      tooltip="https:://"
-                    />
-                    <x-social-media
-                      link=""
-                      :image="asset('frontend/img/sosmed/x.png')"
-                      tooltip="https:://"
-                    />
-                    <x-social-media
-                      link=""
-                      :image="asset('frontend/img/sosmed/facebook.png')"
-                      tooltip="https:://"
-                    />
-                    <x-social-media
-                      link=""
-                      :image="asset('frontend/img/sosmed/tiktok.png')"
-                      tooltip="https:://"
-                    />
-                  </div>
-            </div>
+                  @endif
+                @endforeach
+              </div>
+            @else
+              <div
+                class="flex items-center justify-center px-4 py-2 text-[15px] text-gray-500">
+                  No sosmed, create or edit in profile
+              </div>
+            @endif
           </div>
         </div>
       </div>

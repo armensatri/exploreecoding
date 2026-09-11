@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Frontend\Tipscoding;
 
+use App\Helpers\Media;
 use App\Http\Controllers\Controller;
+use App\Models\Account\Sosmed;
 use App\Models\Tipscoding\Category;
 use App\Models\Tipscoding\Tipscoding;
 use Illuminate\Support\Facades\Auth;
@@ -122,6 +124,12 @@ class TipscodingController extends Controller
       'user.role:id,name'
     ])->loadCount('tipscodingviews');
 
+    if ($tipscoding->user?->role?->name !== 'creator') {
+      abort(404);
+    }
+
+    $sosmed = Sosmed::where('user_id', $tipscoding->user_id)->first();
+
     $tipstotal = Tipscoding::count();
     $categorytotal = Category::count();
 
@@ -179,7 +187,9 @@ class TipscodingController extends Controller
       'relatedTips'   => $relatedTips,
       'tipstotal' => $tipstotal,
       'categorytotal' => $categorytotal,
-      'relatedcategories' => $relatedcategories
+      'relatedcategories' => $relatedcategories,
+      'socialMedias' => Media::Sosmed(),
+      'sosmed' => $sosmed,
     ]);
   }
 }

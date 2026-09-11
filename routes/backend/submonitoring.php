@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Monitoring\PathviewController;
 use App\Http\Controllers\Backend\Monitoring\TipscodingviewController;
+use App\Http\Controllers\Backend\Monitoring\UserregionController;
 
 Route::group(
   [
@@ -21,5 +22,10 @@ Route::group(
       TipscodingviewController::class,
       'index'
     ])->name('monitoring.tipscoding-view');
+
+    Route::get('/monitoring/user-region', [
+      UserregionController::class,
+      'index'
+    ])->name('monitoring.user-region');
   }
 );

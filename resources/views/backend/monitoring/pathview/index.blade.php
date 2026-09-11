@@ -57,15 +57,6 @@
                                       :route="route('monitoring.path-view')"
                                     />
                                   </div>
-
-                                  <div class="search">
-                                    <form action="/monitoring/path-view">
-                                      <x-search
-                                        search="paths"
-                                        placeholder="Search data paths"
-                                      />
-                                    </form>
-                                  </div>
                                 </div>
                               </div>
                             </div>

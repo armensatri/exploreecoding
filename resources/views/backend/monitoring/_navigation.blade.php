@@ -66,9 +66,9 @@
             menu-name="🔹User sosmed"
           />
           <x-visitor-navigation
-            route=""
-            active=""
-            menu-name="User region"
+            :route="route('monitoring.user-region')"
+            active="monitoring/user-region"
+            menu-name="🔹User region"
           />
         </div>
       </div>

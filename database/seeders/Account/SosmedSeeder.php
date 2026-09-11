@@ -22,17 +22,6 @@ class SosmedSeeder extends Seeder
       ],
 
       [
-        'user_id' => 2,
-        'linkedin' => 'superadmin',
-        'github' => 'superadmin',
-        'threads' => 'superadmin',
-        'instagram' => 'superadmin',
-        'x' => 'superadmin',
-        'facebook' => 'superadmin',
-        'tiktok' => 'superadmin',
-      ],
-
-      [
         'user_id' => 3,
         'linkedin' => 'creator',
         'github' => 'creator',
@@ -45,13 +34,24 @@ class SosmedSeeder extends Seeder
 
       [
         'user_id' => 4,
-        'linkedin' => 'member',
-        'github' => 'member',
-        'threads' => 'member',
-        'instagram' => 'member',
-        'x' => 'member',
-        'facebook' => 'member',
-        'tiktok' => 'member',
+        'linkedin' => 'arman',
+        'github' => 'arman',
+        'threads' => 'arman',
+        'instagram' => 'arman',
+        'x' => 'arman',
+        'facebook' => 'arman',
+        'tiktok' => 'arman',
+      ],
+
+      [
+        'user_id' => 5,
+        'linkedin' => 'satri',
+        'github' => 'satri',
+        'threads' => 'satri',
+        'instagram' => 'satri',
+        'x' => 'satri',
+        'facebook' => 'satri',
+        'tiktok' => 'satri',
       ],
     ];
 

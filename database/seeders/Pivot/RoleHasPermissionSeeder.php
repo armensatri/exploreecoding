@@ -76,6 +76,7 @@ class RoleHasPermissionSeeder extends Seeder
         // SUB MONITORING
         'monitoring.path-view',
         'monitoring.tipscoding-view',
+        'monitoring.user-region',
 
         // USERS
         'users.index',
@@ -236,6 +237,7 @@ class RoleHasPermissionSeeder extends Seeder
         // SUB MONITORING
         'monitoring.path-view',
         'monitoring.tipscoding-view',
+        'monitoring.user-region',
 
         // USERS
         'users.index',
@@ -396,6 +398,7 @@ class RoleHasPermissionSeeder extends Seeder
         // SUB MONITORING
         // 'monitoring.path-view',
         // 'monitoring.tipscoding-view',
+        // 'monitoring.user-region',
 
         // USERS
         // 'users.index',
@@ -556,6 +559,7 @@ class RoleHasPermissionSeeder extends Seeder
         // SUB MONITORING
         // 'monitoring.path-view',
         // 'monitoring.tipscoding-view',
+        // 'monitoring.user-region',
 
         // USERS
         // 'users.index',
