@@ -31,6 +31,143 @@
               @include('backend.monitoring._navigation')
             </div>
           </div>
+
+          <div class="w-full">
+            <div class="mt-16">
+              <div class="content">
+                <section class="flex w-full px-3 mt-8 mb-5 overflow-x-auto overflow-y-hidden">
+                  <div class="mx-auto max-w-340">
+                    <div class="flex flex-col">
+                      <div class="-m-1.5 overflow-x-auto min-w-full">
+                        <div class="p-1.5 inline-block xl:max-w-full">
+                          <div class="overflow-hidden table-border">
+                            <div class="grid table-grid">
+                              <div class="description">
+                                <x-description
+                                  table-name="User region"
+                                  :page-data="$users"
+                                />
+                              </div>
+
+                              <div class="table-header">
+                                <div class="inline-flex items-center gap-x-2">
+                                  <div class="refresh">
+                                    <x-refresh
+                                      :route="route(
+                                        'monitoring.user-region'
+                                      )"
+                                    />
+                                  </div>
+
+                                  <div class="search">
+                                    <form action="/monitoring/user-region">
+                                      <x-search
+                                      search="user region"
+                                      placeholder="Search data user region"
+                                      />
+                                    </form>
+                                  </div>
+
+                                  <div class="filter">
+                                    //
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <table class="min-w-full divide-y divide-gray-200">
+                              <thead class="bg-gray-200">
+                                <tr>
+                                  <x-th
+                                    name="no"
+                                  />
+                                  <x-th
+                                    name="id"
+                                  />
+                                  <x-th
+                                    name="image"
+                                  />
+                                  <x-th
+                                    name="username"
+                                  />
+                                  <x-th
+                                    name="province"
+                                  />
+                                  <x-th
+                                    name="regency city"
+                                  />
+                                  <x-th
+                                    name="district"
+                                  />
+                                </tr>
+                              </thead>
+
+                              <tbody class="tbody">
+                                @foreach ($users as $user)
+                                  <tr>
+                                    <td class="h-px whitespace-nowrap">
+                                      <x-td-var-center
+                                        :var="$loop->iteration . '.'"
+                                      />
+                                    </td>
+
+                                    <td class="h-px whitespace-nowrap">
+                                      <x-td-var
+                                        :var="$user->id"
+                                      />
+                                    </td>
+
+                                    <td class="size-px whitespace-nowrap">
+                                      <x-td-image-hover
+                                        :asset="$user->image"
+                                        asset-default="/image/default.png"
+                                      />
+                                    </td>
+
+                                    <td class="h-px whitespace-nowrap">
+                                      <x-td-var
+                                        :var="$user->id . '@' . $user->username"
+                                      />
+                                    </td>
+
+                                    <td class="h-px whitespace-nowrap">
+                                      <x-td-var
+                                        :var="$user->province?->name ?: '-'"
+                                      />
+                                    </td>
+
+                                    <td class="h-px whitespace-nowrap">
+                                      <x-td-var
+                                        :var="$user->city?->name ?: '-'"
+                                      />
+                                    </td>
+
+                                    <td class="h-px whitespace-nowrap">
+                                      <x-td-var
+                                        :var="$user->district?->name ?: '-'"
+                                      />
+                                    </td>
+                                  </tr>
+                                @endforeach
+                              </tbody>
+                            </table>
+
+                            <div class="grid table-pagination">
+                              @if ($users->lastPage() > 1)
+                                <x-pagination
+                                  :pagination="$users"
+                                />
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>

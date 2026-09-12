@@ -62,7 +62,7 @@
                                     <form action="/monitoring/usersosmeds">
                                       <x-search
                                         search="sosmeds"
-                                        placeholder="Search data sosomeds"
+                                        placeholder="Search data sosmeds"
                                       />
                                     </form>
                                   </div>

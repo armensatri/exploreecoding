@@ -130,6 +130,6 @@ class ProfileController extends Controller
       'success'
     );
 
-    return redirect()->route('personal');
+    return redirect()->route('profile');
   }
 }
