@@ -15,7 +15,7 @@ class UserregionController extends Controller
         'code',
         'name',
       ])
-      ->orderBy('name')
+      ->orderBy('code', 'asc')
       ->get();
 
     $province = request('province', []);

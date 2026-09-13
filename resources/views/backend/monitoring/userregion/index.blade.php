@@ -69,7 +69,9 @@
                                   </div>
 
                                   <div class="filter">
-                                    //
+                                    @include(
+                                      'backend.monitoring.userregion._index-filter'
+                                    )
                                   </div>
                                 </div>
                               </div>
@@ -132,19 +134,19 @@
 
                                     <td class="h-px whitespace-nowrap">
                                       <x-td-var
-                                        :var="$user->province?->name ?: '-'"
+                                        :var="$user->province ? $user->province->code . ' - ' . $user->province->name : '-'"
                                       />
                                     </td>
 
                                     <td class="h-px whitespace-nowrap">
                                       <x-td-var
-                                        :var="$user->city?->name ?: '-'"
+                                        :var="$user->city ? $user->city->code . ' - ' . $user->city->name : '-'"
                                       />
                                     </td>
 
                                     <td class="h-px whitespace-nowrap">
                                       <x-td-var
-                                        :var="$user->district?->name ?: '-'"
+                                        :var="$user->district ? $user->district->code . ' - ' . $user->district->name : '-'"
                                       />
                                     </td>
                                   </tr>

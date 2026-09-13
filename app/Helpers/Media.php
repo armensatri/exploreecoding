@@ -8,7 +8,7 @@ class Media
   {
     return [
       'github' => [
-        'url' => 'https://www.github.com/',
+        'url' => 'https://github.com/',
         'image' => 'github.png',
       ],
 
