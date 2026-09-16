@@ -8,6 +8,12 @@
       </div>
     </div>
 
+    <div class="alert">
+      @if (session()->has('alert'))
+        @include('sweetalert::alert')
+      @endif
+    </div>
+
     <div class="max-w-2xl mx-auto mt-32 xl:max-w-4xl">
       <div class="text-center">
         <div class="mx-auto text-center">

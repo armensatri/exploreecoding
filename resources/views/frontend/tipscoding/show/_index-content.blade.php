@@ -85,6 +85,10 @@
     </article>
   </div>
 
+  <div class="w-full mt-10">
+    @include('frontend.tipscoding.comment.store')
+  </div>
+
   <div class="w-full px-5 mt-10">
     <div class="py-0.5 rounded-2xl bg-blue-200">
       <div class="p-5">

@@ -95,33 +95,25 @@
         Share on social media
       </h3>
 
-      <div class="flex gap-3 ml-2">
+      <div class="flex gap-2 ml-2">
         <x-tipscoding-show-share-on-sosmed
-          link=""
+          :link="$shareLinks['linkedin']"
           :image="asset('frontend/img/sosmed/linkedin.png')"
           alt="linkedin"
-          tooltip="Share on linkedin"
+          tooltip="Share on LinkedIn"
           share-count="0"
         />
 
         <x-tipscoding-show-share-on-sosmed
-          link=""
-          :image="asset('frontend/img/sosmed/threads.png')"
-          alt="threads"
-          tooltip="Share on threads"
-          share-count="0"
-        />
-
-        <x-tipscoding-show-share-on-sosmed
-          link=""
+          :link="$shareLinks['facebook']"
           :image="asset('frontend/img/sosmed/facebook.png')"
           alt="facebook"
-          tooltip="Share on facebook"
+          tooltip="Share on Facebook"
           share-count="0"
         />
 
         <x-tipscoding-show-share-on-sosmed
-          link=""
+          :link="$shareLinks['twitter']"
           :image="asset('frontend/img/sosmed/x.png')"
           alt="X"
           tooltip="Share on X"
@@ -129,10 +121,18 @@
         />
 
         <x-tipscoding-show-share-on-sosmed
-          link=""
+          :link="$shareLinks['whatsapp']"
+          :image="asset('frontend/img/sosmed/whatsapp.png')"
+          alt="WhatsApp"
+          tooltip="Share on WhatsApp"
+          share-count="0"
+        />
+
+        <x-tipscoding-show-share-on-sosmed
+          :link="$shareLinks['telegram']"
           :image="asset('frontend/img/sosmed/telegram.png')"
-          alt="telegram"
-          tooltip="Share on telegram"
+          alt="Telegram"
+          tooltip="Share on Telegram"
           share-count="0"
         />
       </div>

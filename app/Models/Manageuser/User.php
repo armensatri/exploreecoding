@@ -8,6 +8,8 @@ use App\Models\Monitoring\Pathview;
 use App\Models\Monitoring\Tipscodingview;
 use App\Models\Programming\Post;
 use App\Models\Tipscoding\Tipscoding;
+use App\Models\Tipscoding\TipscodingComment;
+use App\Models\Tipscoding\TipscodingCommentReaction;
 use App\Traits\Models\HasCacheVersion;
 use App\Traits\Models\HasSearchable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -141,6 +143,22 @@ class User extends Authenticatable
       'code',
       'name',
     ]);
+  }
+
+  public function tipscodingComments()
+  {
+    return $this->hasMany(
+      TipscodingComment::class,
+      'user_id'
+    );
+  }
+
+  public function tipscodingCommentReactions()
+  {
+    return $this->hasMany(
+      TipscodingCommentReaction::class,
+      'user_id'
+    );
   }
 
   public function statusOnOf()

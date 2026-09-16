@@ -8,6 +8,7 @@ use App\Models\Account\Sosmed;
 use App\Models\Tipscoding\Category;
 use App\Models\Tipscoding\Tipscoding;
 use Illuminate\Support\Facades\Auth;
+use Jorenvh\Share\Share;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class TipscodingController extends Controller
@@ -130,6 +131,80 @@ class TipscodingController extends Controller
 
     $sosmed = Sosmed::where('user_id', $tipscoding->user_id)->first();
 
+    $share = new Share();
+
+    $shareLinks = $share
+      ->page(
+        request()->url(),
+        $tipscoding->title
+      )
+      ->facebook()
+      ->twitter()
+      ->linkedin()
+      ->whatsapp()
+      ->telegram()
+      ->getRawLinks();
+
+    $comments = $tipscoding->comments()
+      ->withCount([
+        'reactions as likes_count' => function ($query) {
+          $query->where('type', 'like');
+        },
+
+        'reactions as dislikes_count' => function ($query) {
+          $query->where('type', 'dislike');
+        },
+      ])
+      ->with([
+        'user:id,username,image',
+
+        'reactions' => function ($query) {
+          $query
+            ->where('user_id', Auth::id())
+            ->select([
+              'id',
+              'comment_id',
+              'user_id',
+              'type',
+            ]);
+        },
+
+        'replies' => function ($query) {
+
+          $query
+            ->withCount([
+              'reactions as likes_count' => function ($query) {
+                $query->where('type', 'like');
+              },
+
+              'reactions as dislikes_count' => function ($query) {
+                $query->where('type', 'dislike');
+              },
+            ])
+            ->with([
+              'user:id,username,image',
+
+              'reactions' => function ($query) {
+                $query
+                  ->where('user_id', Auth::id())
+                  ->select([
+                    'id',
+                    'comment_id',
+                    'user_id',
+                    'type',
+                  ]);
+              },
+            ])
+            ->where('status', 'approved')
+            ->latest();
+        },
+      ])
+      ->where('status', 'approved')
+      ->whereNull('parent_id')
+      ->latest()
+      ->paginate(10)
+      ->withQueryString();
+
     $tipstotal = Tipscoding::count();
     $categorytotal = Category::count();
 
@@ -190,6 +265,8 @@ class TipscodingController extends Controller
       'relatedcategories' => $relatedcategories,
       'socialMedias' => Media::Sosmed(),
       'sosmed' => $sosmed,
+      'shareLinks' => $shareLinks,
+      'comments' => $comments,
     ]);
   }
 }

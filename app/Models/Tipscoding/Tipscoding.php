@@ -5,6 +5,7 @@ namespace App\Models\Tipscoding;
 use App\Models\Manageuser\User;
 use App\Models\Monitoring\Tipscodingview;
 use App\Models\Tipscoding\Category;
+use App\Models\Tipscoding\TipscodingComment;
 use App\Traits\Models\HasCacheVersion;
 use App\Traits\Models\HasSearchable;
 use Illuminate\Database\Eloquent\Builder;
@@ -55,6 +56,14 @@ class Tipscoding extends Model
   public function tipscodingviews()
   {
     return $this->hasMany(Tipscodingview::class);
+  }
+
+  public function comments()
+  {
+    return $this->hasMany(
+      TipscodingComment::class,
+      'tipscoding_id'
+    );
   }
 
   public function scopeAccessTipscodings(Builder $query, User $user)

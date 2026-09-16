@@ -20,6 +20,7 @@ use Database\Seeders\Programming\PostSeeder;
 use Database\Seeders\Programming\RoadmapSeeder;
 use Database\Seeders\Published\StatusSeeder;
 use Database\Seeders\Tipscoding\CategorySeeder;
+use Database\Seeders\Tipscoding\TipscodingCommentSeeder;
 use Database\Seeders\Tipscoding\TipscodingSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -48,6 +49,7 @@ class DatabaseSeeder extends Seeder
       TipscodingSeeder::class,
       PathviewSeeder::class,
       SosmedSeeder::class,
+      TipscodingCommentSeeder::class
     ]);
 
     // Path::factory()
