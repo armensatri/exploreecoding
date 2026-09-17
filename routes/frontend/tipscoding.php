@@ -33,19 +33,29 @@ Route::post(
 )->middleware('auth')->name('tipscodings.comments.store');
 
 Route::patch(
-  '/tipscodings/{category}/{tipscoding}/comments/{comment}',
+  '/ec/tipscodings/{category}/{tipscoding}/comments/{comment}',
   [TipscodingCommentController::class, 'update']
 )->middleware('auth')->name('tipscodings.comments.update');
 
 Route::delete(
-  '/tipscodings/{category}/{tipscoding}/comments/{comment}',
+  '/ec/tipscodings/{category}/{tipscoding}/comments/{comment}',
   [TipscodingCommentController::class, 'destroy']
 )->middleware('auth')->name('tipscodings.comments.destroy');
 
 Route::post(
-  '/tipscodings/{category}/{tipscoding}/comments/{comment}/reaction/{type}',
+  '/ec/tipscodings/{category}/{tipscoding}/comments/{comment}/reaction/{type}',
   [TipscodingCommentReactionController::class, 'store']
 )->middleware('auth')->name('tipscodings.comments.reaction');
+
+Route::get(
+  '/ec/notifications',
+  [TipscodingController::class, 'notifications']
+)->middleware('auth')->name('notifications.index');
+
+Route::get(
+  '/notifications/{notification}',
+  [TipscodingController::class, 'readNotification']
+)->middleware('auth')->name('notifications.read');
 
 Route::get('/test-share', function () {
   $share = new Share();

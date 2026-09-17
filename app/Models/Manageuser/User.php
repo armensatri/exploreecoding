@@ -13,6 +13,7 @@ use App\Models\Tipscoding\TipscodingCommentReaction;
 use App\Traits\Models\HasCacheVersion;
 use App\Traits\Models\HasSearchable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
@@ -21,6 +22,7 @@ class User extends Authenticatable
 {
   use HasCacheVersion;
   use HasSearchable;
+  use Notifiable;
 
   protected $table = 'users';
 

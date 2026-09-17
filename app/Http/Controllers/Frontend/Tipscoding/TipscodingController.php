@@ -269,4 +269,30 @@ class TipscodingController extends Controller
       'comments' => $comments,
     ]);
   }
+
+  public function notifications()
+  {
+    $notifications = Auth::user()
+      ->notifications
+      ->sortByDesc('created_at')
+      ->values();
+
+    return view('frontend.tipscoding.notif.notifications', [
+      'title' => 'notification',
+      'notifications' => $notifications
+    ]);
+  }
+
+  public function readNotification(string $notification)
+  {
+    $notification = Auth::user()
+      ->notifications
+      ->firstWhere('id', $notification);
+
+    abort_if(! $notification, 404);
+
+    $notification->markAsRead();
+
+    return redirect()->route('notifications.index');
+  }
 }

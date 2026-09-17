@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Tipscoding\Tipscoding;
 use App\Models\Tipscoding\TipscodingComment;
 use App\Models\Tipscoding\TipscodingCommentReaction;
+use App\Notifications\TipscodingCommentReactionNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 
 class TipscodingCommentReactionController extends Controller
 {
@@ -31,6 +31,15 @@ class TipscodingCommentReactionController extends Controller
     if ($comment->tipscoding_id !== $tipscoding->id) {
       abort(404);
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Ambil user pemilik comment
+    |--------------------------------------------------------------------------
+    */
+
+    $comment->load('user');
 
 
     /*
@@ -116,6 +125,35 @@ class TipscodingCommentReactionController extends Controller
       ]);
 
       $userReaction = $type;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Notification Like
+    |--------------------------------------------------------------------------
+    |
+    | Belum reaction -> Like       = notification
+    | Dislike -> Like              = notification
+    | Like -> Like                 = tidak ada
+    | Like -> Dislike              = tidak ada
+    |
+    | User tidak mendapatkan
+    | notification dari dirinya sendiri.
+    |
+    */
+
+    if (
+      $userReaction === 'like' &&
+      $comment->user_id !== Auth::id()
+    ) {
+
+      $comment->user->notify(
+        new TipscodingCommentReactionNotification(
+          $comment,
+          'like'
+        )
+      );
     }
 
 

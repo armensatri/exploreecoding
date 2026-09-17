@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Frontend\Tipscoding;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Tipscoding\Tipscoding\TipscodingCommentUr;
 use App\Models\Tipscoding\Tipscoding;
 use App\Models\Tipscoding\TipscodingComment;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Notifications\TipscodingCommentNotification;
+use App\Http\Requests\Tipscoding\Tipscoding\TipscodingCommentUr;
 
 class TipscodingCommentController extends Controller
 {
@@ -40,13 +41,35 @@ class TipscodingCommentController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    TipscodingComment::create([
+    $comment = TipscodingComment::create([
       'tipscoding_id' => $tipscoding->id,
       'user_id' => Auth::id(),
       'parent_id' => $parentId,
       'comment' => $request->validated('comment'),
       'status' => 'approved',
     ]);
+
+    if (is_null($parentId)) {
+
+      // Komentar utama
+      if ($tipscoding->user_id !== Auth::id()) {
+        $tipscoding->user->notify(
+          new TipscodingCommentNotification($comment)
+        );
+      }
+    } else {
+
+      // Reply
+      $parentComment = TipscodingComment::query()
+        ->with('user')
+        ->findOrFail($parentId);
+
+      if ($parentComment->user_id !== Auth::id()) {
+        $parentComment->user->notify(
+          new TipscodingCommentNotification($comment)
+        );
+      }
+    }
 
 
     /*
