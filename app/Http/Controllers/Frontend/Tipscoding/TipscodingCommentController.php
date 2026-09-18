@@ -155,6 +155,7 @@ class TipscodingCommentController extends Controller
 
     $comment->update([
       'comment' => $request->validated('comment'),
+      'edited_at' => now(),
     ]);
 
 
@@ -250,6 +251,69 @@ class TipscodingCommentController extends Controller
         berhasil di hapus",
       'success'
     );
+
+    return back();
+  }
+
+  public function pin(
+    string $category,
+    Tipscoding $tipscoding,
+    TipscodingComment $comment
+  ) {
+    /*
+    |--------------------------------------------------------------------------
+    | Pastikan comment milik TipsCoding ini
+    |--------------------------------------------------------------------------
+    */
+
+    if ($comment->tipscoding_id !== $tipscoding->id) {
+      abort(404);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hanya comment utama yang bisa di-pin
+    |--------------------------------------------------------------------------
+    */
+
+    if ($comment->parent_id !== null) {
+      abort(404);
+    }
+
+    $user = Auth::user();
+    $role = $user->role?->name;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permission
+    |--------------------------------------------------------------------------
+    */
+
+    $canManageAll = in_array($role, [
+      'owner',
+      'superadmin',
+    ]);
+
+    $canManageTipscoding =
+      $role === 'creator' &&
+      $tipscoding->user_id === $user->id;
+
+    if (
+      ! $canManageAll &&
+      ! $canManageTipscoding
+    ) {
+      abort(403);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Toggle Pin
+    |--------------------------------------------------------------------------
+    */
+
+    $comment->update([
+      'is_pinned' => ! $comment->is_pinned,
+    ]);
 
     return back();
   }

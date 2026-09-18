@@ -151,7 +151,8 @@ class TipscodingCommentReactionController extends Controller
       $comment->user->notify(
         new TipscodingCommentReactionNotification(
           $comment,
-          'like'
+          'like',
+          Auth::user()
         )
       );
     }

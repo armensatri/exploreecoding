@@ -2,9 +2,10 @@
 
 namespace App\Notifications;
 
+use App\Models\Manageuser\User;
+use App\Models\Tipscoding\TipscodingComment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use App\Models\Tipscoding\TipscodingComment;
 
 class TipscodingCommentReactionNotification extends Notification
 {
@@ -12,7 +13,8 @@ class TipscodingCommentReactionNotification extends Notification
 
   public function __construct(
     public TipscodingComment $comment,
-    public string $reaction
+    public string $reaction,
+    public User $actor
   ) {}
 
   public function via(object $notifiable): array
@@ -24,12 +26,24 @@ class TipscodingCommentReactionNotification extends Notification
   {
     return [
       'comment_id' => $this->comment->id,
-      'tipscoding_id' => $this->comment->tipscoding_id,
-      'actor_id' => $this->comment->user_id,
-      'actor_name' => $this->comment->user->name,
-      'reaction' => $this->reaction,
-      'comment' => $this->comment->comment,
-      'type' => 'tipscoding.comment.reaction',
+
+      'tipscoding_id' =>
+      $this->comment->tipscoding_id,
+
+      'actor_id' =>
+      $this->actor->id,
+
+      'actor_name' =>
+      $this->actor->name,
+
+      'reaction' =>
+      $this->reaction,
+
+      'comment' =>
+      $this->comment->comment,
+
+      'type' =>
+      'tipscoding.comment.reaction',
     ];
   }
 }

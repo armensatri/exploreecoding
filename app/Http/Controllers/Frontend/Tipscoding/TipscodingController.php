@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Account\Sosmed;
 use App\Models\Tipscoding\Category;
 use App\Models\Tipscoding\Tipscoding;
+use App\Models\Tipscoding\TipscodingComment;
 use Illuminate\Support\Facades\Auth;
 use Jorenvh\Share\Share;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -170,7 +171,6 @@ class TipscodingController extends Controller
         },
 
         'replies' => function ($query) {
-
           $query
             ->withCount([
               'reactions as likes_count' => function ($query) {
@@ -201,7 +201,9 @@ class TipscodingController extends Controller
       ])
       ->where('status', 'approved')
       ->whereNull('parent_id')
-      ->latest()
+      ->orderByDesc('is_pinned')
+      ->orderByDesc('created_at')
+      ->orderByDesc('id')
       ->paginate(10)
       ->withQueryString();
 
@@ -293,6 +295,145 @@ class TipscodingController extends Controller
 
     $notification->markAsRead();
 
-    return redirect()->route('notifications.index');
+    $data = $notification->data;
+
+    if (in_array(
+      $data['type'] ?? null,
+      [
+        'tipscoding.comment',
+        'tipscoding.comment.reply',
+        'tipscoding.comment.reaction',
+      ],
+      true
+    )) {
+      $tipscoding = Tipscoding::query()
+        ->with('category')
+        ->findOrFail(
+          $data['tipscoding_id']
+        );
+
+      $commentId = $data['comment_id'];
+
+      /*
+        |--------------------------------------------------------------------------
+        | Ambil komentar
+        |--------------------------------------------------------------------------
+        */
+
+      $comment = TipscodingComment::query()
+        ->where(
+          'tipscoding_id',
+          $tipscoding->id
+        )
+        ->findOrFail($commentId);
+
+      /*
+        |--------------------------------------------------------------------------
+        | Jika reply, gunakan komentar utama
+        | untuk menentukan halaman pagination.
+        |--------------------------------------------------------------------------
+        */
+
+      $targetCommentId =
+        $comment->parent_id
+        ?? $comment->id;
+
+      $targetComment = TipscodingComment::query()
+        ->where(
+          'tipscoding_id',
+          $tipscoding->id
+        )
+        ->where(
+          'status',
+          'approved'
+        )
+        ->whereNull('parent_id')
+        ->findOrFail($targetCommentId);
+
+      /*
+        |--------------------------------------------------------------------------
+        | Hitung posisi komentar berdasarkan urutan
+        | yang sama dengan show():
+        |
+        | ->latest()
+        | ->paginate(10)
+        |--------------------------------------------------------------------------
+        */
+
+      $commentPosition = TipscodingComment::query()
+        ->where(
+          'tipscoding_id',
+          $tipscoding->id
+        )
+        ->where(
+          'status',
+          'approved'
+        )
+        ->whereNull('parent_id')
+        ->where(function ($query) use ($targetComment) {
+
+          $query
+            ->where(
+              'created_at',
+              '>',
+              $targetComment->created_at
+            )
+            ->orWhere(function ($query) use ($targetComment) {
+
+              $query
+                ->where(
+                  'created_at',
+                  '=',
+                  $targetComment->created_at
+                )
+                ->where(
+                  'id',
+                  '>',
+                  $targetComment->id
+                );
+            });
+        })
+        ->count();
+
+      $commentPosition++;
+
+      /*
+        |--------------------------------------------------------------------------
+        | Pagination komentar
+        |--------------------------------------------------------------------------
+        */
+
+      $commentsPerPage = 10;
+
+      $page = (int) ceil(
+        $commentPosition / $commentsPerPage
+      );
+
+      /*
+        |--------------------------------------------------------------------------
+        | Redirect ke Tipscoding + halaman komentar
+        |--------------------------------------------------------------------------
+        */
+
+      return redirect()
+        ->route(
+          'ec-tipscodings.show',
+          [
+            'category' =>
+            $tipscoding->category->slug,
+
+            'tipscoding' =>
+            $tipscoding->slug,
+
+            'page' => $page,
+          ]
+        )
+        ->withFragment(
+          'comment-' . $commentId
+        );
+    }
+
+    return redirect()
+      ->route('notifications.index');
   }
 }

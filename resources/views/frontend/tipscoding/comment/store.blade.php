@@ -31,6 +31,7 @@
         {{-- DAFTAR KOMENTAR --}}
         {{-- ========================================================= --}}
 
+
         @forelse ($comments as $comment)
 
           @php
@@ -48,443 +49,513 @@
           {{-- KOMENTAR UTAMA --}}
           {{-- ========================================================= --}}
 
-          <div
-            class="flex items-start space-x-3 sm:space-x-4"
-            data-comment-id="{{ $comment->id }}"
-          >
-
-            {{-- ===================================================== --}}
-            {{-- AVATAR --}}
-            {{-- ===================================================== --}}
-
-            <img
-              src="{{ $comment->user?->image
-                ? asset('storage/' . $comment->user->image)
-                : asset('backend/img/user/user.png') }}"
-              alt="{{ $comment->user?->username ?? 'User' }}"
-              class="object-cover object-top w-10 h-10 p-px bg-gray-500 rounded-full"
-            />
+        <div
+          id="comment-{{ $comment->id }}"
+          class="scroll-mt-24
+              {{ $comment->is_pinned
+                  ? 'border-l-2 border-blue-500 bg-blue-50/50 pl-3 rounded-r-md'
+                  : '' }}">
 
 
-            {{-- ===================================================== --}}
-            {{-- CONTENT --}}
-            {{-- ===================================================== --}}
+            <div
+              class="flex items-start space-x-3 sm:space-x-4"
+              data-comment-id="{{ $comment->id }}"
+            >
 
-            <div class="flex-1 space-y-2 text-sm sm:text-base mt-2">
+              {{-- ===================================================== --}}
+              {{-- AVATAR --}}
+              {{-- ===================================================== --}}
 
-
-              {{-- ================================================= --}}
-              {{-- USERNAME + WAKTU --}}
-              {{-- ================================================= --}}
-
-              <div class="flex items-center space-x-2 flex-wrap">
-
-                <div class="font-medium text-gray-800">
-                  <span>@</span>{{ $comment->user?->username ?? 'user' }}
-                </div>
-
-                <div
-                  class="text-[13px] text-gray-400 mt-0.5 tracking-normal"
-                >
-                  {{ $comment->created_at->diffForHumans() }}
-                </div>
-
-              </div>
+              <img
+                src="{{ $comment->user?->image
+                  ? asset('storage/' . $comment->user->image)
+                  : asset('backend/img/user/user.png') }}"
+                alt="{{ $comment->user?->username ?? 'User' }}"
+                class="object-cover object-top w-10 h-10 p-px bg-gray-500 rounded-full"
+              />
 
 
-              {{-- ================================================= --}}
-              {{-- ISI KOMENTAR --}}
-              {{-- ================================================= --}}
+              {{-- ===================================================== --}}
+              {{-- CONTENT --}}
+              {{-- ===================================================== --}}
 
-              <p class="text-gray-800 ml-1 whitespace-pre-line">
-                {{ $comment->comment }}
-              </p>
-
-
-              {{-- ================================================= --}}
-              {{-- ACTION KOMENTAR --}}
-              {{-- ================================================= --}}
-
-              <div class="ml-1 flex flex-wrap items-center gap-1.5">
+              <div class="flex-1 space-y-2 text-sm sm:text-base mt-2">
 
 
                 {{-- ================================================= --}}
-                {{-- EDIT --}}
+                {{-- USERNAME + WAKTU --}}
                 {{-- ================================================= --}}
 
-                @if ($comment->user_id === $currentUser?->id)
+                <div class="flex items-center space-x-2 flex-wrap">
 
-                  <button
-                    type="button"
-                    onclick="openEditComment(
-                      {{ $comment->id }},
-                      @js($comment->comment),
-                      @js(route('tipscodings.comments.update', [
+                  <div class="font-medium text-gray-800">
+                    <span>@</span>{{ $comment->user?->username ?? 'user' }}
+                  </div>
+
+                  @if ($comment->is_pinned)
+        <div class="text-[12px] text-blue-600 font-medium">
+            <i class="bi bi-pin-angle-fill"></i>
+            Pinned
+        </div>
+    @endif
+
+                  <div
+                    class="text-[13px] text-gray-400 mt-0.5 tracking-normal"
+                    >
+                    di buat {{ $comment->created_at->diffForHumans() }}
+                  </div>
+
+                @if ($comment->edited_at)
+                    <div class="text-[13px] text-gray-400 mt-0.5 tracking-normal">
+                        · Edited {{ $comment->edited_at->diffForHumans() }}
+                    </div>
+                @endif
+
+                </div>
+
+
+                {{-- ================================================= --}}
+                {{-- ISI KOMENTAR --}}
+                {{-- ================================================= --}}
+
+                <p class="text-gray-800 ml-1 whitespace-pre-line">
+                  {{ $comment->comment }}
+                </p>
+
+
+                {{-- ================================================= --}}
+                {{-- ACTION KOMENTAR --}}
+                {{-- ================================================= --}}
+
+                <div class="ml-1 flex flex-wrap items-center gap-1.5">
+
+
+                  {{-- ================================================= --}}
+                  {{-- EDIT --}}
+                  {{-- ================================================= --}}
+
+                  @if ($comment->user_id === $currentUser?->id)
+
+                    <button
+                      type="button"
+                      onclick="openEditComment(
+                        {{ $comment->id }},
+                        @js($comment->comment),
+                        @js(route('tipscodings.comments.update', [
+                          'category' => $category->slug,
+                          'tipscoding' => $tipscoding->slug,
+                          'comment' => $comment->id,
+                        ]))
+                      )"
+                      class="shrink-0 inline-flex items-center justify-center px-2 py-1 bg-blue-500 rounded-md text-[12px] font-medium text-white hover:bg-blue-600 cursor-pointer border border-indigo-200"
+                      title="Edit komentar"
+                    >
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+
+                  @endif
+
+
+                  {{-- ================================================= --}}
+                  {{-- HAPUS --}}
+                  {{-- ================================================= --}}
+
+                  @if ($canDeleteComment)
+
+                    <form
+                      action="{{ route('tipscodings.comments.destroy', [
                         'category' => $category->slug,
                         'tipscoding' => $tipscoding->slug,
                         'comment' => $comment->id,
-                      ]))
+                      ]) }}"
+                      method="POST"
+                      class="inline"
+                      onsubmit="return confirm('Yakin ingin menghapus komentar ini?')"
+                    >
+
+                      @csrf
+                      @method('DELETE')
+
+                      <button
+                        type="submit"
+                        class="shrink-0 inline-flex items-center justify-center px-2 py-1 bg-red-500 rounded-md text-[12px] font-medium text-white hover:bg-red-600 cursor-pointer border border-red-200"
+                        title="Hapus komentar"
+                      >
+                        <i class="bi bi-trash3"></i>
+                      </button>
+
+                    </form>
+
+                  @endif
+
+
+                  {{-- ================================================= --}}
+                  {{-- REPLY --}}
+                  {{-- ================================================= --}}
+
+                  <button
+                    type="button"
+                    onclick="openReplyComment(
+                      {{ $comment->id }},
+                      @js($comment->user?->username ?? 'user')
                     )"
-                    class="shrink-0 inline-flex items-center justify-center px-2 py-1 bg-blue-500 rounded-md text-[12px] font-medium text-white hover:bg-blue-600 cursor-pointer border border-indigo-200"
-                    title="Edit komentar"
+                    class="shrink-0 inline-flex items-center justify-center px-2 py-1 bg-gray-50 rounded-md text-[12px] font-medium text-gray-700 hover:bg-gray-100 cursor-pointer border border-gray-200"
+                    title="Balas komentar"
                   >
-                    <i class="bi bi-pencil-square"></i>
+                    <i class="bi bi-reply"></i>
                   </button>
 
-                @endif
 
+                  {{-- ================================================= --}}
+                  {{-- LIKE --}}
+                  {{-- ================================================= --}}
 
-                {{-- ================================================= --}}
-                {{-- HAPUS --}}
-                {{-- ================================================= --}}
-
-                @if ($canDeleteComment)
-
-                  <form
-                    action="{{ route('tipscodings.comments.destroy', [
+                  <button
+                    type="button"
+                    data-reaction-button
+                    data-comment-id="{{ $comment->id }}"
+                    data-type="like"
+                    data-url="{{ route('tipscodings.comments.reaction', [
                       'category' => $category->slug,
                       'tipscoding' => $tipscoding->slug,
                       'comment' => $comment->id,
+                      'type' => 'like',
                     ]) }}"
-                    method="POST"
-                    class="inline"
-                    onsubmit="return confirm('Yakin ingin menghapus komentar ini?')"
+                    class="reaction-like shrink-0 inline-flex items-center px-2 py-1 rounded-md text-[11px] font-medium cursor-pointer border transition
+                      {{ $commentReaction === 'like'
+                        ? 'bg-blue-100 border-blue-300 text-blue-700'
+                        : 'bg-indigo-50 border-indigo-200 text-gray-700 hover:bg-indigo-100' }}"
+                    title="Like"
                   >
 
-                    @csrf
-                    @method('DELETE')
+                    <i
+                      class="reaction-icon bi bi-hand-thumbs-up{{ $commentReaction === 'like' ? '-fill' : '' }}
+                        {{ $commentReaction === 'like'
+                          ? 'text-blue-700'
+                          : 'text-blue-800' }}"
+                    ></i>
 
-                    <button
-                      type="submit"
-                      class="shrink-0 inline-flex items-center justify-center px-2 py-1 bg-red-500 rounded-md text-[12px] font-medium text-white hover:bg-red-600 cursor-pointer border border-red-200"
-                      title="Hapus komentar"
-                    >
-                      <i class="bi bi-trash3"></i>
-                    </button>
+                    <span class="reaction-count ml-1">
+                      {{ $comment->likes_count }}
+                    </span>
 
-                  </form>
-
-                @endif
+                  </button>
 
 
-                {{-- ================================================= --}}
-                {{-- REPLY --}}
-                {{-- ================================================= --}}
+                  {{-- ================================================= --}}
+                  {{-- DISLIKE --}}
+                  {{-- ================================================= --}}
 
-                <button
-                  type="button"
-                  onclick="openReplyComment(
-                    {{ $comment->id }},
-                    @js($comment->user?->username ?? 'user')
-                  )"
-                  class="shrink-0 inline-flex items-center justify-center px-2 py-1 bg-gray-50 rounded-md text-[12px] font-medium text-gray-700 hover:bg-gray-100 cursor-pointer border border-gray-200"
-                  title="Balas komentar"
-                >
-                  <i class="bi bi-reply"></i>
-                </button>
-
-
-                {{-- ================================================= --}}
-                {{-- LIKE --}}
-                {{-- ================================================= --}}
-
-                <button
-                  type="button"
-                  data-reaction-button
-                  data-comment-id="{{ $comment->id }}"
-                  data-type="like"
-                  data-url="{{ route('tipscodings.comments.reaction', [
-                    'category' => $category->slug,
-                    'tipscoding' => $tipscoding->slug,
-                    'comment' => $comment->id,
-                    'type' => 'like',
-                  ]) }}"
-                  class="reaction-like shrink-0 inline-flex items-center px-2 py-1 rounded-md text-[11px] font-medium cursor-pointer border transition
-                    {{ $commentReaction === 'like'
-                      ? 'bg-blue-100 border-blue-300 text-blue-700'
-                      : 'bg-indigo-50 border-indigo-200 text-gray-700 hover:bg-indigo-100' }}"
-                  title="Like"
-                >
-
-                  <i
-                    class="reaction-icon bi bi-hand-thumbs-up{{ $commentReaction === 'like' ? '-fill' : '' }}
-                      {{ $commentReaction === 'like'
-                        ? 'text-blue-700'
-                        : 'text-blue-800' }}"
-                  ></i>
-
-                  <span class="reaction-count ml-1">
-                    {{ $comment->likes_count }}
-                  </span>
-
-                </button>
-
-
-                {{-- ================================================= --}}
-                {{-- DISLIKE --}}
-                {{-- ================================================= --}}
-
-                <button
-                  type="button"
-                  data-reaction-button
-                  data-comment-id="{{ $comment->id }}"
-                  data-type="dislike"
-                  data-url="{{ route('tipscodings.comments.reaction', [
-                    'category' => $category->slug,
-                    'tipscoding' => $tipscoding->slug,
-                    'comment' => $comment->id,
-                    'type' => 'dislike',
-                  ]) }}"
-                  class="reaction-dislike shrink-0 inline-flex items-center px-2 py-1 rounded-md text-[11px] font-medium cursor-pointer border transition
-                    {{ $commentReaction === 'dislike'
-                      ? 'bg-red-100 border-red-300 text-red-700'
-                      : 'bg-indigo-50 border-indigo-200 text-gray-700 hover:bg-indigo-100' }}"
-                  title="Dislike"
-                >
-
-                  <i
-                    class="reaction-icon bi bi-hand-thumbs-down{{ $commentReaction === 'dislike' ? '-fill' : '' }}
+                  <button
+                    type="button"
+                    data-reaction-button
+                    data-comment-id="{{ $comment->id }}"
+                    data-type="dislike"
+                    data-url="{{ route('tipscodings.comments.reaction', [
+                      'category' => $category->slug,
+                      'tipscoding' => $tipscoding->slug,
+                      'comment' => $comment->id,
+                      'type' => 'dislike',
+                    ]) }}"
+                    class="reaction-dislike shrink-0 inline-flex items-center px-2 py-1 rounded-md text-[11px] font-medium cursor-pointer border transition
                       {{ $commentReaction === 'dislike'
-                        ? 'text-red-700'
-                        : 'text-red-800' }}"
-                  ></i>
-
-                  <span class="reaction-count ml-1">
-                    {{ $comment->dislikes_count }}
-                  </span>
-
-                </button>
-
-              </div>
-
-
-              {{-- ========================================================= --}}
-              {{-- DAFTAR REPLY --}}
-              {{-- ========================================================= --}}
-
-              @if ($comment->replies->isNotEmpty())
-
-                <div
-                  class="mt-4 ml-2 sm:ml-6 space-y-4 border-l-2 border-gray-100 pl-4"
-                >
-
-                  @foreach ($comment->replies as $reply)
-
-                    @php
-                      $canDeleteReply =
-                        $reply->user_id === $currentUser?->id ||
-                        $canManageAllComments ||
-                        $canManageTipscodingComments;
-
-                      $replyReaction =
-                        $reply->reactions->first()?->type;
-                    @endphp
-
-
-                    {{-- ================================================= --}}
-                    {{-- REPLY --}}
-                    {{-- ================================================= --}}
-
-                    <div
-                      class="flex items-start space-x-3"
-                      data-comment-id="{{ $reply->id }}"
+                        ? 'bg-red-100 border-red-300 text-red-700'
+                        : 'bg-indigo-50 border-indigo-200 text-gray-700 hover:bg-indigo-100' }}"
+                    title="Dislike"
                     >
 
+                    <i
+                      class="reaction-icon bi bi-hand-thumbs-down{{ $commentReaction === 'dislike' ? '-fill' : '' }}
+                        {{ $commentReaction === 'dislike'
+                          ? 'text-red-700'
+                          : 'text-red-800' }}"
+                    ></i>
+
+                    <span class="reaction-count ml-1">
+                      {{ $comment->dislikes_count }}
+                    </span>
+
+                  </button>
+
+                  {{-- PIN --}}
+                  @php
+          $user = Auth::user();
+          $role = $user?->role?->name;
+
+          $canPin =
+              $role === 'owner' ||
+              $role === 'superadmin' ||
+              (
+                  $role === 'creator' &&
+                  $tipscoding->user_id === $user?->id
+              );
+          @endphp
+
+                  @if ($canPin)
+                      <form
+                          action="{{ route('tipscodings.comments.pin', [
+                              'category' => $category->slug,
+                              'tipscoding' => $tipscoding->slug,
+                              'comment' => $comment->id,
+                          ]) }}"
+                          method="POST"
+                      >
+                          @csrf
+                          @method('PATCH')
+
+                          <button
+                              type="submit"
+                              class="text-xs text-slate-500 hover:text-blue-600"
+                          >
+                              {{ $comment->is_pinned ? 'Unpin' : 'Pin' }}
+                          </button>
+                      </form>
+                  @endif
+                </div>
+
+
+                {{-- ========================================================= --}}
+                {{-- DAFTAR REPLY --}}
+                {{-- ========================================================= --}}
+
+                @if ($comment->replies->isNotEmpty())
+
+                  <div
+                    class="mt-4 ml-2 sm:ml-6 space-y-4 border-l-2 border-gray-100 pl-4"
+                  >
+
+                    @foreach ($comment->replies as $reply)
+
+                      @php
+                        $canDeleteReply =
+                          $reply->user_id === $currentUser?->id ||
+                          $canManageAllComments ||
+                          $canManageTipscodingComments;
+
+                        $replyReaction =
+                          $reply->reactions->first()?->type;
+                      @endphp
+
 
                       {{-- ================================================= --}}
-                      {{-- AVATAR REPLY --}}
+                      {{-- REPLY --}}
                       {{-- ================================================= --}}
 
-                      <img
-                        src="{{ $reply->user?->image
-                          ? asset('storage/' . $reply->user->image)
-                          : asset('backend/img/user/user.png') }}"
-                        alt="{{ $reply->user?->username ?? 'User' }}"
-                        class="object-cover object-top w-8 h-8 p-px bg-gray-500 rounded-full"
-                      />
+                      <div
+                        id="comment-{{ $reply->id }}"
+                        class="scroll-mt-24"
+                      >
 
-
-                      {{-- ================================================= --}}
-                      {{-- CONTENT REPLY --}}
-                      {{-- ================================================= --}}
-
-                      <div class="flex-1 space-y-1 text-sm">
-
-
-                        {{-- ================================================= --}}
-                        {{-- USERNAME + WAKTU --}}
-                        {{-- ================================================= --}}
-
-                        <div class="flex items-center space-x-2 flex-wrap">
-
-                          <div class="font-medium text-gray-800">
-                            <span>@</span>{{ $reply->user?->username ?? 'user' }}
-                          </div>
-
-                          <div class="text-[12px] text-gray-400">
-                            {{ $reply->created_at->diffForHumans() }}
-                          </div>
-
-                        </div>
-
-
-                        {{-- ================================================= --}}
-                        {{-- ISI REPLY --}}
-                        {{-- ================================================= --}}
-
-                        <p class="text-gray-800 whitespace-pre-line">
-                          {{ $reply->comment }}
-                        </p>
-
-
-                        {{-- ================================================= --}}
-                        {{-- ACTION REPLY --}}
-                        {{-- ================================================= --}}
-
-                        <div class="flex flex-wrap items-center gap-1.5">
+                        <div
+                          class="flex items-start space-x-3"
+                          data-comment-id="{{ $reply->id }}"
+                        >
 
 
                           {{-- ================================================= --}}
-                          {{-- EDIT REPLY --}}
+                          {{-- AVATAR REPLY --}}
                           {{-- ================================================= --}}
 
-                          @if ($reply->user_id === $currentUser?->id)
+                          <img
+                            src="{{ $reply->user?->image
+                              ? asset('storage/' . $reply->user->image)
+                              : asset('backend/img/user/user.png') }}"
+                            alt="{{ $reply->user?->username ?? 'User' }}"
+                            class="object-cover object-top w-8 h-8 p-px bg-gray-500 rounded-full"
+                          />
 
-                            <button
-                              type="button"
-                              onclick="openEditComment(
-                                {{ $reply->id }},
-                                @js($reply->comment),
-                                @js(route('tipscodings.comments.update', [
+
+                          {{-- ================================================= --}}
+                          {{-- CONTENT REPLY --}}
+                          {{-- ================================================= --}}
+
+                          <div class="flex-1 space-y-1 text-sm">
+
+
+                            {{-- ================================================= --}}
+                            {{-- USERNAME + WAKTU --}}
+                            {{-- ================================================= --}}
+
+                            <div class="flex items-center space-x-2 flex-wrap">
+
+                              <div class="font-medium text-gray-800">
+                                <span>@</span>{{ $reply->user?->username ?? 'user' }}
+                              </div>
+
+                              <div class="text-[12px] text-gray-400">
+                                {{ $reply->created_at->diffForHumans() }}
+                              </div>
+
+                              @if ($reply->edited_at)
+                                <div class="text-[13px] text-gray-400 mt-0.5 tracking-normal">
+                                    · Edited {{ $reply->edited_at->diffForHumans() }}
+                                </div>
+                            @endif
+
+                            </div>
+
+
+                            {{-- ================================================= --}}
+                            {{-- ISI REPLY --}}
+                            {{-- ================================================= --}}
+
+                            <p class="text-gray-800 whitespace-pre-line">
+                              {{ $reply->comment }}
+                            </p>
+
+
+                            {{-- ================================================= --}}
+                            {{-- ACTION REPLY --}}
+                            {{-- ================================================= --}}
+
+                            <div class="flex flex-wrap items-center gap-1.5">
+
+
+                              {{-- ================================================= --}}
+                              {{-- EDIT REPLY --}}
+                              {{-- ================================================= --}}
+
+                              @if ($reply->user_id === $currentUser?->id)
+
+                                <button
+                                  type="button"
+                                  onclick="openEditComment(
+                                    {{ $reply->id }},
+                                    @js($reply->comment),
+                                    @js(route('tipscodings.comments.update', [
+                                      'category' => $category->slug,
+                                      'tipscoding' => $tipscoding->slug,
+                                      'comment' => $reply->id,
+                                    ]))
+                                  )"
+                                  class="shrink-0 inline-flex items-center justify-center px-2 py-1 bg-blue-500 rounded-md text-[11px] font-medium text-white hover:bg-blue-600 cursor-pointer border border-indigo-200"
+                                  title="Edit balasan"
+                                >
+                                  <i class="bi bi-pencil-square"></i>
+                                </button>
+
+                              @endif
+
+
+                              {{-- ================================================= --}}
+                              {{-- HAPUS REPLY --}}
+                              {{-- ================================================= --}}
+
+                              @if ($canDeleteReply)
+
+                                <form
+                                  action="{{ route('tipscodings.comments.destroy', [
+                                    'category' => $category->slug,
+                                    'tipscoding' => $tipscoding->slug,
+                                    'comment' => $reply->id,
+                                  ]) }}"
+                                  method="POST"
+                                  class="inline"
+                                  onsubmit="return confirm('Yakin ingin menghapus balasan ini?')"
+                                >
+
+                                  @csrf
+                                  @method('DELETE')
+
+                                  <button
+                                    type="submit"
+                                    class="shrink-0 inline-flex items-center justify-center px-2 py-1 bg-red-500 rounded-md text-[11px] font-medium text-white hover:bg-red-600 cursor-pointer border border-red-200"
+                                    title="Hapus balasan"
+                                  >
+                                    <i class="bi bi-trash3"></i>
+                                  </button>
+
+                                </form>
+
+                              @endif
+
+
+                              {{-- ================================================= --}}
+                              {{-- LIKE REPLY --}}
+                              {{-- ================================================= --}}
+
+                              <button
+                                type="button"
+                                data-reaction-button
+                                data-comment-id="{{ $reply->id }}"
+                                data-type="like"
+                                data-url="{{ route('tipscodings.comments.reaction', [
                                   'category' => $category->slug,
                                   'tipscoding' => $tipscoding->slug,
                                   'comment' => $reply->id,
-                                ]))
-                              )"
-                              class="shrink-0 inline-flex items-center justify-center px-2 py-1 bg-blue-500 rounded-md text-[11px] font-medium text-white hover:bg-blue-600 cursor-pointer border border-indigo-200"
-                              title="Edit balasan"
-                            >
-                              <i class="bi bi-pencil-square"></i>
-                            </button>
-
-                          @endif
-
-
-                          {{-- ================================================= --}}
-                          {{-- HAPUS REPLY --}}
-                          {{-- ================================================= --}}
-
-                          @if ($canDeleteReply)
-
-                            <form
-                              action="{{ route('tipscodings.comments.destroy', [
-                                'category' => $category->slug,
-                                'tipscoding' => $tipscoding->slug,
-                                'comment' => $reply->id,
-                              ]) }}"
-                              method="POST"
-                              class="inline"
-                              onsubmit="return confirm('Yakin ingin menghapus balasan ini?')"
-                            >
-
-                              @csrf
-                              @method('DELETE')
-
-                              <button
-                                type="submit"
-                                class="shrink-0 inline-flex items-center justify-center px-2 py-1 bg-red-500 rounded-md text-[11px] font-medium text-white hover:bg-red-600 cursor-pointer border border-red-200"
-                                title="Hapus balasan"
+                                  'type' => 'like',
+                                ]) }}"
+                                class="reaction-like shrink-0 inline-flex items-center px-2 py-1 rounded-md text-[11px] font-medium cursor-pointer border transition
+                                  {{ $replyReaction === 'like'
+                                    ? 'bg-blue-100 border-blue-300 text-blue-700'
+                                    : 'bg-indigo-50 border-indigo-200 text-gray-700 hover:bg-indigo-100' }}"
+                                title="Like"
                               >
-                                <i class="bi bi-trash3"></i>
+
+                                <i
+                                  class="reaction-icon bi bi-hand-thumbs-up{{ $replyReaction === 'like' ? '-fill' : '' }}
+                                    {{ $replyReaction === 'like'
+                                      ? 'text-blue-700'
+                                      : 'text-blue-800' }}"
+                                ></i>
+
+                                <span class="reaction-count ml-1">
+                                  {{ $reply->likes_count }}
+                                </span>
+
                               </button>
 
-                            </form>
 
-                          @endif
+                              {{-- ================================================= --}}
+                              {{-- DISLIKE REPLY --}}
+                              {{-- ================================================= --}}
 
+                              <button
+                                type="button"
+                                data-reaction-button
+                                data-comment-id="{{ $reply->id }}"
+                                data-type="dislike"
+                                data-url="{{ route('tipscodings.comments.reaction', [
+                                  'category' => $category->slug,
+                                  'tipscoding' => $tipscoding->slug,
+                                  'comment' => $reply->id,
+                                  'type' => 'dislike',
+                                ]) }}"
+                                class="reaction-dislike shrink-0 inline-flex items-center px-2 py-1 rounded-md text-[11px] font-medium cursor-pointer border transition
+                                  {{ $replyReaction === 'dislike'
+                                    ? 'bg-red-100 border-red-300 text-red-700'
+                                    : 'bg-indigo-50 border-indigo-200 text-gray-700 hover:bg-indigo-100' }}"
+                                title="Dislike"
+                              >
 
-                          {{-- ================================================= --}}
-                          {{-- LIKE REPLY --}}
-                          {{-- ================================================= --}}
+                                <i
+                                  class="reaction-icon bi bi-hand-thumbs-down{{ $replyReaction === 'dislike' ? '-fill' : '' }}
+                                    {{ $replyReaction === 'dislike'
+                                      ? 'text-red-700'
+                                      : 'text-red-800' }}"
+                                ></i>
 
-                          <button
-                            type="button"
-                            data-reaction-button
-                            data-comment-id="{{ $reply->id }}"
-                            data-type="like"
-                            data-url="{{ route('tipscodings.comments.reaction', [
-                              'category' => $category->slug,
-                              'tipscoding' => $tipscoding->slug,
-                              'comment' => $reply->id,
-                              'type' => 'like',
-                            ]) }}"
-                            class="reaction-like shrink-0 inline-flex items-center px-2 py-1 rounded-md text-[11px] font-medium cursor-pointer border transition
-                              {{ $replyReaction === 'like'
-                                ? 'bg-blue-100 border-blue-300 text-blue-700'
-                                : 'bg-indigo-50 border-indigo-200 text-gray-700 hover:bg-indigo-100' }}"
-                            title="Like"
-                          >
+                                <span class="reaction-count ml-1">
+                                  {{ $reply->dislikes_count }}
+                                </span>
 
-                            <i
-                              class="reaction-icon bi bi-hand-thumbs-up{{ $replyReaction === 'like' ? '-fill' : '' }}
-                                {{ $replyReaction === 'like'
-                                  ? 'text-blue-700'
-                                  : 'text-blue-800' }}"
-                            ></i>
+                              </button>
 
-                            <span class="reaction-count ml-1">
-                              {{ $reply->likes_count }}
-                            </span>
+                            </div>
 
-                          </button>
-
-
-                          {{-- ================================================= --}}
-                          {{-- DISLIKE REPLY --}}
-                          {{-- ================================================= --}}
-
-                          <button
-                            type="button"
-                            data-reaction-button
-                            data-comment-id="{{ $reply->id }}"
-                            data-type="dislike"
-                            data-url="{{ route('tipscodings.comments.reaction', [
-                              'category' => $category->slug,
-                              'tipscoding' => $tipscoding->slug,
-                              'comment' => $reply->id,
-                              'type' => 'dislike',
-                            ]) }}"
-                            class="reaction-dislike shrink-0 inline-flex items-center px-2 py-1 rounded-md text-[11px] font-medium cursor-pointer border transition
-                              {{ $replyReaction === 'dislike'
-                                ? 'bg-red-100 border-red-300 text-red-700'
-                                : 'bg-indigo-50 border-indigo-200 text-gray-700 hover:bg-indigo-100' }}"
-                            title="Dislike"
-                          >
-
-                            <i
-                              class="reaction-icon bi bi-hand-thumbs-down{{ $replyReaction === 'dislike' ? '-fill' : '' }}
-                                {{ $replyReaction === 'dislike'
-                                  ? 'text-red-700'
-                                  : 'text-red-800' }}"
-                            ></i>
-
-                            <span class="reaction-count ml-1">
-                              {{ $reply->dislikes_count }}
-                            </span>
-
-                          </button>
+                          </div>
 
                         </div>
 
                       </div>
 
-                    </div>
+                    @endforeach
 
-                  @endforeach
+                  </div>
 
-                </div>
+                @endif
 
-              @endif
+              </div>
 
             </div>
 
@@ -789,19 +860,62 @@
 
   /*
   |--------------------------------------------------------------------------
-  | SCROLL RESTORATION
+  | SCROLL KE KOMENTAR DARI NOTIFIKASI
   |--------------------------------------------------------------------------
   |
-  | Digunakan untuk:
+  | Contoh URL:
   |
-  | - tambah comment
-  | - edit comment
-  | - reply comment
-  | - delete comment
-  | - delete reply
+  | /ec/tipscodings/category/javascript/tips/apa-itu-javascript#comment-65
   |
-  | Like/dislike tidak menggunakan reload.
+  | Maka browser akan mencari:
   |
+  | id="comment-65"
+  |
+  |--------------------------------------------------------------------------
+  */
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const hash = window.location.hash;
+
+    if (
+        !hash ||
+        !hash.startsWith('#comment-')
+    ) {
+        return;
+    }
+
+    setTimeout(function () {
+        const comment =
+            document.querySelector(hash);
+
+        if (!comment) {
+            return;
+        }
+
+        comment.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
+
+        comment.classList.add(
+            'bg-yellow-50',
+            'rounded-xl',
+            'transition-colors',
+            'duration-500'
+        );
+
+        setTimeout(function () {
+            comment.classList.remove(
+                'bg-yellow-50'
+            );
+        }, 2500);
+    }, 300);
+});
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | SCROLL RESTORATION
   |--------------------------------------------------------------------------
   */
 
@@ -809,14 +923,11 @@
     'tipscoding-comment-scroll';
 
 
-  /*
-  |--------------------------------------------------------------------------
-  | Hindari browser melakukan restoration sendiri
-  |--------------------------------------------------------------------------
-  */
-
   if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
+
+    history.scrollRestoration =
+      'manual';
+
   }
 
 
@@ -826,92 +937,116 @@
   |--------------------------------------------------------------------------
   */
 
-  document.addEventListener('submit', function (event) {
+  document.addEventListener(
+    'submit',
+    function (event) {
 
-    const form = event.target;
+      const form = event.target;
 
-    /*
-    | Form comment / reply / edit / delete
-    */
 
-    if (
-      form.action &&
-      form.action.includes('/comments')
-    ) {
+      if (
+        form.action &&
+        form.action.includes('/comments')
+      ) {
 
-      sessionStorage.setItem(
-        commentScrollKey,
-        String(window.scrollY)
-      );
+        sessionStorage.setItem(
+          commentScrollKey,
+          String(window.scrollY)
+        );
+
+      }
 
     }
-
-  });
+  );
 
 
   /*
   |--------------------------------------------------------------------------
-  | KEMBALIKAN SCROLL SETELAH RELOAD
+  | KEMBALIKAN SCROLL
   |--------------------------------------------------------------------------
   */
 
-  window.addEventListener('load', function () {
+  window.addEventListener(
+    'load',
+    function () {
 
-    const savedScroll =
-      sessionStorage.getItem(
+      /*
+      | Kalau halaman dibuka dari notification,
+      | jangan gunakan scroll restoration.
+      */
+
+      if (
+        window.location.hash &&
+        window.location.hash.startsWith(
+          '#comment-'
+        )
+      ) {
+
+        sessionStorage.removeItem(
+          commentScrollKey
+        );
+
+        return;
+
+      }
+
+
+      const savedScroll =
+        sessionStorage.getItem(
+          commentScrollKey
+        );
+
+
+      if (savedScroll === null) {
+        return;
+      }
+
+
+      sessionStorage.removeItem(
         commentScrollKey
       );
 
-    if (savedScroll === null) {
-      return;
-    }
 
-    sessionStorage.removeItem(
-      commentScrollKey
-    );
+      requestAnimationFrame(function () {
 
-    /*
-    | Tunggu browser menyelesaikan layout
-    */
+        window.scrollTo({
+          top: Number(savedScroll),
+          behavior: 'instant',
+        });
 
-    requestAnimationFrame(() => {
-
-      window.scrollTo({
-        top: Number(savedScroll),
-        behavior: 'instant',
       });
 
-    });
-
-  });
+    }
+  );
 
 
   /*
   |--------------------------------------------------------------------------
   | PAGINATION
   |--------------------------------------------------------------------------
-  |
-  | Pagination tidak boleh menggunakan posisi scroll lama.
-  |
-  |--------------------------------------------------------------------------
   */
 
-  document.addEventListener('click', function (event) {
+  document.addEventListener(
+    'click',
+    function (event) {
 
-    const paginationLink =
-      event.target.closest(
-        '.table-pagination a'
+      const paginationLink =
+        event.target.closest(
+          '.table-pagination a'
+        );
+
+
+      if (!paginationLink) {
+        return;
+      }
+
+
+      sessionStorage.removeItem(
+        commentScrollKey
       );
 
-    if (!paginationLink) {
-      return;
     }
-
-    sessionStorage.removeItem(
-      commentScrollKey
-    );
-
-  });
+  );
 
 
   /*
@@ -947,19 +1082,30 @@
       );
 
 
-    textarea.value = comment;
+    textarea.value =
+      comment;
 
-    form.action = action;
+    form.action =
+      action;
 
-    error.textContent = '';
-    error.classList.add('hidden');
+    error.textContent =
+      '';
+
+    error.classList.add(
+      'hidden'
+    );
 
 
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+    modal.classList.remove(
+      'hidden'
+    );
+
+    modal.classList.add(
+      'flex'
+    );
 
 
-    setTimeout(() => {
+    setTimeout(function () {
 
       textarea.focus();
 
@@ -987,10 +1133,17 @@
       );
 
 
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
+    modal.classList.add(
+      'hidden'
+    );
 
-    textarea.value = '';
+    modal.classList.remove(
+      'flex'
+    );
+
+
+    textarea.value =
+      '';
 
   }
 
@@ -1027,7 +1180,8 @@
       );
 
 
-    parentId.value = id;
+    parentId.value =
+      id;
 
 
     user.innerHTML = `
@@ -1038,14 +1192,20 @@
     `;
 
 
-    textarea.value = '';
+    textarea.value =
+      '';
 
 
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+    modal.classList.remove(
+      'hidden'
+    );
+
+    modal.classList.add(
+      'flex'
+    );
 
 
-    setTimeout(() => {
+    setTimeout(function () {
 
       textarea.focus();
 
@@ -1078,13 +1238,20 @@
       );
 
 
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
+    modal.classList.add(
+      'hidden'
+    );
+
+    modal.classList.remove(
+      'flex'
+    );
 
 
-    parentId.value = '';
+    parentId.value =
+      '';
 
-    textarea.value = '';
+    textarea.value =
+      '';
 
   }
 
@@ -1096,12 +1263,16 @@
   */
 
   document
-    .getElementById('editCommentModal')
+    .getElementById(
+      'editCommentModal'
+    )
     .addEventListener(
       'click',
       function (event) {
 
-        if (event.target === this) {
+        if (
+          event.target === this
+        ) {
 
           closeEditComment();
 
@@ -1118,12 +1289,16 @@
   */
 
   document
-    .getElementById('replyCommentModal')
+    .getElementById(
+      'replyCommentModal'
+    )
     .addEventListener(
       'click',
       function (event) {
 
-        if (event.target === this) {
+        if (
+          event.target === this
+        ) {
 
           closeReplyComment();
 
@@ -1143,7 +1318,9 @@
     'keydown',
     function (event) {
 
-      if (event.key === 'Escape') {
+      if (
+        event.key === 'Escape'
+      ) {
 
         closeEditComment();
 
@@ -1176,6 +1353,9 @@
       }
 
 
+      event.preventDefault();
+
+
       /*
       |--------------------------------------------------------------------------
       | Jangan request berkali-kali
@@ -1183,9 +1363,12 @@
       */
 
       if (
-        button.dataset.loading === 'true'
+        button.dataset.loading ===
+        'true'
       ) {
+
         return;
+
       }
 
 
@@ -1198,7 +1381,7 @@
 
       /*
       |--------------------------------------------------------------------------
-      | Semua tombol reaction untuk comment
+      | Semua tombol reaction comment
       |--------------------------------------------------------------------------
       */
 
@@ -1210,18 +1393,14 @@
 
       try {
 
-        /*
-        |--------------------------------------------------------------------------
-        | Loading
-        |--------------------------------------------------------------------------
-        */
-
-        button.dataset.loading = 'true';
+        button.dataset.loading =
+          'true';
 
 
-        buttons.forEach((item) => {
+        buttons.forEach(function (item) {
 
-          item.disabled = true;
+          item.disabled =
+            true;
 
           item.classList.add(
             'opacity-60'
@@ -1232,7 +1411,7 @@
 
         /*
         |--------------------------------------------------------------------------
-        | Request AJAX
+        | AJAX
         |--------------------------------------------------------------------------
         */
 
@@ -1249,7 +1428,9 @@
                     .querySelector(
                       'meta[name="csrf-token"]'
                     )
-                    .getAttribute('content'),
+                    .getAttribute(
+                      'content'
+                    ),
 
                 'Accept':
                   'application/json',
@@ -1263,12 +1444,6 @@
           );
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Request gagal
-        |--------------------------------------------------------------------------
-        */
-
         if (!response.ok) {
 
           throw new Error(
@@ -1278,14 +1453,14 @@
         }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | JSON response
-        |--------------------------------------------------------------------------
-        */
-
         const data =
           await response.json();
+
+
+        console.log(
+          'REACTION RESPONSE:',
+          data
+        );
 
 
         /*
@@ -1302,7 +1477,11 @@
 
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          'Reaction error:',
+          error
+        );
+
 
         alert(
           'Terjadi kesalahan saat memproses reaction.'
@@ -1311,15 +1490,10 @@
 
       } finally {
 
-        /*
-        |--------------------------------------------------------------------------
-        | Hapus loading
-        |--------------------------------------------------------------------------
-        */
+        buttons.forEach(function (item) {
 
-        buttons.forEach((item) => {
-
-          item.disabled = false;
+          item.disabled =
+            false;
 
           item.classList.remove(
             'opacity-60'
@@ -1338,7 +1512,7 @@
 
   /*
   |--------------------------------------------------------------------------
-  | UPDATE REACTION BUTTON
+  | UPDATE REACTION BUTTONS
   |--------------------------------------------------------------------------
   */
 
@@ -1347,15 +1521,17 @@
     data
   ) {
 
-    buttons.forEach((button) => {
+    buttons.forEach(function (button) {
 
       const type =
         button.dataset.type;
+
 
       const icon =
         button.querySelector(
           '.reaction-icon'
         );
+
 
       const count =
         button.querySelector(
@@ -1363,11 +1539,10 @@
         );
 
 
-      /*
-      |--------------------------------------------------------------------------
-      | Apakah aktif?
-      |--------------------------------------------------------------------------
-      */
+      if (!icon || !count) {
+        return;
+      }
+
 
       const active =
         data.reaction === type;
@@ -1375,7 +1550,7 @@
 
       /*
       |--------------------------------------------------------------------------
-      | Update jumlah
+      | COUNT
       |--------------------------------------------------------------------------
       */
 
@@ -1397,11 +1572,12 @@
 
       /*
       |--------------------------------------------------------------------------
-      | Reset button
+      | RESET BUTTON
       |--------------------------------------------------------------------------
       */
 
       button.classList.remove(
+
         'bg-blue-100',
         'border-blue-300',
         'text-blue-700',
@@ -1415,18 +1591,21 @@
         'text-gray-700',
 
         'hover:bg-indigo-100'
+
       );
 
 
       /*
       |--------------------------------------------------------------------------
-      | Reset icon
+      | RESET ICON
       |--------------------------------------------------------------------------
       */
 
       icon.classList.remove(
+
         'bi-hand-thumbs-up',
         'bi-hand-thumbs-up-fill',
+
         'bi-hand-thumbs-down',
         'bi-hand-thumbs-down-fill',
 
@@ -1435,6 +1614,7 @@
 
         'text-red-700',
         'text-red-800'
+
       );
 
 
@@ -1444,7 +1624,9 @@
       |--------------------------------------------------------------------------
       */
 
-      if (type === 'like') {
+      if (
+        type === 'like'
+      ) {
 
         if (active) {
 
@@ -1486,7 +1668,9 @@
       |--------------------------------------------------------------------------
       */
 
-      if (type === 'dislike') {
+      if (
+        type === 'dislike'
+      ) {
 
         if (active) {
 

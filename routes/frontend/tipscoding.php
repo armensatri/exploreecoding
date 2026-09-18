@@ -57,6 +57,11 @@ Route::get(
   [TipscodingController::class, 'readNotification']
 )->middleware('auth')->name('notifications.read');
 
+Route::patch(
+  '/ec/tipscodings/{category}/{tipscoding}/comments/{comment}/pin',
+  [TipscodingCommentController::class, 'pin']
+)->middleware('auth')->name('tipscodings.comments.pin');
+
 Route::get('/test-share', function () {
   $share = new Share();
 

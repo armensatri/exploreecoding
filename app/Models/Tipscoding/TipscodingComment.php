@@ -20,7 +20,17 @@ class TipscodingComment extends Model
     'parent_id',
     'comment',
     'status',
+    'is_pinned',
+    'edited_at'
   ];
+
+  protected function casts(): array
+  {
+    return [
+      'is_pinned' => 'boolean',
+      'edited_at' => 'datetime',
+    ];
+  }
 
   public function tipscoding(): BelongsTo
   {
