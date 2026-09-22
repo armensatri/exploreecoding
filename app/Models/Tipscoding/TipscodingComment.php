@@ -5,6 +5,7 @@ namespace App\Models\Tipscoding;
 use App\Models\Manageuser\User;
 use App\Models\Tipscoding\Tipscoding;
 use App\Models\Tipscoding\TipscodingCommentReaction;
+use App\Models\Tipscoding\TipscodingCommentReport;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,7 @@ class TipscodingComment extends Model
     'tipscoding_id',
     'user_id',
     'parent_id',
+    'is_reply',
     'comment',
     'status',
     'is_pinned',
@@ -27,6 +29,7 @@ class TipscodingComment extends Model
   protected function casts(): array
   {
     return [
+      'is_reply' => 'boolean',
       'is_pinned' => 'boolean',
       'edited_at' => 'datetime',
     ];
@@ -69,6 +72,14 @@ class TipscodingComment extends Model
     return $this->hasMany(
       TipscodingCommentReaction::class,
       'comment_id'
+    );
+  }
+
+  public function reports(): HasMany
+  {
+    return $this->hasMany(
+      TipscodingCommentReport::class,
+      'tipscoding_comment_id'
     );
   }
 }

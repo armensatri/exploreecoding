@@ -53,7 +53,7 @@ Route::get(
 )->middleware('auth')->name('notifications.index');
 
 Route::get(
-  '/notifications/{notification}',
+  '/ec/notifications/{notification}',
   [TipscodingController::class, 'readNotification']
 )->middleware('auth')->name('notifications.read');
 
@@ -61,6 +61,27 @@ Route::patch(
   '/ec/tipscodings/{category}/{tipscoding}/comments/{comment}/pin',
   [TipscodingCommentController::class, 'pin']
 )->middleware('auth')->name('tipscodings.comments.pin');
+
+Route::patch(
+  '/ec/notifications/read-all',
+  [TipscodingController::class, 'readAllNotifications']
+)->middleware('auth')->name('notifications.read-all');
+
+Route::delete(
+  '/ec/notifications/{notification}',
+  [TipscodingController::class, 'deleteNotification']
+)->middleware('auth')->name('notifications.delete');
+
+Route::delete(
+  '/ec/notifications',
+  [TipscodingController::class, 'deleteAllNotifications']
+)->middleware('auth')->name('notifications.delete-all');
+
+Route::post(
+  '/ec/tipscodings/category/{category:slug}/tips/{tipscoding:slug}/comments/{comment}/report',
+  [TipscodingController::class, 'reportComment']
+)->middleware('auth')->name('tipscodings.comments.report');
+
 
 Route::get('/test-share', function () {
   $share = new Share();

@@ -31,21 +31,61 @@
               @include('backend.manageaccess.permission._navigation')
             </div>
 
-            <div class="flex justify-around">
-              <div class="grid grid-cols-1 gap-16 mt-12 md:grid-cols-2 xl:grid-cols-3">
-                @foreach ($groupper as $controller => $permissions)
-                  <div>
-                    <fieldset>
-                      <div class="w-auto p-4 border border-gray-300 shadow-2xs rounded-3xl bg-slate-50">
-                        <legend class="mb-2 ml-2 text-base font-normal tracking-wide text-yellow-500">
-                          {{ $controller }} Controller
-                        </legend>
+            <div class="mt-20 flex items-center justify-center">
+              <div class="w-full max-w-5xl">
+                <div
+                  class="grid grid-cols-1 lg:grid-cols-2 xl:gap-10 gap-4">
+                  @foreach ($groupper as $controller => $permissions)
+                    <div
+                      class="flex flex-col self-start p-6 rounded-3xl border border-gray-200 shadow-2xs bg-slate-50">
+                      <div class="overflow-x-auto pb-2">
+                        <div class="flex flex-col min-w-[320px]">
+                          <div
+                            class="flex items-center space-x-4 pb-4 border-b border-gray-100 mb-4">
+                            <div
+                              class="w-13 h-13 rounded-full bg-white flex items-center justify-center text-slate-600 shrink-0 border
+                              border-gray-300">
+                              <img
+                                src="{{ asset(\App\Enums\PermissionIcon::get($controller)) }}"
+                                alt="permission"
+                                class="size-6"
+                              />
+                            </div>
 
-                        @foreach ($permissions as $permission)
-                          <div class="flex items-center px-1 ml-1">
                             <div>
-                              <div class="flex items-center">
-                                <!-- Menggunakan properti objek biasa $permission->id lebih disarankan daripada mode array -->
+                              <div
+                                class="text-base font-normal tracking-wide
+                                text-yellow-500">
+                                {{ ucwords(str_replace('_', ' ', $controller)) }}Controller
+                              </div>
+
+                              <p class="text-[13px] text-gray-400">
+                                Manage permissions
+                                <span class="lowercase">
+                                  {{ $controller }}
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="flex flex-col">
+                            @foreach ($permissions as $permission)
+                              <div
+                                class="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-slate-100 transition">
+                                <div class="flex items-center space-x-3">
+                                  <span
+                                    class="text-[15px] font-medium
+                                    text-slate-700">
+                                    {{ $permission->id }}.
+                                  </span>
+
+                                  <span
+                                    class="text-[15px] font-medium
+                                    text-slate-700">
+                                    {{ $permission->name }}
+                                  </span>
+                                </div>
+
                                 <input type="checkbox"
                                   data-role="{{ $role->id }}"
                                   data-permission="{{ $permission->id }}"
@@ -54,25 +94,13 @@
                                   class="ml-1 w-4 h-4 text-blue-500 rounded-[5px] cursor-pointer access-checkbox outline-offset-1 outline-1 outline-blue-500"
                                 />
                               </div>
-                            </div>
-
-                            <div class="flex items-center text-[15px] text-gray-600 whitespace-nowrap p-2 py-1.5 tracking-wide">
-                              <div class="flex items-center gap-1">
-                                <div class="text-xs text-black">
-                                  {{ $permission->id }}
-                                </div>
-                                <div>-</div>
-                                <div>
-                                  {{ $permission->name }}
-                                </div>
-                              </div>
-                            </div>
+                            @endforeach
                           </div>
-                        @endforeach
+                        </div>
                       </div>
-                    </fieldset>
-                  </div>
-                @endforeach
+                    </div>
+                  @endforeach
+                </div>
               </div>
             </div>
           </div>

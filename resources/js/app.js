@@ -8,7 +8,9 @@ import "./daftar-isi-content";
 import Alpine from "alpinejs";
 import Editor from "@toast-ui/editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
+import Swal from "sweetalert2";
 
+window.Swal = Swal;
 window.Alpine = Alpine;
 Alpine.start();
 

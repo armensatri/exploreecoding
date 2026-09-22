@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Frontend\Tipscoding;
 
 use App\Helpers\Media;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\Tipscoding\TipscodingCommentReportUr;
 use App\Models\Account\Sosmed;
 use App\Models\Tipscoding\Category;
 use App\Models\Tipscoding\Tipscoding;
 use App\Models\Tipscoding\TipscodingComment;
+use App\Models\Tipscoding\TipscodingCommentReport;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Jorenvh\Share\Share;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -200,12 +203,49 @@ class TipscodingController extends Controller
         },
       ])
       ->where('status', 'approved')
+      ->where('is_reply', false)
       ->whereNull('parent_id')
       ->orderByDesc('is_pinned')
       ->orderByDesc('created_at')
       ->orderByDesc('id')
       ->paginate(10)
       ->withQueryString();
+
+    $pinnedCount = $tipscoding->comments()
+      ->where('is_pinned', true)
+      ->where('is_reply', false)
+      ->whereNull('parent_id')
+      ->count();
+
+    $orphanReplies = $tipscoding->comments()
+      ->withCount([
+        'reactions as likes_count' => function ($query) {
+          $query->where('type', 'like');
+        },
+
+        'reactions as dislikes_count' => function ($query) {
+          $query->where('type', 'dislike');
+        },
+      ])
+      ->with([
+        'user:id,username,image',
+
+        'reactions' => function ($query) {
+          $query
+            ->where('user_id', Auth::id())
+            ->select([
+              'id',
+              'comment_id',
+              'user_id',
+              'type',
+            ]);
+        },
+      ])
+      ->where('status', 'approved')
+      ->where('is_reply', true)
+      ->whereNull('parent_id')
+      ->latest()
+      ->get();
 
     $tipstotal = Tipscoding::count();
     $categorytotal = Category::count();
@@ -269,19 +309,50 @@ class TipscodingController extends Controller
       'sosmed' => $sosmed,
       'shareLinks' => $shareLinks,
       'comments' => $comments,
+      'pinnedCount' => $pinnedCount,
+      'orphanReplies' => $orphanReplies,
     ]);
   }
 
   public function notifications()
   {
-    $notifications = Auth::user()
+    $user = Auth::user();
+
+    $allNotifications = $user
       ->notifications
       ->sortByDesc('created_at')
       ->values();
 
+    $perPage = 10;
+
+    $currentPage = LengthAwarePaginator::resolveCurrentPage();
+
+    $currentItems = $allNotifications
+      ->slice(
+        ($currentPage - 1) * $perPage,
+        $perPage
+      )
+      ->values();
+
+    $notifications = new LengthAwarePaginator(
+      $currentItems,
+      $allNotifications->count(),
+      $perPage,
+      $currentPage,
+      [
+        'path' => LengthAwarePaginator::resolveCurrentPath(),
+        'query' => request()->query(),
+      ]
+    );
+
+    $unreadCount = $user
+      ->unreadNotifications
+      ->count();
+
     return view('frontend.tipscoding.notif.notifications', [
       'title' => 'notification',
-      'notifications' => $notifications
+      'notifications' => $notifications,
+      'unreadCount' => $unreadCount,
     ]);
   }
 
@@ -303,22 +374,39 @@ class TipscodingController extends Controller
         'tipscoding.comment',
         'tipscoding.comment.reply',
         'tipscoding.comment.reaction',
+        'tipscoding.comment.pinned',
       ],
       true
     )) {
+
+      /*
+    |--------------------------------------------------------------------------
+    | Ambil TipsCoding
+    |--------------------------------------------------------------------------
+    */
+
       $tipscoding = Tipscoding::query()
         ->with('category')
         ->findOrFail(
           $data['tipscoding_id']
         );
 
+      /*
+    |--------------------------------------------------------------------------
+    | Ambil ID komentar dari notification
+    |--------------------------------------------------------------------------
+    */
+
       $commentId = $data['comment_id'];
 
       /*
-        |--------------------------------------------------------------------------
-        | Ambil komentar
-        |--------------------------------------------------------------------------
-        */
+    |--------------------------------------------------------------------------
+    | Ambil komentar target
+    |--------------------------------------------------------------------------
+    |
+    | Ini adalah komentar yang menerima notification.
+    |
+    */
 
       $comment = TipscodingComment::query()
         ->where(
@@ -328,92 +416,231 @@ class TipscodingController extends Controller
         ->findOrFail($commentId);
 
       /*
-        |--------------------------------------------------------------------------
-        | Jika reply, gunakan komentar utama
-        | untuk menentukan halaman pagination.
-        |--------------------------------------------------------------------------
-        */
+    |--------------------------------------------------------------------------
+    | ID komentar yang akan menjadi fragment
+    |--------------------------------------------------------------------------
+    |
+    | Kita tetap menuju komentar yang sebenarnya menerima
+    | reaction / notification.
+    |
+    */
 
-      $targetCommentId =
-        $comment->parent_id
-        ?? $comment->id;
-
-      $targetComment = TipscodingComment::query()
-        ->where(
-          'tipscoding_id',
-          $tipscoding->id
-        )
-        ->where(
-          'status',
-          'approved'
-        )
-        ->whereNull('parent_id')
-        ->findOrFail($targetCommentId);
+      $fragmentCommentId = $comment->id;
 
       /*
-        |--------------------------------------------------------------------------
-        | Hitung posisi komentar berdasarkan urutan
-        | yang sama dengan show():
-        |
-        | ->latest()
-        | ->paginate(10)
-        |--------------------------------------------------------------------------
-        */
+    |--------------------------------------------------------------------------
+    | Tentukan komentar utama untuk pagination
+    |--------------------------------------------------------------------------
+    |
+    | Kondisi:
+    |
+    | 1. Komentar utama
+    |    → gunakan dirinya sendiri.
+    |
+    | 2. Reply normal
+    |    → gunakan parent comment.
+    |
+    | 3. Reply orphan
+    |    → parent sudah dihapus.
+    |    → tidak memiliki komentar utama.
+    |
+    */
 
-      $commentPosition = TipscodingComment::query()
-        ->where(
-          'tipscoding_id',
-          $tipscoding->id
-        )
-        ->where(
-          'status',
-          'approved'
-        )
-        ->whereNull('parent_id')
-        ->where(function ($query) use ($targetComment) {
+      $targetComment = null;
 
-          $query
-            ->where(
-              'created_at',
-              '>',
-              $targetComment->created_at
-            )
-            ->orWhere(function ($query) use ($targetComment) {
+      if ($comment->parent_id) {
 
-              $query
-                ->where(
-                  'created_at',
-                  '=',
-                  $targetComment->created_at
-                )
-                ->where(
-                  'id',
-                  '>',
-                  $targetComment->id
-                );
-            });
-        })
-        ->count();
+        /*
+      |--------------------------------------------------------------------------
+      | Reply
+      |--------------------------------------------------------------------------
+      */
 
-      $commentPosition++;
+        $targetComment = TipscodingComment::query()
+          ->where(
+            'tipscoding_id',
+            $tipscoding->id
+          )
+          ->where(
+            'status',
+            'approved'
+          )
+          ->where(
+            'is_reply',
+            false
+          )
+          ->whereNull('parent_id')
+          ->find(
+            $comment->parent_id
+          );
+      } else {
 
-      /*
-        |--------------------------------------------------------------------------
-        | Pagination komentar
-        |--------------------------------------------------------------------------
-        */
+        /*
+      |--------------------------------------------------------------------------
+      | Komentar utama
+      |--------------------------------------------------------------------------
+      */
 
-      $commentsPerPage = 10;
-
-      $page = (int) ceil(
-        $commentPosition / $commentsPerPage
-      );
+        $targetComment = $comment;
+      }
 
       /*
-        |--------------------------------------------------------------------------
-        | Redirect ke Tipscoding + halaman komentar
-        |--------------------------------------------------------------------------
-        */
+    |--------------------------------------------------------------------------
+    | Tentukan halaman komentar
+    |--------------------------------------------------------------------------
+    |
+    | Jika parent masih ada:
+    | hitung posisi menggunakan urutan yang sama dengan
+    | query komentar di TipscodingController@show().
+    |
+    | Jika parent sudah dihapus:
+    | reply menjadi orphan dan ditampilkan melalui
+    | $orphanReplies menggunakan get(), bukan paginate().
+    |
+    */
+
+      if ($targetComment) {
+
+        /*
+      |--------------------------------------------------------------------------
+      | Hitung posisi komentar utama
+      |--------------------------------------------------------------------------
+      */
+
+        $commentPosition = TipscodingComment::query()
+          ->where(
+            'tipscoding_id',
+            $tipscoding->id
+          )
+          ->where(
+            'status',
+            'approved'
+          )
+          ->where(
+            'is_reply',
+            false
+          )
+          ->whereNull('parent_id')
+          ->where(function ($query) use ($targetComment) {
+
+            /*
+          |--------------------------------------------------------------------------
+          | Komentar pinned berada lebih dahulu
+          |--------------------------------------------------------------------------
+          */
+
+            $query
+              ->where(
+                'is_pinned',
+                '>',
+                $targetComment->is_pinned
+              )
+
+              /*
+            |--------------------------------------------------------------------------
+            | Jika status pinned sama,
+            | gunakan created_at DESC
+            |--------------------------------------------------------------------------
+            */
+
+              ->orWhere(function ($query) use ($targetComment) {
+
+                $query
+                  ->where(
+                    'is_pinned',
+                    $targetComment->is_pinned
+                  )
+                  ->where(
+                    'created_at',
+                    '>',
+                    $targetComment->created_at
+                  );
+              })
+
+              /*
+            |--------------------------------------------------------------------------
+            | Jika created_at sama,
+            | gunakan id DESC
+            |--------------------------------------------------------------------------
+            */
+
+              ->orWhere(function ($query) use ($targetComment) {
+
+                $query
+                  ->where(
+                    'is_pinned',
+                    $targetComment->is_pinned
+                  )
+                  ->where(
+                    'created_at',
+                    '=',
+                    $targetComment->created_at
+                  )
+                  ->where(
+                    'id',
+                    '>',
+                    $targetComment->id
+                  );
+              });
+          })
+          ->count();
+
+        /*
+      |--------------------------------------------------------------------------
+      | Posisi dimulai dari 1
+      |--------------------------------------------------------------------------
+      */
+
+        $commentPosition++;
+
+        /*
+      |--------------------------------------------------------------------------
+      | Jumlah komentar per halaman
+      |--------------------------------------------------------------------------
+      */
+
+        $commentsPerPage = 10;
+
+        /*
+      |--------------------------------------------------------------------------
+      | Tentukan halaman
+      |--------------------------------------------------------------------------
+      */
+
+        $page = (int) ceil(
+          $commentPosition / $commentsPerPage
+        );
+      } else {
+
+        /*
+      |--------------------------------------------------------------------------
+      | Orphan reply
+      |--------------------------------------------------------------------------
+      |
+      | Parent sudah dihapus.
+      |
+      | Di TipscodingController@show(), orphan reply:
+      |
+      | ->where('is_reply', true)
+      | ->whereNull('parent_id')
+      | ->latest()
+      | ->get();
+      |
+      | Artinya orphan reply tidak menggunakan pagination.
+      |
+      | Karena itu kita tidak perlu menghitung posisi
+      | komentar utama.
+      |
+      */
+
+        $page = 1;
+      }
+
+      /*
+    |--------------------------------------------------------------------------
+    | Redirect ke halaman TipsCoding
+    |--------------------------------------------------------------------------
+    */
 
       return redirect()
         ->route(
@@ -425,15 +652,141 @@ class TipscodingController extends Controller
             'tipscoding' =>
             $tipscoding->slug,
 
-            'page' => $page,
+            'page' =>
+            $page,
           ]
         )
         ->withFragment(
-          'comment-' . $commentId
+          'comment-' . $fragmentCommentId
         );
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Notification lainnya
+    |--------------------------------------------------------------------------
+    */
+
     return redirect()
       ->route('notifications.index');
+  }
+
+  public function readAllNotifications()
+  {
+    $user = Auth::user();
+
+    $user->unreadNotifications->each(function ($notification) {
+      $notification->markAsRead();
+    });
+
+    Alert::html(
+      'success',
+      "Data semua!
+        <span style='color:#2563eb;'>
+          notification
+        </span> sudah di baca",
+      'success'
+    );
+
+    return back();
+  }
+
+  public function deleteNotification(string $notification)
+  {
+    $user = Auth::user();
+
+    $notification = $user
+      ->notifications
+      ->firstWhere('id', $notification);
+
+    abort_if(! $notification, 404);
+
+    $notification->delete();
+
+    Alert::html(
+      'success',
+      "Data!
+        <span style='color:#2563eb;'>
+          notification
+        </span> berhasil di hapus",
+      'success'
+    );
+
+    return back();
+  }
+
+  public function deleteAllNotifications()
+  {
+    $user = Auth::user();
+
+    $user->notifications->each(function ($notification) {
+      $notification->delete();
+    });
+
+    Alert::html(
+      'success',
+      "Data semua!
+        <span style='color:#2563eb;'>
+          notification
+        </span> berhasil di hapus",
+      'success'
+    );
+
+    return back();
+  }
+
+  public function reportComment(
+    TipscodingCommentReportUr $request,
+    string $category,
+    string $tipscoding,
+    TipscodingComment $comment
+  ) {
+    $user = Auth::user();
+
+    abort_if(
+      $comment->status !== 'approved',
+      404
+    );
+
+    abort_if(
+      $comment->tipscoding->slug !== $tipscoding,
+      404
+    );
+
+    $report = TipscodingCommentReport::firstOrCreate(
+      [
+        'tipscoding_comment_id' => $comment->id,
+        'user_id' => $user->id,
+      ],
+      [
+        'reason' => $request->validated('reason'),
+        'description' => $request->validated('description'),
+        'status' => 'pending',
+      ]
+    );
+
+    if (! $report->wasRecentlyCreated) {
+      Alert::html(
+        'Oops...',
+        "Kamu sudah!
+        <span style='color:#2563eb;'>
+          melaporkan
+        </span> komentar ini",
+        'warning'
+      );
+
+      return back();
+    }
+
+    Alert::html(
+      'success',
+      "Laporan komentar berhasil !
+        <span style='color:#2563eb;'>
+          di kirim
+        </span> dan akan diperiksa",
+      'success'
+    );
+
+    return back();
   }
 }

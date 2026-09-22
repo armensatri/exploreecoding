@@ -35,6 +35,9 @@
 
       <!-- FOOTER -->
       @include('frontend.template.footer')
+
+      {{-- PAGE JAVASCRIPT --}}
+      @stack('scripts')
     </div>
   </body>
 </html>

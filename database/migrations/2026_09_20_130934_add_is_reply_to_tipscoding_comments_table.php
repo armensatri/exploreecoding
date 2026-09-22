@@ -9,22 +9,16 @@ return new class extends Migration
   public function up(): void
   {
     Schema::table('tipscoding_comments', function (Blueprint $table) {
-      $table->foreignId('parent_id')
-        ->nullable()
-        ->after('user_id')
-        ->constrained('tipscoding_comments')
-        ->nullOnDelete();
-
-      $table->index('parent_id');
+      $table->boolean('is_reply')
+        ->default(false)
+        ->after('parent_id');
     });
   }
 
   public function down(): void
   {
     Schema::table('tipscoding_comments', function (Blueprint $table) {
-      $table->dropForeign(['parent_id']);
-      $table->dropIndex(['parent_id']);
-      $table->dropColumn('parent_id');
+      $table->dropColumn('is_reply');
     });
   }
 };

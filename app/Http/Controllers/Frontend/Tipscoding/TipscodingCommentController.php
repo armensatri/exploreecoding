@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Notifications\TipscodingCommentNotification;
 use App\Http\Requests\Tipscoding\Tipscoding\TipscodingCommentUr;
+use App\Notifications\TipscodingCommentPinnedNotification;
 
 class TipscodingCommentController extends Controller
 {
@@ -45,6 +46,7 @@ class TipscodingCommentController extends Controller
       'tipscoding_id' => $tipscoding->id,
       'user_id' => Auth::id(),
       'parent_id' => $parentId,
+      'is_reply' => $parentId !== null,
       'comment' => $request->validated('comment'),
       'status' => 'approved',
     ]);
@@ -276,7 +278,10 @@ class TipscodingCommentController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    if ($comment->parent_id !== null) {
+    if (
+      $comment->is_reply ||
+      $comment->parent_id !== null
+    ) {
       abort(404);
     }
 
@@ -306,14 +311,89 @@ class TipscodingCommentController extends Controller
     }
 
     /*
+|--------------------------------------------------------------------------
+| Pin / Unpin
+|--------------------------------------------------------------------------
+*/
+
+
+    if ($comment->is_pinned) {
+
+      /*
     |--------------------------------------------------------------------------
-    | Toggle Pin
+    | Unpin
     |--------------------------------------------------------------------------
     */
 
-    $comment->update([
-      'is_pinned' => ! $comment->is_pinned,
-    ]);
+      $comment->update([
+        'is_pinned' => false,
+      ]);
+
+      Alert::html(
+        'success',
+        'Komentar berhasil di-<span style="color:#2563eb;">unpin</span>.',
+        'success'
+      );
+    } else {
+
+      /*
+    |--------------------------------------------------------------------------
+    | Hitung jumlah pinned
+    |--------------------------------------------------------------------------
+    */
+
+      $pinnedCount = $tipscoding->comments()
+        ->where('is_pinned', true)
+        ->whereNull('parent_id')
+        ->count();
+
+      /*
+    |--------------------------------------------------------------------------
+    | Maksimal 5 pinned
+    |--------------------------------------------------------------------------
+    */
+
+      if ($pinnedCount >= 5) {
+        Alert::html(
+          'warning',
+          'Maksimal <span style="color:#2563eb;">5 komentar</span> yang dapat di-pin.',
+          'warning'
+        );
+
+        return back();
+      }
+
+      /*
+    |--------------------------------------------------------------------------
+    | Pin
+    |--------------------------------------------------------------------------
+    */
+
+      $comment->update([
+        'is_pinned' => true,
+      ]);
+
+      /*
+|--------------------------------------------------------------------------
+| Notification
+|--------------------------------------------------------------------------
+*/
+
+      if ($comment->user_id !== Auth::id()) {
+        $comment->user?->notify(
+          new TipscodingCommentPinnedNotification(
+            $comment,
+            Auth::user()
+          )
+        );
+      }
+
+      Alert::html(
+        'success',
+        'Komentar berhasil di-<span style="color:#2563eb;">pin</span>.',
+        'success'
+      );
+    }
 
     return back();
   }

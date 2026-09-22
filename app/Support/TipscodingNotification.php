@@ -21,6 +21,9 @@ class TipscodingNotification
       'tipscoding.comment.reaction' => ($notification->data['actor_name'] ?? 'Seseorang')
         . ' menyukai komentar Anda',
 
+      'tipscoding.comment.pinned' => ($notification->data['actor_name'] ?? 'Seseorang')
+        . ' menyematkan komentar Anda',
+
       default =>
       'Anda memiliki notification baru',
     };
