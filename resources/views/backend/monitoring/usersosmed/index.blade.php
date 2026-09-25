@@ -83,7 +83,7 @@
                                     name="image"
                                   />
                                   <x-th
-                                    name="user"
+                                    name="username"
                                   />
                                   <x-th
                                     name="sosmeds"

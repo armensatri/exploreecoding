@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Frontend\Tipscoding;
 
 use App\Helpers\Media;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Frontend\Tipscoding\TipscodingCommentReportUr;
+use App\Http\Requests\Tipscoding\Tipscoding\TipscodingCommentReportUr;
 use App\Models\Account\Sosmed;
+use App\Models\Manageuser\User;
 use App\Models\Tipscoding\Category;
 use App\Models\Tipscoding\Tipscoding;
 use App\Models\Tipscoding\TipscodingComment;
 use App\Models\Tipscoding\TipscodingCommentReport;
+use App\Notifications\TipscodingCommentReportNotification;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Jorenvh\Share\Share;
@@ -110,9 +112,9 @@ class TipscodingController extends Controller
       Alert::html(
         'Oops...',
         "Login dulu!
-        <span style='color:#2563eb;'>
-          untuk membaca
-        </span> tipscoding",
+      <span style='color:#2563eb;'>
+        untuk membaca
+      </span> tipscoding",
         'warning'
       );
 
@@ -133,7 +135,10 @@ class TipscodingController extends Controller
       abort(404);
     }
 
-    $sosmed = Sosmed::where('user_id', $tipscoding->user_id)->first();
+    $sosmed = Sosmed::where(
+      'user_id',
+      $tipscoding->user_id
+    )->first();
 
     $share = new Share();
 
@@ -148,6 +153,12 @@ class TipscodingController extends Controller
       ->whatsapp()
       ->telegram()
       ->getRawLinks();
+
+    /*
+    |--------------------------------------------------------------------------
+    | COMMENTS
+    |--------------------------------------------------------------------------
+    */
 
     $comments = $tipscoding->comments()
       ->withCount([
@@ -172,6 +183,12 @@ class TipscodingController extends Controller
               'type',
             ]);
         },
+
+        /*
+      |--------------------------------------------------------------------------
+      | REPLIES
+      |--------------------------------------------------------------------------
+      */
 
         'replies' => function ($query) {
           $query
@@ -198,11 +215,17 @@ class TipscodingController extends Controller
                   ]);
               },
             ])
-            ->where('status', 'approved')
+            ->whereIn('status', [
+              'approved',
+              'hidden',
+            ])
             ->latest();
         },
       ])
-      ->where('status', 'approved')
+      ->whereIn('status', [
+        'approved',
+        'hidden',
+      ])
       ->where('is_reply', false)
       ->whereNull('parent_id')
       ->orderByDesc('is_pinned')
@@ -211,11 +234,24 @@ class TipscodingController extends Controller
       ->paginate(10)
       ->withQueryString();
 
+    /*
+    |--------------------------------------------------------------------------
+    | PINNED COUNT
+    |--------------------------------------------------------------------------
+    */
+
     $pinnedCount = $tipscoding->comments()
+      ->where('status', 'approved')
       ->where('is_pinned', true)
       ->where('is_reply', false)
       ->whereNull('parent_id')
       ->count();
+
+    /*
+    |--------------------------------------------------------------------------
+    | ORPHAN REPLIES
+    |--------------------------------------------------------------------------
+    */
 
     $orphanReplies = $tipscoding->comments()
       ->withCount([
@@ -241,14 +277,30 @@ class TipscodingController extends Controller
             ]);
         },
       ])
-      ->where('status', 'approved')
+      ->whereIn('status', [
+        'approved',
+        'hidden',
+      ])
       ->where('is_reply', true)
       ->whereNull('parent_id')
       ->latest()
       ->get();
 
+    /*
+    |--------------------------------------------------------------------------
+    | TOTAL
+    |--------------------------------------------------------------------------
+    */
+
     $tipstotal = Tipscoding::count();
+
     $categorytotal = Category::count();
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATED TIPS
+    |--------------------------------------------------------------------------
+    */
 
     $baseQuery = fn() => Tipscoding::query()
       ->select([
@@ -259,15 +311,20 @@ class TipscodingController extends Controller
         'slug',
         'image',
         'created_at'
-      ])->latest();
+      ])
+      ->latest();
 
     $relatedTips = $baseQuery()
-      ->where('category_id', $tipscoding->category_id)
+      ->where(
+        'category_id',
+        $tipscoding->category_id
+      )
       ->whereKeyNot($tipscoding->id)
       ->limit(6)
       ->get();
 
     if (($needed = 6 - $relatedTips->count()) > 0) {
+
       $excludeIds = $relatedTips
         ->pluck('id')
         ->push($tipscoding->id);
@@ -277,13 +334,21 @@ class TipscodingController extends Controller
         ->limit($needed)
         ->get();
 
-      $relatedTips = $relatedTips->concat($additionalTips);
+      $relatedTips = $relatedTips->concat(
+        $additionalTips
+      );
     }
 
     $relatedTips->load([
       'user:id,username',
       'category:id,slug'
     ]);
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATED CATEGORIES
+    |--------------------------------------------------------------------------
+    */
 
     $relatedcategories = Category::query()
       ->select([
@@ -292,26 +357,51 @@ class TipscodingController extends Controller
         'slug',
         'image'
       ])
-      ->where('id', '!=', $category->id)
+      ->where(
+        'id',
+        '!=',
+        $category->id
+      )
       ->inRandomOrder()
       ->limit(10)
       ->get();
 
-    return view('frontend.tipscoding.show.index', [
-      'title' => "tipscodings $category->slug $tipscoding->slug",
-      'category' => $category,
-      'tipscoding' => $tipscoding,
-      'relatedTips'   => $relatedTips,
-      'tipstotal' => $tipstotal,
-      'categorytotal' => $categorytotal,
-      'relatedcategories' => $relatedcategories,
-      'socialMedias' => Media::Sosmed(),
-      'sosmed' => $sosmed,
-      'shareLinks' => $shareLinks,
-      'comments' => $comments,
-      'pinnedCount' => $pinnedCount,
-      'orphanReplies' => $orphanReplies,
-    ]);
+    /*
+    |--------------------------------------------------------------------------
+    | VIEW
+    |--------------------------------------------------------------------------
+    */
+
+    return view(
+      'frontend.tipscoding.show.index',
+      [
+        'title' => "tipscodings $category->slug $tipscoding->slug",
+
+        'category' => $category,
+
+        'tipscoding' => $tipscoding,
+
+        'relatedTips' => $relatedTips,
+
+        'tipstotal' => $tipstotal,
+
+        'categorytotal' => $categorytotal,
+
+        'relatedcategories' => $relatedcategories,
+
+        'socialMedias' => Media::Sosmed(),
+
+        'sosmed' => $sosmed,
+
+        'shareLinks' => $shareLinks,
+
+        'comments' => $comments,
+
+        'pinnedCount' => $pinnedCount,
+
+        'orphanReplies' => $orphanReplies,
+      ]
+    );
   }
 
   public function notifications()
@@ -367,6 +457,43 @@ class TipscodingController extends Controller
     $notification->markAsRead();
 
     $data = $notification->data;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Notification laporan komentar
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+|--------------------------------------------------------------------------
+| Notification laporan baru
+|--------------------------------------------------------------------------
+*/
+
+    if (($data['type'] ?? null) === 'tipscoding.comment.report') {
+
+      return redirect()->route(
+        'tipsreports.show',
+        $data['report_id']
+      );
+    }
+
+    /*
+|--------------------------------------------------------------------------
+| Hasil laporan
+|--------------------------------------------------------------------------
+|
+| Notification ini dikirim kepada user yang membuat report.
+| User tidak diarahkan ke halaman monitoring backend.
+|
+*/
+
+    if (($data['type'] ?? null) === 'tipscoding.comment.report.result') {
+
+      return redirect()->route(
+        'notifications.index'
+      );
+    }
 
     if (in_array(
       $data['type'] ?? null,
@@ -769,21 +896,34 @@ class TipscodingController extends Controller
       Alert::html(
         'Oops...',
         "Kamu sudah!
-        <span style='color:#2563eb;'>
-          melaporkan
-        </span> komentar ini",
+      <span style='color:#2563eb;'>
+        melaporkan
+      </span> komentar ini",
         'warning'
       );
 
       return back();
     }
 
+    $moderators = User::whereHas('role', function ($query) {
+      $query->whereIn('name', [
+        'owner',
+        'superadmin',
+      ]);
+    })->get();
+
+    foreach ($moderators as $moderator) {
+      $moderator->notify(
+        new TipscodingCommentReportNotification($report)
+      );
+    }
+
     Alert::html(
       'success',
-      "Laporan komentar berhasil !
-        <span style='color:#2563eb;'>
-          di kirim
-        </span> dan akan diperiksa",
+      "Laporan komentar berhasil!
+      <span style='color:#2563eb;'>
+        dikirim
+      </span> dan akan diperiksa",
       'success'
     );
 

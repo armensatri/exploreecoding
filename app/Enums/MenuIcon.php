@@ -44,6 +44,7 @@ class MenuIcon
 
       // TIPSCODING
       'tipscodings' => 'tipscodings.png',
+      'tipsreports' => 'report.png',
       'categories' => 'categories.png',
     ];
 

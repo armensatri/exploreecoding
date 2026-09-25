@@ -12,7 +12,7 @@
   class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
   <div class="relative lg:ml-62.5 w-full max-w-md max-h-full p-4">
     <div
-      class="relative p-4 border shadow-sm bg-neutral-primary-soft border-default rounded-base md:p-6">
+      class="relative p-4 border shadow-sm bg-neutral-primary-soft border-default rounded-3xl md:p-6">
       <div
         class="flex items-center justify-between pb-4 border-b border-default md:pb-5">
         <h3 class="text-xl font-bold text-gray-700">

@@ -2,143 +2,264 @@
   @auth
     <div class="flex items-center">
 
+      {{-- ================================================= --}}
+{{-- NOTIFICATION --}}
+{{-- ================================================= --}}
+
+@php
+  $notifications = Auth::user()
+    ->notifications
+    ->sortByDesc('created_at');
+
+  $unreadCount = $notifications
+    ->whereNull('read_at')
+    ->count();
+
+  /*
+  |--------------------------------------------------------------------------
+  | NOTIFICATION 3 HARI TERAKHIR
+  |--------------------------------------------------------------------------
+  | Hari ini + kemarin + 2 hari sebelumnya.
+  |
+  | Contoh:
+  | Jika hari ini 10 Oktober:
+  | 10 Oktober
+  | 9 Oktober
+  | 8 Oktober
+  |--------------------------------------------------------------------------
+  */
+
+  $today = now()->startOfDay();
+
+  $latestNotifications = $notifications
+    ->filter(
+      fn ($notification) =>
+        $notification->created_at->gte(
+          $today->copy()->subDays(2)
+        )
+    )
+    ->groupBy(
+      fn ($notification) =>
+        $notification->created_at->format('Y-m-d')
+    );
+@endphp
+
+
+<div class="hs-dropdown [--trigger:click] relative inline-flex">
+
   {{-- ================================================= --}}
-  {{-- NOTIFICATION --}}
+  {{-- NOTIFICATION BUTTON --}}
   {{-- ================================================= --}}
 
-  @php
-    $notifications = Auth::user()
-      ->notifications
-      ->sortByDesc('created_at');
+  <button
+    type="button"
+    id="notification-dropdown"
+    aria-haspopup="menu"
+    aria-expanded="false"
+    aria-label="Notifications"
+    class="hs-dropdown-toggle relative
+      flex items-center justify-center
+      w-10 h-10
+      rounded-full
+      text-slate-700
+      hover:bg-sky-200
+      transition
+      cursor-pointer"
+  >
 
-    $unreadCount = $notifications
-      ->whereNull('read_at')
-      ->count();
-
-    $latestNotifications = $notifications->take(5);
-  @endphp
-
-  <div class="hs-dropdown [--trigger:click] relative inline-flex">
-
-    {{-- NOTIFICATION BUTTON --}}
-    <button
-      type="button"
-      id="notification-dropdown"
-      aria-haspopup="menu"
-      aria-expanded="false"
-      aria-label="Notifications"
-      class="hs-dropdown-toggle relative
-        flex items-center justify-center
-        w-10 h-10
-        rounded-full
-        text-slate-700
-        hover:bg-sky-200
-        transition
-        cursor-pointer"
-    >
-
-      <i class="text-xl bi bi-bell"></i>
-
-      {{-- UNREAD BADGE --}}
-      @if ($unreadCount > 0)
-        <span
-          class="absolute -top-0.5 -right-0.5
-            min-w-5 h-5 px-1
-            flex items-center justify-center
-            text-[11px] font-semibold
-            text-white
-            bg-red-500
-            rounded-full
-            border-2 border-sky-100"
-        >
-          {{ $unreadCount }}
-        </span>
-      @endif
-
-    </button>
+    <i class="text-xl bi bi-bell"></i>
 
 
     {{-- ================================================= --}}
-    {{-- POPUP NOTIFICATION --}}
+    {{-- UNREAD BADGE --}}
+    {{-- ================================================= --}}
+
+    @if ($unreadCount > 0)
+
+      <span
+        class="absolute -top-0.5 -right-0.5
+          min-w-5 h-5 px-1
+          flex items-center justify-center
+          text-[11px]
+          font-semibold
+          text-white
+          bg-red-500
+          rounded-full
+          border-2 border-sky-100"
+      >
+        {{ $unreadCount }}
+      </span>
+
+    @endif
+
+  </button>
+
+
+  {{-- ================================================= --}}
+  {{-- POPUP NOTIFICATION --}}
+  {{-- ================================================= --}}
+
+  <div
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="notification-dropdown"
+    class="hs-dropdown-menu
+      transition-[opacity,margin]
+      duration-200
+      hs-dropdown-open:opacity-100
+      opacity-0
+      hidden
+
+      absolute
+      right-0
+      top-full
+      mt-3
+
+      w-80
+      sm:w-96
+
+      bg-white
+      border border-slate-200
+      rounded-2xl
+      shadow-xl
+
+      overflow-hidden
+      z-50"
+  >
+
+
+    {{-- ================================================= --}}
+    {{-- HEADER --}}
     {{-- ================================================= --}}
 
     <div
-      role="menu"
-      aria-orientation="vertical"
-      aria-labelledby="notification-dropdown"
-      class="hs-dropdown-menu
-        transition-[opacity,margin]
-        duration-200
-        hs-dropdown-open:opacity-100
-        opacity-0
-        hidden
-
-        absolute
-        right-0
-        top-full
-        mt-3
-
-        w-80
-        sm:w-96
-
-        bg-white
-        border border-slate-200
-        rounded-2xl
-        shadow-xl
-
-        overflow-hidden
-        z-50"
+      class="flex items-center justify-between
+        px-4 py-3
+        border-b border-slate-200"
     >
 
-      {{-- ================================================= --}}
-      {{-- HEADER --}}
-      {{-- ================================================= --}}
+      <div class="flex items-center gap-2">
 
-      <div
-        class="flex items-center justify-between
-          px-4 py-3
-          border-b border-slate-200"
-      >
+        <div
+          class="w-8 h-8
+            flex items-center justify-center
+            rounded-full
+            bg-sky-100
+            text-sky-600"
+        >
+          <i class="bi bi-bell"></i>
+        </div>
 
-        <div class="flex items-center gap-2">
+
+        <div>
 
           <div
-            class="w-8 h-8
-              flex items-center justify-center
-              rounded-full
-              bg-sky-100
-              text-sky-600"
+            class="text-sm
+              font-semibold
+              text-slate-800"
           >
-            <i class="bi bi-bell"></i>
+            Notifications
           </div>
 
-          <div>
+
+          @if ($unreadCount > 0)
 
             <div
-              class="text-sm
-                font-semibold
-                text-slate-800"
+              class="text-[11px]
+                text-slate-400"
             >
-              Notifications
+              {{ $unreadCount }} notification belum dibaca
             </div>
 
-            @if ($unreadCount > 0)
+          @else
 
-              <div
-                class="text-[11px]
-                  text-slate-400"
-              >
-                {{ $unreadCount }} notification belum dibaca
-              </div>
+            <div
+              class="text-[11px]
+                text-slate-400"
+            >
+              Semua sudah dibaca
+            </div>
+
+          @endif
+
+        </div>
+
+      </div>
+
+
+      {{-- ================================================= --}}
+      {{-- UNREAD COUNT --}}
+      {{-- ================================================= --}}
+
+      @if ($unreadCount > 0)
+
+        <span
+          class="px-2 py-1
+            text-[11px]
+            font-semibold
+            text-sky-600
+            bg-sky-50
+            rounded-full"
+        >
+          {{ $unreadCount }} baru
+        </span>
+
+      @endif
+
+    </div>
+
+
+    {{-- ================================================= --}}
+    {{-- NOTIFICATION LIST --}}
+    {{-- ================================================= --}}
+
+    <div class="max-h-96 overflow-y-auto">
+
+      @forelse ($latestNotifications as $date => $dateNotifications)
+
+
+        {{-- ================================================= --}}
+        {{-- DATE GROUP --}}
+        {{-- ================================================= --}}
+
+        @php
+          $dateCarbon = \Carbon\Carbon::createFromFormat(
+            'Y-m-d',
+            $date
+          );
+        @endphp
+
+
+        {{-- ================================================= --}}
+        {{-- DATE HEADER --}}
+        {{-- ================================================= --}}
+
+        <div
+          class="sticky top-0 z-10
+            px-4 py-2
+            bg-slate-50/95
+            backdrop-blur
+            border-b border-slate-100"
+        >
+
+          <div
+            class="text-[11px]
+              font-semibold
+              tracking-wide
+              text-slate-500"
+          >
+
+            @if ($dateCarbon->isToday())
+
+              Hari ini
+
+            @elseif ($dateCarbon->isYesterday())
+
+              Kemarin
 
             @else
 
-              <div
-                class="text-[11px]
-                  text-slate-400"
-              >
-                Semua sudah dibaca
-              </div>
+              {{ $dateCarbon->translatedFormat('d F Y') }}
 
             @endif
 
@@ -147,36 +268,16 @@
         </div>
 
 
-        {{-- UNREAD COUNT --}}
-        @if ($unreadCount > 0)
+        {{-- ================================================= --}}
+        {{-- NOTIFICATIONS --}}
+        {{-- ================================================= --}}
 
-          <span
-            class="px-2 py-1
-              text-[11px]
-              font-semibold
-              text-sky-600
-              bg-sky-50
-              rounded-full"
-          >
-            {{ $unreadCount }} baru
-          </span>
-
-        @endif
-
-      </div>
-
-
-      {{-- ================================================= --}}
-      {{-- LIST --}}
-      {{-- ================================================= --}}
-
-      <div class="max-h-96 overflow-y-auto">
-
-        @forelse ($latestNotifications as $notification)
+        @foreach ($dateNotifications as $notification)
 
           @php
             $type = $notification->data['type'] ?? null;
             $reaction = $notification->data['reaction'] ?? null;
+            $reportStatus = $notification->data['status'] ?? null;
           @endphp
 
 
@@ -252,6 +353,30 @@
                   <i class="bi bi-chat-fill"></i>
 
 
+                {{-- REPORT --}}
+                @elseif ($type === 'tipscoding.comment.report')
+
+                  <i class="bi bi-flag-fill"></i>
+
+
+                {{-- REPORT RESULT --}}
+                @elseif ($type === 'tipscoding.comment.report.result')
+
+                  @if ($reportStatus === 'resolved')
+
+                    <i class="bi bi-check-circle-fill"></i>
+
+                  @elseif ($reportStatus === 'rejected')
+
+                    <i class="bi bi-x-circle-fill"></i>
+
+                  @else
+
+                    <i class="bi bi-flag-fill"></i>
+
+                  @endif
+
+
                 {{-- OTHER --}}
                 @else
 
@@ -268,7 +393,11 @@
 
               <div class="min-w-0 flex-1">
 
+
+                {{-- ================================================= --}}
                 {{-- MESSAGE + UNREAD DOT --}}
+                {{-- ================================================= --}}
+
                 <div
                   class="flex items-start justify-between gap-2"
                 >
@@ -324,7 +453,7 @@
 
 
                 {{-- ================================================= --}}
-                {{-- TIME --}}
+                {{-- RELATIVE TIME --}}
                 {{-- ================================================= --}}
 
                 <div
@@ -341,272 +470,275 @@
 
           </a>
 
-        @empty
+        @endforeach
 
-          {{-- ================================================= --}}
-          {{-- EMPTY --}}
-          {{-- ================================================= --}}
+      @empty
+
+
+        {{-- ================================================= --}}
+        {{-- EMPTY --}}
+        {{-- ================================================= --}}
+
+        <div
+          class="px-4 py-10
+            text-center"
+        >
 
           <div
-            class="px-4 py-10
-              text-center"
+            class="mx-auto
+              w-12 h-12
+              flex items-center justify-center
+              rounded-full
+              bg-slate-100"
           >
 
-            <div
-              class="mx-auto
-                w-12 h-12
-                flex items-center justify-center
-                rounded-full
-                bg-slate-100"
-            >
-
-              <i
-                class="bi bi-bell-slash
-                  text-2xl
-                  text-slate-300"
-              ></i>
-
-            </div>
-
-
-            <div
-              class="mt-3
-                text-sm
-                font-medium
-                text-slate-600"
-            >
-              Belum ada notification.
-            </div>
-
-
-            <div
-              class="mt-1
-                text-xs
-                text-slate-400"
-            >
-              Notification aktivitas kamu akan muncul di sini.
-            </div>
+            <i
+              class="bi bi-bell-slash
+                text-2xl
+                text-slate-300"
+            ></i>
 
           </div>
 
-        @endforelse
 
-      </div>
-
-
-      {{-- ================================================= --}}
-      {{-- FOOTER --}}
-      {{-- ================================================= --}}
-
-      @if ($notifications->isNotEmpty())
-
-        <div
-          class="border-t
-            border-slate-200"
-        >
-
-          <a
-            href="{{ route('notifications.index') }}"
-            class="flex items-center justify-center gap-2
-              px-4 py-3
+          <div
+            class="mt-3
               text-sm
               font-medium
-              text-sky-600
-              hover:bg-sky-50
-              transition"
+              text-slate-600"
           >
+            Belum ada notification.
+          </div>
 
-            <span>
-              Lihat semua notifications
-            </span>
 
-            <i class="bi bi-arrow-right"></i>
-
-          </a>
+          <div
+            class="mt-1
+              text-xs
+              text-slate-400"
+          >
+            Notification aktivitas kamu akan muncul di sini.
+          </div>
 
         </div>
 
-      @endif
-
-    </div>
-
-  </div>
-
-
-  {{-- ================================================= --}}
-  {{-- USER DROPDOWN --}}
-  {{-- ================================================= --}}
-
-  <div
-    class="m-1
-      hs-dropdown
-      [--trigger:hover]
-      relative
-      inline-flex"
-  >
-
-    <div
-      id="hs-dropdown-hover-event-web-auth"
-      aria-haspopup="menu"
-      aria-expanded="false"
-      aria-label="Dropdown"
-      class="hs-dropdown-toggle
-        flex items-center
-        gap-x-1
-        tracking-wide
-        justify-center
-        px-3 py-0.75
-        cursor-pointer"
-    >
-
-      {{-- USER IMAGE --}}
-      <picture>
-
-        <img
-          src="{{ auth()->user()?->image
-            ? asset('storage/' . auth()->user()->image)
-            : asset('frontend/img/user/user.png') }}"
-          alt="user-profile"
-          class="object-cover
-            object-top
-            p-0.5
-            bg-white
-            rounded-full
-            w-9 h-9"
-        />
-
-      </picture>
-
-
-      {{-- USERNAME --}}
-      <span
-        class="text-[17px]
-          font-normal
-          tracking-normal
-          text-slate-800
-          truncate
-          sm:block"
-      >
-        <span>@</span>{{ Auth::user()->username }}
-      </span>
-
-
-      {{-- ARROW --}}
-      <i
-        class="text-base
-          text-black
-          bi bi-arrow-down-circle"
-      ></i>
+      @endforelse
 
     </div>
 
 
-    {{-- USER MENU --}}
-    <div
-      role="menu"
-      aria-orientation="vertical"
-      aria-labelledby="hs-dropdown-hover-event-web-auth"
-      class="hs-dropdown-menu
-        transition-[opacity,margin]
-        duration
-        hs-dropdown-open:opacity-100
-        opacity-0
-        hidden
+    {{-- ================================================= --}}
+    {{-- FOOTER --}}
+    {{-- ================================================= --}}
 
-        min-w-56
+    @if ($latestNotifications->isNotEmpty())
 
-        bg-white
-        rounded-[22px]
-
-        mt-2
-
-        border border-gray-300
-
-        after:h-4
-        after:absolute
-        after:-bottom-4
-        after:inset-s-0
-        after:w-full
-
-        before:h-4
-        before:absolute
-        before:-top-4
-        before:inset-s-0
-        before:w-full"
-    >
-
-      {{-- DASHBOARD --}}
-      <div class="space-y-0.5 p-4">
-
-        <x-menu-auth
-          :route="route('dashboard')"
-          :img="asset('frontend/img/auth/dashboard.jpg')"
-          alt="menu"
-          menu="Dashboard"
-        />
-
-      </div>
-
-
-      {{-- LOGOUT --}}
       <div
-        class="space-y-0.5
-          mt-3
-          border-t
-          border-t-gray-200
-          mx-7
-          p-3
-          flex
-          justify-center"
+        class="border-t
+          border-slate-200"
       >
 
-        <form
-          action="{{ route('logout') }}"
-          method="POST"
+        <a
+          href="{{ route('notifications.index') }}"
+          class="flex items-center justify-center gap-2
+            px-4 py-3
+            text-sm
+            font-medium
+            text-sky-600
+            hover:bg-sky-50
+            transition"
         >
 
-          @csrf
+          <span>
+            Lihat semua notifications
+          </span>
 
-          <button
-            type="submit"
-            class="px-3 py-0.75
-              mb-2
-              hover:shadow
-              text-red-800
-              bg-red-200
-              hover:bg-red-600
-              hover:text-white
-              rounded-[10px]
-              flex items-center
-              justify-center
-              font-medium
-              text-[15px]
-              cursor-pointer
-              border border-gray-400"
-          >
+          <i class="bi bi-arrow-right"></i>
 
-            <i class="bi bi-arrow-right-circle"></i>
-
-            <span
-              class="text-[15px]
-                font-medium
-                ml-1
-                tracking-wide"
-            >
-              Logout
-            </span>
-
-          </button>
-
-        </form>
+        </a>
 
       </div>
 
-    </div>
+    @endif
 
   </div>
 
 </div>
+
+
+      {{-- ================================================= --}}
+      {{-- USER DROPDOWN --}}
+      {{-- ================================================= --}}
+
+      <div
+        class="m-1
+          hs-dropdown
+          [--trigger:hover]
+          relative
+          inline-flex"
+          >
+
+        <div
+          id="hs-dropdown-hover-event-web-auth"
+          aria-haspopup="menu"
+          aria-expanded="false"
+          aria-label="Dropdown"
+          class="hs-dropdown-toggle
+            flex items-center
+            gap-x-1
+            tracking-wide
+            justify-center
+            px-3 py-0.75
+            cursor-pointer"
+        >
+
+          {{-- USER IMAGE --}}
+          <picture>
+
+            <img
+              src="{{ auth()->user()?->image
+                ? asset('storage/' . auth()->user()->image)
+                : asset('frontend/img/user/user.png') }}"
+              alt="user-profile"
+              class="object-cover
+                object-top
+                p-0.5
+                bg-white
+                rounded-full
+                w-9 h-9"
+            />
+
+          </picture>
+
+
+          {{-- USERNAME --}}
+          <span
+            class="text-[17px]
+              font-normal
+              tracking-normal
+              text-slate-800
+              truncate
+              sm:block"
+          >
+            <span>@</span>{{ Auth::user()->username }}
+          </span>
+
+
+          {{-- ARROW --}}
+          <i
+            class="text-base
+              text-black
+              bi bi-arrow-down-circle"
+          ></i>
+
+        </div>
+
+
+        {{-- USER MENU --}}
+        <div
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="hs-dropdown-hover-event-web-auth"
+          class="hs-dropdown-menu
+            transition-[opacity,margin]
+            duration
+            hs-dropdown-open:opacity-100
+            opacity-0
+            hidden
+
+            min-w-56
+
+            bg-white
+            rounded-[22px]
+
+            mt-2
+
+            border border-gray-300
+
+            after:h-4
+            after:absolute
+            after:-bottom-4
+            after:inset-s-0
+            after:w-full
+
+            before:h-4
+            before:absolute
+            before:-top-4
+            before:inset-s-0
+            before:w-full"
+        >
+
+          {{-- DASHBOARD --}}
+          <div class="space-y-0.5 p-4">
+
+            <x-menu-auth
+              :route="route('dashboard')"
+              :img="asset('frontend/img/auth/dashboard.jpg')"
+              alt="menu"
+              menu="Dashboard"
+            />
+
+          </div>
+
+
+          {{-- LOGOUT --}}
+          <div
+            class="space-y-0.5
+              mt-3
+              border-t
+              border-t-gray-200
+              mx-7
+              p-3
+              flex
+              justify-center"
+          >
+
+            <form
+              action="{{ route('logout') }}"
+              method="POST"
+            >
+
+              @csrf
+
+              <button
+                type="submit"
+                class="px-3 py-0.75
+                  mb-2
+                  hover:shadow
+                  text-red-800
+                  bg-red-200
+                  hover:bg-red-600
+                  hover:text-white
+                  rounded-[10px]
+                  flex items-center
+                  justify-center
+                  font-medium
+                  text-[15px]
+                  cursor-pointer
+                  border border-gray-400"
+              >
+
+                <i class="bi bi-arrow-right-circle"></i>
+
+                <span
+                  class="text-[15px]
+                    font-medium
+                    ml-1
+                    tracking-wide"
+                >
+                  Logout
+                </span>
+
+              </button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
   @else
     <a href="{{ route('login') }}"
       class="px-3.5 py-0.75 text-base font-semibold leading-6 text-gray-900 bg-blue-200 border border-gray-400 rounded-xl

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Frontend\Tipscoding;
+namespace App\Http\Requests\Tipscoding\Tipscoding;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;

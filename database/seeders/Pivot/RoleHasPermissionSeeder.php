@@ -178,6 +178,12 @@ class RoleHasPermissionSeeder extends Seeder
         'tipscodings.update',
         'tipscodings.destroy',
 
+        // TIPSREPORT
+        'tipsreports.index',
+        'tipsreports.show',
+        'tipsreports.resolve',
+        'tipsreports.reject',
+
         // CATEGORIES
         'categories.index',
         'categories.create',
@@ -338,6 +344,12 @@ class RoleHasPermissionSeeder extends Seeder
         'tipscodings.edit',
         'tipscodings.update',
         'tipscodings.destroy',
+
+        // TIPSREPORT
+        'tipsreports.index',
+        'tipsreports.show',
+        'tipsreports.resolve',
+        'tipsreports.reject',
 
         // CATEGORIES
         'categories.index',
@@ -500,6 +512,12 @@ class RoleHasPermissionSeeder extends Seeder
         'tipscodings.update',
         'tipscodings.destroy',
 
+        // TIPSREPORT
+        // 'tipsreports.index',
+        // 'tipsreports.show',
+        // 'tipsreports.resolve',
+        // 'tipsreports.reject',
+
         // CATEGORIES
         'categories.index',
         // 'categories.create',
@@ -660,6 +678,12 @@ class RoleHasPermissionSeeder extends Seeder
         // 'tipscodings.edit',
         // 'tipscodings.update',
         // 'tipscodings.destroy',
+
+        // TIPSREPORT
+        // 'tipsreports.index',
+        // 'tipsreports.show',
+        // 'tipsreports.resolve',
+        // 'tipsreports.reject',
 
         // CATEGORIES
         // 'categories.index',

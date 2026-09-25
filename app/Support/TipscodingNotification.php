@@ -24,6 +24,20 @@ class TipscodingNotification
       'tipscoding.comment.pinned' => ($notification->data['actor_name'] ?? 'Seseorang')
         . ' menyematkan komentar Anda',
 
+      'tipscoding.comment.report' => ($notification->data['reporter_name'] ?? 'Seseorang')
+        . ' melaporkan sebuah komentar',
+
+      'tipscoding.comment.report.result' => match ($notification->data['status'] ?? null) {
+        'resolved' =>
+        'Laporan Anda telah di tindaklanjuti dan komentar disembunyikan',
+
+        'rejected' =>
+        'Laporan Anda telah ditolak dan komentar tetap ditampilkan',
+
+        default =>
+        'Laporan Anda telah ditinjau',
+      },
+
       default =>
       'Anda memiliki notification baru',
     };
