@@ -30,12 +30,42 @@
     ->whereNull('read_at')
     ->count();
 
-  $latestNotifications = $notifications->take(5);
+  /*
+  |--------------------------------------------------------------------------
+  | NOTIFICATION 3 HARI TERAKHIR
+  |--------------------------------------------------------------------------
+  | Hari ini + kemarin + 2 hari sebelumnya.
+  |
+  | Contoh:
+  | Jika hari ini 10 Oktober:
+  | 10 Oktober
+  | 9 Oktober
+  | 8 Oktober
+  |--------------------------------------------------------------------------
+  */
+
+  $today = now()->startOfDay();
+
+  $latestNotifications = $notifications
+    ->filter(
+      fn ($notification) =>
+        $notification->created_at->gte(
+          $today->copy()->subDays(2)
+        )
+    )
+    ->groupBy(
+      fn ($notification) =>
+        $notification->created_at->format('Y-m-d')
+    );
 @endphp
+
 
 <div class="hs-dropdown [--trigger:click] relative inline-flex">
 
+  {{-- ================================================= --}}
   {{-- NOTIFICATION BUTTON --}}
+  {{-- ================================================= --}}
+
   <button
     type="button"
     id="notification-dropdown"
@@ -54,14 +84,19 @@
 
     <i class="text-xl bi bi-bell"></i>
 
+
+    {{-- ================================================= --}}
     {{-- UNREAD BADGE --}}
+    {{-- ================================================= --}}
+
     @if ($unreadCount > 0)
 
       <span
         class="absolute -top-0.5 -right-0.5
           min-w-5 h-5 px-1
           flex items-center justify-center
-          text-[11px] font-semibold
+          text-[11px]
+          font-semibold
           text-white
           bg-red-500
           rounded-full
@@ -107,6 +142,7 @@
       z-50"
   >
 
+
     {{-- ================================================= --}}
     {{-- HEADER --}}
     {{-- ================================================= --}}
@@ -129,6 +165,7 @@
           <i class="bi bi-bell"></i>
         </div>
 
+
         <div>
 
           <div
@@ -138,6 +175,7 @@
           >
             Notifications
           </div>
+
 
           @if ($unreadCount > 0)
 
@@ -164,7 +202,10 @@
       </div>
 
 
+      {{-- ================================================= --}}
       {{-- UNREAD COUNT --}}
+      {{-- ================================================= --}}
+
       @if ($unreadCount > 0)
 
         <span
@@ -184,206 +225,270 @@
 
 
     {{-- ================================================= --}}
-    {{-- LIST --}}
+    {{-- NOTIFICATION LIST --}}
     {{-- ================================================= --}}
 
     <div class="max-h-96 overflow-y-auto">
 
-      @forelse ($latestNotifications as $notification)
+      @forelse ($latestNotifications as $date => $dateNotifications)
+
+
+        {{-- ================================================= --}}
+        {{-- DATE GROUP --}}
+        {{-- ================================================= --}}
 
         @php
-          $type = $notification->data['type'] ?? null;
-          $reaction = $notification->data['reaction'] ?? null;
-          $reportStatus = $notification->data['status'] ?? null;
+          $dateCarbon = \Carbon\Carbon::createFromFormat(
+            'Y-m-d',
+            $date
+          );
         @endphp
 
 
         {{-- ================================================= --}}
-        {{-- NOTIFICATION ITEM --}}
+        {{-- DATE HEADER --}}
         {{-- ================================================= --}}
 
-        <a
-          href="{{ route('notifications.read', $notification->id) }}"
-          class="group block
-            px-4 py-3
-            border-b border-slate-100
-            transition
-            hover:bg-slate-50
-
-            {{ $notification->read_at
-              ? 'bg-white'
-              : 'bg-sky-50/70' }}"
+        <div
+          class="sticky top-0 z-10
+            px-4 py-2
+            bg-slate-50/95
+            backdrop-blur
+            border-b border-slate-100"
         >
 
-          <div class="flex gap-3">
+          <div
+            class="text-[11px]
+              font-semibold
+              tracking-wide
+              text-slate-500"
+          >
 
+            @if ($dateCarbon->isToday())
 
-            {{-- ================================================= --}}
-            {{-- ICON --}}
-            {{-- ================================================= --}}
+              Hari ini
 
-            <div
-              class="shrink-0
-                w-9 h-9
-                flex items-center justify-center
-                rounded-full
-                transition
+            @elseif ($dateCarbon->isYesterday())
 
-                {{ $notification->read_at
-                  ? 'bg-slate-100 text-slate-500'
-                  : 'bg-sky-100 text-sky-600' }}"
-            >
+              Kemarin
 
-              {{-- REACTION --}}
-              @if ($type === 'tipscoding.comment.reaction')
+            @else
 
-                @if ($reaction === 'like')
+              {{ $dateCarbon->translatedFormat('d F Y') }}
 
-                  <i class="bi bi-hand-thumbs-up-fill"></i>
-
-                @elseif ($reaction === 'dislike')
-
-                  <i class="bi bi-hand-thumbs-down-fill"></i>
-
-                @else
-
-                  <i class="bi bi-heart-fill"></i>
-
-                @endif
-
-
-              {{-- REPLY --}}
-              @elseif ($type === 'tipscoding.comment.reply')
-
-                <i class="bi bi-reply-fill"></i>
-
-
-              {{-- PINNED --}}
-              @elseif ($type === 'tipscoding.comment.pinned')
-
-                <i class="bi bi-pin-angle-fill"></i>
-
-
-              {{-- COMMENT --}}
-              @elseif ($type === 'tipscoding.comment')
-
-                <i class="bi bi-chat-fill"></i>
-
-
-              {{-- REPORT --}}
-              @elseif ($type === 'tipscoding.comment.report')
-
-                <i class="bi bi-flag-fill"></i>
-
-
-              {{-- REPORT RESULT --}}
-              @elseif ($type === 'tipscoding.comment.report.result')
-
-                @if ($reportStatus === 'resolved')
-
-                  <i class="bi bi-check-circle-fill"></i>
-
-                @elseif ($reportStatus === 'rejected')
-
-                  <i class="bi bi-x-circle-fill"></i>
-
-                @else
-
-                  <i class="bi bi-flag-fill"></i>
-
-                @endif
-
-
-              {{-- OTHER --}}
-              @else
-
-                <i class="bi bi-bell-fill"></i>
-
-              @endif
-
-            </div>
-
-
-            {{-- ================================================= --}}
-            {{-- CONTENT --}}
-            {{-- ================================================= --}}
-
-            <div class="min-w-0 flex-1">
-
-              {{-- MESSAGE + UNREAD DOT --}}
-              <div
-                class="flex items-start justify-between gap-2"
-              >
-
-                <div
-                  class="text-sm
-                    leading-5
-                    line-clamp-2
-
-                    {{ $notification->read_at
-                      ? 'font-medium text-slate-700'
-                      : 'font-semibold text-slate-800' }}"
-                >
-
-                  {{ \App\Support\TipscodingNotification::message($notification) }}
-
-                </div>
-
-
-                {{-- UNREAD DOT --}}
-                @if (! $notification->read_at)
-
-                  <span
-                    class="shrink-0
-                      w-2 h-2
-                      mt-1.5
-                      rounded-full
-                      bg-sky-500"
-                  ></span>
-
-                @endif
-
-              </div>
-
-
-              {{-- ================================================= --}}
-              {{-- COMMENT PREVIEW --}}
-              {{-- ================================================= --}}
-
-              @if (! empty($notification->data['comment']))
-
-                <div
-                  class="mt-1
-                    text-xs
-                    leading-5
-                    text-slate-500
-                    line-clamp-2"
-                >
-                  {{ $notification->data['comment'] }}
-                </div>
-
-              @endif
-
-
-              {{-- ================================================= --}}
-              {{-- TIME --}}
-              {{-- ================================================= --}}
-
-              <div
-                class="mt-1
-                  text-[11px]
-                  text-slate-400"
-              >
-                {{ $notification->created_at->diffForHumans() }}
-              </div>
-
-            </div>
+            @endif
 
           </div>
 
-        </a>
+        </div>
+
+
+        {{-- ================================================= --}}
+        {{-- NOTIFICATIONS --}}
+        {{-- ================================================= --}}
+
+        @foreach ($dateNotifications as $notification)
+
+          @php
+            $type = $notification->data['type'] ?? null;
+            $reaction = $notification->data['reaction'] ?? null;
+            $reportStatus = $notification->data['status'] ?? null;
+          @endphp
+
+
+          {{-- ================================================= --}}
+          {{-- NOTIFICATION ITEM --}}
+          {{-- ================================================= --}}
+
+          <a
+            href="{{ route('notifications.read', $notification->id) }}"
+            class="group block
+              px-4 py-3
+              border-b border-slate-100
+              transition
+              hover:bg-slate-50
+
+              {{ $notification->read_at
+                ? 'bg-white'
+                : 'bg-sky-50/70' }}"
+          >
+
+            <div class="flex gap-3">
+
+
+              {{-- ================================================= --}}
+              {{-- ICON --}}
+              {{-- ================================================= --}}
+
+              <div
+                class="shrink-0
+                  w-9 h-9
+                  flex items-center justify-center
+                  rounded-full
+                  transition
+
+                  {{ $notification->read_at
+                    ? 'bg-slate-100 text-slate-500'
+                    : 'bg-sky-100 text-sky-600' }}"
+              >
+
+                {{-- REACTION --}}
+                @if ($type === 'tipscoding.comment.reaction')
+
+                  @if ($reaction === 'like')
+
+                    <i class="bi bi-hand-thumbs-up-fill"></i>
+
+                  @elseif ($reaction === 'dislike')
+
+                    <i class="bi bi-hand-thumbs-down-fill"></i>
+
+                  @else
+
+                    <i class="bi bi-heart-fill"></i>
+
+                  @endif
+
+
+                {{-- REPLY --}}
+                @elseif ($type === 'tipscoding.comment.reply')
+
+                  <i class="bi bi-reply-fill"></i>
+
+
+                {{-- PINNED --}}
+                @elseif ($type === 'tipscoding.comment.pinned')
+
+                  <i class="bi bi-pin-angle-fill"></i>
+
+
+                {{-- COMMENT --}}
+                @elseif ($type === 'tipscoding.comment')
+
+                  <i class="bi bi-chat-fill"></i>
+
+
+                {{-- REPORT --}}
+                @elseif ($type === 'tipscoding.comment.report')
+
+                  <i class="bi bi-flag-fill"></i>
+
+
+                {{-- REPORT RESULT --}}
+                @elseif ($type === 'tipscoding.comment.report.result')
+
+                  @if ($reportStatus === 'resolved')
+
+                    <i class="bi bi-check-circle-fill"></i>
+
+                  @elseif ($reportStatus === 'rejected')
+
+                    <i class="bi bi-x-circle-fill"></i>
+
+                  @else
+
+                    <i class="bi bi-flag-fill"></i>
+
+                  @endif
+
+
+                {{-- OTHER --}}
+                @else
+
+                  <i class="bi bi-bell-fill"></i>
+
+                @endif
+
+              </div>
+
+
+              {{-- ================================================= --}}
+              {{-- CONTENT --}}
+              {{-- ================================================= --}}
+
+              <div class="min-w-0 flex-1">
+
+
+                {{-- ================================================= --}}
+                {{-- MESSAGE + UNREAD DOT --}}
+                {{-- ================================================= --}}
+
+                <div
+                  class="flex items-start justify-between gap-2"
+                >
+
+                  <div
+                    class="text-sm
+                      leading-5
+                      line-clamp-2
+
+                      {{ $notification->read_at
+                        ? 'font-medium text-slate-700'
+                        : 'font-semibold text-slate-800' }}"
+                  >
+
+                    {{ \App\Support\TipscodingNotification::message($notification) }}
+
+                  </div>
+
+
+                  {{-- UNREAD DOT --}}
+                  @if (! $notification->read_at)
+
+                    <span
+                      class="shrink-0
+                        w-2 h-2
+                        mt-1.5
+                        rounded-full
+                        bg-sky-500"
+                    ></span>
+
+                  @endif
+
+                </div>
+
+
+                {{-- ================================================= --}}
+                {{-- COMMENT PREVIEW --}}
+                {{-- ================================================= --}}
+
+                @if (! empty($notification->data['comment']))
+
+                  <div
+                    class="mt-1
+                      text-xs
+                      leading-5
+                      text-slate-500
+                      line-clamp-2"
+                  >
+                    {{ $notification->data['comment'] }}
+                  </div>
+
+                @endif
+
+
+                {{-- ================================================= --}}
+                {{-- RELATIVE TIME --}}
+                {{-- ================================================= --}}
+
+                <div
+                  class="mt-1
+                    text-[11px]
+                    text-slate-400"
+                >
+                  {{ $notification->created_at->diffForHumans() }}
+                </div>
+
+              </div>
+
+            </div>
+
+          </a>
+
+        @endforeach
 
       @empty
+
 
         {{-- ================================================= --}}
         {{-- EMPTY --}}
@@ -440,7 +545,7 @@
     {{-- FOOTER --}}
     {{-- ================================================= --}}
 
-    @if ($notifications->isNotEmpty())
+    @if ($latestNotifications->isNotEmpty())
 
       <div
         class="border-t
