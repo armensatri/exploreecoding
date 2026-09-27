@@ -2,7 +2,7 @@
 
 @section('content-frontend')
 
-  <div class="max-w-3xl mx-auto px-4 py-8">
+  <div class="max-w-3xl px-4 pt-24 pb-8 mx-auto">
 
     {{-- ================================================= --}}
     {{-- ALERT --}}
@@ -26,11 +26,7 @@
     <div class="mb-6">
 
       <div
-        class="flex flex-col
-          sm:flex-row
-          sm:items-start
-          sm:justify-between
-          gap-4"
+        class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
       >
 
         {{-- ================================================= --}}
@@ -40,18 +36,13 @@
         <div>
 
           <h1
-            class="text-2xl
-              font-bold
-              tracking-tight
-              text-slate-800"
+            class="text-2xl font-bold tracking-tight text-slate-800"
           >
             Notifications
           </h1>
 
           <p
-            class="mt-1
-              text-sm
-              text-slate-500"
+            class="mt-1 text-sm text-slate-500"
           >
             Semua aktivitas terbaru yang berkaitan dengan akun kamu.
           </p>
@@ -64,10 +55,7 @@
         {{-- ================================================= --}}
 
         <div
-          class="flex items-center
-            justify-end
-            gap-2
-            shrink-0"
+          class="flex items-center justify-end gap-2 shrink-0"
         >
 
           {{-- ================================================= --}}
@@ -87,17 +75,7 @@
               <button
                 type="submit"
                 title="Tandai semua sudah dibaca"
-                class="inline-flex items-center gap-2
-                  px-3 py-2
-                  text-sm
-                  font-medium
-                  text-slate-600
-                  bg-white
-                  border border-slate-200
-                  rounded-lg
-                  hover:bg-slate-50
-                  transition
-                  cursor-pointer"
+                class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium transition bg-white border rounded-lg cursor-pointer text-slate-600 border-slate-200 hover:bg-slate-50"
               >
 
                 <i class="bi bi-check2-all"></i>
@@ -131,17 +109,7 @@
               <button
                 type="submit"
                 title="Hapus semua notification"
-                class="inline-flex items-center gap-2
-                  px-3 py-2
-                  text-sm
-                  font-medium
-                  text-red-600
-                  bg-white
-                  border border-red-200
-                  rounded-lg
-                  hover:bg-red-50
-                  transition
-                  cursor-pointer"
+                class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 transition bg-white border border-red-200 rounded-lg cursor-pointer hover:bg-red-50"
               >
 
                 <i class="bi bi-trash3"></i>
@@ -301,9 +269,7 @@
           {{-- ================================================= --}}
 
           <div
-            class="min-w-0
-              flex-1
-              pr-10"
+            class="flex-1 min-w-0 pr-10"
           >
 
             <a
@@ -320,9 +286,7 @@
               >
 
                 <div
-                  class="font-medium
-                    leading-5
-                    text-slate-800"
+                  class="font-medium leading-5 text-slate-800"
                 >
 
                   {{ \App\Support\TipscodingNotification::message($notification) }}
@@ -337,11 +301,7 @@
                 @if (is_null($notification->read_at))
 
                   <span
-                    class="mt-2
-                      w-2 h-2
-                      shrink-0
-                      rounded-full
-                      bg-sky-500"
+                    class="w-2 h-2 mt-2 rounded-full shrink-0 bg-sky-500"
                   ></span>
 
                 @endif
@@ -356,11 +316,7 @@
               @if (!empty($notification->data['comment']))
 
                 <p
-                  class="mt-1
-                    text-sm
-                    leading-5
-                    text-slate-500
-                    line-clamp-2"
+                  class="mt-1 text-sm leading-5 text-slate-500 line-clamp-2"
                 >
                   {{ $notification->data['comment'] }}
                 </p>
@@ -373,11 +329,7 @@
               {{-- ================================================= --}}
 
               <div
-                class="flex items-center
-                  gap-2
-                  mt-2
-                  text-xs
-                  text-slate-400"
+                class="flex items-center gap-2 mt-2 text-xs text-slate-400"
               >
 
                 <span>
@@ -408,10 +360,8 @@
           <form
             action="{{ route('notifications.delete', $notification->id) }}"
             method="POST"
-            class="absolute
-              top-3
-              right-3"
-          >
+            class="absolute top-3 right-3"
+              data-confirm-delete>
 
             @csrf
             @method('DELETE')
@@ -419,14 +369,7 @@
             <button
               type="submit"
               title="Hapus notification"
-              class="flex items-center justify-center
-                w-8 h-8
-                rounded-lg
-                text-slate-400
-                hover:text-red-500
-                hover:bg-red-50
-                transition
-                cursor-pointer"
+              class="flex items-center justify-center w-8 h-8 transition rounded-lg cursor-pointer text-slate-400 hover:text-red-500 hover:bg-red-50"
             >
 
               <i class="bi bi-trash3"></i>
@@ -446,30 +389,21 @@
         {{-- ================================================= --}}
 
         <div
-          class="py-12
-            text-center"
+          class="py-12 text-center"
         >
 
           <div
-            class="mx-auto
-              w-12 h-12
-              flex items-center justify-center
-              rounded-full
-              bg-slate-100"
+            class="flex items-center justify-center w-12 h-12 mx-auto rounded-full bg-slate-100"
           >
 
             <i
-              class="bi bi-bell-slash
-                text-2xl
-                text-slate-300"
+              class="text-2xl bi bi-bell-slash text-slate-300"
             ></i>
 
           </div>
 
           <p
-            class="mt-3
-              text-sm
-              text-slate-500"
+            class="mt-3 text-sm text-slate-500"
           >
             Belum ada notification.
           </p>
@@ -487,7 +421,7 @@
 
     @if ($notifications->lastPage() > 1)
 
-      <div class="grid table-pagination mt-6">
+      <div class="grid mt-6 table-pagination">
 
         <x-paginate
           :pagination="$notifications"
@@ -507,15 +441,55 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
 
-    const form = document.querySelector(
+
+    // =====================================================
+    // DELETE ONE NOTIFICATION
+    // =====================================================
+
+    const deleteForms = document.querySelectorAll(
+      '[data-confirm-delete]'
+    );
+
+    deleteForms.forEach((form) => {
+
+      form.addEventListener('submit', (event) => {
+
+        event.preventDefault();
+
+        Swal.fire({
+          title: 'Hapus notification?',
+          text: 'Notification ini akan dihapus dan tidak dapat dikembalikan.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Ya, hapus',
+          cancelButtonText: 'Batal',
+          reverseButtons: true,
+        }).then((result) => {
+
+          if (result.isConfirmed) {
+            form.submit();
+          }
+
+        });
+
+      });
+
+    });
+
+
+    // =====================================================
+    // DELETE ALL NOTIFICATIONS
+    // =====================================================
+
+    const deleteAllForm = document.querySelector(
       '[data-confirm-delete-all]'
     );
 
-    if (!form) {
+    if (!deleteAllForm) {
       return;
     }
 
-    form.addEventListener('submit', (event) => {
+    deleteAllForm.addEventListener('submit', (event) => {
 
       event.preventDefault();
 
@@ -530,7 +504,7 @@
       }).then((result) => {
 
         if (result.isConfirmed) {
-          form.submit();
+          deleteAllForm.submit();
         }
 
       });

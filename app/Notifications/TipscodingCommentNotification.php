@@ -27,6 +27,7 @@ class TipscodingCommentNotification extends Notification
       'actor_id' => $this->comment->user_id,
       'actor_name' => $this->comment->user->name,
       'comment' => $this->comment->comment,
+      'reply_to_user_id' => $this->comment->reply_to_user_id,
       'type' => $this->comment->parent_id
         ? 'tipscoding.comment.reply'
         : 'tipscoding.comment',

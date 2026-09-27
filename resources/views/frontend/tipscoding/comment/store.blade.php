@@ -24,14 +24,14 @@
     <div class="flex justify-center py-10">
 
       <div
-        class="w-full rounded-2xl bg-white p-6 font-sans text-gray-800 shadow-xs space-y-6 xl:p-8"
+        class="w-full p-6 space-y-6 font-sans text-gray-800 bg-white shadow-xs rounded-2xl xl:p-8"
       >
 
         {{-- ========================================================= --}}
         {{-- HEADER --}}
         {{-- ========================================================= --}}
 
-        <div class="mb-4 flex items-center justify-between">
+        <div class="flex items-center justify-between mb-4">
 
           <div class="text-xl font-semibold text-slate-800">
             Comments
@@ -105,7 +105,7 @@
                   ? asset('storage/' . $comment->user->image)
                   : asset('backend/img/user/user.png') }}"
                 alt="{{ $comment->user?->username ?? 'User' }}"
-                class="h-10 w-10 rounded-full bg-gray-500 p-px object-cover object-top"
+                class="object-cover object-top w-10 h-10 p-px bg-gray-500 rounded-full"
               />
 
 
@@ -113,7 +113,7 @@
               {{-- CONTENT --}}
               {{-- ===================================================== --}}
 
-              <div class="mt-2 flex-1 space-y-2 text-sm sm:text-base">
+              <div class="flex-1 mt-2 space-y-2 text-sm sm:text-base">
 
 
                 {{-- ================================================= --}}
@@ -174,13 +174,13 @@
                       italic
                       text-slate-400"
                   >
-                    <i class="bi bi-eye-slash mr-1"></i>
+                    <i class="mr-1 bi bi-eye-slash"></i>
                     Komentar ini telah disembunyikan.
                   </div>
 
                 @else
 
-                  <p class="ml-1 whitespace-pre-line text-gray-800">
+                  <p class="ml-1 text-gray-800 whitespace-pre-line">
                     {{ $comment->comment }}
                   </p>
 
@@ -291,7 +291,7 @@
                         type="button"
                         data-report-comment
                         data-comment-id="{{ $comment->id }}"
-                        class="inline-flex items-center gap-1 text-xs font-medium text-slate-500 transition hover:text-red-500"
+                        class="inline-flex items-center gap-1 text-xs font-medium transition text-slate-500 hover:text-red-500"
                       >
                         <i class="bi bi-flag"></i>
                         <span>Report</span>
@@ -329,7 +329,7 @@
                             : 'text-blue-800' }}"
                       ></i>
 
-                      <span class="reaction-count ml-1">
+                      <span class="ml-1 reaction-count">
                         {{ $comment->likes_count }}
                       </span>
 
@@ -365,7 +365,7 @@
                             : 'text-red-800' }}"
                       ></i>
 
-                      <span class="reaction-count ml-1">
+                      <span class="ml-1 reaction-count">
                         {{ $comment->dislikes_count }}
                       </span>
 
@@ -431,7 +431,7 @@
                 @if ($comment->replies->isNotEmpty())
 
                   <div
-                    class="mt-4 ml-2 space-y-4 border-l-2 border-gray-100 pl-4 sm:ml-6"
+                    class="pl-4 mt-4 ml-2 space-y-4 border-l-2 border-gray-100 sm:ml-6"
                   >
 
                     @foreach ($comment->replies as $reply)
@@ -473,7 +473,7 @@
                               ? asset('storage/' . $reply->user->image)
                               : asset('backend/img/user/user.png') }}"
                             alt="{{ $reply->user?->username ?? 'User' }}"
-                            class="h-8 w-8 rounded-full bg-gray-500 p-px object-cover object-top"
+                            class="object-cover object-top w-8 h-8 p-px bg-gray-500 rounded-full"
                           />
 
 
@@ -524,13 +524,13 @@
                                   italic
                                   text-slate-400"
                               >
-                                <i class="bi bi-eye-slash mr-1"></i>
+                                <i class="mr-1 bi bi-eye-slash"></i>
                                 Komentar ini telah disembunyikan.
                               </div>
 
                             @else
 
-                              <p class="whitespace-pre-line text-gray-800">
+                              <p class="text-gray-800 whitespace-pre-line">
                                 {{ $reply->comment }}
                               </p>
 
@@ -605,6 +605,47 @@
 
                               @endif
 
+                              {{-- ================================================= --}}
+                              {{-- REPLY --}}
+                              {{-- ================================================= --}}
+
+                              @if ($reply->status === 'approved')
+                                <button
+                                  type="button"
+                                  onclick="openReplyComment(
+                                    {{ $reply->id }},
+                                    @js($reply->user?->username ?? 'user')
+                                  )"
+                                  class="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-2 py-1 text-[11px] font-medium text-gray-700 hover:bg-gray-100"
+                                  title="Balas {{ '@' . ($reply->user?->username ?? 'user') }}"
+                                >
+                                  <i class="bi bi-reply"></i>
+                                </button>
+
+                              @endif
+
+                              {{-- ================================================= --}}
+                            {{-- REPORT REPLY --}}
+                            {{-- ================================================= --}}
+
+                            @if (
+                              $reply->status === 'approved' &&
+                              Auth::check()
+                              )
+
+                              <button
+                                type="button"
+                                data-report-comment
+                                data-comment-id="{{ $reply->id }}"
+                                class="inline-flex items-center gap-1 text-xs font-medium transition text-slate-500 hover:text-red-500"
+                                title="Report balasan"
+                              >
+                                <i class="bi bi-flag"></i>
+                                <span>Report</span>
+                              </button>
+
+                            @endif
+
 
                               {{-- ================================================= --}}
                               {{-- REACTION REPLY --}}
@@ -640,7 +681,7 @@
                                         : 'text-blue-800' }}"
                                   ></i>
 
-                                  <span class="reaction-count ml-1">
+                                  <span class="ml-1 reaction-count">
                                     {{ $reply->likes_count }}
                                   </span>
 
@@ -674,7 +715,7 @@
                                         : 'text-red-800' }}"
                                   ></i>
 
-                                  <span class="reaction-count ml-1">
+                                  <span class="ml-1 reaction-count">
                                     {{ $reply->dislikes_count }}
                                   </span>
 
@@ -710,7 +751,7 @@
           {{-- ========================================================= --}}
 
           <div
-            class="rounded-xl border border-dashed border-gray-300 py-8 text-center"
+            class="py-8 text-center border border-gray-300 border-dashed rounded-xl"
           >
 
             <p class="text-base text-gray-500">
@@ -734,19 +775,19 @@
 
           <div
             id="reportCommentModal"
-            class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/50 px-4"
+            class="fixed inset-0 z-50 items-center justify-center hidden px-4 bg-slate-950/50"
             aria-hidden="true"
           >
 
             <div
-              class="w-full max-w-md rounded-2xl bg-white shadow-xl"
+              class="w-full max-w-md bg-white shadow-xl rounded-2xl"
               data-report-modal-panel
             >
 
               {{-- HEADER --}}
 
               <div
-                class="flex items-center justify-between border-b border-slate-200 px-5 py-4"
+                class="flex items-center justify-between px-5 py-4 border-b border-slate-200"
               >
 
                 <div>
@@ -764,7 +805,7 @@
                 <button
                   type="button"
                   onclick="closeReportComment()"
-                  class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+                  class="flex items-center justify-center w-8 h-8 transition rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700"
                 >
                   <i class="bi bi-x-lg"></i>
                 </button>
@@ -782,7 +823,7 @@
 
                 @csrf
 
-                <div class="space-y-5 px-5 py-5">
+                <div class="px-5 py-5 space-y-5">
 
 
                   {{-- REASON --}}
@@ -791,7 +832,7 @@
 
                     <label
                       for="reportReason"
-                      class="mb-2 block text-sm font-semibold text-slate-700"
+                      class="block mb-2 text-sm font-semibold text-slate-700"
                     >
                       Alasan
                     </label>
@@ -838,7 +879,7 @@
 
                     <label
                       for="reportDescription"
-                      class="mb-2 block text-sm font-semibold text-slate-700"
+                      class="block mb-2 text-sm font-semibold text-slate-700"
                     >
                       Keterangan
 
@@ -857,7 +898,7 @@
                       class="block w-full resize-none rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-red-400 focus:ring-2 focus:ring-red-100"
                     ></textarea>
 
-                    <div class="mt-1 text-right text-xs text-slate-400">
+                    <div class="mt-1 text-xs text-right text-slate-400">
                       Maksimal 1000 karakter
                     </div>
 
@@ -869,20 +910,20 @@
                 {{-- FOOTER --}}
 
                 <div
-                  class="flex justify-end gap-2 border-t border-slate-200 px-5 py-4"
+                  class="flex justify-end gap-2 px-5 py-4 border-t border-slate-200"
                 >
 
                   <button
                     type="button"
                     onclick="closeReportComment()"
-                    class="rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50"
+                    class="px-4 py-2 text-sm font-medium transition border rounded-xl border-slate-300 text-slate-600 hover:bg-slate-50"
                   >
                     Batal
                   </button>
 
                   <button
                     type="submit"
-                    class="inline-flex items-center gap-2 rounded-xl bg-red-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600"
+                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white transition bg-red-500 rounded-xl hover:bg-red-600"
                   >
                     <i class="bi bi-flag"></i>
                     Kirim laporan
@@ -928,7 +969,7 @@
               >
 
                 <div
-                  class="rounded-r-lg border-l-2 border-slate-200 bg-slate-50/70 px-3 py-3 sm:px-4"
+                  class="px-3 py-3 border-l-2 rounded-r-lg border-slate-200 bg-slate-50/70 sm:px-4"
                 >
 
                   <div class="flex items-start gap-3">
@@ -941,11 +982,11 @@
                         ? asset('storage/' . $comment->user->image)
                         : asset('backend/img/user/user.png') }}"
                       alt="image"
-                      class="h-8 w-8 shrink-0 rounded-full object-cover object-top sm:h-9 sm:w-9"
+                      class="object-cover object-top w-8 h-8 rounded-full shrink-0 sm:h-9 sm:w-9"
                     >
 
 
-                    <div class="min-w-0 flex-1">
+                    <div class="flex-1 min-w-0">
 
 
                       {{-- USERNAME + TIME --}}
@@ -992,7 +1033,7 @@
                               italic
                               text-slate-400"
                           >
-                            <i class="bi bi-eye-slash mr-1"></i>
+                            <i class="mr-1 bi bi-eye-slash"></i>
                             Komentar ini telah disembunyikan.
                           </div>
 
@@ -1025,7 +1066,7 @@
 
                       {{-- ACTION --}}
 
-                      <div class="mt-3 flex flex-wrap items-center gap-3">
+                      <div class="flex flex-wrap items-center gap-3 mt-3">
 
 
                         {{-- LIKE / DISLIKE HANYA APPROVED --}}
@@ -1182,7 +1223,7 @@
         {{-- FORM KOMENTAR BARU --}}
         {{-- ========================================================= --}}
 
-        <div class="flex items-start space-x-3 px-3 sm:space-x-4">
+        <div class="flex items-start px-3 space-x-3 sm:space-x-4">
 
           <div class="flex-1 space-y-2">
 
@@ -1204,7 +1245,7 @@
                   name="comment"
                   rows="4"
                   placeholder="Tulis komentar kamu..."
-                  class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                  class="block w-full px-4 py-3 text-sm text-gray-800 transition bg-white border border-gray-300 outline-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 >{{ old('comment') }}</textarea>
 
                 @error('comment')
@@ -1217,7 +1258,7 @@
 
               </div>
 
-              <div class="mt-3 flex justify-end">
+              <div class="flex justify-end mt-3">
 
                 <button
                   type="submit"
@@ -1249,15 +1290,15 @@
 
 <div
   id="editCommentModal"
-  class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 px-4"
+  class="fixed inset-0 z-50 items-center justify-center hidden px-4 bg-black/40"
 >
 
   <div
     id="editCommentBox"
-    class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl"
+    class="w-full max-w-lg p-6 bg-white shadow-xl rounded-2xl"
   >
 
-    <div class="mb-5 flex items-start justify-between gap-4">
+    <div class="flex items-start justify-between gap-4 mb-5">
 
       <div>
 
@@ -1274,7 +1315,7 @@
       <button
         type="button"
         onclick="closeEditComment()"
-        class="inline-flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-700"
+        class="inline-flex items-center justify-center w-8 h-8 text-gray-400 rounded-lg cursor-pointer shrink-0 hover:bg-gray-100 hover:text-gray-700"
         title="Tutup"
       >
         <i class="bi bi-x-lg"></i>
@@ -1296,15 +1337,15 @@
         name="comment"
         rows="5"
         placeholder="Tulis komentar kamu..."
-        class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+        class="block w-full px-4 py-3 text-sm text-gray-800 transition bg-white border border-gray-300 outline-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
       ></textarea>
 
       <p
         id="editCommentError"
-        class="mt-2 hidden font-serif text-sm text-red-600"
+        class="hidden mt-2 font-serif text-sm text-red-600"
       ></p>
 
-      <div class="mt-4 flex justify-end gap-2">
+      <div class="flex justify-end gap-2 mt-4">
 
         <button
           type="button"
@@ -1336,14 +1377,14 @@
 
 <div
   id="replyCommentModal"
-  class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 px-4"
+  class="fixed inset-0 z-50 items-center justify-center hidden px-4 bg-black/40"
 >
 
   <div
-    class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl"
+    class="w-full max-w-lg p-6 bg-white shadow-xl rounded-2xl"
   >
 
-    <div class="mb-5 flex items-start justify-between gap-4">
+    <div class="flex items-start justify-between gap-4 mb-5">
 
       <div>
 
@@ -1361,7 +1402,7 @@
       <button
         type="button"
         onclick="closeReplyComment()"
-        class="inline-flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-700"
+        class="inline-flex items-center justify-center w-8 h-8 text-gray-400 rounded-lg cursor-pointer shrink-0 hover:bg-gray-100 hover:text-gray-700"
         title="Tutup"
       >
         <i class="bi bi-x-lg"></i>
@@ -1392,7 +1433,7 @@
         name="comment"
         rows="5"
         placeholder="Tulis balasan kamu..."
-        class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+        class="block w-full px-4 py-3 text-sm text-gray-800 transition bg-white border border-gray-300 outline-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
       ></textarea>
 
       @error('comment')
@@ -1403,7 +1444,7 @@
 
       @enderror
 
-      <div class="mt-4 flex justify-end gap-2">
+      <div class="flex justify-end gap-2 mt-4">
 
         <button
           type="button"
@@ -1713,7 +1754,7 @@
   function openReplyComment(
     id,
     username
-  ) {
+    ) {
 
     const modal =
       document.getElementById(
@@ -1735,18 +1776,51 @@
         'replyCommentUser'
       );
 
+    /*
+    |--------------------------------------------------------------------------
+    | ID komentar yang diklik
+    |--------------------------------------------------------------------------
+    |
+    | Bisa komentar utama atau reply.
+    |
+    | Controller akan menentukan komentar utama
+    | jika ID yang dikirim adalah reply.
+    |
+    */
+
     parentId.value =
       id;
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Informasi user yang dibalas
+    |--------------------------------------------------------------------------
+    */
+
     user.innerHTML = `
-      Membalas komentar
+      Membalas
       <span class="font-medium text-blue-600">
         @${username}
       </span>
     `;
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Otomatis isi @username
+    |--------------------------------------------------------------------------
+    */
+
     textarea.value =
-      '';
+      `@${username} `;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Tampilkan modal
+    |--------------------------------------------------------------------------
+    */
 
     modal.classList.remove(
       'hidden'
@@ -1756,9 +1830,26 @@
       'flex'
     );
 
-    setTimeout(function () {
 
-      textarea.focus();
+    /*
+    |--------------------------------------------------------------------------
+    | Fokus textarea
+    |--------------------------------------------------------------------------
+    */
+
+      setTimeout(function () {
+
+        textarea.focus();
+
+        /*
+        | Pindahkan cursor ke akhir text
+        */
+
+      textarea.selectionStart =
+        textarea.value.length;
+
+      textarea.selectionEnd =
+        textarea.value.length;
 
     }, 100);
 

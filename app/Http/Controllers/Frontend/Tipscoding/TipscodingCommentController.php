@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Frontend\Tipscoding;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Tipscoding\Tipscoding\TipscodingCommentUr;
+use App\Models\Manageuser\User;
 use App\Models\Tipscoding\Tipscoding;
 use App\Models\Tipscoding\TipscodingComment;
+use App\Notifications\TipscodingCommentNotification;
+use App\Notifications\TipscodingCommentPinnedNotification;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Notifications\TipscodingCommentNotification;
-use App\Http\Requests\Tipscoding\Tipscoding\TipscodingCommentUr;
-use App\Notifications\TipscodingCommentPinnedNotification;
 
 class TipscodingCommentController extends Controller
 {
@@ -18,42 +19,85 @@ class TipscodingCommentController extends Controller
     string $category,
     Tipscoding $tipscoding
   ) {
-    $parentId = $request->validated('parent_id');
+    $targetCommentId = $request->validated('parent_id');
+
+    $parentId = null;
+    $replyToUserId = null;
 
     /*
-    |--------------------------------------------------------------------------
-    | Jika ini adalah reply
-    |--------------------------------------------------------------------------
-    */
+  |--------------------------------------------------------------------------
+  | KOMENTAR / REPLY
+  |--------------------------------------------------------------------------
+  */
 
-    if ($parentId) {
-      TipscodingComment::query()
-        ->where('id', $parentId)
+    if ($targetCommentId) {
+      $targetComment = TipscodingComment::query()
+        ->with('user')
+        ->where('id', $targetCommentId)
         ->where('tipscoding_id', $tipscoding->id)
-        ->whereNull('parent_id')
         ->where('status', 'approved')
         ->firstOrFail();
-    }
 
-
-    /*
+      /*
     |--------------------------------------------------------------------------
-    | Simpan comment / reply
+    | Tentukan komentar utama
+    |--------------------------------------------------------------------------
+    |
+    | Kalau target adalah komentar utama:
+    |   parent_id = null
+    |
+    | Kalau target adalah reply:
+    |   parent_id = ID komentar utama
+    |
+    */
+
+      if ($targetComment->parent_id) {
+        $mainComment = TipscodingComment::query()
+          ->where('id', $targetComment->parent_id)
+          ->where('tipscoding_id', $tipscoding->id)
+          ->whereNull('parent_id')
+          ->where('status', 'approved')
+          ->firstOrFail();
+
+        $parentId = $mainComment->id;
+      } else {
+        $parentId = $targetComment->id;
+      }
+
+      /*
+    |--------------------------------------------------------------------------
+    | User yang benar-benar dibalas
     |--------------------------------------------------------------------------
     */
+
+      $replyToUserId = $targetComment->user_id;
+    }
+
+    /*
+  |--------------------------------------------------------------------------
+  | Simpan komentar
+  |--------------------------------------------------------------------------
+  */
 
     $comment = TipscodingComment::create([
       'tipscoding_id' => $tipscoding->id,
       'user_id' => Auth::id(),
       'parent_id' => $parentId,
+      'reply_to_user_id' => $replyToUserId,
       'is_reply' => $parentId !== null,
       'comment' => $request->validated('comment'),
       'status' => 'approved',
     ]);
 
-    if (is_null($parentId)) {
+    /*
+  |--------------------------------------------------------------------------
+  | NOTIFIKASI
+  |--------------------------------------------------------------------------
+  */
 
-      // Komentar utama
+    if ($parentId === null) {
+
+      // Komentar utama → pemilik Tipscoding
       if ($tipscoding->user_id !== Auth::id()) {
         $tipscoding->user->notify(
           new TipscodingCommentNotification($comment)
@@ -61,44 +105,46 @@ class TipscodingCommentController extends Controller
       }
     } else {
 
-      // Reply
-      $parentComment = TipscodingComment::query()
-        ->with('user')
-        ->findOrFail($parentId);
+      // Reply → user yang benar-benar dibalas
+      if (
+        $replyToUserId &&
+        $replyToUserId !== Auth::id()
+      ) {
+        $replyToUser = User::query()
+          ->find($replyToUserId);
 
-      if ($parentComment->user_id !== Auth::id()) {
-        $parentComment->user->notify(
-          new TipscodingCommentNotification($comment)
-        );
+        if ($replyToUser) {
+          $replyToUser->notify(
+            new TipscodingCommentNotification($comment)
+          );
+        }
       }
     }
 
-
     /*
-    |--------------------------------------------------------------------------
-    | Alert
-    |--------------------------------------------------------------------------
-    */
+  |--------------------------------------------------------------------------
+  | SUCCESS MESSAGE
+  |--------------------------------------------------------------------------
+  */
 
     Alert::html(
       'success',
       $parentId
         ? "Balasan pada comment di post tipscoding
-            <span style='color:#2563eb;'>
-              {$tipscoding->title}
-            </span>
-            berhasil ditambahkan"
+          <span style='color:#2563eb;'>
+            {$tipscoding->title}
+          </span>
+          berhasil ditambahkan"
         : "Data comment di post tipscoding
-            <span style='color:#2563eb;'>
-              {$tipscoding->title}
-            </span>
-            berhasil ditambahkan",
+          <span style='color:#2563eb;'>
+            {$tipscoding->title}
+          </span>
+          berhasil ditambahkan",
       'success'
     );
 
     return back();
   }
-
 
   public function update(
     TipscodingCommentUr $request,

@@ -204,6 +204,8 @@ class TipscodingController extends Controller
             ->with([
               'user:id,username,image',
 
+              'replyToUser:id,username',
+
               'reactions' => function ($query) {
                 $query
                   ->where('user_id', Auth::id())
@@ -219,7 +221,7 @@ class TipscodingController extends Controller
               'approved',
               'hidden',
             ])
-            ->latest();
+            ->oldest();
         },
       ])
       ->whereIn('status', [
@@ -283,7 +285,7 @@ class TipscodingController extends Controller
       ])
       ->where('is_reply', true)
       ->whereNull('parent_id')
-      ->latest()
+      ->oldest()
       ->get();
 
     /*
@@ -465,10 +467,10 @@ class TipscodingController extends Controller
     */
 
     /*
-|--------------------------------------------------------------------------
-| Notification laporan baru
-|--------------------------------------------------------------------------
-*/
+    |--------------------------------------------------------------------------
+    | Notification laporan baru
+    |--------------------------------------------------------------------------
+    */
 
     if (($data['type'] ?? null) === 'tipscoding.comment.report') {
 
@@ -479,14 +481,14 @@ class TipscodingController extends Controller
     }
 
     /*
-|--------------------------------------------------------------------------
-| Hasil laporan
-|--------------------------------------------------------------------------
-|
-| Notification ini dikirim kepada user yang membuat report.
-| User tidak diarahkan ke halaman monitoring backend.
-|
-*/
+    |--------------------------------------------------------------------------
+    | Hasil laporan
+    |--------------------------------------------------------------------------
+    |
+    | Notification ini dikirim kepada user yang membuat report.
+    | User tidak diarahkan ke halaman monitoring backend.
+    |
+    */
 
     if (($data['type'] ?? null) === 'tipscoding.comment.report.result') {
 
@@ -575,13 +577,17 @@ class TipscodingController extends Controller
 
       $targetComment = null;
 
-      if ($comment->parent_id) {
+      /*
+        |--------------------------------------------------------------------------
+        | REPLY
+        |--------------------------------------------------------------------------
+        |
+        | Reply normal selalu memiliki parent_id yang menunjuk
+        | ke komentar utama.
+        |
+        */
 
-        /*
-      |--------------------------------------------------------------------------
-      | Reply
-      |--------------------------------------------------------------------------
-      */
+      if ($comment->is_reply && $comment->parent_id) {
 
         $targetComment = TipscodingComment::query()
           ->where(
@@ -600,15 +606,31 @@ class TipscodingController extends Controller
           ->find(
             $comment->parent_id
           );
-      } else {
 
         /*
-      |--------------------------------------------------------------------------
-      | Komentar utama
-      |--------------------------------------------------------------------------
-      */
+        |--------------------------------------------------------------------------
+        | KOMENTAR UTAMA
+        |--------------------------------------------------------------------------
+        */
+      } elseif (! $comment->is_reply && ! $comment->parent_id) {
 
         $targetComment = $comment;
+
+        /*
+          |--------------------------------------------------------------------------
+          | ORPHAN REPLY
+          |--------------------------------------------------------------------------
+          |
+          | Komentar utama sudah dihapus.
+          |
+          | parent_id = NULL
+          | is_reply  = true
+          |
+          | Orphan tidak menggunakan pagination komentar utama.
+          |
+          */
+      } elseif ($comment->is_reply && ! $comment->parent_id) {
+        $targetComment = null;
       }
 
       /*

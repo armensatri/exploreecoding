@@ -19,11 +19,12 @@ class TipscodingComment extends Model
     'tipscoding_id',
     'user_id',
     'parent_id',
+    'reply_to_user_id',
     'is_reply',
     'comment',
     'status',
     'is_pinned',
-    'edited_at'
+    'edited_at',
   ];
 
   protected function casts(): array
@@ -56,6 +57,14 @@ class TipscodingComment extends Model
     return $this->belongsTo(
       self::class,
       'parent_id'
+    );
+  }
+
+  public function replyToUser(): BelongsTo
+  {
+    return $this->belongsTo(
+      User::class,
+      'reply_to_user_id'
     );
   }
 
