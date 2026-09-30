@@ -31,8 +31,25 @@ Route::group(
 
     Route::controller(TipsreportController::class)->group(
       function () {
-        Route::get('/monitoring/tipsreports', 'index')
-          ->name('monitoring.tipsreports-index');
+        Route::get(
+          '/monitoring/tipsreports',
+          'index'
+        )->name('monitoring.tipsreports-index');
+
+        Route::get(
+          '/monitoring/tipsreports/{report}',
+          'show'
+        )->name('monitoring.tipsreports-show');
+
+        Route::patch(
+          '/monitoring/tipsreports/{report}/resolve',
+          'resolve'
+        )->name('monitoring.tipsreports-resolve');
+
+        Route::patch(
+          '/monitoring/tipsreports/{report}/reject',
+          'reject'
+        )->name('monitoring.tipsreports-reject');
       }
     );
   }

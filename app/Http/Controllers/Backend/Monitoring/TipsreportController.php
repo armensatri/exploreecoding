@@ -71,7 +71,7 @@ class TipsreportController extends Controller
       'reviewer:id,name,username,image',
     ]);
 
-    return view('backend.tipscoding.tipsreport.show', [
+    return view('backend.monitoring.tipsreport.show', [
       'title' => 'Detail tipscoding comment report',
       'report' => $report,
     ]);
@@ -144,7 +144,7 @@ class TipsreportController extends Controller
       );
 
       return redirect()->route(
-        'tipsreports.show',
+        'monitoring.tipsreports-show',
         $report->id
       );
     }
@@ -185,7 +185,7 @@ class TipsreportController extends Controller
     );
 
     return redirect()->route(
-      'tipsreports.show',
+      'monitoring.tipsreports-show',
       $report->id
     );
   }
@@ -230,7 +230,7 @@ class TipsreportController extends Controller
     );
 
     return redirect()->route(
-      'tipsreports.show',
+      'monitoring.tipsreports-show',
       $report->id
     );
   }

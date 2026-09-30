@@ -78,7 +78,7 @@
                                       name="no"
                                     />
                                     <x-th
-                                      name="tc.id"
+                                      name="id"
                                     />
                                     <x-th
                                       name="tipscoding"
@@ -103,7 +103,7 @@
                                 </thead>
 
                                 <tbody class="tbody">
-                                  @foreach ($reports as $report)
+                                  @forelse ($reports as $report)
                                     <tr class="hover:bg-slate-100">
                                       <td class="h-px whitespace-nowrap">
                                         <x-td-var-center
@@ -119,12 +119,10 @@
 
                                       <td class="h-px whitespace-nowrap">
                                         @if ($report->comment?->tipscoding)
-                                          <x-td-var
-                                            :var="$report->comment->tipscoding->title"
-                                          />
-                                        @else
-                                          <x-td-var
-                                            var="--"
+                                          <x-td-var-width-x
+                                            x-width="w-42"
+                                            :var="$report->comment->tipscoding->title ?? '--'"
+                                            :tooltip="$report->comment->tipscoding->title ?? '--'"
                                           />
                                         @endif
                                       </td>
@@ -138,8 +136,18 @@
                                       </td>
 
                                       <td class="h-px whitespace-nowrap">
-                                        <x-td-var
+                                        <x-td-var-width-x
+                                          x-width="w-72"
                                           :var="$report->comment?->comment ?? '--'"
+                                          :tooltip="$report->comment?->comment ?? '--'"
+                                        />
+                                      </td>
+
+                                      <td class="h-px whitespace-nowrap">
+                                        <x-td-var-bg
+                                          bg="bg-slate-200"
+                                          text="text-slate-800"
+                                          :var="$report->reason ?? '--'"
                                         />
                                       </td>
 
@@ -179,8 +187,47 @@
                                           :var="$status['var']"
                                         />
                                       </td>
+
+                                      <td class="h-px whitespace-nowrap">
+                                        @if ($report->reviewer)
+                                          <x-td-var
+                                            :var="'by:' . ' ' . '@' . $report->reviewer->username"
+                                          />
+                                        @else
+                                          <div
+                                            class="flex items-center px-6 py-4 gap-x-3">
+                                            <span class="text-sm text-red-400">
+                                              no handle
+                                            </span>
+                                          </div>
+                                        @endif
+                                      </td>
+
+                                      @include(
+                                        'backend.monitoring.tipsreport._td'
+                                      )
                                     </tr>
-                                  @endforeach
+                                  @empty
+                                    <tr>
+                                      <td colspan="8"
+                                        class="px-4 py-12 text-center">
+                                        <div
+                                          class="flex items-center justify-center w-12 h-12 mx-auto rounded-full bg-slate-100 text-slate-400">
+                                          <i class="text-xl bi bi-flag"></i>
+                                        </div>
+
+                                        <div
+                                          class="mt-3 text-sm font-medium text-slate-600">
+                                          Belum ada report komentar.
+                                        </div>
+
+                                        <div
+                                          class="mt-1 text-xs text-slate-400">
+                                          Report komentar akan muncul di sini.
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  @endforelse
                                 </tbody>
                               </table>
 
