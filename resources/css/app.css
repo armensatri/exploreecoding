@@ -93,7 +93,7 @@
   }
 }
 
-/* header title h1, h2, h3, h4, h5, h6 gar ke lihatan di content */
+/* header title h1, h2, h3, h4, h5, h6 agar ke lihatan di content */
 @layer components {
   .prose h2 {
     @apply scroll-mt-24;

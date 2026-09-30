@@ -92,7 +92,7 @@
 
                     <tbody class="tbody">
                       @foreach ($playlists as $playlist)
-                        <tr>
+                        <tr class="hover:bg-slate-100">
                           <td class="h-px whitespace-nowrap">
                             <x-td-var-center
                               :var="$loop->iteration . '.'"

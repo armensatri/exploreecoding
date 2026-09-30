@@ -77,6 +77,10 @@ class RoleHasPermissionSeeder extends Seeder
         'monitoring.path-view',
         'monitoring.tipscoding-view',
         'monitoring.user-region',
+        'monitoring.tipsreports-index',
+        'monitoring.tipsreports-show',
+        'monitoring.tipsreports-resolve',
+        'monitoring.tipsreports-reject',
 
         // USERS
         'users.index',
@@ -244,6 +248,10 @@ class RoleHasPermissionSeeder extends Seeder
         'monitoring.path-view',
         'monitoring.tipscoding-view',
         'monitoring.user-region',
+        'monitoring.tipsreports-index',
+        'monitoring.tipsreports-show',
+        'monitoring.tipsreports-resolve',
+        'monitoring.tipsreports-reject',
 
         // USERS
         'users.index',
@@ -411,6 +419,10 @@ class RoleHasPermissionSeeder extends Seeder
         // 'monitoring.path-view',
         // 'monitoring.tipscoding-view',
         // 'monitoring.user-region',
+        // 'monitoring.tipsreports-index',
+        // 'monitoring.tipsreports-show',
+        // 'monitoring.tipsreports-resolve',
+        // 'monitoring.tipsreports-reject',
 
         // USERS
         // 'users.index',
@@ -578,6 +590,10 @@ class RoleHasPermissionSeeder extends Seeder
         // 'monitoring.path-view',
         // 'monitoring.tipscoding-view',
         // 'monitoring.user-region',
+        // 'monitoring.tipsreports-index',
+        // 'monitoring.tipsreports-show',
+        // 'monitoring.tipsreports-resolve',
+        // 'monitoring.tipsreports-reject',
 
         // USERS
         // 'users.index',

@@ -1,4 +1,4 @@
-<th scope="col" class="px-8 py-3 text-center">
+<th scope="col" class="px-8 py-4 text-center">
   <div class="flex items-center">
     <span class="text-xs font-semibold tracking-wide text-gray-800 uppercase">
       <svg xmlns="http://www.w3.org/2000/svg"

@@ -65,7 +65,8 @@
                           </div>
                         </div>
 
-                        <table class="min-w-full divide-y divide-gray-200">
+                        <table
+                          class="min-w-full divide-y divide-gray-200">
                           <thead class="bg-gray-200">
                             <tr>
                               <x-th
@@ -89,7 +90,7 @@
 
                           <tbody class="tbody">
                             @foreach ($roles as $role)
-                              <tr>
+                              <tr class="hover:bg-slate-100">
                                 <td class="h-px whitespace-nowrap">
                                   <x-td-var-center
                                     :var="$loop->iteration . '.'"

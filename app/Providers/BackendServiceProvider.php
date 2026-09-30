@@ -32,6 +32,7 @@ use App\View\Components\Backend\Table\TdVar;
 use App\View\Components\Backend\Table\TdVarBg;
 use App\View\Components\Backend\Table\TdVarCenter;
 use App\View\Components\Backend\Table\TdVarWidth;
+use App\View\Components\Backend\Table\TdVarWidthX;
 use App\View\Components\Backend\Table\Th;
 use App\View\Components\Backend\Table\ThAction;
 use App\View\Components\Backend\TableHeader\Description;
@@ -82,6 +83,8 @@ class BackendServiceProvider extends ServiceProvider
     Blade::component('td-var-bg', TdVarBg::class);
     Blade::component('td-action', TdAction::class);
     Blade::component('td-var-width', TdVarWidth::class);
+    Blade::component('td-var-width', TdVarWidth::class);
+    Blade::component('td-var-width-x', TdVarWidthX::class);
 
     // INPUT
     Blade::component('input', Input::class);

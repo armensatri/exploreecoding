@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Tipscoding;
+namespace App\Http\Controllers\Backend\Monitoring;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +50,7 @@ class TipsreportController extends Controller
       ->paginate(10)
       ->withQueryString();
 
-    return view('backend.tipscoding.tipsreport.index', [
+    return view('backend.monitoring.tipsreport.index', [
       'title' => 'Tipscoding comment report',
       'reports' => $reports,
       'status' => $status,

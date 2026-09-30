@@ -70,6 +70,11 @@
             active="monitoring/user-region"
             menu-name="🔹User region"
           />
+          <x-visitor-navigation
+            :route="route('monitoring.tipsreports-index')"
+            active="monitoring/tipsreports"
+            menu-name="🔹Tips reports"
+          />
         </div>
       </div>
     </div>

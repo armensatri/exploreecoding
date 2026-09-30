@@ -89,7 +89,7 @@
 
                     <tbody class="tbody">
                       @foreach ($paths as $path)
-                        <tr>
+                        <tr class="hover:bg-slate-100">
                           <td class="h-px whitespace-nowrap">
                             <x-td-var-center
                               :var="$loop->iteration . '.'"

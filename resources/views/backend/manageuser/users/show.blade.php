@@ -68,11 +68,11 @@
 
             <x-show-var
               name="Gender"
-              :var="$gender?->name"
+              :var="$gender?->name ?? '-'"
             />
 
             <x-show-background
-              name="Status banned"
+              name="Status account"
               :bg="$user->status()['bg']"
               :text="$user->status()['text']"
               :var="$user->status()['status']"

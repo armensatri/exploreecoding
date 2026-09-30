@@ -19,7 +19,7 @@
 
       <section class="w-full px-3 mt-8 mb-5">
         <div class="breadcrumb">
-          @include('backend.xbreadcrumb.visitor.index')
+          @include('backend.xbreadcrumb.tipsreport.index')
         </div>
 
         <div class="x-border">
@@ -27,18 +27,18 @@
             <x-md-header
               :image="asset('/image/default.png')"
               alt="image"
-              title="Data visitor"
-              description="Monitoring data user visitor"
+              title="Data comment tipsreport"
+              description="Monitoring data system comment tipsreport"
             />
           </div>
 
           <div class="w-full mt-12 overflow-x-auto">
             <div class="flex justify-center gap-2 px-4 py-2 mx-auto border-b border-gray-200 min-w-max whitespace-nowrap">
-              @include('backend.managedata.visitor._navigation')
+              @include('backend.monitoring._navigation')
             </div>
 
             <div class="mt-20 ml-4">
-              @include('backend.managedata.visitor._button-count')
+              @include('backend.monitoring.tipsreport._button-count')
             </div>
 
             <div class="w-full">
@@ -54,26 +54,18 @@
                               <div class="grid table-grid">
                                 <div class="description">
                                   <x-description
-                                    table-name="Visitor"
-                                    :page-data="$users"
+                                    table-name="Tipsreports"
+                                    :page-data="$reports"
                                   />
                                 </div>
 
                                 <div class="table-header">
-                                  <div class="inline-flex items-center gap-x-2">
+                                  <div
+                                    class="inline-flex items-center gap-x-2">
                                     <div class="refresh">
                                       <x-refresh
-                                        :route="route('visitor')"
+                                        :route="route('monitoring.tipsreports-index')"
                                       />
-                                    </div>
-
-                                    <div class="search">
-                                      <form action="/visitor">
-                                        <x-search
-                                          search="visitor"
-                                          placeholder="Search data visitor"
-                                        />
-                                      </form>
                                     </div>
                                   </div>
                                 </div>
@@ -86,33 +78,32 @@
                                       name="no"
                                     />
                                     <x-th
-                                      name="id"
+                                      name="tc.id"
                                     />
                                     <x-th
-                                      name="username"
+                                      name="tipscoding"
                                     />
                                     <x-th
-                                      name="role"
+                                      name="reporter"
                                     />
                                     <x-th
-                                      name="auth"
+                                      name="comment"
+                                    />
+                                    <x-th
+                                      name="reason"
                                     />
                                     <x-th
                                       name="status"
                                     />
                                     <x-th
-                                      name="verify"
+                                      name="handle"
                                     />
-                                    <x-th
-                                      name="lastseen"
-                                    />
-                                    <x-th-action/>
                                     <x-th-action/>
                                   </tr>
                                 </thead>
 
                                 <tbody class="tbody">
-                                  @foreach ($users as $user)
+                                  @foreach ($reports as $report)
                                     <tr class="hover:bg-slate-100">
                                       <td class="h-px whitespace-nowrap">
                                         <x-td-var-center
@@ -122,79 +113,70 @@
 
                                       <td class="h-px whitespace-nowrap">
                                         <x-td-var-center
-                                          :var="$user->id"
+                                          :var="$report->id"
                                         />
+                                      </td>
+
+                                      <td class="h-px whitespace-nowrap">
+                                        @if ($report->comment?->tipscoding)
+                                          <x-td-var
+                                            :var="$report->comment->tipscoding->title"
+                                          />
+                                        @else
+                                          <x-td-var
+                                            var="--"
+                                          />
+                                        @endif
+                                      </td>
+
+                                      <td class="h-px whitespace-nowrap">
+                                        @if ($report->user?->username)
+                                          <x-td-var
+                                            :var="'@'. $report->user->username"
+                                          />
+                                        @endif
                                       </td>
 
                                       <td class="h-px whitespace-nowrap">
                                         <x-td-var
-                                          :var="'@' . $user->username"
+                                          :var="$report->comment?->comment ?? '--'"
                                         />
                                       </td>
 
                                       <td class="h-px whitespace-nowrap">
+                                        @php
+                                          $status = match($report->status)
+                                          {
+                                            'pending' => [
+                                              'bg' => 'bg-amber-200',
+                                              'text' => 'text-amber-800',
+                                              'var' => 'pending'
+                                            ],
+
+                                            'resolved' => [
+                                              'bg' => 'bg-emerald-200',
+                                              'text' => 'text-emerald-800',
+                                              'var' => 'resolved'
+                                            ],
+
+                                            'rejected' => [
+                                              'bg' => 'bg-red-200',
+                                              'text' => 'text-red-800',
+                                              'var' => 'rejected'
+                                            ],
+
+                                            'default' => [
+                                              'bg' => 'bg-slate-200',
+                                              'text' => 'text-slate-800',
+                                              'var' => $report->status ?? '--'
+                                            ]
+                                          }
+                                        @endphp
+
                                         <x-td-var-bg
-                                          :bg="$user->role->bg"
-                                          :text="$user->role->text"
-                                          :var="$user->role->name"
-                                        />
-                                      </td>
-
-                                      <td class="h-px whitespace-nowrap">
-                                        <div class="flex items-center justify-center">
-                                          <x-td-var-bg
-                                            :bg="$user->statusOnOf()['bg']"
-                                            :text="$user->statusOnOf()['text']"
-                                            :var="$user->statusOnOf()['statusOnOf']"
-                                          />
-                                        </div>
-                                      </td>
-
-                                      <td class="h-px whitespace-nowrap">
-                                        <div class="flex items-center justify-center">
-                                          <x-td-var-bg
-                                            :bg="$user->status()['bg']"
-                                            :text="$user->status()['text']"
-                                            :var="$user->status()['status']"
-                                          />
-                                        </div>
-                                      </td>
-
-                                      <td class="h-px whitespace-nowrap">
-                                        <div class="flex items-center justify-center">
-                                          <x-td-var-bg
-                                            bg="bg-red-200"
-                                            text="text-red-800"
-                                            var="no verify"
-                                          />
-                                        </div>
-                                      </td>
-
-                                      <td class="h-px whitespace-nowrap">
-                                        <x-td-var
-                                          :var="\Carbon\Carbon::parse($user->last_seen)->diffForHumans()"
-                                        />
-                                      </td>
-
-                                      @include(
-                                        'backend.managedata.visitor._ban'
-                                      )
-
-                                      <td class="size-px whitespace-nowrap">
-                                        <x-td-action
-                                          :id="$user->id"
-
-                                          :show="route(
-                                            'users.show', $user->username
-                                          )"
-
-                                          :edit="route(
-                                            'users.edit', $user->username
-                                          )"
-
-                                          :delete="route(
-                                            'users.destroy', $user->username
-                                          )"
+                                          :bg="$status['bg']"
+                                          :text="$status['text']"
+                                          :var="$status['var']"
                                         />
                                       </td>
                                     </tr>
@@ -203,9 +185,9 @@
                               </table>
 
                               <div class="grid table-pagination">
-                                @if ($users->lastPage() > 1)
+                                @if ($reports->lastPage() > 1)
                                   <x-pagination
-                                    :pagination="$users"
+                                    :pagination="$reports"
                                   />
                                 @endif
                               </div>

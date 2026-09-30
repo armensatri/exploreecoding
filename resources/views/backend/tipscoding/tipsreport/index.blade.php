@@ -1,49 +1,44 @@
 @extends('backend.template.main')
 
 @section('content-backend')
-
   <div class="content">
     <div class="p-4 mx-auto">
+      <section class="w-full px-2 mb-2">
+        <div class="content-backend">
+          <div class="content-backend-title">
+            {{ $title }}
+          </div>
+        </div>
+      </section>
 
-  {{-- ================================================= --}}
-  {{-- TITLE --}}
-  {{-- ================================================= --}}
-
-  <section class="w-full px-2 mb-4">
-    <div class="content-backend">
-      <div class="content-backend-title">
-        {{ $title }}
+      <div class="alert">
+        @if (session()->has('alert'))
+          @include('sweetalert::alert')
+        @endif
       </div>
-    </div>
-  </section>
 
+      <section class="w-full px-3 mt-20">
 
-  {{-- ================================================= --}}
-  {{-- CONTENT --}}
-  {{-- ================================================= --}}
+        {{-- ================================================= --}}
+        {{-- FILTER --}}
+        {{-- ================================================= --}}
 
-  <section class="w-full px-3">
+        <div class="flex flex-wrap items-center gap-2 mb-4">
 
-    {{-- ================================================= --}}
-    {{-- FILTER --}}
-    {{-- ================================================= --}}
+        {{-- Semua --}}
+        <a
+          href="{{ route('tipsreports.index') }}"
+          class="inline-flex items-center gap-2
+            rounded-lg
+            px-3 py-2
+            text-sm font-medium
+            transition
 
-    <div class="mb-4 flex flex-wrap items-center gap-2">
-
-      {{-- Semua --}}
-      <a
-        href="{{ route('tipsreports.index') }}"
-        class="inline-flex items-center gap-2
-          rounded-lg
-          px-3 py-2
-          text-sm font-medium
-          transition
-
-          {{ ! $status
-            ? 'bg-slate-800 text-white'
-            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-          }}"
-      >
+            {{ ! $status
+              ? 'bg-slate-800 text-white'
+              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }}"
+        >
         <i class="bi bi-list"></i>
 
         Semua
@@ -60,23 +55,23 @@
         >
           {{ $totalReports }}
         </span>
-      </a>
+        </a>
 
 
-      {{-- Pending --}}
-      <a
-        href="{{ route('tipsreports.index', ['status' => 'pending']) }}"
-        class="inline-flex items-center gap-2
-          rounded-lg
-          px-3 py-2
-          text-sm font-medium
-          transition
+        {{-- Pending --}}
+        <a
+          href="{{ route('tipsreports.index', ['status' => 'pending']) }}"
+          class="inline-flex items-center gap-2
+            rounded-lg
+            px-3 py-2
+            text-sm font-medium
+            transition
 
-          {{ $status === 'pending'
-            ? 'bg-amber-500 text-white'
-            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-          }}"
-      >
+            {{ $status === 'pending'
+              ? 'bg-amber-500 text-white'
+              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }}"
+        >
         <i class="bi bi-clock"></i>
 
         Pending
@@ -93,23 +88,23 @@
         >
           {{ $pendingReports }}
         </span>
-      </a>
+        </a>
 
 
-      {{-- Resolved --}}
-      <a
-        href="{{ route('tipsreports.index', ['status' => 'resolved']) }}"
-        class="inline-flex items-center gap-2
-          rounded-lg
-          px-3 py-2
-          text-sm font-medium
-          transition
+        {{-- Resolved --}}
+        <a
+          href="{{ route('tipsreports.index', ['status' => 'resolved']) }}"
+          class="inline-flex items-center gap-2
+            rounded-lg
+            px-3 py-2
+            text-sm font-medium
+            transition
 
-          {{ $status === 'resolved'
-            ? 'bg-emerald-600 text-white'
-            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-          }}"
-      >
+            {{ $status === 'resolved'
+              ? 'bg-emerald-600 text-white'
+              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }}"
+        >
         <i class="bi bi-check-circle"></i>
 
         Resolved
@@ -126,23 +121,23 @@
         >
           {{ $resolvedReports }}
         </span>
-      </a>
+        </a>
 
 
-      {{-- Rejected --}}
-      <a
-        href="{{ route('tipsreports.index', ['status' => 'rejected']) }}"
-        class="inline-flex items-center gap-2
-          rounded-lg
-          px-3 py-2
-          text-sm font-medium
-          transition
+        {{-- Rejected --}}
+        <a
+          href="{{ route('tipsreports.index', ['status' => 'rejected']) }}"
+          class="inline-flex items-center gap-2
+            rounded-lg
+            px-3 py-2
+            text-sm font-medium
+            transition
 
-          {{ $status === 'rejected'
-            ? 'bg-red-600 text-white'
-            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-          }}"
-      >
+            {{ $status === 'rejected'
+              ? 'bg-red-600 text-white'
+              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }}"
+        >
         <i class="bi bi-x-circle"></i>
 
         Rejected
@@ -159,422 +154,349 @@
         >
           {{ $rejectedReports }}
         </span>
-      </a>
+        </a>
 
-    </div>
-
-
-    {{-- ================================================= --}}
-    {{-- TABLE --}}
-    {{-- ================================================= --}}
-
-    <div
-      class="overflow-x-auto
-        rounded-xl
-        border border-slate-200
-        bg-white"
-    >
-      <table class="w-full text-sm text-left">
-
-        <thead class="bg-slate-50">
-          <tr>
-
-            <th
-              class="whitespace-nowrap
-                px-4 py-3
-                text-xs font-semibold
-                uppercase tracking-wide
-                text-slate-500"
-            >
-              #
-            </th>
-
-            <th
-              class="whitespace-nowrap
-                px-4 py-3
-                text-xs font-semibold
-                uppercase tracking-wide
-                text-slate-500"
-            >
-              TipsCoding
-            </th>
-
-            <th
-              class="whitespace-nowrap
-                px-4 py-3
-                text-xs font-semibold
-                uppercase tracking-wide
-                text-slate-500"
-            >
-              Reporter
-            </th>
-
-            <th
-              class="px-4 py-3
-                text-xs font-semibold
-                uppercase tracking-wide
-                text-slate-500"
-            >
-              Comment
-            </th>
-
-            <th
-              class="whitespace-nowrap
-                px-4 py-3
-                text-xs font-semibold
-                uppercase tracking-wide
-                text-slate-500"
-            >
-              Reason
-            </th>
-
-            <th
-              class="whitespace-nowrap
-                px-4 py-3
-                text-xs font-semibold
-                uppercase tracking-wide
-                text-slate-500"
-            >
-              Status
-            </th>
-
-            <th
-              class="whitespace-nowrap
-                px-4 py-3
-                text-xs font-semibold
-                uppercase tracking-wide
-                text-slate-500"
-            >
-              Handled By
-            </th>
-
-            <th
-              class="whitespace-nowrap
-                px-4 py-3
-                text-xs font-semibold
-                uppercase tracking-wide
-                text-slate-500"
-            >
-              Action
-            </th>
-
-          </tr>
-        </thead>
+        </div>
 
 
-        <tbody class="divide-y divide-slate-100">
+        {{-- ================================================= --}}
+        {{-- TABLE --}}
+        {{-- ================================================= --}}
 
-          @forelse ($reports as $report)
+        <div
+          class="overflow-x-auto bg-white border rounded-2xl border-slate-200"
+          >
+          <table class="w-full text-sm text-left">
 
-            <tr class="transition hover:bg-slate-50">
+            <thead class="bg-slate-50">
+              <tr>
 
-              {{-- No --}}
-              <td class="px-4 py-4 align-top text-slate-400">
-                {{ $reports->firstItem() + $loop->index }}
-              </td>
-
-
-              {{-- TipsCoding --}}
-              <td class="px-4 py-4 align-top">
-
-                @if ($report->comment?->tipscoding)
-
-                  <div
-                    class="max-w-xs
-                      font-medium
-                      leading-5
-                      text-slate-800"
-                  >
-                    {{ $report->comment->tipscoding->title }}
-                  </div>
-
-                  <div
-                    class="mt-1
-                      text-xs
-                      text-slate-400"
-                  >
-                    /{{ $report->comment->tipscoding->slug }}
-                  </div>
-
-                @else
-
-                  <span class="text-slate-400">
-                    --
-                  </span>
-
-                @endif
-
-              </td>
-
-
-              {{-- Reporter --}}
-              <td class="px-4 py-4 align-top">
-
-                <div
-                  class="font-medium
-                    leading-5
-                    text-slate-800"
+                <th
+                  class="px-4 py-3 text-xs font-semibold tracking-wide uppercase whitespace-nowrap text-slate-500"
                 >
-                  {{ $report->user?->name ?? '--' }}
-                </div>
+                  #
+                </th>
 
-                @if ($report->user?->username)
-
-                  <div
-                    class="mt-1
-                      text-xs
-                      text-slate-400"
-                  >
-                    <span>@</span>{{ $report->user->username }}
-                  </div>
-
-                @endif
-
-              </td>
-
-
-              {{-- Comment --}}
-              <td class="px-4 py-4 align-top">
-
-                <div
-                  class="max-w-md
-                    line-clamp-2
-                    leading-5
-                    text-slate-600"
+                <th
+                  class="px-4 py-3 text-xs font-semibold tracking-wide uppercase whitespace-nowrap text-slate-500"
                 >
-                  {{ $report->comment?->comment ?? '--' }}
-                </div>
+                  TipsCoding
+                </th>
 
-              </td>
-
-
-              {{-- Reason --}}
-              <td class="px-4 py-4 align-top">
-
-                <span
-                  class="inline-flex
-                    rounded-md
-                    bg-slate-100
-                    px-2 py-1
-                    text-xs
-                    font-medium
-                    capitalize
-                    text-slate-600"
+                <th
+                  class="px-4 py-3 text-xs font-semibold tracking-wide uppercase whitespace-nowrap text-slate-500"
                 >
-                  {{ $report->reason ?? '--' }}
-                </span>
+                  Reporter
+                </th>
 
-              </td>
+                <th
+                  class="px-4 py-3 text-xs font-semibold tracking-wide uppercase text-slate-500"
+                >
+                  Comment
+                </th>
 
+                <th
+                  class="px-4 py-3 text-xs font-semibold tracking-wide uppercase whitespace-nowrap text-slate-500"
+                >
+                  Reason
+                </th>
 
-              {{-- Status --}}
-              <td class="px-4 py-4 align-top">
+                <th
+                  class="px-4 py-3 text-xs font-semibold tracking-wide uppercase whitespace-nowrap text-slate-500"
+                >
+                  Status
+                </th>
 
-                @if ($report->status === 'pending')
+                <th
+                  class="px-4 py-3 text-xs font-semibold tracking-wide uppercase whitespace-nowrap text-slate-500"
+                >
+                  Handled By
+                </th>
 
-                  <span
-                    class="inline-flex items-center gap-1.5
-                      rounded-full
-                      bg-amber-100
-                      px-2.5 py-1
-                      text-xs
-                      font-medium
-                      text-amber-700"
-                  >
-                    <i class="bi bi-clock"></i>
-                    Pending
-                  </span>
+                <th
+                  class="px-4 py-3 text-xs font-semibold tracking-wide uppercase whitespace-nowrap text-slate-500"
+                >
+                  Action
+                </th>
 
-                @elseif ($report->status === 'resolved')
-
-                  <span
-                    class="inline-flex items-center gap-1.5
-                      rounded-full
-                      bg-emerald-100
-                      px-2.5 py-1
-                      text-xs
-                      font-medium
-                      text-emerald-700"
-                  >
-                    <i class="bi bi-check-circle"></i>
-                    Resolved
-                  </span>
-
-                @elseif ($report->status === 'rejected')
-
-                  <span
-                    class="inline-flex items-center gap-1.5
-                      rounded-full
-                      bg-red-100
-                      px-2.5 py-1
-                      text-xs
-                      font-medium
-                      text-red-700"
-                  >
-                    <i class="bi bi-x-circle"></i>
-                    Rejected
-                  </span>
-
-                @else
-
-                  <span
-                    class="inline-flex
-                      rounded-full
-                      bg-slate-100
-                      px-2.5 py-1
-                      text-xs
-                      font-medium
-                      text-slate-600"
-                  >
-                    {{ $report->status ?? '--' }}
-                  </span>
-
-                @endif
-
-              </td>
+              </tr>
+            </thead>
 
 
-              {{-- Handled By --}}
-              <td class="px-4 py-4 align-top">
+            <tbody class="divide-y divide-slate-100">
 
-                @if ($report->reviewer)
+              @forelse ($reports as $report)
 
-                  <div
-                    class="font-medium
-                      leading-5
-                      text-slate-800"
-                  >
-                    {{ $report->reviewer->name }}
-                  </div>
+                <tr class="transition hover:bg-slate-50">
 
-                  @if ($report->reviewer->username)
+                  {{-- No --}}
+                  <td class="px-4 py-4 align-top text-slate-400">
+                    {{ $reports->firstItem() + $loop->index }}
+                  </td>
+
+
+                  {{-- TipsCoding --}}
+                  <td class="px-4 py-4 align-top">
+
+                    @if ($report->comment?->tipscoding)
+
+                      <div
+                        class="max-w-xs font-medium leading-5 text-slate-800"
+                      >
+                        {{ $report->comment->tipscoding->title }}
+                      </div>
+
+                      <div
+                        class="mt-1 text-xs text-slate-400"
+                      >
+                        /{{ $report->comment->tipscoding->slug }}
+                      </div>
+
+                    @else
+
+                      <span class="text-slate-400">
+                        --
+                      </span>
+
+                    @endif
+
+                  </td>
+
+
+                  {{-- Reporter --}}
+                  <td class="px-4 py-4 align-top">
 
                     <div
-                      class="mt-1
-                        text-xs
-                        text-slate-400"
+                      class="font-medium leading-5 text-slate-800"
                     >
-                      <span>@</span>{{ $report->reviewer->username }}
+                      {{ $report->user?->name ?? '--' }}
                     </div>
 
-                  @endif
+                    @if ($report->user?->username)
 
-                  @if ($report->reviewed_at)
+                      <div
+                        class="mt-1 text-xs text-slate-400"
+                      >
+                        <span>@</span>{{ $report->user->username }}
+                      </div>
+
+                    @endif
+
+                  </td>
+
+
+                  {{-- Comment --}}
+                  <td class="px-4 py-4 align-top">
 
                     <div
-                      class="mt-1
-                        text-xs
-                        text-slate-400"
+                      class="max-w-md leading-5 line-clamp-2 text-slate-600"
                     >
-                      {{ $report->reviewed_at->format('d M Y H:i') }}
+                      {{ $report->comment?->comment ?? '--' }}
                     </div>
 
-                  @endif
+                  </td>
 
-                @else
 
-                  <span
-                    class="text-xs
-                      text-slate-400"
+                  {{-- Reason --}}
+                  <td class="px-4 py-4 align-top">
+
+                    <span
+                      class="inline-flex px-2 py-1 text-xs font-medium capitalize rounded-md bg-slate-100 text-slate-600"
+                    >
+                      {{ $report->reason ?? '--' }}
+                    </span>
+
+                  </td>
+
+
+                  {{-- Status --}}
+                  <td class="px-4 py-4 align-top">
+
+                    @if ($report->status === 'pending')
+
+                      <span
+                        class="inline-flex items-center gap-1.5
+                          rounded-full
+                          bg-amber-100
+                          px-2.5 py-1
+                          text-xs
+                          font-medium
+                          text-amber-700"
+                      >
+                        <i class="bi bi-clock"></i>
+                        Pending
+                      </span>
+
+                    @elseif ($report->status === 'resolved')
+
+                      <span
+                        class="inline-flex items-center gap-1.5
+                          rounded-full
+                          bg-emerald-100
+                          px-2.5 py-1
+                          text-xs
+                          font-medium
+                          text-emerald-700"
+                      >
+                        <i class="bi bi-check-circle"></i>
+                        Resolved
+                      </span>
+
+                    @elseif ($report->status === 'rejected')
+
+                      <span
+                        class="inline-flex items-center gap-1.5
+                          rounded-full
+                          bg-red-100
+                          px-2.5 py-1
+                          text-xs
+                          font-medium
+                          text-red-700"
+                      >
+                        <i class="bi bi-x-circle"></i>
+                        Rejected
+                      </span>
+
+                    @else
+
+                      <span
+                        class="inline-flex
+                          rounded-full
+                          bg-slate-100
+                          px-2.5 py-1
+                          text-xs
+                          font-medium
+                          text-slate-600"
+                      >
+                        {{ $report->status ?? '--' }}
+                      </span>
+
+                    @endif
+
+                  </td>
+
+
+                  {{-- Handled By --}}
+                  <td class="px-4 py-4 align-top">
+
+                    @if ($report->reviewer)
+
+                      <div
+                        class="font-medium leading-5 text-slate-800"
+                      >
+                        {{ $report->reviewer->name }}
+                      </div>
+
+                      @if ($report->reviewer->username)
+
+                        <div
+                          class="mt-1 text-xs text-slate-400"
+                        >
+                          <span>@</span>{{ $report->reviewer->username }}
+                        </div>
+
+                      @endif
+
+                      @if ($report->reviewed_at)
+
+                        <div
+                          class="mt-1 text-xs text-slate-400"
+                        >
+                          {{ $report->reviewed_at->format('d M Y H:i') }}
+                        </div>
+
+                      @endif
+
+                    @else
+
+                      <span
+                        class="text-xs text-slate-400"
+                      >
+                        Belum ditangani
+                      </span>
+
+                    @endif
+
+                  </td>
+
+
+                  {{-- Action --}}
+                  <td class="px-4 py-4 align-top">
+
+                    <a
+                      href="{{ route('tipsreports.show', $report->id) }}"
+                      class="inline-flex items-center gap-1.5
+                        rounded-lg
+                        border border-slate-200
+                        bg-white
+                        px-3 py-2
+                        text-xs
+                        font-medium
+                        text-slate-600
+                        transition
+                        hover:border-sky-200
+                        hover:bg-sky-50
+                        hover:text-sky-600"
+                    >
+                      <i class="bi bi-eye"></i>
+                      Detail
+                    </a>
+
+                  </td>
+
+                </tr>
+
+
+              @empty
+
+                <tr>
+
+                  <td
+                    colspan="8"
+                    class="px-4 py-12 text-center"
                   >
-                    Belum ditangani
-                  </span>
+                    <div
+                      class="flex items-center justify-center w-12 h-12 mx-auto rounded-full bg-slate-100 text-slate-400"
+                    >
+                      <i class="text-xl bi bi-flag"></i>
+                    </div>
 
-                @endif
+                    <div
+                      class="mt-3 text-sm font-medium text-slate-600"
+                    >
+                      Belum ada report komentar.
+                    </div>
 
-              </td>
+                    <div
+                      class="mt-1 text-xs text-slate-400"
+                    >
+                      Report komentar akan muncul di sini.
+                    </div>
+                  </td>
 
+                </tr>
 
-              {{-- Action --}}
-              <td class="px-4 py-4 align-top">
+              @endforelse
 
-                <a
-                  href="{{ route('tipsreports.show', $report->id) }}"
-                  class="inline-flex items-center gap-1.5
-                    rounded-lg
-                    border border-slate-200
-                    bg-white
-                    px-3 py-2
-                    text-xs
-                    font-medium
-                    text-slate-600
-                    transition
-                    hover:border-sky-200
-                    hover:bg-sky-50
-                    hover:text-sky-600"
-                >
-                  <i class="bi bi-eye"></i>
-                  Detail
-                </a>
+            </tbody>
 
-              </td>
-
-            </tr>
+          </table>
+        </div>
 
 
-          @empty
+        {{-- ================================================= --}}
+        {{-- PAGINATION --}}
+        {{-- ================================================= --}}
 
-            <tr>
+        @if ($reports->lastPage() > 1)
 
-              <td
-                colspan="8"
-                class="px-4 py-12
-                  text-center"
-              >
-                <div
-                  class="mx-auto
-                    flex h-12 w-12
-                    items-center justify-center
-                    rounded-full
-                    bg-slate-100
-                    text-slate-400"
-                >
-                  <i class="bi bi-flag text-xl"></i>
-                </div>
+          <div class="mt-4">
+            <x-paginate :pagination="$reports" />
+          </div>
 
-                <div
-                  class="mt-3
-                    text-sm
-                    font-medium
-                    text-slate-600"
-                >
-                  Belum ada report komentar.
-                </div>
+        @endif
 
-                <div
-                  class="mt-1
-                    text-xs
-                    text-slate-400"
-                >
-                  Report komentar akan muncul di sini.
-                </div>
-              </td>
-
-            </tr>
-
-          @endforelse
-
-        </tbody>
-
-      </table>
+      </section>
     </div>
-
-
-    {{-- ================================================= --}}
-    {{-- PAGINATION --}}
-    {{-- ================================================= --}}
-
-    @if ($reports->lastPage() > 1)
-
-      <div class="mt-4">
-        <x-paginate :pagination="$reports" />
-      </div>
-
-    @endif
-
-  </section>
-
-</div>
-
   </div>
 @endsection
