@@ -234,17 +234,6 @@ class SubmenuSeeder extends Seeder
       [
         'menu_id' => 8,
         'ssm' => 2,
-        'name' => 'tipsreports',
-        'slug' => 'tipsreports',
-        'route' => '/tipsreports',
-        'active' => 'tipsreports',
-        'routename' => '/tipsreports',
-        'description' => 'data tips coding report comment',
-      ],
-
-      [
-        'menu_id' => 8,
-        'ssm' => 3,
         'name' => 'categories',
         'slug' => 'categories',
         'route' => '/categories',

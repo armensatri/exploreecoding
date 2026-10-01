@@ -475,7 +475,7 @@ class TipscodingController extends Controller
     if (($data['type'] ?? null) === 'tipscoding.comment.report') {
 
       return redirect()->route(
-        'tipsreports.show',
+        'monitoring.tipsreports-show',
         $data['report_id']
       );
     }

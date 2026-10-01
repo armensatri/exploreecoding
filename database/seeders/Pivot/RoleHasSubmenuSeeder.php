@@ -53,7 +53,6 @@ class RoleHasSubmenuSeeder extends Seeder
 
       // tipscoding
       'tipscodings',
-      'tipsreports',
       'categories',
     ])->get()->keyBy('name');
 
@@ -94,7 +93,6 @@ class RoleHasSubmenuSeeder extends Seeder
 
         // tipscoding
         'tipscodings',
-        'tipsreports',
         'categories',
       ],
 
@@ -134,7 +132,6 @@ class RoleHasSubmenuSeeder extends Seeder
 
         // tipscoding
         'tipscodings',
-        'tipsreports',
         'categories',
       ],
 
@@ -174,7 +171,6 @@ class RoleHasSubmenuSeeder extends Seeder
 
         // tipscoding
         'tipscodings',
-        // 'tipsreports',
         'categories',
       ],
 
@@ -214,7 +210,6 @@ class RoleHasSubmenuSeeder extends Seeder
 
         // tipscoding
         // 'tipscodings',
-        // 'tipsreports',
         // 'categories',
       ],
     ];

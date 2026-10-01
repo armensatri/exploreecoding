@@ -38,7 +38,7 @@
             </div>
 
             <div class="mt-20 ml-4">
-              @include('backend.monitoring.tipsreport._button-count')
+              @include('backend.monitoring.tipsreport._index-button-count')
             </div>
 
             <div class="w-full">
@@ -204,7 +204,7 @@
                                       </td>
 
                                       @include(
-                                        'backend.monitoring.tipsreport._td'
+                                        'backend.monitoring.tipsreport._index-td'
                                       )
                                     </tr>
                                   @empty
