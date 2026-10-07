@@ -1,186 +1,87 @@
 <div class="hidden lg:flex lg:flex-1 lg:justify-end">
   @auth
     <div class="flex items-center">
-
       @include('frontend.template.notification.xpopup')
 
-
-      {{-- ================================================= --}}
-      {{-- USER DROPDOWN --}}
-      {{-- ================================================= --}}
-
       <div
-        class="m-1
-          hs-dropdown
-          [--trigger:hover]
-          relative
-          inline-flex"
-          >
-
+        class="m-1 hs-dropdown [--trigger:hover] relative
+        inline-flex">
         <div
           id="hs-dropdown-hover-event-web-auth"
           aria-haspopup="menu"
           aria-expanded="false"
           aria-label="Dropdown"
-          class="hs-dropdown-toggle
-            flex items-center
-            gap-x-1
-            tracking-wide
-            justify-center
-            px-3 py-0.75
-            cursor-pointer"
-        >
-
-          {{-- USER IMAGE --}}
+          class="hs-dropdown-toggle flex items-center gap-x-1 tracking-wide justify-center px-3 py-0.75 cursor-pointer">
           <picture>
-
             <img
               src="{{ auth()->user()?->image
                 ? asset('storage/' . auth()->user()->image)
                 : asset('frontend/img/user/user.png') }}"
               alt="user-profile"
-              class="object-cover
-                object-top
-                p-0.5
-                bg-white
-                rounded-full
-                w-9 h-9"
+              class="object-cover object-top p-0.5 bg-white
+              rounded-full w-9 h-9"
             />
-
           </picture>
 
-
-          {{-- USERNAME --}}
           <span
-            class="text-[17px]
-              font-normal
-              tracking-normal
-              text-slate-800
-              truncate
-              sm:block"
-          >
+            class="text-[17px] font-normal tracking-normal
+            text-slate-800 truncate sm:block">
             <span>@</span>{{ Auth::user()->username }}
           </span>
 
-
-          {{-- ARROW --}}
-          <i
-            class="text-base text-black bi bi-arrow-down-circle"
-          ></i>
-
+          <i class="text-base text-black bi bi-arrow-down-circle">
+          </i>
         </div>
 
-
-        {{-- USER MENU --}}
-        <div
-          role="menu"
+        <div role="menu"
           aria-orientation="vertical"
           aria-labelledby="hs-dropdown-hover-event-web-auth"
-          class="hs-dropdown-menu
-            transition-[opacity,margin]
-            duration
-            hs-dropdown-open:opacity-100
-            opacity-0
-            hidden
+          class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-56
+          bg-white rounded-[22px] mt-2 border border-gray-300
+          after:h-4 after:absolute after:-bottom-4 after:inset-s-0
+          after:w-full before:h-4 before:absolute before:-top-4
+          before:inset-s-0 before:w-full">
 
-            min-w-56
-
-            bg-white
-            rounded-[22px]
-
-            mt-2
-
-            border border-gray-300
-
-            after:h-4
-            after:absolute
-            after:-bottom-4
-            after:inset-s-0
-            after:w-full
-
-            before:h-4
-            before:absolute
-            before:-top-4
-            before:inset-s-0
-            before:w-full"
-        >
-
-          {{-- DASHBOARD --}}
           <div class="space-y-0.5 p-4">
-
             <x-menu-auth
               :route="route('dashboard')"
               :img="asset('frontend/img/auth/dashboard.jpg')"
               alt="menu"
               menu="Dashboard"
             />
-
           </div>
 
-
-          {{-- LOGOUT --}}
           <div
-            class="space-y-0.5
-              mt-3
-              border-t
-              border-t-gray-200
-              mx-7
-              p-3
-              flex
-              justify-center"
-          >
-
+            class="space-y-0.5 mt-3 border-t border-t-gray-200 mx-7
+            p-3 flex justify-center">
             <form
               action="{{ route('logout') }}"
-              method="POST"
-            >
-
+              method="POST">
               @csrf
 
               <button
                 type="submit"
-                class="px-3 py-0.75
-                  mb-2
-                  hover:shadow
-                  text-red-800
-                  bg-red-200
-                  hover:bg-red-600
-                  hover:text-white
-                  rounded-[10px]
-                  flex items-center
-                  justify-center
-                  font-medium
-                  text-[15px]
-                  cursor-pointer
-                  border border-gray-400"
-              >
+                class="px-3 py-0.75 mb-2 hover:shadow text-red-800
+                bg-red-200 hover:bg-red-600 hover:text-white
+                rounded-[10px] flex items-center justify-center
+                font-medium text-[15px] cursor-pointer border border-gray-400">
 
                 <i class="bi bi-arrow-right-circle"></i>
 
                 <span
-                  class="text-[15px]
-                    font-medium
-                    ml-1
-                    tracking-wide"
-                >
+                  class="text-[15px] font-medium ml-1 tracking-wide">
                   Logout
                 </span>
-
               </button>
-
             </form>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
   @else
     <a href="{{ route('login') }}"
-      class="px-3.5 py-0.75 text-base font-semibold leading-6 text-gray-900 bg-blue-200 border border-gray-400 rounded-xl
-      hover:bg-blue-300">
+      class="px-3.5 py-0.75 text-base font-semibold leading-6 text-gray-900 bg-blue-200 border border-gray-400
+      rounded-xl hover:bg-blue-300">
       Login
     </a>
   @endauth

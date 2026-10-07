@@ -8,6 +8,9 @@
 
 <div>
   @auth
+  <div class="flex items-center">
+    @include('frontend.template.notification.xpopup')
+
     <div class="m-1 hs-dropdown [--trigger:hover] relative inline-flex">
       <div id="hs-dropdown-hover-event-mobile-auth"
         aria-haspopup="menu"
@@ -61,6 +64,7 @@
         </div>
       </div>
     </div>
+  </div>
   @else
     <a href="{{ route('login') }}"
       class="px-3.5 mr-2.5 py-1 text-base font-semibold leading-6 text-gray-900 bg-blue-200 border border-gray-400 rounded-xl

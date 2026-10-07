@@ -23,9 +23,7 @@
 
     <div class="flex justify-center py-10">
 
-      <div
-        class="w-full p-6 space-y-6 font-sans text-gray-800 bg-white shadow-xs rounded-2xl xl:p-8"
-      >
+      <div class="w-full p-6 space-y-6 font-sans text-gray-800 bg-white shadow-xs rounded-2xl xl:p-8">
 
         {{-- ========================================================= --}}
         {{-- HEADER --}}
@@ -67,7 +65,6 @@
         @forelse ($comments as $comment)
 
           @php
-
             $canDeleteComment =
               $comment->user_id === $currentUser?->id ||
               $canManageAllComments ||
@@ -75,7 +72,6 @@
 
             $commentReaction =
               $comment->reactions->first()?->type;
-
           @endphp
 
 
@@ -85,10 +81,7 @@
 
           <div
             id="comment-{{ $comment->id }}"
-            class="scroll-mt-24
-              {{ $comment->is_pinned
-                ? 'rounded-r-md border-l-2 border-blue-500 bg-blue-50/50 pl-3'
-                : '' }}"
+            class="scroll-mt-24 {{ $comment->is_pinned ? 'rounded-r-md border-l-2 border-blue-500 bg-blue-50/50 pl-3' : '' }}"
           >
 
             <div
@@ -101,9 +94,7 @@
               {{-- ===================================================== --}}
 
               <img
-                src="{{ $comment->user?->image
-                  ? asset('storage/' . $comment->user->image)
-                  : asset('backend/img/user/user.png') }}"
+                src="{{ $comment->user?->image ? asset('storage/' . $comment->user->image) : asset('backend/img/user/user.png') }}"
                 alt="{{ $comment->user?->username ?? 'User' }}"
                 class="object-cover object-top w-10 h-10 p-px bg-gray-500 rounded-full"
               />
@@ -165,15 +156,7 @@
 
                 @if ($comment->status === 'hidden')
 
-                  <div
-                    class="ml-1 rounded-lg
-                      border border-slate-200
-                      bg-slate-50
-                      px-3 py-2.5
-                      text-sm
-                      italic
-                      text-slate-400"
-                  >
+                  <div class="ml-1 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm italic text-slate-400">
                     <i class="mr-1 bi bi-eye-slash"></i>
                     Komentar ini telah disembunyikan.
                   </div>
@@ -225,7 +208,6 @@
 
                   {{-- ================================================= --}}
                   {{-- DELETE --}}
-                  {{-- Tetap tersedia meskipun hidden --}}
                   {{-- ================================================= --}}
 
                   @if ($canDeleteComment)
@@ -258,7 +240,7 @@
 
 
                   {{-- ================================================= --}}
-                  {{-- ACTION YANG HANYA UNTUK KOMENTAR APPROVED --}}
+                  {{-- ACTION APPROVED --}}
                   {{-- ================================================= --}}
 
                   @if ($comment->status === 'approved')
@@ -315,19 +297,11 @@
                         'comment' => $comment->id,
                         'type' => 'like',
                       ]) }}"
-                      class="reaction-like inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition
-                        {{ $commentReaction === 'like'
-                          ? 'border-blue-300 bg-blue-100 text-blue-700'
-                          : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
+                      class="reaction-like inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition {{ $commentReaction === 'like' ? 'border-blue-300 bg-blue-100 text-blue-700' : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
                       title="Like"
                     >
 
-                      <i
-                        class="reaction-icon bi bi-hand-thumbs-up{{ $commentReaction === 'like' ? '-fill' : '' }}
-                          {{ $commentReaction === 'like'
-                            ? 'text-blue-700'
-                            : 'text-blue-800' }}"
-                      ></i>
+                      <i class="reaction-icon bi bi-hand-thumbs-up{{ $commentReaction === 'like' ? '-fill' : '' }} {{ $commentReaction === 'like' ? 'text-blue-700' : 'text-blue-800' }}"></i>
 
                       <span class="ml-1 reaction-count">
                         {{ $comment->likes_count }}
@@ -351,19 +325,11 @@
                         'comment' => $comment->id,
                         'type' => 'dislike',
                       ]) }}"
-                      class="reaction-dislike inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition
-                        {{ $commentReaction === 'dislike'
-                          ? 'border-red-300 bg-red-100 text-red-700'
-                          : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
+                      class="reaction-dislike inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition {{ $commentReaction === 'dislike' ? 'border-red-300 bg-red-100 text-red-700' : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
                       title="Dislike"
                     >
 
-                      <i
-                        class="reaction-icon bi bi-hand-thumbs-down{{ $commentReaction === 'dislike' ? '-fill' : '' }}
-                          {{ $commentReaction === 'dislike'
-                            ? 'text-red-700'
-                            : 'text-red-800' }}"
-                      ></i>
+                      <i class="reaction-icon bi bi-hand-thumbs-down{{ $commentReaction === 'dislike' ? '-fill' : '' }} {{ $commentReaction === 'dislike' ? 'text-red-700' : 'text-red-800' }}"></i>
 
                       <span class="ml-1 reaction-count">
                         {{ $comment->dislikes_count }}
@@ -377,7 +343,6 @@
                     {{-- ================================================= --}}
 
                     @php
-
                       $user = Auth::user();
                       $role = $user?->role?->name;
 
@@ -388,7 +353,6 @@
                           $role === 'creator' &&
                           $tipscoding->user_id === $user?->id
                         );
-
                     @endphp
 
                     @if ($canPin)
@@ -407,10 +371,7 @@
 
                         <button
                           type="submit"
-                          class="cursor-pointer rounded-md px-2 py-1 text-xs
-                            {{ $comment->is_pinned
-                              ? 'text-blue-600 hover:text-blue-700'
-                              : 'text-slate-500 hover:text-blue-600' }}"
+                          class="cursor-pointer rounded-md px-2 py-1 text-xs {{ $comment->is_pinned ? 'text-blue-600 hover:text-blue-700' : 'text-slate-500 hover:text-blue-600' }}"
                         >
                           {{ $comment->is_pinned ? 'Unpin' : 'Pin' }}
                         </button>
@@ -425,19 +386,16 @@
 
 
                 {{-- ========================================================= --}}
-                {{-- DAFTAR REPLY NORMAL --}}
+                {{-- DAFTAR REPLY --}}
                 {{-- ========================================================= --}}
 
                 @if ($comment->replies->isNotEmpty())
 
-                  <div
-                    class="pl-4 mt-4 ml-2 space-y-4 border-l-2 border-gray-100 sm:ml-6"
-                  >
+                  <div class="pl-4 mt-4 ml-2 space-y-4 border-l-2 border-gray-100 sm:ml-6">
 
                     @foreach ($comment->replies as $reply)
 
                       @php
-
                         $canDeleteReply =
                           $reply->user_id === $currentUser?->id ||
                           $canManageAllComments ||
@@ -445,7 +403,6 @@
 
                         $replyReaction =
                           $reply->reactions->first()?->type;
-
                       @endphp
 
 
@@ -465,20 +422,18 @@
 
 
                           {{-- ================================================= --}}
-                          {{-- AVATAR REPLY --}}
+                          {{-- AVATAR --}}
                           {{-- ================================================= --}}
 
                           <img
-                            src="{{ $reply->user?->image
-                              ? asset('storage/' . $reply->user->image)
-                              : asset('backend/img/user/user.png') }}"
+                            src="{{ $reply->user?->image ? asset('storage/' . $reply->user->image) : asset('backend/img/user/user.png') }}"
                             alt="{{ $reply->user?->username ?? 'User' }}"
                             class="object-cover object-top w-8 h-8 p-px bg-gray-500 rounded-full"
                           />
 
 
                           {{-- ================================================= --}}
-                          {{-- CONTENT REPLY --}}
+                          {{-- CONTENT --}}
                           {{-- ================================================= --}}
 
                           <div class="flex-1 space-y-1 text-sm">
@@ -515,24 +470,43 @@
 
                             @if ($reply->status === 'hidden')
 
-                              <div
-                                class="rounded-lg
-                                  border border-slate-200
-                                  bg-slate-50
-                                  px-3 py-2.5
-                                  text-sm
-                                  italic
-                                  text-slate-400"
-                              >
+                              <div class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm italic text-slate-400">
                                 <i class="mr-1 bi bi-eye-slash"></i>
                                 Komentar ini telah disembunyikan.
                               </div>
 
                             @else
 
-                              <p class="text-gray-800 whitespace-pre-line">
-                                {{ $reply->comment }}
-                              </p>
+                              @php
+                                $replyText = $reply->comment;
+                                $replyMention = null;
+                                $replyMessage = $replyText;
+
+                                if (
+                                  preg_match(
+                                    '/^(@[a-zA-Z0-9_.-]+)(\s+)(.*)$/s',
+                                    $replyText,
+                                    $matches
+                                  )
+                                ) {
+                                  $replyMention = $matches[1];
+                                  $replyMessage = $matches[3];
+                                }
+                              @endphp
+
+                              <div class="py-2.5 text-gray-800">
+                                @if ($replyMention)
+                                  <span
+                                    class="font-medium text-blue-600">
+                                    {{ $replyMention }}
+                                  </span>
+                                  @if ($replyMessage !== '')
+                                    {{ ' ' . $replyMessage }}
+                                  @endif
+                                @else
+                                  {{ $replyText }}
+                                @endif
+                              </div>
 
                             @endif
 
@@ -605,11 +579,13 @@
 
                               @endif
 
+
                               {{-- ================================================= --}}
                               {{-- REPLY --}}
                               {{-- ================================================= --}}
 
                               @if ($reply->status === 'approved')
+
                                 <button
                                   type="button"
                                   onclick="openReplyComment(
@@ -624,27 +600,28 @@
 
                               @endif
 
-                              {{-- ================================================= --}}
-                            {{-- REPORT REPLY --}}
-                            {{-- ================================================= --}}
 
-                            @if (
-                              $reply->status === 'approved' &&
-                              Auth::check()
+                              {{-- ================================================= --}}
+                              {{-- REPORT REPLY --}}
+                              {{-- ================================================= --}}
+
+                              @if (
+                                $reply->status === 'approved' &&
+                                Auth::check()
                               )
 
-                              <button
-                                type="button"
-                                data-report-comment
-                                data-comment-id="{{ $reply->id }}"
-                                class="inline-flex items-center gap-1 text-xs font-medium transition text-slate-500 hover:text-red-500"
-                                title="Report balasan"
-                              >
-                                <i class="bi bi-flag"></i>
-                                <span>Report</span>
-                              </button>
+                                <button
+                                  type="button"
+                                  data-report-comment
+                                  data-comment-id="{{ $reply->id }}"
+                                  class="inline-flex items-center gap-1 text-xs font-medium transition text-slate-500 hover:text-red-500"
+                                  title="Report balasan"
+                                >
+                                  <i class="bi bi-flag"></i>
+                                  <span>Report</span>
+                                </button>
 
-                            @endif
+                              @endif
 
 
                               {{-- ================================================= --}}
@@ -667,19 +644,11 @@
                                     'comment' => $reply->id,
                                     'type' => 'like',
                                   ]) }}"
-                                  class="reaction-like inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition
-                                    {{ $replyReaction === 'like'
-                                      ? 'border-blue-300 bg-blue-100 text-blue-700'
-                                      : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
+                                  class="reaction-like inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition {{ $replyReaction === 'like' ? 'border-blue-300 bg-blue-100 text-blue-700' : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
                                   title="Like"
                                 >
 
-                                  <i
-                                    class="reaction-icon bi bi-hand-thumbs-up{{ $replyReaction === 'like' ? '-fill' : '' }}
-                                      {{ $replyReaction === 'like'
-                                        ? 'text-blue-700'
-                                        : 'text-blue-800' }}"
-                                  ></i>
+                                  <i class="reaction-icon bi bi-hand-thumbs-up{{ $replyReaction === 'like' ? '-fill' : '' }} {{ $replyReaction === 'like' ? 'text-blue-700' : 'text-blue-800' }}"></i>
 
                                   <span class="ml-1 reaction-count">
                                     {{ $reply->likes_count }}
@@ -701,19 +670,11 @@
                                     'comment' => $reply->id,
                                     'type' => 'dislike',
                                   ]) }}"
-                                  class="reaction-dislike inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition
-                                    {{ $replyReaction === 'dislike'
-                                      ? 'border-red-300 bg-red-100 text-red-700'
-                                      : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
+                                  class="reaction-dislike inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition {{ $replyReaction === 'dislike' ? 'border-red-300 bg-red-100 text-red-700' : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
                                   title="Dislike"
                                 >
 
-                                  <i
-                                    class="reaction-icon bi bi-hand-thumbs-down{{ $replyReaction === 'dislike' ? '-fill' : '' }}
-                                      {{ $replyReaction === 'dislike'
-                                        ? 'text-red-700'
-                                        : 'text-red-800' }}"
-                                  ></i>
+                                  <i class="reaction-icon bi bi-hand-thumbs-down{{ $replyReaction === 'dislike' ? '-fill' : '' }} {{ $replyReaction === 'dislike' ? 'text-red-700' : 'text-red-800' }}"></i>
 
                                   <span class="ml-1 reaction-count">
                                     {{ $reply->dislikes_count }}
@@ -750,9 +711,7 @@
           {{-- BELUM ADA KOMENTAR --}}
           {{-- ========================================================= --}}
 
-          <div
-            class="py-8 text-center border border-gray-300 border-dashed rounded-xl"
-          >
+          <div class="py-8 text-center border border-gray-300 border-dashed rounded-xl">
 
             <p class="text-base text-gray-500">
               Belum ada komentar.
@@ -784,11 +743,7 @@
               data-report-modal-panel
             >
 
-              {{-- HEADER --}}
-
-              <div
-                class="flex items-center justify-between px-5 py-4 border-b border-slate-200"
-              >
+              <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200">
 
                 <div>
 
@@ -812,8 +767,6 @@
 
               </div>
 
-
-              {{-- FORM --}}
 
               <form
                 id="reportCommentForm"
@@ -907,11 +860,7 @@
                 </div>
 
 
-                {{-- FOOTER --}}
-
-                <div
-                  class="flex justify-end gap-2 px-5 py-4 border-t border-slate-200"
-                >
+                <div class="flex justify-end gap-2 px-5 py-4 border-t border-slate-200">
 
                   <button
                     type="button"
@@ -951,7 +900,6 @@
             @foreach ($orphanReplies as $comment)
 
               @php
-
                 $commentReaction =
                   $comment->reactions->first()?->type;
 
@@ -959,7 +907,6 @@
                   $comment->user_id === $currentUser?->id ||
                   $canManageAllComments ||
                   $canManageTipscodingComments;
-
               @endphp
 
 
@@ -968,9 +915,7 @@
                 class="scroll-mt-24"
               >
 
-                <div
-                  class="px-3 py-3 border-l-2 rounded-r-lg border-slate-200 bg-slate-50/70 sm:px-4"
-                >
+                <div class="px-3 py-3 border-l-2 rounded-r-lg border-slate-200 bg-slate-50/70 sm:px-4">
 
                   <div class="flex items-start gap-3">
 
@@ -978,12 +923,10 @@
                     {{-- AVATAR --}}
 
                     <img
-                      src="{{ $comment->user?->image
-                        ? asset('storage/' . $comment->user->image)
-                        : asset('backend/img/user/user.png') }}"
+                      src="{{ $comment->user?->image ? asset('storage/' . $comment->user->image) : asset('backend/img/user/user.png') }}"
                       alt="image"
                       class="object-cover object-top w-8 h-8 rounded-full shrink-0 sm:h-9 sm:w-9"
-                    >
+                    />
 
 
                     <div class="flex-1 min-w-0">
@@ -1006,9 +949,7 @@
 
                       {{-- PARENT DELETED --}}
 
-                      <div
-                        class="mt-1 flex items-center gap-1.5 text-[12px] text-slate-400"
-                      >
+                      <div class="mt-1 flex items-center gap-1.5 text-[12px] text-slate-400">
 
                         <i class="bi bi-arrow-return-right"></i>
 
@@ -1025,21 +966,45 @@
 
                         @if ($comment->status === 'hidden')
 
-                          <div
-                            class="rounded-lg
-                              border border-slate-200
-                              bg-white
-                              px-3 py-2.5
-                              italic
-                              text-slate-400"
-                          >
+                          <div class="rounded-lg border border-slate-200 bg-white px-3 py-2.5 italic text-slate-400">
                             <i class="mr-1 bi bi-eye-slash"></i>
                             Komentar ini telah disembunyikan.
                           </div>
 
                         @else
 
-                          {!! nl2br(e($comment->comment)) !!}
+                          @php
+                            $orphanText = $comment->comment;
+                            $orphanMention = null;
+                            $orphanMessage = $orphanText;
+
+                            if (
+                              preg_match(
+                                '/^(@[a-zA-Z0-9_.-]+)(\s+)(.*)$/s',
+                                $orphanText,
+                                $matches
+                              )
+                            ) {
+                              $orphanMention = $matches[1];
+                              $orphanMessage = $matches[3];
+                            }
+                          @endphp
+
+                          @if ($orphanMention)
+
+                            <span class="font-medium text-blue-600">
+                              {{ $orphanMention }}
+                            </span>
+
+                            @if ($orphanMessage !== '')
+                              {{ ' ' . $orphanMessage }}
+                            @endif
+
+                          @else
+
+                            {!! nl2br(e($orphanText)) !!}
+
+                          @endif
 
                         @endif
 
@@ -1069,9 +1034,10 @@
                       <div class="flex flex-wrap items-center gap-3 mt-3">
 
 
-                        {{-- LIKE / DISLIKE HANYA APPROVED --}}
+                        {{-- LIKE / DISLIKE --}}
 
                         @if ($comment->status === 'approved')
+
 
                           {{-- LIKE --}}
 
@@ -1086,10 +1052,7 @@
                               'comment' => $comment->id,
                               'type' => 'like',
                             ]) }}"
-                            class="inline-flex items-center gap-1 text-xs
-                              {{ $commentReaction === 'like'
-                                ? 'text-blue-600'
-                                : 'text-slate-500 hover:text-blue-600' }}"
+                            class="inline-flex items-center gap-1 text-xs {{ $commentReaction === 'like' ? 'text-blue-600' : 'text-slate-500 hover:text-blue-600' }}"
                           >
 
                             <i class="bi bi-hand-thumbs-up"></i>
@@ -1114,10 +1077,7 @@
                               'comment' => $comment->id,
                               'type' => 'dislike',
                             ]) }}"
-                            class="inline-flex items-center gap-1 text-xs
-                              {{ $commentReaction === 'dislike'
-                                ? 'text-red-600'
-                                : 'text-slate-500 hover:text-red-600' }}"
+                            class="inline-flex items-center gap-1 text-xs {{ $commentReaction === 'dislike' ? 'text-red-600' : 'text-slate-500 hover:text-red-600' }}"
                           >
 
                             <i class="bi bi-hand-thumbs-down"></i>
@@ -1210,9 +1170,7 @@
 
           @if ($comments->lastPage() > 1)
 
-            <x-paginate
-              :pagination="$comments"
-            />
+            <x-paginate :pagination="$comments" />
 
           @endif
 
@@ -1380,9 +1338,7 @@
   class="fixed inset-0 z-50 items-center justify-center hidden px-4 bg-black/40"
 >
 
-  <div
-    class="w-full max-w-lg p-6 bg-white shadow-xl rounded-2xl"
-  >
+  <div class="w-full max-w-lg p-6 bg-white shadow-xl rounded-2xl">
 
     <div class="flex items-start justify-between gap-4 mb-5">
 
@@ -1482,49 +1438,53 @@
   |--------------------------------------------------------------------------
   */
 
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener(
+    'DOMContentLoaded',
+    function () {
 
-    const hash = window.location.hash;
+      const hash =
+        window.location.hash;
 
-    if (
-      !hash ||
-      !hash.startsWith('#comment-')
-    ) {
-      return;
-    }
-
-    setTimeout(function () {
-
-      const comment =
-        document.querySelector(hash);
-
-      if (!comment) {
+      if (
+        !hash ||
+        !hash.startsWith('#comment-')
+      ) {
         return;
       }
 
-      comment.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-
-      comment.classList.add(
-        'bg-yellow-50',
-        'rounded-xl',
-        'transition-colors',
-        'duration-500'
-      );
-
       setTimeout(function () {
 
-        comment.classList.remove(
-          'bg-yellow-50'
+        const comment =
+          document.querySelector(hash);
+
+        if (!comment) {
+          return;
+        }
+
+        comment.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+
+        comment.classList.add(
+          'bg-yellow-50',
+          'rounded-xl',
+          'transition-colors',
+          'duration-500'
         );
 
-      }, 2500);
+        setTimeout(function () {
 
-    }, 300);
+          comment.classList.remove(
+            'bg-yellow-50'
+          );
 
-  });
+        }, 2500);
+
+      }, 300);
+
+    }
+  );
 
 
   /*
@@ -1555,7 +1515,8 @@
     'submit',
     function (event) {
 
-      const form = event.target;
+      const form =
+        event.target;
 
       if (
         form.action &&
@@ -1611,14 +1572,16 @@
         commentScrollKey
       );
 
-      requestAnimationFrame(function () {
+      requestAnimationFrame(
+        function () {
 
-        window.scrollTo({
-          top: Number(savedScroll),
-          behavior: 'instant',
-        });
+          window.scrollTo({
+            top: Number(savedScroll),
+            behavior: 'instant',
+          });
 
-      });
+        }
+      );
 
     }
   );
@@ -1683,6 +1646,15 @@
         'editCommentError'
       );
 
+    if (
+      !modal ||
+      !form ||
+      !textarea ||
+      !error
+    ) {
+      return;
+    }
+
     textarea.value =
       comment;
 
@@ -1731,6 +1703,10 @@
         'editCommentTextarea'
       );
 
+    if (!modal) {
+      return;
+    }
+
     modal.classList.add(
       'hidden'
     );
@@ -1739,8 +1715,12 @@
       'flex'
     );
 
-    textarea.value =
-      '';
+    if (textarea) {
+
+      textarea.value =
+        '';
+
+    }
 
   }
 
@@ -1751,10 +1731,20 @@
   |--------------------------------------------------------------------------
   */
 
+  let replyMentionPrefix =
+    '';
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | OPEN REPLY
+  |--------------------------------------------------------------------------
+  */
+
   function openReplyComment(
     id,
     username
-    ) {
+  ) {
 
     const modal =
       document.getElementById(
@@ -1776,16 +1766,20 @@
         'replyCommentUser'
       );
 
+    if (
+      !modal ||
+      !parentId ||
+      !textarea ||
+      !user
+    ) {
+      return;
+    }
+
+
     /*
     |--------------------------------------------------------------------------
-    | ID komentar yang diklik
+    | ID KOMENTAR YANG DIBALAS
     |--------------------------------------------------------------------------
-    |
-    | Bisa komentar utama atau reply.
-    |
-    | Controller akan menentukan komentar utama
-    | jika ID yang dikirim adalah reply.
-    |
     */
 
     parentId.value =
@@ -1794,7 +1788,17 @@
 
     /*
     |--------------------------------------------------------------------------
-    | Informasi user yang dibalas
+    | MENTION
+    |--------------------------------------------------------------------------
+    */
+
+    replyMentionPrefix =
+      `@${username} `;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | INFORMASI USER
     |--------------------------------------------------------------------------
     */
 
@@ -1808,17 +1812,17 @@
 
     /*
     |--------------------------------------------------------------------------
-    | Otomatis isi @username
+    | ISI TEXTAREA
     |--------------------------------------------------------------------------
     */
 
     textarea.value =
-      `@${username} `;
+      replyMentionPrefix;
 
 
     /*
     |--------------------------------------------------------------------------
-    | Tampilkan modal
+    | TAMPILKAN MODAL
     |--------------------------------------------------------------------------
     */
 
@@ -1833,25 +1837,336 @@
 
     /*
     |--------------------------------------------------------------------------
-    | Fokus textarea
+    | FOKUS
     |--------------------------------------------------------------------------
     */
 
-      setTimeout(function () {
+    setTimeout(function () {
 
-        textarea.focus();
+      textarea.focus();
 
-        /*
-        | Pindahkan cursor ke akhir text
-        */
-
-      textarea.selectionStart =
-        textarea.value.length;
-
-      textarea.selectionEnd =
-        textarea.value.length;
+      textarea.setSelectionRange(
+        textarea.value.length,
+        textarea.value.length
+      );
 
     }, 100);
+
+  }
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | PROTEKSI MENTION
+  |--------------------------------------------------------------------------
+  */
+
+  const replyTextarea =
+    document.getElementById(
+      'replyCommentTextarea'
+    );
+
+
+  if (replyTextarea) {
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | KEYDOWN
+    |--------------------------------------------------------------------------
+    */
+
+    replyTextarea.addEventListener(
+      'keydown',
+      function (event) {
+
+        if (!replyMentionPrefix) {
+          return;
+        }
+
+        const prefixLength =
+          replyMentionPrefix.length;
+
+        const selectionStart =
+          this.selectionStart;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CTRL + A / CMD + A
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+          (event.ctrlKey || event.metaKey) &&
+          event.key.toLowerCase() === 'a'
+        ) {
+
+          event.preventDefault();
+
+          this.setSelectionRange(
+            prefixLength,
+            this.value.length
+          );
+
+          return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BACKSPACE
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+          event.key === 'Backspace' &&
+          selectionStart <= prefixLength
+        ) {
+
+          event.preventDefault();
+
+          this.setSelectionRange(
+            prefixLength,
+            prefixLength
+          );
+
+          return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | DELETE
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+          event.key === 'Delete' &&
+          selectionStart < prefixLength
+        ) {
+
+          event.preventDefault();
+
+          this.setSelectionRange(
+            prefixLength,
+            prefixLength
+          );
+
+          return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | HOME
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+          event.key === 'Home' &&
+          !event.shiftKey
+        ) {
+
+          event.preventDefault();
+
+          this.setSelectionRange(
+            prefixLength,
+            prefixLength
+          );
+
+          return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SHIFT + HOME
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+          event.key === 'Home' &&
+          event.shiftKey
+        ) {
+
+          event.preventDefault();
+
+          this.setSelectionRange(
+            prefixLength,
+            selectionStart
+          );
+
+          return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ARROW LEFT
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+          event.key === 'ArrowLeft' &&
+          selectionStart <= prefixLength
+        ) {
+
+          event.preventDefault();
+
+          this.setSelectionRange(
+            prefixLength,
+            prefixLength
+          );
+
+          return;
+        }
+
+      }
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | INPUT
+    |--------------------------------------------------------------------------
+    */
+
+    replyTextarea.addEventListener(
+      'input',
+      function () {
+
+        if (!replyMentionPrefix) {
+          return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | MENTION MASIH UTUH
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+          this.value.startsWith(
+            replyMentionPrefix
+          )
+        ) {
+
+          return;
+        }
+
+
+        const currentValue =
+          this.value;
+
+        const mentionText =
+          replyMentionPrefix.trim();
+
+        let content =
+          currentValue;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CARI MENTION LAMA
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+          currentValue.startsWith('@')
+        ) {
+
+          const firstSpace =
+            currentValue.indexOf(' ');
+
+          if (firstSpace !== -1) {
+
+            content =
+              currentValue.substring(
+                firstSpace + 1
+              );
+
+          }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | PASANG KEMBALI MENTION
+        |--------------------------------------------------------------------------
+        */
+
+        this.value =
+          `${mentionText} ${content}`;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CURSOR
+        |--------------------------------------------------------------------------
+        */
+
+        this.setSelectionRange(
+          this.value.length,
+          this.value.length
+        );
+
+      }
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | CLICK
+    |--------------------------------------------------------------------------
+    */
+
+    replyTextarea.addEventListener(
+      'click',
+      function () {
+
+        if (
+          this.selectionStart <
+          replyMentionPrefix.length
+        ) {
+
+          this.setSelectionRange(
+            replyMentionPrefix.length,
+            replyMentionPrefix.length
+          );
+
+        }
+
+      }
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | FOCUS
+    |--------------------------------------------------------------------------
+    */
+
+    replyTextarea.addEventListener(
+      'focus',
+      function () {
+
+        if (
+          this.selectionStart <
+          replyMentionPrefix.length
+        ) {
+
+          this.setSelectionRange(
+            replyMentionPrefix.length,
+            replyMentionPrefix.length
+          );
+
+        }
+
+      }
+    );
 
   }
 
@@ -1879,6 +2194,10 @@
         'replyCommentTextarea'
       );
 
+    if (!modal) {
+      return;
+    }
+
     modal.classList.add(
       'hidden'
     );
@@ -1887,10 +2206,30 @@
       'flex'
     );
 
-    parentId.value =
-      '';
 
-    textarea.value =
+    if (parentId) {
+
+      parentId.value =
+        '';
+
+    }
+
+
+    if (textarea) {
+
+      textarea.value =
+        '';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | RESET MENTION
+    |--------------------------------------------------------------------------
+    */
+
+    replyMentionPrefix =
       '';
 
   }
@@ -1902,11 +2241,14 @@
   |--------------------------------------------------------------------------
   */
 
-  document
-    .getElementById(
+  const editCommentModal =
+    document.getElementById(
       'editCommentModal'
-    )
-    .addEventListener(
+    );
+
+  if (editCommentModal) {
+
+    editCommentModal.addEventListener(
       'click',
       function (event) {
 
@@ -1921,6 +2263,8 @@
       }
     );
 
+  }
+
 
   /*
   |--------------------------------------------------------------------------
@@ -1928,11 +2272,14 @@
   |--------------------------------------------------------------------------
   */
 
-  document
-    .getElementById(
+  const replyCommentModal =
+    document.getElementById(
       'replyCommentModal'
-    )
-    .addEventListener(
+    );
+
+  if (replyCommentModal) {
+
+    replyCommentModal.addEventListener(
       'click',
       function (event) {
 
@@ -1946,6 +2293,8 @@
 
       }
     );
+
+  }
 
 
   /*
@@ -1999,10 +2348,9 @@
         button.dataset.loading ===
         'true'
       ) {
-
         return;
-
       }
+
 
       const commentId =
         button.dataset.commentId;
@@ -2014,6 +2362,7 @@
         document.querySelectorAll(
           `[data-reaction-button][data-comment-id="${commentId}"]`
         );
+
 
       try {
 
@@ -2031,6 +2380,22 @@
 
         });
 
+
+        const csrfToken =
+          document.querySelector(
+            'meta[name="csrf-token"]'
+          );
+
+
+        if (!csrfToken) {
+
+          throw new Error(
+            'CSRF token tidak ditemukan.'
+          );
+
+        }
+
+
         const response =
           await fetch(
             url,
@@ -2040,13 +2405,9 @@
               headers: {
 
                 'X-CSRF-TOKEN':
-                  document
-                    .querySelector(
-                      'meta[name="csrf-token"]'
-                    )
-                    .getAttribute(
-                      'content'
-                    ),
+                  csrfToken.getAttribute(
+                    'content'
+                  ),
 
                 'Accept':
                   'application/json',
@@ -2059,6 +2420,7 @@
             }
           );
 
+
         if (!response.ok) {
 
           throw new Error(
@@ -2067,18 +2429,16 @@
 
         }
 
+
         const data =
           await response.json();
 
-        console.log(
-          'REACTION RESPONSE:',
-          data
-        );
 
         updateReactionButtons(
           buttons,
           data
         );
+
 
       } catch (error) {
 
@@ -2090,6 +2450,7 @@
         alert(
           'Terjadi kesalahan saat memproses reaction.'
         );
+
 
       } finally {
 
@@ -2139,9 +2500,11 @@
           '.reaction-count'
         );
 
+
       if (!icon || !count) {
         return;
       }
+
 
       const active =
         data.reaction === type;
@@ -2160,6 +2523,7 @@
 
       }
 
+
       if (type === 'dislike') {
 
         count.textContent =
@@ -2175,21 +2539,16 @@
       */
 
       button.classList.remove(
-
         'bg-blue-100',
         'border-blue-300',
         'text-blue-700',
-
         'bg-red-100',
         'border-red-300',
         'text-red-700',
-
         'bg-indigo-50',
         'border-indigo-200',
         'text-gray-700',
-
         'hover:bg-indigo-100'
-
       );
 
 
@@ -2200,19 +2559,14 @@
       */
 
       icon.classList.remove(
-
         'bi-hand-thumbs-up',
         'bi-hand-thumbs-up-fill',
-
         'bi-hand-thumbs-down',
         'bi-hand-thumbs-down-fill',
-
         'text-blue-700',
         'text-blue-800',
-
         'text-red-700',
         'text-red-800'
-
       );
 
 
@@ -2222,9 +2576,7 @@
       |--------------------------------------------------------------------------
       */
 
-      if (
-        type === 'like'
-      ) {
+      if (type === 'like') {
 
         if (active) {
 
@@ -2264,9 +2616,7 @@
       |--------------------------------------------------------------------------
       */
 
-      if (
-        type === 'dislike'
-      ) {
+      if (type === 'dislike') {
 
         if (active) {
 
@@ -2325,6 +2675,7 @@
 
       event.preventDefault();
 
+
       const modal =
         document.getElementById(
           'reportCommentModal'
@@ -2335,23 +2686,29 @@
           'reportCommentForm'
         );
 
+
       if (!modal || !form) {
         return;
       }
 
+
       const commentId =
         button.dataset.commentId;
 
+
       form.action =
         `{{ url('/ec/tipscodings/category/' . $category->slug . '/tips/' . $tipscoding->slug . '/comments') }}/${commentId}/report`;
+
 
       form.querySelector(
         '[name="reason"]'
       ).value = '';
 
+
       form.querySelector(
         '[name="description"]'
       ).value = '';
+
 
       modal.classList.remove(
         'hidden'
@@ -2360,6 +2717,7 @@
       modal.classList.add(
         'flex'
       );
+
 
       document.body.classList.add(
         'overflow-hidden'
@@ -2387,9 +2745,11 @@
         'reportCommentForm'
       );
 
+
     if (!modal || !form) {
       return;
     }
+
 
     modal.classList.add(
       'hidden'
@@ -2399,13 +2759,16 @@
       'flex'
     );
 
+
     document.body.classList.remove(
       'overflow-hidden'
     );
 
+
     form.querySelector(
       '[name="reason"]'
     ).value = '';
+
 
     form.querySelector(
       '[name="description"]'
@@ -2425,13 +2788,16 @@
       'reportCommentModal'
     );
 
+
   if (reportModal) {
 
     reportModal.addEventListener(
       'click',
       function (event) {
 
-        if (event.target === this) {
+        if (
+          event.target === this
+        ) {
 
           closeReportComment();
 

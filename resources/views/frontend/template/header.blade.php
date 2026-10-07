@@ -47,8 +47,10 @@
     x-transition:leave-end="opacity-0"
     class="lg:hidden" role="dialog" aria-modal="true">
     <div class="fixed inset-0 z-50"></div>
-    <div class="fixed inset-y-0 right-0 z-50 w-full px-6 py-5 overflow-y-auto bg-sky-50 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-      <div class="flex items-center justify-between">
+    <div class="fixed inset-y-0 right-0 z-50 w-full px-6 py-5 overflow-y-auto bg-sky-50 sm:max-w-sm sm:ring-1
+    sm:ring-gray-900/10">
+      <div
+        class="flex items-center justify-between">
         <!-- MENU MOBILE AUTH -->
         @include('frontend.template.header.mobile-auth')
 
@@ -68,6 +70,7 @@
           </svg>
         </button>
       </div>
+      <hr class="h-0.5 text-gray-400 bg-gray-400">
 
       <!-- MENU MOBILE -->
       @include('frontend.template.header.mobile')
