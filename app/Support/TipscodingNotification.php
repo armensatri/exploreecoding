@@ -9,37 +9,42 @@ class TipscodingNotification
   public static function message(
     DatabaseNotification $notification
   ): string {
-
     return match ($notification->data['type'] ?? null) {
+      'tipscoding.comment' => (
+        $notification->data['actor_name'] ?? 'Seseorang'
+        ) . ' mengomentari tipscoding anda',
 
-      'tipscoding.comment' => ($notification->data['actor_name'] ?? 'Seseorang')
-        . ' mengomentari TipsCoding Anda',
+      'tipscoding.comment.reply' => (
+        $notification->data['actor_name'] ?? 'Seseorang'
+        ) . ' membalas komentar anda',
 
-      'tipscoding.comment.reply' => ($notification->data['actor_name'] ?? 'Seseorang')
-        . ' membalas komentar Anda',
+      'tipscoding.comment.reaction' => (
+        $notification->data['actor_name'] ?? 'Seseorang'
+        ) . ' menyukai komentar anda',
 
-      'tipscoding.comment.reaction' => ($notification->data['actor_name'] ?? 'Seseorang')
-        . ' menyukai komentar Anda',
+      'tipscoding.comment.pinned' => (
+        $notification->data['actor_name'] ?? 'Seseorang'
+        ) . ' menyematkan komentar anda',
 
-      'tipscoding.comment.pinned' => ($notification->data['actor_name'] ?? 'Seseorang')
-        . ' menyematkan komentar Anda',
+      'tipscoding.comment.report' => (
+        $notification->data['reporter_name'] ?? 'Seseorang'
+        ) . ' melaporkan sebuah komentar',
 
-      'tipscoding.comment.report' => ($notification->data['reporter_name'] ?? 'Seseorang')
-        . ' melaporkan sebuah komentar',
+      'tipscoding.comment.report.result' => match (
+        $notification->data['status'] ?? null)
+        {
+          'resolved' =>
+          'laporan Anda telah di tindak lanjuti dan komentar di sembunyikan',
 
-      'tipscoding.comment.report.result' => match ($notification->data['status'] ?? null) {
-        'resolved' =>
-        'Laporan Anda telah di tindaklanjuti dan komentar disembunyikan',
+          'rejected' =>
+          'laporan anda telah di tolak dan komentar tetap di tampilkan',
 
-        'rejected' =>
-        'Laporan Anda telah ditolak dan komentar tetap ditampilkan',
-
-        default =>
-        'Laporan Anda telah ditinjau',
-      },
+          default =>
+          'laporan anda telah di tinjau',
+        },
 
       default =>
-      'Anda memiliki notification baru',
+      'anda memiliki notification baru',
     };
   }
 }
