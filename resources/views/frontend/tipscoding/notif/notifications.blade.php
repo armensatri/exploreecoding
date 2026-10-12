@@ -55,7 +55,7 @@
               <button
                 type="submit"
                 title="Hapus semua notification"
-                class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 transition bg-white border border-red-200 rounded-lg cursor-pointer hover:bg-red-50">
+                class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 transition bg-white border border-red-200 rounded-[8px] cursor-pointer hover:bg-red-50">
                 <i class="bi bi-trash3"></i>
                 <span class="hidden sm:inline">
                   Hapus semua
@@ -70,7 +70,7 @@
       @if ($unreadCount > 0)
         <div class="mt-4">
           <span
-            class="inline-flex items-center px-3 py-1.5 text-[13px] font-medium text-red-500 bg-sky-50 rounded-full border border-sky-200 italic tracking-wide">
+            class="inline-flex items-center px-3 py-1.5 text-[13px] font-medium text-red-600 bg-sky-50 rounded-full border border-sky-200 italic tracking-wide">
             {{ $unreadCount }} Notification belum dibaca
           </span>
         </div>
@@ -173,7 +173,7 @@
               {{-- Message --}}
               <div class="flex items-start gap-2 mt-0.5">
                 <div
-                  class="font-medium leading-5 text-slate-800">
+                  class="font-normal leading-5 tracking-wide text-slate-800">
                   {!!
                     \App\Support\TipscodingNotification::message($notification)
                   !!}
@@ -187,17 +187,20 @@
                 @endif
               </div>
 
-              {{-- Comment preview --}} ini lagi ya
+              {{-- Comment preview --}}
               @if (!empty($notification->data['comment']))
-                <p
-                  class="mt-1 text-sm leading-5 text-slate-500 line-clamp-2">
+                <div
+                  class="mt-1 text-[15px] leading-6 text-gray-600
+                  tracking-wide">
+                  <i class="mr-1 text-xs bi bi-chat-right-dots-fill">
+                  </i>
                   {{ $notification->data['comment'] }}
-                </p>
+                </div>
               @endif
 
               {{-- Time + status --}}
               <div
-                class="flex items-center gap-2 mt-2 text-xs text-slate-400">
+                class="flex items-center gap-2 mt-5 text-[13px] text-slate-500">
                 <span>
                   {{ $notification->created_at->diffForHumans() }}
                 </span>
@@ -206,12 +209,15 @@
                   •
                 </span>
 
-                <span>
-                  {{ is_null($notification->read_at)
-                    ? 'Belum dibaca'
-                    : 'Sudah dibaca'
-                  }}
-                </span>
+                @if (is_null($notification->read_at))
+                  <span class="italic tracking-wide text-red-600">
+                    Belum di baca
+                  </span>
+                @else
+                  <span class="italic tracking-wide text-green-600">
+                    Sudah di baca
+                  </span>
+                @endif
               </div>
             </a>
           </div>
@@ -228,7 +234,9 @@
             <button
               type="submit"
               title="Hapus notification"
-              class="flex items-center justify-center w-8 h-8 transition rounded-lg cursor-pointer text-slate-400 hover:text-red-500 hover:bg-red-50">
+              class="flex items-center justify-center w-8 h-8
+              transition border border-gray-300 rounded-[8px] cursor-pointer hover:bg-red-600 text-red-500
+              hover:border-0 hover:shadow-xs hover:text-white">
               <i class="bi bi-trash3"></i>
             </button>
           </form>
@@ -236,17 +244,23 @@
       @empty
         {{-- Empty --}}
         <div class="py-12 text-center">
-          <div
-            class="flex items-center justify-center w-12 h-12 mx-auto rounded-full bg-slate-100">
-            <i
-              class="text-2xl bi bi-bell-slash text-slate-300">
-            </i>
-          </div>
+          <div class="px-4 py-10 text-center">
+            <div
+              class="flex items-center justify-center w-12 h-12 mx-auto rounded-full bg-slate-100">
+              <i class="text-5xl bi bi-bell-slash text-slate-400"></i>
+            </div>
 
-          <p
-            class="mt-3 text-sm text-slate-500">
-            Belum ada notification.
-          </p>
+            <div
+              class="mt-10 text-base font-semibold tracking-wider uppercase text-slate-900">
+              Belum ada notification
+            </div>
+
+            <div
+              class="mt-1 text-[15px] italic tracking-wide
+              text-slate-500">
+              Notification aktivitas kamu akan muncul di sini
+            </div>
+          </div>
         </div>
       @endforelse
     </div>

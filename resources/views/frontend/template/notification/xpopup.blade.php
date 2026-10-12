@@ -102,7 +102,7 @@
       @else
         <span
           class="flex items-center px-2 py-1 text-[11px]
-          text-blue-600 bg-sky-50 rounded-full italic
+          text-green-600 bg-sky-50 rounded-full italic
           tracking-wider">
           0 baru
         </span>
@@ -231,7 +231,8 @@
                   @if (! empty($notification->data['comment']))
                     <div
                       class="flex-wrap items-center flex-1 mt-1 text-[15px] leading-6 tracking-wide text-gray-600 line-clamp-2">
-                      <i class="mr-1 text-xs bi bi-bell-fill"></i>
+                      <i class="mr-1 text-xs bi bi-chat-right-dots-fill">
+                      </i>
                       {{ $notification->data['comment'] }}
                     </div>
                   @endif
