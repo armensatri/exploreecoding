@@ -16,7 +16,8 @@
     <div class="flex lg:hidden">
       <button @click="openSidebar = true"
         type="button"
-        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+        class="-m-2.5 inline-flex items-center justify-center
+        rounded-md p-2.5 text-gray-700">
         <svg fill="none"
           viewBox="0 0 24 24"
           stroke-width="1.5"
@@ -47,8 +48,8 @@
     x-transition:leave-end="opacity-0"
     class="lg:hidden" role="dialog" aria-modal="true">
     <div class="fixed inset-0 z-50"></div>
-    <div class="fixed inset-y-0 right-0 z-50 w-full px-6 py-5 overflow-y-auto bg-sky-50 sm:max-w-sm sm:ring-1
-    sm:ring-gray-900/10">
+    <div
+      class="fixed inset-y-0 right-0 z-50 w-full px-6 py-5 overflow-y-auto bg-sky-50 max-w-121 sm:ring-1 sm:ring-gray-900/10">
       <div
         class="flex items-center justify-between">
         <!-- MENU MOBILE AUTH -->
@@ -62,7 +63,7 @@
             stroke-width="1.5"
             stroke="currentColor"
             aria-hidden="true"
-            class="p-1 rounded-full w-7 h-7 hover:bg-red-500 hover:text-white hover:border hover:border-gray-600 cursor-pointer">
+            class="p-1 bg-gray-200 border border-gray-500 rounded-full cursor-pointer text-slate-500 w-7 h-7 hover:bg-red-500 hover:text-white hover:border hover:border-gray-600">
             <path stroke-linecap="round"
               stroke-linejoin="round"
               d="M6 18L18 6M6 6l12 12"
@@ -70,7 +71,6 @@
           </svg>
         </button>
       </div>
-      <hr class="h-0.5 text-gray-400 bg-gray-400">
 
       <!-- MENU MOBILE -->
       @include('frontend.template.header.mobile')

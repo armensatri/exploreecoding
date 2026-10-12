@@ -889,7 +889,7 @@ class TipscodingController extends Controller
     string $category,
     string $tipscoding,
     TipscodingComment $comment
-  ) {
+    ) {
     $user = Auth::user();
 
     abort_if(

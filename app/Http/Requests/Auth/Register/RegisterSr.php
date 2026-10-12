@@ -16,15 +16,15 @@ class RegisterSr extends FormRequest
     return [
       'name' => [
         'required',
-        'min:4',
-        'max:25',
+        'min:3',
+        'max:20',
         'regex:/^[a-zA-Z\s]+$/',
       ],
 
       'username' => [
         'required',
-        'min:4',
-        'max:10',
+        'min:3',
+        'max:14',
         'regex:/^[a-z]+$/',
         'unique:users,username',
       ],
@@ -54,13 +54,13 @@ class RegisterSr extends FormRequest
   {
     return [
       'name.required' => 'Nama! harus di isi',
-      'name.min' => 'Nama! minimal 4 karakter',
-      'name.max' => 'Nama! maksimal 25 karakter',
+      'name.min' => 'Nama! minimal 3 karakter',
+      'name.max' => 'Nama! maksimal 20 karakter',
       'name.regex' => 'Nama! hanya boleh huruf kecil atau besar saja',
 
       'username.required' => 'Username! harus di isi',
-      'username.min' => 'Username! minimal 4 karakter',
-      'username.max' => 'Username! maksimal 10 karakter',
+      'username.min' => 'Username! minimal 3 karakter',
+      'username.max' => 'Username! maksimal 14 karakter',
       'username.regex' => 'User..username! hanya boleh huruf kecil saja dan tanpa spasi',
       'username.unique' => 'Username! sudah terdaftar',
 

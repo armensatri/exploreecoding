@@ -32,7 +32,7 @@ class TipscodingCommentReportNotification extends Notification
       'comment_id' => $this->report->tipscoding_comment_id,
       'tipscoding_id' => $this->report->comment?->tipscoding_id,
       'reporter_id' => $this->report->user_id,
-      'reporter_name' => $this->report->user?->name,
+      'reporter_username' => $this->report->user?->username,
       'reason' => $this->report->reason,
       'comment' => $this->report->comment?->comment,
       'type' => 'tipscoding.comment.report',

@@ -40,7 +40,7 @@ class TipscodingCommentPinnedNotification extends Notification
 
       'actor_id' => $this->actor->id,
 
-      'actor_name' => $this->actor->name,
+      'actor_username' => $this->actor->username,
 
       'comment' => $this->comment->comment,
     ];

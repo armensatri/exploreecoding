@@ -9,38 +9,50 @@ class TipscodingNotification
   public static function message(
     DatabaseNotification $notification
   ): string {
+    $username = $notification->data['actor_username']
+      ?? $notification->data['reporter_username']
+      ?? 'seseorang';
+
+    $username = '<span class="text-blue-600">'
+      . '@'
+      . e($username)
+      . '</span>';
+
     return match ($notification->data['type'] ?? null) {
-      'tipscoding.comment' => (
-        $notification->data['actor_name'] ?? 'Seseorang'
-        ) . ' mengomentari tipscoding anda',
+      'tipscoding.comment' =>
+      $username . ' mengomentari tipscoding anda',
 
-      'tipscoding.comment.reply' => (
-        $notification->data['actor_name'] ?? 'Seseorang'
-        ) . ' membalas komentar anda',
+      'tipscoding.comment.reply' =>
+      $username . ' membalas komentar anda',
 
-      'tipscoding.comment.reaction' => (
-        $notification->data['actor_name'] ?? 'Seseorang'
-        ) . ' menyukai komentar anda',
+      'tipscoding.comment.reaction' =>
+      $username . ' menyukai komentar anda',
 
-      'tipscoding.comment.pinned' => (
-        $notification->data['actor_name'] ?? 'Seseorang'
-        ) . ' menyematkan komentar anda',
+      'tipscoding.comment.pinned' =>
+      $username . ' menyematkan komentar anda',
 
-      'tipscoding.comment.report' => (
-        $notification->data['reporter_name'] ?? 'Seseorang'
-        ) . ' melaporkan sebuah komentar',
+      'tipscoding.comment.report' =>
+      $username . ' melaporkan sebuah komentar',
 
       'tipscoding.comment.report.result' => match (
         $notification->data['status'] ?? null)
         {
           'resolved' =>
-          'laporan Anda telah di tindak lanjuti dan komentar di sembunyikan',
+            '<span class="text-blue-600">'
+            . 'laporan anda di setujui'
+            . '</span>'
+            . ' komentar di sembunyikan',
 
           'rejected' =>
-          'laporan anda telah di tolak dan komentar tetap di tampilkan',
+            '<span class="text-blue-600">'
+            . 'laporan anda di tolak'
+            . '</span>'
+            . ' komentar tetap di tampilkan',
 
           default =>
-          'laporan anda telah di tinjau',
+            '<span class="text-blue-600">'
+            . 'laporan anda telah di tinjau'
+            . '</span>',
         },
 
       default =>

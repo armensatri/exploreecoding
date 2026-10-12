@@ -53,8 +53,8 @@
   <div role="menu"
     aria-orientation="vertical"
     aria-labelledby="notification-dropdown"
-    class="hs-dropdown-menu transition-[opacity,margin] duration-200 hs-dropdown-open:opacity-100 opacity-0 hidden absolute right-0 top-full mt-3 w-102.5 justify-center bg-white border
-    border-slate-200 rounded-2xl shadow-xl overflow-hidden z-50">
+    class="hs-dropdown-menu transition-[opacity,margin] duration-200 hs-dropdown-open:opacity-100 opacity-0 hidden absolute right-0 top-full mt-3 w-120 justify-center bg-white border
+    border-gray-300 rounded-3xl shadow-xl overflow-hidden z-50">
 
     {{-- Header --}}
     <div
@@ -62,7 +62,7 @@
       <div class="flex items-center gap-2">
         <div
           class="flex items-center justify-center w-10.5 h-10.5 rounded-full bg-blue-100">
-          <i class="text-xl bi bi-bell text-black"></i>
+          <i class="text-xl text-black bi bi-bell"></i>
         </div>
 
         <div>
@@ -82,8 +82,7 @@
             <div
               class="text-[12px] italic tracking-wider
               text-green-600">
-              <i class="bi bi-check2-circle text-base
-                text-green-600">
+              <i class="text-base text-green-600 bi bi-check2-circle">
               </i>
               Semua sudah dibaca
             </div>
@@ -105,7 +104,7 @@
           class="flex items-center px-2 py-1 text-[11px]
           text-blue-600 bg-sky-50 rounded-full italic
           tracking-wider">
-            No baru
+          0 baru
         </span>
       @endif
     </div>
@@ -120,7 +119,7 @@
 
         {{-- Date header --}}
         <div
-          class="sticky top-0 z-10 px-4 py-2 bg-slate-50 backdrop-blur">
+          class="sticky top-0 z-10 px-4 py-2 bg-slate-50">
           <div>
             @if ($dateCarbon->isToday())
               <span
@@ -158,21 +157,17 @@
               'notifications.read', $notification->id) }}"
               class="group block px-4 py-3 transition
               {{ $notification->read_at
-              ? 'bg-white hover:bg-blue-100'
+              ? 'bg-white hover:bg-gray-50'
               : 'bg-red-50 hover:bg-red-100' }}">
               <div class="flex gap-3">
                 {{-- Icon --}}
                 <div
-                  class="shrink-0 w-9 h-9 flex items-center
-                  justify-center border border-gray-200 rounded-full transition {{ $notification->read_at
-                    ? 'bg-slate-100'
-                    : 'bg-slate-100' }}">
+                  class="flex items-center justify-center transition border border-gray-200 rounded-full shrink-0 w-9 h-9 bg-slate-100">
                   {{-- Reaction --}}
                   @if ($type === 'tipscoding.comment.reaction')
                     @if ($reaction === 'like')
                       <i
-                        class="bi bi-hand-thumbs-up-fill
-                        text-yellow-400">
+                        class="text-yellow-400 bi bi-hand-thumbs-up-fill">
                       </i>
                     @elseif ($reaction === 'dislike')
                       <i class="bi bi-hand-thumbs-down-fill"></i>
@@ -182,26 +177,27 @@
 
                   {{-- Reply --}}
                   @elseif ($type === 'tipscoding.comment.reply')
-                    <i class="bi bi-reply-fill text-blue-500"></i>
+                    <i class="text-blue-500 bi bi-reply-fill"></i>
 
                   {{-- Pinned --}}
                   @elseif ($type === 'tipscoding.comment.pinned')
-                    <i class="bi bi-pin-angle-fill"></i>
+                    <i class="text-blue-500 bi bi-pin-angle-fill"></i>
 
                   {{-- Comment --}}
                   @elseif ($type === 'tipscoding.comment')
-                    <i class="bi bi-chat-fill text-green-400"></i>
+                    <i class="text-green-400 bi bi-chat-fill"></i>
 
                   {{-- Report --}}
                   @elseif ($type === 'tipscoding.comment.report')
-                    <i class="bi bi-flag-fill"></i>
+                    <i class="text-red-500 bi bi-flag-fill"></i>
 
                   {{-- Report result --}}
                   @elseif ($type === 'tipscoding.comment.report.result')
                     @if ($reportStatus === 'resolved')
-                      <i class="bi bi-check-circle-fill"></i>
+                      <i class="text-green-500 bi bi-check-circle-fill">
+                      </i>
                     @elseif ($reportStatus === 'rejected')
-                      <i class="bi bi-x-circle-fill"></i>
+                      <i class="text-red-500 bi bi-x-circle-fill"></i>
                     @else
                       <i class="bi bi-flag-fill"></i>
                     @endif
@@ -213,20 +209,20 @@
                 </div>
 
                 {{-- Content --}}
-                <div class="flex-1 min-w-0">
+                <div class="flex-1 min-w-0 mt-0.5">
                   {{-- Message + unread dot --}}
                   <div class="flex items-start justify-between gap-2">
                     <div
-                      class="text-[15px] tracking-wide leading-5 line-clamp-2 {{ $notification->read_at ? '
-                      text-slate-900' : '
-                      text-slate-900' }}">
-                      {!! \App\Support\TipscodingNotification::message($notification) !!}
+                      class="text-[15px] tracking-wide leading-5 line-clamp-2 text-slate-900">
+                      {!!
+                        \App\Support\TipscodingNotification::message($notification)
+                      !!}
                     </div>
 
                     {{-- Unread dot --}}
                     @if (! $notification->read_at)
                       <span
-                        class="shrink-0 w-2 h-2 mt-1.5 rounded-full bg-sky-500">
+                        class="shrink-0 w-2 h-2 mt-1.5 rounded-full bg-red-500">
                       </span>
                     @endif
                   </div>
@@ -234,13 +230,16 @@
                   {{-- Comment preview --}}
                   @if (! empty($notification->data['comment']))
                     <div
-                      class="mt-1 text-xs leading-5 text-slate-500 line-clamp-2">
+                      class="flex-wrap items-center flex-1 mt-1 text-[15px] leading-6 tracking-wide text-gray-600 line-clamp-2">
+                      <i class="mr-1 text-xs bi bi-bell-fill"></i>
                       {{ $notification->data['comment'] }}
                     </div>
                   @endif
 
                   {{-- Relative time --}}
-                  <div class="mt-1 text-[11px] text-slate-400">
+                  <div
+                    class="mt-5 tracking-wide text-[12px]
+                    text-slate-500">
                     {{ $notification->created_at->diffForHumans() }}
                   </div>
                 </div>
@@ -253,15 +252,19 @@
         <div class="px-4 py-10 text-center">
           <div
             class="flex items-center justify-center w-12 h-12 mx-auto rounded-full bg-slate-100">
-            <i class="text-2xl bi bi-bell-slash text-slate-300"></i>
+            <i class="text-2xl bi bi-bell-slash text-slate-400"></i>
           </div>
 
-          <div class="mt-3 text-sm font-medium text-slate-600">
-            Belum ada notification.
+          <div
+            class="mt-5 text-[13px] font-semibold tracking-wider
+            uppercase text-slate-900">
+            Belum ada notification
           </div>
 
-          <div class="mt-1 text-xs text-slate-400">
-            Notification aktivitas kamu akan muncul di sini.
+          <div
+            class="mt-1 text-[13px] italic tracking-wide
+            text-slate-500">
+            Notification aktivitas kamu akan muncul di sini
           </div>
         </div>
       @endforelse
@@ -271,8 +274,8 @@
     @if ($latestNotifications->isNotEmpty())
       <div class="border-t border-slate-200">
         <a href="{{ route('notifications.index') }}"
-          class="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium transition text-sky-600 hover:bg-sky-50">
-          <span>Lihat semua notifications</span>
+          class="flex items-center justify-center gap-2 px-4 py-3 text-sm italic font-medium tracking-wide transition text-sky-600 hover:bg-blue-600 hover:text-white">
+          <span>Lihat Semua Notifications</span>
           <i class="bi bi-arrow-right"></i>
         </a>
       </div>
