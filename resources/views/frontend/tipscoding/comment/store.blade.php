@@ -20,7 +20,8 @@
 
     <div class="flex justify-center py-10">
       <div
-        class="w-full p-6 space-y-6 font-sans text-gray-800 bg-white shadow-xs rounded-2xl xl:p-8">
+        class="w-full p-6 space-y-6 font-sans text-gray-800
+        bg-white shadow-xs rounded-2xl xl:p-8">
 
         {{-- Header --}}
         @include('frontend.tipscoding.comment.header')
@@ -373,191 +374,92 @@
     }
   });
 
-  // Like & dislike INI LAGI YA
-  document.addEventListener(
-    'click',
-    async function (event) {
+  // Like & dislike
+  document.addEventListener('click', async function (event) {
+    const button = event.target.closest('[data-reaction-button]');
 
-      const button =
-        event.target.closest(
-          '[data-reaction-button]'
-        );
+    if (!button) return;
+    event.preventDefault();
 
-      if (!button) {
-        return;
+    if (button.dataset.loading === 'true') return;
+
+    const commentId = button.dataset.commentId;
+    const url = button.dataset.url;
+    const buttons = document.querySelectorAll(
+      `[data-reaction-button][data-comment-id="${commentId}"]`
+    );
+
+    try {
+      button.dataset.loading = 'true';
+
+      buttons.forEach(function (item) {
+        item.disabled = true;
+        item.classList.add('opacity-60');
+      });
+
+      const csrfToken = document.querySelector(
+        'meta[name="csrf-token"]'
+      );
+
+      if (!csrfToken) {
+        throw new Error('CSRF token tidak ditemukan.');
       }
 
-      event.preventDefault();
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': csrfToken.getAttribute('content'),
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+      });
 
-      if (
-        button.dataset.loading ===
-        'true'
-      ) {
-        return;
+      if (!response.ok) {
+        throw new Error('Gagal memproses reaction.');
       }
 
-      const commentId =
-        button.dataset.commentId;
+      const data = await response.json();
 
-      const url =
-        button.dataset.url;
+      updateReactionButtons(
+        buttons,
+        data
+      );
+    } catch (error) {
+      console.error('Reaction error:', error);
 
-      const buttons =
-        document.querySelectorAll(
-          `[data-reaction-button][data-comment-id="${commentId}"]`
-        );
-
-      try {
-
-        button.dataset.loading =
-          'true';
-
-        buttons.forEach(function (item) {
-
-          item.disabled =
-            true;
-
-          item.classList.add(
-            'opacity-60'
-          );
-
-        });
-
-        const csrfToken =
-          document.querySelector(
-            'meta[name="csrf-token"]'
-          );
-
-        if (!csrfToken) {
-
-          throw new Error(
-            'CSRF token tidak ditemukan.'
-          );
-
-        }
-
-        const response =
-          await fetch(
-            url,
-            {
-              method: 'POST',
-
-              headers: {
-
-                'X-CSRF-TOKEN':
-                  csrfToken.getAttribute(
-                    'content'
-                  ),
-
-                'Accept':
-                  'application/json',
-
-                'X-Requested-With':
-                  'XMLHttpRequest',
-
-              },
-
-            }
-          );
-
-        if (!response.ok) {
-
-          throw new Error(
-            'Gagal memproses reaction.'
-          );
-
-        }
-
-        const data =
-          await response.json();
-
-        updateReactionButtons(
-          buttons,
-          data
-        );
-
-      } catch (error) {
-
-        console.error(
-          'Reaction error:',
-          error
-        );
-
-        alert(
-          'Terjadi kesalahan saat memproses reaction.'
-        );
-
-      } finally {
-
-        buttons.forEach(function (item) {
-
-          item.disabled =
-            false;
-
-          item.classList.remove(
-            'opacity-60'
-          );
-
-          item.dataset.loading =
-            'false';
-
-        });
-
-      }
-
+      alert(
+        'Terjadi kesalahan saat memproses reaction.'
+      );
+    } finally {
+      buttons.forEach(function (item) {
+        item.disabled = false;
+        item.classList.remove('opacity-60');
+        item.dataset.loading = 'false';
+      });
     }
-  );
+  });
 
   // Update reaction buttons
   function updateReactionButtons(buttons, data) {
     buttons.forEach(function (button) {
+      const type = button.dataset.type;
+      const icon = button.querySelector('.reaction-icon');
+      const count = button.querySelector('.reaction-count');
 
-      const type =
-        button.dataset.type;
+      if (!icon || !count) return;
+      const active = data.reaction === type;
 
-      const icon =
-        button.querySelector(
-          '.reaction-icon'
-        );
-
-      const count =
-        button.querySelector(
-          '.reaction-count'
-        );
-
-      if (!icon || !count) {
-        return;
-      }
-
-      const active =
-        data.reaction === type;
-
-      /*
-      |--------------------------------------------------------------------------
-      | COUNT
-      |--------------------------------------------------------------------------
-      */
-
+      // Update reaction buttons . count like
       if (type === 'like') {
-
-        count.textContent =
-          data.likes_count;
-
+        count.textContent = data.likes_count;
       }
 
+      // Update reaction buttons . count dislike
       if (type === 'dislike') {
-
-        count.textContent =
-          data.dislikes_count;
-
+        count.textContent = data.dislikes_count;
       }
 
-      /*
-      |--------------------------------------------------------------------------
-      | RESET BUTTON
-      |--------------------------------------------------------------------------
-      */
-
+      // Update reaction buttons . reset button
       button.classList.remove(
         'bg-blue-100',
         'border-blue-300',
@@ -571,12 +473,7 @@
         'hover:bg-indigo-100'
       );
 
-      /*
-      |--------------------------------------------------------------------------
-      | RESET ICON
-      |--------------------------------------------------------------------------
-      */
-
+      // Update reaction buttons . reset icon
       icon.classList.remove(
         'bi-hand-thumbs-up',
         'bi-hand-thumbs-up-fill',
@@ -588,16 +485,9 @@
         'text-red-800'
       );
 
-      /*
-      |--------------------------------------------------------------------------
-      | LIKE
-      |--------------------------------------------------------------------------
-      */
-
+      // Update reaction buttons . like color
       if (type === 'like') {
-
         if (active) {
-
           button.classList.add(
             'bg-blue-100',
             'border-blue-300',
@@ -608,9 +498,7 @@
             'bi-hand-thumbs-up-fill',
             'text-blue-700'
           );
-
         } else {
-
           button.classList.add(
             'bg-indigo-50',
             'border-indigo-200',
@@ -622,21 +510,12 @@
             'bi-hand-thumbs-up',
             'text-blue-800'
           );
-
         }
-
       }
 
-      /*
-      |--------------------------------------------------------------------------
-      | DISLIKE
-      |--------------------------------------------------------------------------
-      */
-
+      // Update reaction buttons . dislike color
       if (type === 'dislike') {
-
         if (active) {
-
           button.classList.add(
             'bg-red-100',
             'border-red-300',
@@ -647,9 +526,7 @@
             'bi-hand-thumbs-down-fill',
             'text-red-700'
           );
-
         } else {
-
           button.classList.add(
             'bg-indigo-50',
             'border-indigo-200',
@@ -661,135 +538,65 @@
             'bi-hand-thumbs-down',
             'text-red-800'
           );
-
         }
-
       }
-
     });
-
   }
 
   // Report comment
-  document.addEventListener(
-    'click',
-    function (event) {
+  document.addEventListener('click', function (event) {
+    const button = event.target.closest('[data-report-comment]');
 
-      const button =
-        event.target.closest(
-          '[data-report-comment]'
-        );
+    if (!button) return;
+    event.preventDefault();
 
-      if (!button) {
-        return;
-      }
+    const modal = document.getElementById('reportCommentModal');
+    const form = document.getElementById('reportCommentForm');
 
-      event.preventDefault();
+    if (!modal || !form) return;
 
-      const modal =
-        document.getElementById(
-          'reportCommentModal'
-        );
+    const commentId = button.dataset.commentId;
 
-      const form =
-        document.getElementById(
-          'reportCommentForm'
-        );
+    form.action = `{{
+      url('/ec/tipscodings/category/'
+      . $category->slug
+      . '/tips/'
+      . $tipscoding->slug
+      . '/comments')
+    }}/${commentId}/report`;
 
-      if (!modal || !form) {
-        return;
-      }
+    form.querySelector('[name="reason"]').value = '';
+    form.querySelector('[name="description"]').value = '';
 
-      const commentId =
-        button.dataset.commentId;
-
-      form.action =
-        `{{ url('/ec/tipscodings/category/' . $category->slug . '/tips/' . $tipscoding->slug . '/comments') }}/${commentId}/report`;
-
-      form.querySelector(
-        '[name="reason"]'
-      ).value = '';
-
-      form.querySelector(
-        '[name="description"]'
-      ).value = '';
-
-      modal.classList.remove(
-        'hidden'
-      );
-
-      modal.classList.add(
-        'flex'
-      );
-
-      document.body.classList.add(
-        'overflow-hidden'
-      );
-
-    }
-  );
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.classList.add('overflow-hidden');
+  });
 
   // Close report
   function closeReportComment() {
+    const modal = document.getElementById('reportCommentModal');
+    const form = document.getElementById('reportCommentForm');
 
-    const modal =
-      document.getElementById(
-        'reportCommentModal'
-      );
+    if (!modal || !form) return;
 
-    const form =
-      document.getElementById(
-        'reportCommentForm'
-      );
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 
-    if (!modal || !form) {
-      return;
-    }
+    document.body.classList.remove('overflow-hidden');
 
-    modal.classList.add(
-      'hidden'
-    );
-
-    modal.classList.remove(
-      'flex'
-    );
-
-    document.body.classList.remove(
-      'overflow-hidden'
-    );
-
-    form.querySelector(
-      '[name="reason"]'
-    ).value = '';
-
-    form.querySelector(
-      '[name="description"]'
-    ).value = '';
-
+    form.querySelector('[name="reason"]').value = '';
+    form.querySelector('[name="description"]').value = '';
   }
 
   // Report backdrop
-  const reportModal =
-    document.getElementById(
-      'reportCommentModal'
-    );
+  const reportModal = document.getElementById('reportCommentModal');
 
   if (reportModal) {
-
-    reportModal.addEventListener(
-      'click',
-      function (event) {
-
-        if (
-          event.target === this
-        ) {
-
-          closeReportComment();
-
-        }
-
+    reportModal.addEventListener('click',function (event) {
+      if (event.target === this) {
+        closeReportComment();
       }
-    );
-
+    });
   }
 </script>
