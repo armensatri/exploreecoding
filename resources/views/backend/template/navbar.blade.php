@@ -24,9 +24,9 @@
           @include('frontend.template.notification.xpopup')
         </div>
 
-        <div class="m-1 z-40 hs-dropdown [--trigger:hover] relative
+        <div
+          class="m-1 z-40 hs-dropdown [--trigger:hover] relative
           inline-flex">
-
           <div id="hs-dropdown-hover-event-backend"
             class="inline-flex items-center text-sm font-medium rounded-lg cursor-pointer hs-dropdown-toggle gap-x-2 disabled:opacity-50 disabled:pointer-events-none">
 

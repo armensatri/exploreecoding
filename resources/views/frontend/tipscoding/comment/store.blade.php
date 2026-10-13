@@ -1,7 +1,5 @@
 <section class="mt-10 sm:px-5">
-
-  <div class="alert">
-
+  <div class="comment">
     @if (session()->has('alert'))
       @include('sweetalert::alert')
     @endif
@@ -20,1788 +18,176 @@
         $tipscoding->user_id === $currentUser?->id;
     @endphp
 
-
     <div class="flex justify-center py-10">
+      <div
+        class="w-full p-6 space-y-6 font-sans text-gray-800 bg-white shadow-xs rounded-2xl xl:p-8">
 
-      <div class="w-full p-6 space-y-6 font-sans text-gray-800 bg-white shadow-xs rounded-2xl xl:p-8">
+        {{-- Header --}}
+        @include('frontend.tipscoding.comment.header')
 
-        {{-- ========================================================= --}}
-        {{-- HEADER --}}
-        {{-- ========================================================= --}}
+        {{-- Daftar comment --}}
+        @include('frontend.tipscoding.comment.daftar-comment')
 
-        <div class="flex items-center justify-between mb-4">
+        {{-- Report modal --}}
+        @include('frontend.tipscoding.comment.report-modal')
 
-          <div class="text-xl font-semibold text-slate-800">
-            Comments
-          </div>
+        {{-- Orphan replies --}}
+        @include('frontend.tipscoding.comment.orphan-replies')
 
-          @if ($canManageAllComments || $canManageTipscodingComments)
-
-            <div class="flex items-center gap-2 text-xs">
-
-              <span class="text-slate-400">
-                Pinned {{ $pinnedCount }}/5
-              </span>
-
-              @if ($pinnedCount >= 5)
-
-                <span class="text-slate-300">
-                  · Maksimal 5 komentar
-                </span>
-
-              @endif
-
-            </div>
-
-          @endif
-
-        </div>
-
-
-        {{-- ========================================================= --}}
-        {{-- DAFTAR KOMENTAR --}}
-        {{-- ========================================================= --}}
-
-        @forelse ($comments as $comment)
-
-          @php
-            $canDeleteComment =
-              $comment->user_id === $currentUser?->id ||
-              $canManageAllComments ||
-              $canManageTipscodingComments;
-
-            $commentReaction =
-              $comment->reactions->first()?->type;
-          @endphp
-
-
-          {{-- ========================================================= --}}
-          {{-- KOMENTAR UTAMA --}}
-          {{-- ========================================================= --}}
-
-          <div
-            id="comment-{{ $comment->id }}"
-            class="scroll-mt-24 {{ $comment->is_pinned ? 'rounded-r-md border-l-2 border-blue-500 bg-blue-50/50 pl-3' : '' }}"
-          >
-
-            <div
-              class="flex items-start space-x-3 sm:space-x-4"
-              data-comment-id="{{ $comment->id }}"
-            >
-
-              {{-- ===================================================== --}}
-              {{-- AVATAR --}}
-              {{-- ===================================================== --}}
-
-              <img
-                src="{{ $comment->user?->image ? asset('storage/' . $comment->user->image) : asset('backend/img/user/user.png') }}"
-                alt="{{ $comment->user?->username ?? 'User' }}"
-                class="object-cover object-top w-10 h-10 p-px bg-gray-500 rounded-full"
-              />
-
-
-              {{-- ===================================================== --}}
-              {{-- CONTENT --}}
-              {{-- ===================================================== --}}
-
-              <div class="flex-1 mt-2 space-y-2 text-sm sm:text-base">
-
-
-                {{-- ================================================= --}}
-                {{-- USERNAME + WAKTU --}}
-                {{-- ================================================= --}}
-
-                <div class="flex flex-wrap items-center space-x-2">
-
-                  <div class="font-medium text-gray-800">
-                    <span>@</span>{{ $comment->user?->username ?? 'user' }}
-                  </div>
-
-
-                  {{-- PINNED --}}
-
-                  @if ($comment->is_pinned)
-
-                    <div class="text-[12px] font-medium text-blue-600">
-                      <i class="bi bi-pin-angle-fill"></i>
-                      Pinned
-                    </div>
-
-                  @endif
-
-
-                  {{-- WAKTU --}}
-
-                  <div class="mt-0.5 text-[13px] tracking-normal text-gray-400">
-                    di buat {{ $comment->created_at->diffForHumans() }}
-                  </div>
-
-
-                  {{-- EDITED --}}
-
-                  @if ($comment->edited_at)
-
-                    <div class="mt-0.5 text-[13px] tracking-normal text-gray-400">
-                      · Edited {{ $comment->edited_at->diffForHumans() }}
-                    </div>
-
-                  @endif
-
-                </div>
-
-
-                {{-- ================================================= --}}
-                {{-- ISI KOMENTAR --}}
-                {{-- ================================================= --}}
-
-                @if ($comment->status === 'hidden')
-
-                  <div class="ml-1 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm italic text-slate-400">
-                    <i class="mr-1 bi bi-eye-slash"></i>
-                    Komentar ini telah disembunyikan.
-                  </div>
-
-                @else
-
-                  <p class="ml-1 text-gray-800 whitespace-pre-line">
-                    {{ $comment->comment }}
-                  </p>
-
-                @endif
-
-
-                {{-- ================================================= --}}
-                {{-- ACTION KOMENTAR --}}
-                {{-- ================================================= --}}
-
-                <div class="ml-1 flex flex-wrap items-center gap-1.5">
-
-
-                  {{-- ================================================= --}}
-                  {{-- EDIT --}}
-                  {{-- ================================================= --}}
-
-                  @if (
-                    $comment->status === 'approved' &&
-                    $comment->user_id === $currentUser?->id
-                  )
-
-                    <button
-                      type="button"
-                      onclick="openEditComment(
-                        {{ $comment->id }},
-                        @js($comment->comment),
-                        @js(route('tipscodings.comments.update', [
-                          'category' => $category->slug,
-                          'tipscoding' => $tipscoding->slug,
-                          'comment' => $comment->id,
-                        ]))
-                      )"
-                      class="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-indigo-200 bg-blue-500 px-2 py-1 text-[12px] font-medium text-white hover:bg-blue-600"
-                      title="Edit komentar"
-                    >
-                      <i class="bi bi-pencil-square"></i>
-                    </button>
-
-                  @endif
-
-
-                  {{-- ================================================= --}}
-                  {{-- DELETE --}}
-                  {{-- ================================================= --}}
-
-                  @if ($canDeleteComment)
-
-                    <form
-                      action="{{ route('tipscodings.comments.destroy', [
-                        'category' => $category->slug,
-                        'tipscoding' => $tipscoding->slug,
-                        'comment' => $comment->id,
-                      ]) }}"
-                      method="POST"
-                      class="inline"
-                      onsubmit="return confirm('Yakin ingin menghapus komentar ini?')"
-                    >
-
-                      @csrf
-                      @method('DELETE')
-
-                      <button
-                        type="submit"
-                        class="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-red-200 bg-red-500 px-2 py-1 text-[12px] font-medium text-white hover:bg-red-600"
-                        title="Hapus komentar"
-                      >
-                        <i class="bi bi-trash3"></i>
-                      </button>
-
-                    </form>
-
-                  @endif
-
-
-                  {{-- ================================================= --}}
-                  {{-- ACTION APPROVED --}}
-                  {{-- ================================================= --}}
-
-                  @if ($comment->status === 'approved')
-
-
-                    {{-- ================================================= --}}
-                    {{-- REPLY --}}
-                    {{-- ================================================= --}}
-
-                    <button
-                      type="button"
-                      onclick="openReplyComment(
-                        {{ $comment->id }},
-                        @js($comment->user?->username ?? 'user')
-                      )"
-                      class="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-2 py-1 text-[12px] font-medium text-gray-700 hover:bg-gray-100"
-                      title="Balas komentar"
-                    >
-                      <i class="bi bi-reply"></i>
-                    </button>
-
-
-                    {{-- ================================================= --}}
-                    {{-- REPORT --}}
-                    {{-- ================================================= --}}
-
-                    @if (Auth::check())
-
-                      <button
-                        type="button"
-                        data-report-comment
-                        data-comment-id="{{ $comment->id }}"
-                        class="inline-flex items-center gap-1 text-xs font-medium transition text-slate-500 hover:text-red-500"
-                      >
-                        <i class="bi bi-flag"></i>
-                        <span>Report</span>
-                      </button>
-
-                    @endif
-
-
-                    {{-- ================================================= --}}
-                    {{-- LIKE --}}
-                    {{-- ================================================= --}}
-
-                    <button
-                      type="button"
-                      data-reaction-button
-                      data-comment-id="{{ $comment->id }}"
-                      data-type="like"
-                      data-url="{{ route('tipscodings.comments.reaction', [
-                        'category' => $category->slug,
-                        'tipscoding' => $tipscoding->slug,
-                        'comment' => $comment->id,
-                        'type' => 'like',
-                      ]) }}"
-                      class="reaction-like inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition {{ $commentReaction === 'like' ? 'border-blue-300 bg-blue-100 text-blue-700' : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
-                      title="Like"
-                    >
-
-                      <i class="reaction-icon bi bi-hand-thumbs-up{{ $commentReaction === 'like' ? '-fill' : '' }} {{ $commentReaction === 'like' ? 'text-blue-700' : 'text-blue-800' }}"></i>
-
-                      <span class="ml-1 reaction-count">
-                        {{ $comment->likes_count }}
-                      </span>
-
-                    </button>
-
-
-                    {{-- ================================================= --}}
-                    {{-- DISLIKE --}}
-                    {{-- ================================================= --}}
-
-                    <button
-                      type="button"
-                      data-reaction-button
-                      data-comment-id="{{ $comment->id }}"
-                      data-type="dislike"
-                      data-url="{{ route('tipscodings.comments.reaction', [
-                        'category' => $category->slug,
-                        'tipscoding' => $tipscoding->slug,
-                        'comment' => $comment->id,
-                        'type' => 'dislike',
-                      ]) }}"
-                      class="reaction-dislike inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition {{ $commentReaction === 'dislike' ? 'border-red-300 bg-red-100 text-red-700' : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
-                      title="Dislike"
-                    >
-
-                      <i class="reaction-icon bi bi-hand-thumbs-down{{ $commentReaction === 'dislike' ? '-fill' : '' }} {{ $commentReaction === 'dislike' ? 'text-red-700' : 'text-red-800' }}"></i>
-
-                      <span class="ml-1 reaction-count">
-                        {{ $comment->dislikes_count }}
-                      </span>
-
-                    </button>
-
-
-                    {{-- ================================================= --}}
-                    {{-- PIN --}}
-                    {{-- ================================================= --}}
-
-                    @php
-                      $user = Auth::user();
-                      $role = $user?->role?->name;
-
-                      $canPin =
-                        $role === 'owner' ||
-                        $role === 'superadmin' ||
-                        (
-                          $role === 'creator' &&
-                          $tipscoding->user_id === $user?->id
-                        );
-                    @endphp
-
-                    @if ($canPin)
-
-                      <form
-                        action="{{ route('tipscodings.comments.pin', [
-                          'category' => $category->slug,
-                          'tipscoding' => $tipscoding->slug,
-                          'comment' => $comment->id,
-                        ]) }}"
-                        method="POST"
-                      >
-
-                        @csrf
-                        @method('PATCH')
-
-                        <button
-                          type="submit"
-                          class="cursor-pointer rounded-md px-2 py-1 text-xs {{ $comment->is_pinned ? 'text-blue-600 hover:text-blue-700' : 'text-slate-500 hover:text-blue-600' }}"
-                        >
-                          {{ $comment->is_pinned ? 'Unpin' : 'Pin' }}
-                        </button>
-
-                      </form>
-
-                    @endif
-
-                  @endif
-
-                </div>
-
-
-                {{-- ========================================================= --}}
-                {{-- DAFTAR REPLY --}}
-                {{-- ========================================================= --}}
-
-                @if ($comment->replies->isNotEmpty())
-
-                  <div class="pl-4 mt-4 ml-2 space-y-4 border-l-2 border-gray-100 sm:ml-6">
-
-                    @foreach ($comment->replies as $reply)
-
-                      @php
-                        $canDeleteReply =
-                          $reply->user_id === $currentUser?->id ||
-                          $canManageAllComments ||
-                          $canManageTipscodingComments;
-
-                        $replyReaction =
-                          $reply->reactions->first()?->type;
-                      @endphp
-
-
-                      {{-- ================================================= --}}
-                      {{-- REPLY --}}
-                      {{-- ================================================= --}}
-
-                      <div
-                        id="comment-{{ $reply->id }}"
-                        class="scroll-mt-24"
-                      >
-
-                        <div
-                          class="flex items-start space-x-3"
-                          data-comment-id="{{ $reply->id }}"
-                        >
-
-
-                          {{-- ================================================= --}}
-                          {{-- AVATAR --}}
-                          {{-- ================================================= --}}
-
-                          <img
-                            src="{{ $reply->user?->image ? asset('storage/' . $reply->user->image) : asset('backend/img/user/user.png') }}"
-                            alt="{{ $reply->user?->username ?? 'User' }}"
-                            class="object-cover object-top w-8 h-8 p-px bg-gray-500 rounded-full"
-                          />
-
-
-                          {{-- ================================================= --}}
-                          {{-- CONTENT --}}
-                          {{-- ================================================= --}}
-
-                          <div class="flex-1 space-y-1 text-sm">
-
-
-                            {{-- ================================================= --}}
-                            {{-- USERNAME + WAKTU --}}
-                            {{-- ================================================= --}}
-
-                            <div class="flex flex-wrap items-center space-x-2">
-
-                              <div class="font-medium text-gray-800">
-                                <span>@</span>{{ $reply->user?->username ?? 'user' }}
-                              </div>
-
-                              <div class="text-[12px] text-gray-400">
-                                {{ $reply->created_at->diffForHumans() }}
-                              </div>
-
-                              @if ($reply->edited_at)
-
-                                <div class="mt-0.5 text-[13px] tracking-normal text-gray-400">
-                                  · Edited {{ $reply->edited_at->diffForHumans() }}
-                                </div>
-
-                              @endif
-
-                            </div>
-
-
-                            {{-- ================================================= --}}
-                            {{-- ISI REPLY --}}
-                            {{-- ================================================= --}}
-
-                            @if ($reply->status === 'hidden')
-
-                              <div class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm italic text-slate-400">
-                                <i class="mr-1 bi bi-eye-slash"></i>
-                                Komentar ini telah disembunyikan.
-                              </div>
-
-                            @else
-
-                              @php
-                                $replyText = $reply->comment;
-                                $replyMention = null;
-                                $replyMessage = $replyText;
-
-                                if (
-                                  preg_match(
-                                    '/^(@[a-zA-Z0-9_.-]+)(\s+)(.*)$/s',
-                                    $replyText,
-                                    $matches
-                                  )
-                                ) {
-                                  $replyMention = $matches[1];
-                                  $replyMessage = $matches[3];
-                                }
-                              @endphp
-
-                              <div class="py-2.5 text-gray-800">
-                                @if ($replyMention)
-                                  <span
-                                    class="font-medium text-blue-600">
-                                    {{ $replyMention }}
-                                  </span>
-                                  @if ($replyMessage !== '')
-                                    {{ ' ' . $replyMessage }}
-                                  @endif
-                                @else
-                                  {{ $replyText }}
-                                @endif
-                              </div>
-
-                            @endif
-
-
-                            {{-- ================================================= --}}
-                            {{-- ACTION REPLY --}}
-                            {{-- ================================================= --}}
-
-                            <div class="flex flex-wrap items-center gap-1.5">
-
-
-                              {{-- ================================================= --}}
-                              {{-- EDIT REPLY --}}
-                              {{-- ================================================= --}}
-
-                              @if (
-                                $reply->status === 'approved' &&
-                                $reply->user_id === $currentUser?->id
-                              )
-
-                                <button
-                                  type="button"
-                                  onclick="openEditComment(
-                                    {{ $reply->id }},
-                                    @js($reply->comment),
-                                    @js(route('tipscodings.comments.update', [
-                                      'category' => $category->slug,
-                                      'tipscoding' => $tipscoding->slug,
-                                      'comment' => $reply->id,
-                                    ]))
-                                  )"
-                                  class="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-indigo-200 bg-blue-500 px-2 py-1 text-[11px] font-medium text-white hover:bg-blue-600"
-                                  title="Edit balasan"
-                                >
-                                  <i class="bi bi-pencil-square"></i>
-                                </button>
-
-                              @endif
-
-
-                              {{-- ================================================= --}}
-                              {{-- DELETE REPLY --}}
-                              {{-- ================================================= --}}
-
-                              @if ($canDeleteReply)
-
-                                <form
-                                  action="{{ route('tipscodings.comments.destroy', [
-                                    'category' => $category->slug,
-                                    'tipscoding' => $tipscoding->slug,
-                                    'comment' => $reply->id,
-                                  ]) }}"
-                                  method="POST"
-                                  class="inline"
-                                  onsubmit="return confirm('Yakin ingin menghapus balasan ini?')"
-                                >
-
-                                  @csrf
-                                  @method('DELETE')
-
-                                  <button
-                                    type="submit"
-                                    class="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-red-200 bg-red-500 px-2 py-1 text-[11px] font-medium text-white hover:bg-red-600"
-                                    title="Hapus balasan"
-                                  >
-                                    <i class="bi bi-trash3"></i>
-                                  </button>
-
-                                </form>
-
-                              @endif
-
-
-                              {{-- ================================================= --}}
-                              {{-- REPLY --}}
-                              {{-- ================================================= --}}
-
-                              @if ($reply->status === 'approved')
-
-                                <button
-                                  type="button"
-                                  onclick="openReplyComment(
-                                    {{ $reply->id }},
-                                    @js($reply->user?->username ?? 'user')
-                                  )"
-                                  class="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-2 py-1 text-[11px] font-medium text-gray-700 hover:bg-gray-100"
-                                  title="Balas {{ '@' . ($reply->user?->username ?? 'user') }}"
-                                >
-                                  <i class="bi bi-reply"></i>
-                                </button>
-
-                              @endif
-
-
-                              {{-- ================================================= --}}
-                              {{-- REPORT REPLY --}}
-                              {{-- ================================================= --}}
-
-                              @if (
-                                $reply->status === 'approved' &&
-                                Auth::check()
-                              )
-
-                                <button
-                                  type="button"
-                                  data-report-comment
-                                  data-comment-id="{{ $reply->id }}"
-                                  class="inline-flex items-center gap-1 text-xs font-medium transition text-slate-500 hover:text-red-500"
-                                  title="Report balasan"
-                                >
-                                  <i class="bi bi-flag"></i>
-                                  <span>Report</span>
-                                </button>
-
-                              @endif
-
-
-                              {{-- ================================================= --}}
-                              {{-- REACTION REPLY --}}
-                              {{-- ================================================= --}}
-
-                              @if ($reply->status === 'approved')
-
-
-                                {{-- LIKE --}}
-
-                                <button
-                                  type="button"
-                                  data-reaction-button
-                                  data-comment-id="{{ $reply->id }}"
-                                  data-type="like"
-                                  data-url="{{ route('tipscodings.comments.reaction', [
-                                    'category' => $category->slug,
-                                    'tipscoding' => $tipscoding->slug,
-                                    'comment' => $reply->id,
-                                    'type' => 'like',
-                                  ]) }}"
-                                  class="reaction-like inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition {{ $replyReaction === 'like' ? 'border-blue-300 bg-blue-100 text-blue-700' : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
-                                  title="Like"
-                                >
-
-                                  <i class="reaction-icon bi bi-hand-thumbs-up{{ $replyReaction === 'like' ? '-fill' : '' }} {{ $replyReaction === 'like' ? 'text-blue-700' : 'text-blue-800' }}"></i>
-
-                                  <span class="ml-1 reaction-count">
-                                    {{ $reply->likes_count }}
-                                  </span>
-
-                                </button>
-
-
-                                {{-- DISLIKE --}}
-
-                                <button
-                                  type="button"
-                                  data-reaction-button
-                                  data-comment-id="{{ $reply->id }}"
-                                  data-type="dislike"
-                                  data-url="{{ route('tipscodings.comments.reaction', [
-                                    'category' => $category->slug,
-                                    'tipscoding' => $tipscoding->slug,
-                                    'comment' => $reply->id,
-                                    'type' => 'dislike',
-                                  ]) }}"
-                                  class="reaction-dislike inline-flex shrink-0 cursor-pointer items-center rounded-md border px-2 py-1 text-[11px] font-medium transition {{ $replyReaction === 'dislike' ? 'border-red-300 bg-red-100 text-red-700' : 'border-indigo-200 bg-indigo-50 text-gray-700 hover:bg-indigo-100' }}"
-                                  title="Dislike"
-                                >
-
-                                  <i class="reaction-icon bi bi-hand-thumbs-down{{ $replyReaction === 'dislike' ? '-fill' : '' }} {{ $replyReaction === 'dislike' ? 'text-red-700' : 'text-red-800' }}"></i>
-
-                                  <span class="ml-1 reaction-count">
-                                    {{ $reply->dislikes_count }}
-                                  </span>
-
-                                </button>
-
-                              @endif
-
-                            </div>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                    @endforeach
-
-                  </div>
-
-                @endif
-
-              </div>
-
-            </div>
-
-          </div>
-
-        @empty
-
-
-          {{-- ========================================================= --}}
-          {{-- BELUM ADA KOMENTAR --}}
-          {{-- ========================================================= --}}
-
-          <div class="py-8 text-center border border-gray-300 border-dashed rounded-xl">
-
-            <p class="text-base text-gray-500">
-              Belum ada komentar.
-            </p>
-
-            <p class="mt-1 text-sm text-gray-400">
-              Jadilah yang pertama memberikan komentar.
-            </p>
-
-          </div>
-
-        @endforelse
-
-
-        {{-- ========================================================= --}}
-        {{-- REPORT MODAL --}}
-        {{-- ========================================================= --}}
-
-        @if (Auth::check())
-
-          <div
-            id="reportCommentModal"
-            class="fixed inset-0 z-50 items-center justify-center hidden px-4 bg-slate-950/50"
-            aria-hidden="true"
-          >
-
-            <div
-              class="w-full max-w-md bg-white shadow-xl rounded-2xl"
-              data-report-modal-panel
-            >
-
-              <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200">
-
-                <div>
-
-                  <h3 class="text-lg font-semibold text-slate-800">
-                    Report comment
-                  </h3>
-
-                  <p class="mt-1 text-xs text-slate-500">
-                    Beritahu kami jika komentar ini melanggar aturan.
-                  </p>
-
-                </div>
-
-                <button
-                  type="button"
-                  onclick="closeReportComment()"
-                  class="flex items-center justify-center w-8 h-8 transition rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700"
-                >
-                  <i class="bi bi-x-lg"></i>
-                </button>
-
-              </div>
-
-
-              <form
-                id="reportCommentForm"
-                method="POST"
-                action=""
-              >
-
-                @csrf
-
-                <div class="px-5 py-5 space-y-5">
-
-
-                  {{-- REASON --}}
-
-                  <div>
-
-                    <label
-                      for="reportReason"
-                      class="block mb-2 text-sm font-semibold text-slate-700"
-                    >
-                      Alasan
-                    </label>
-
-                    <select
-                      id="reportReason"
-                      name="reason"
-                      class="block w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100"
-                      required
-                    >
-
-                      <option value="">
-                        Pilih alasan
-                      </option>
-
-                      <option value="spam">
-                        Spam
-                      </option>
-
-                      <option value="irrelevant">
-                        Tidak relevan
-                      </option>
-
-                      <option value="inappropriate">
-                        Tidak pantas
-                      </option>
-
-                      <option value="violation">
-                        Melanggar aturan
-                      </option>
-
-                      <option value="other">
-                        Lainnya
-                      </option>
-
-                    </select>
-
-                  </div>
-
-
-                  {{-- DESCRIPTION --}}
-
-                  <div>
-
-                    <label
-                      for="reportDescription"
-                      class="block mb-2 text-sm font-semibold text-slate-700"
-                    >
-                      Keterangan
-
-                      <span class="font-normal text-slate-400">
-                        (opsional)
-                      </span>
-
-                    </label>
-
-                    <textarea
-                      id="reportDescription"
-                      name="description"
-                      rows="4"
-                      maxlength="1000"
-                      placeholder="Jelaskan alasan kamu melaporkan komentar ini..."
-                      class="block w-full resize-none rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-red-400 focus:ring-2 focus:ring-red-100"
-                    ></textarea>
-
-                    <div class="mt-1 text-xs text-right text-slate-400">
-                      Maksimal 1000 karakter
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-                <div class="flex justify-end gap-2 px-5 py-4 border-t border-slate-200">
-
-                  <button
-                    type="button"
-                    onclick="closeReportComment()"
-                    class="px-4 py-2 text-sm font-medium transition border rounded-xl border-slate-300 text-slate-600 hover:bg-slate-50"
-                  >
-                    Batal
-                  </button>
-
-                  <button
-                    type="submit"
-                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white transition bg-red-500 rounded-xl hover:bg-red-600"
-                  >
-                    <i class="bi bi-flag"></i>
-                    Kirim laporan
-                  </button>
-
-                </div>
-
-              </form>
-
-            </div>
-
-          </div>
-
-        @endif
-
-
-        {{-- ========================================================= --}}
-        {{-- ORPHAN REPLIES --}}
-        {{-- ========================================================= --}}
-
-        @if ($orphanReplies->isNotEmpty())
-
-          <div class="mt-6 space-y-4">
-
-            @foreach ($orphanReplies as $comment)
-
-              @php
-                $commentReaction =
-                  $comment->reactions->first()?->type;
-
-                $canDeleteComment =
-                  $comment->user_id === $currentUser?->id ||
-                  $canManageAllComments ||
-                  $canManageTipscodingComments;
-              @endphp
-
-
-              <div
-                id="comment-{{ $comment->id }}"
-                class="scroll-mt-24"
-              >
-
-                <div class="px-3 py-3 border-l-2 rounded-r-lg border-slate-200 bg-slate-50/70 sm:px-4">
-
-                  <div class="flex items-start gap-3">
-
-
-                    {{-- AVATAR --}}
-
-                    <img
-                      src="{{ $comment->user?->image ? asset('storage/' . $comment->user->image) : asset('backend/img/user/user.png') }}"
-                      alt="image"
-                      class="object-cover object-top w-8 h-8 rounded-full shrink-0 sm:h-9 sm:w-9"
-                    />
-
-
-                    <div class="flex-1 min-w-0">
-
-
-                      {{-- USERNAME + TIME --}}
-
-                      <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5">
-
-                        <span class="text-sm font-semibold text-slate-700">
-                          <span>@</span>{{ $comment->user?->username ?? 'user' }}
-                        </span>
-
-                        <span class="text-xs text-slate-400">
-                          di buat {{ $comment->created_at->diffForHumans() }}
-                        </span>
-
-                      </div>
-
-
-                      {{-- PARENT DELETED --}}
-
-                      <div class="mt-1 flex items-center gap-1.5 text-[12px] text-slate-400">
-
-                        <i class="bi bi-arrow-return-right"></i>
-
-                        <span class="italic">
-                          Komentar utama telah dihapus
-                        </span>
-
-                      </div>
-
-
-                      {{-- COMMENT --}}
-
-                      <div class="mt-2 text-sm leading-6 text-slate-700">
-
-                        @if ($comment->status === 'hidden')
-
-                          <div class="rounded-lg border border-slate-200 bg-white px-3 py-2.5 italic text-slate-400">
-                            <i class="mr-1 bi bi-eye-slash"></i>
-                            Komentar ini telah disembunyikan.
-                          </div>
-
-                        @else
-
-                          @php
-                            $orphanText = $comment->comment;
-                            $orphanMention = null;
-                            $orphanMessage = $orphanText;
-
-                            if (
-                              preg_match(
-                                '/^(@[a-zA-Z0-9_.-]+)(\s+)(.*)$/s',
-                                $orphanText,
-                                $matches
-                              )
-                            ) {
-                              $orphanMention = $matches[1];
-                              $orphanMessage = $matches[3];
-                            }
-                          @endphp
-
-                          @if ($orphanMention)
-
-                            <span class="font-medium text-blue-600">
-                              {{ $orphanMention }}
-                            </span>
-
-                            @if ($orphanMessage !== '')
-                              {{ ' ' . $orphanMessage }}
-                            @endif
-
-                          @else
-
-                            {!! nl2br(e($orphanText)) !!}
-
-                          @endif
-
-                        @endif
-
-                      </div>
-
-
-                      {{-- EDITED --}}
-
-                      @if ($comment->edited_at)
-
-                        <div class="mt-1">
-
-                          <span
-                            class="cursor-help text-[11px] text-slate-400"
-                            title="Diedit {{ $comment->edited_at->diffForHumans() }}"
-                          >
-                            Edited
-                          </span>
-
-                        </div>
-
-                      @endif
-
-
-                      {{-- ACTION --}}
-
-                      <div class="flex flex-wrap items-center gap-3 mt-3">
-
-
-                        {{-- LIKE / DISLIKE --}}
-
-                        @if ($comment->status === 'approved')
-
-
-                          {{-- LIKE --}}
-
-                          <button
-                            type="button"
-                            data-reaction-button
-                            data-comment-id="{{ $comment->id }}"
-                            data-type="like"
-                            data-url="{{ route('tipscodings.comments.reaction', [
-                              'category' => $category->slug,
-                              'tipscoding' => $tipscoding->slug,
-                              'comment' => $comment->id,
-                              'type' => 'like',
-                            ]) }}"
-                            class="inline-flex items-center gap-1 text-xs {{ $commentReaction === 'like' ? 'text-blue-600' : 'text-slate-500 hover:text-blue-600' }}"
-                          >
-
-                            <i class="bi bi-hand-thumbs-up"></i>
-
-                            <span data-likes-count>
-                              {{ $comment->likes_count }}
-                            </span>
-
-                          </button>
-
-
-                          {{-- DISLIKE --}}
-
-                          <button
-                            type="button"
-                            data-reaction-button
-                            data-comment-id="{{ $comment->id }}"
-                            data-type="dislike"
-                            data-url="{{ route('tipscodings.comments.reaction', [
-                              'category' => $category->slug,
-                              'tipscoding' => $tipscoding->slug,
-                              'comment' => $comment->id,
-                              'type' => 'dislike',
-                            ]) }}"
-                            class="inline-flex items-center gap-1 text-xs {{ $commentReaction === 'dislike' ? 'text-red-600' : 'text-slate-500 hover:text-red-600' }}"
-                          >
-
-                            <i class="bi bi-hand-thumbs-down"></i>
-
-                            <span data-dislikes-count>
-                              {{ $comment->dislikes_count }}
-                            </span>
-
-                          </button>
-
-                        @endif
-
-
-                        {{-- EDIT --}}
-
-                        @if (
-                          $comment->status === 'approved' &&
-                          $comment->user_id === $currentUser?->id
-                        )
-
-                          <button
-                            type="button"
-                            onclick="openEditComment(
-                              {{ $comment->id }},
-                              @js($comment->comment),
-                              @js(route('tipscodings.comments.update', [
-                                'category' => $category->slug,
-                                'tipscoding' => $tipscoding->slug,
-                                'comment' => $comment->id,
-                              ]))
-                            )"
-                            class="text-xs text-slate-500 hover:text-blue-600"
-                          >
-                            Edit
-                          </button>
-
-                        @endif
-
-
-                        {{-- DELETE --}}
-
-                        @if ($canDeleteComment)
-
-                          <form
-                            action="{{ route('tipscodings.comments.destroy', [
-                              'category' => $category->slug,
-                              'tipscoding' => $tipscoding->slug,
-                              'comment' => $comment->id,
-                            ]) }}"
-                            method="POST"
-                            class="inline"
-                          >
-
-                            @csrf
-                            @method('DELETE')
-
-                            <button
-                              type="submit"
-                              class="text-xs text-slate-500 hover:text-red-600"
-                            >
-                              Delete
-                            </button>
-
-                          </form>
-
-                        @endif
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            @endforeach
-
-          </div>
-
-        @endif
-
-
-        {{-- ========================================================= --}}
-        {{-- PAGINATION --}}
-        {{-- ========================================================= --}}
-
+        {{-- Paginate --}}
         <div class="grid table-pagination">
-
           @if ($comments->lastPage() > 1)
-
             <x-paginate :pagination="$comments" />
-
           @endif
-
         </div>
 
-
-        {{-- ========================================================= --}}
-        {{-- FORM KOMENTAR BARU --}}
-        {{-- ========================================================= --}}
-
-        <div class="flex items-start px-3 space-x-3 sm:space-x-4">
-
-          <div class="flex-1 space-y-2">
-
-            <form
-              action="{{ route('tipscodings.comments.store', [
-                'category' => $category->slug,
-                'tipscoding' => $tipscoding->slug,
-              ]) }}"
-              method="POST"
-              class="mb-8"
-            >
-
-              @csrf
-
-              <div>
-
-                <textarea
-                  id="comment"
-                  name="comment"
-                  rows="4"
-                  placeholder="Tulis komentar kamu..."
-                  class="block w-full px-4 py-3 text-sm text-gray-800 transition bg-white border border-gray-300 outline-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-                >{{ old('comment') }}</textarea>
-
-                @error('comment')
-
-                  <p class="mt-2 ml-2 font-serif text-sm text-red-600">
-                    {{ $message }}
-                  </p>
-
-                @enderror
-
-              </div>
-
-              <div class="flex justify-end mt-3">
-
-                <button
-                  type="submit"
-                  class="cursor-pointer rounded-[10px] bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700"
-                >
-                  Kirim komentar
-                </button>
-
-              </div>
-
-            </form>
-
-          </div>
-
-        </div>
-
+        {{-- Form comentar baru --}}
+        @include('frontend.tipscoding.comment.form-comentar-baru')
       </div>
-
     </div>
-
   </div>
-
 </section>
 
+{{-- Popup edit comentar --}}
+@include('frontend.tipscoding.comment.popup-edit-comentar')
 
-{{-- ========================================================= --}}
-{{-- POPUP EDIT KOMENTAR --}}
-{{-- ========================================================= --}}
-
-<div
-  id="editCommentModal"
-  class="fixed inset-0 z-50 items-center justify-center hidden px-4 bg-black/40"
->
-
-  <div
-    id="editCommentBox"
-    class="w-full max-w-lg p-6 bg-white shadow-xl rounded-2xl"
-  >
-
-    <div class="flex items-start justify-between gap-4 mb-5">
-
-      <div>
-
-        <h3 class="text-lg font-semibold text-gray-800">
-          Edit komentar
-        </h3>
-
-        <p class="mt-1 text-sm text-gray-500">
-          Perbarui komentar kamu.
-        </p>
-
-      </div>
-
-      <button
-        type="button"
-        onclick="closeEditComment()"
-        class="inline-flex items-center justify-center w-8 h-8 text-gray-400 rounded-lg cursor-pointer shrink-0 hover:bg-gray-100 hover:text-gray-700"
-        title="Tutup"
-      >
-        <i class="bi bi-x-lg"></i>
-      </button>
-
-    </div>
-
-
-    <form
-      id="editCommentForm"
-      method="POST"
-    >
-
-      @csrf
-      @method('PATCH')
-
-      <textarea
-        id="editCommentTextarea"
-        name="comment"
-        rows="5"
-        placeholder="Tulis komentar kamu..."
-        class="block w-full px-4 py-3 text-sm text-gray-800 transition bg-white border border-gray-300 outline-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-      ></textarea>
-
-      <p
-        id="editCommentError"
-        class="hidden mt-2 font-serif text-sm text-red-600"
-      ></p>
-
-      <div class="flex justify-end gap-2 mt-4">
-
-        <button
-          type="button"
-          onclick="closeEditComment()"
-          class="cursor-pointer rounded-[10px] border border-gray-300 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50"
-        >
-          Batal
-        </button>
-
-        <button
-          type="submit"
-          class="cursor-pointer rounded-[10px] bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-        >
-          Simpan
-        </button>
-
-      </div>
-
-    </form>
-
-  </div>
-
-</div>
-
-
-{{-- ========================================================= --}}
-{{-- POPUP REPLY KOMENTAR --}}
-{{-- ========================================================= --}}
-
-<div
-  id="replyCommentModal"
-  class="fixed inset-0 z-50 items-center justify-center hidden px-4 bg-black/40"
->
-
-  <div class="w-full max-w-lg p-6 bg-white shadow-xl rounded-2xl">
-
-    <div class="flex items-start justify-between gap-4 mb-5">
-
-      <div>
-
-        <h3 class="text-lg font-semibold text-gray-800">
-          Balas komentar
-        </h3>
-
-        <p
-          id="replyCommentUser"
-          class="mt-1 text-sm text-gray-500"
-        ></p>
-
-      </div>
-
-      <button
-        type="button"
-        onclick="closeReplyComment()"
-        class="inline-flex items-center justify-center w-8 h-8 text-gray-400 rounded-lg cursor-pointer shrink-0 hover:bg-gray-100 hover:text-gray-700"
-        title="Tutup"
-      >
-        <i class="bi bi-x-lg"></i>
-      </button>
-
-    </div>
-
-
-    <form
-      id="replyCommentForm"
-      action="{{ route('tipscodings.comments.store', [
-        'category' => $category->slug,
-        'tipscoding' => $tipscoding->slug,
-      ]) }}"
-      method="POST"
-    >
-
-      @csrf
-
-      <input
-        type="hidden"
-        id="replyParentId"
-        name="parent_id"
-      />
-
-      <textarea
-        id="replyCommentTextarea"
-        name="comment"
-        rows="5"
-        placeholder="Tulis balasan kamu..."
-        class="block w-full px-4 py-3 text-sm text-gray-800 transition bg-white border border-gray-300 outline-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-      ></textarea>
-
-      @error('comment')
-
-        <p class="mt-2 font-serif text-sm text-red-600">
-          {{ $message }}
-        </p>
-
-      @enderror
-
-      <div class="flex justify-end gap-2 mt-4">
-
-        <button
-          type="button"
-          onclick="closeReplyComment()"
-          class="cursor-pointer rounded-[10px] border border-gray-300 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50"
-        >
-          Batal
-        </button>
-
-        <button
-          type="submit"
-          class="cursor-pointer rounded-[10px] bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-        >
-          Kirim balasan
-        </button>
-
-      </div>
-
-    </form>
-
-  </div>
-
-</div>
-
-
-{{-- ========================================================= --}}
-{{-- JAVASCRIPT --}}
-{{-- ========================================================= --}}
+{{-- Popup reply comentar --}}
+@include('frontend.tipscoding.comment.popup-reply-comentar')
 
 <script>
-
-  /*
-  |--------------------------------------------------------------------------
-  | SCROLL KE KOMENTAR DARI NOTIFIKASI
-  |--------------------------------------------------------------------------
-  */
-
-  document.addEventListener(
-    'DOMContentLoaded',
-    function () {
-
-      const hash =
-        window.location.hash;
-
-      if (
-        !hash ||
-        !hash.startsWith('#comment-')
-      ) {
-        return;
-      }
-
-      setTimeout(function () {
-
-        const comment =
-          document.querySelector(hash);
-
-        if (!comment) {
-          return;
-        }
-
-        comment.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-
-        comment.classList.add(
-          'bg-yellow-50',
-          'rounded-xl',
-          'transition-colors',
-          'duration-500'
-        );
-
-        setTimeout(function () {
-
-          comment.classList.remove(
-            'bg-yellow-50'
-          );
-
-        }, 2500);
-
-      }, 300);
-
-    }
-  );
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | SCROLL RESTORATION
-  |--------------------------------------------------------------------------
-  */
-
-  const commentScrollKey =
-    'tipscoding-comment-scroll';
-
-
-  if ('scrollRestoration' in history) {
-
-    history.scrollRestoration =
-      'manual';
-
-  }
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | SIMPAN SCROLL SEBELUM FORM DIKIRIM
-  |--------------------------------------------------------------------------
-  */
-
-  document.addEventListener(
-    'submit',
-    function (event) {
-
-      const form =
-        event.target;
-
-      if (
-        form.action &&
-        form.action.includes('/comments')
-      ) {
-
-        sessionStorage.setItem(
-          commentScrollKey,
-          String(window.scrollY)
-        );
-
-      }
-
-    }
-  );
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | KEMBALIKAN SCROLL
-  |--------------------------------------------------------------------------
-  */
-
-  window.addEventListener(
-    'load',
-    function () {
-
-      if (
-        window.location.hash &&
-        window.location.hash.startsWith(
-          '#comment-'
-        )
-      ) {
-
-        sessionStorage.removeItem(
-          commentScrollKey
-        );
-
-        return;
-
-      }
-
-      const savedScroll =
-        sessionStorage.getItem(
-          commentScrollKey
-        );
-
-      if (savedScroll === null) {
-        return;
-      }
-
-      sessionStorage.removeItem(
-        commentScrollKey
-      );
-
-      requestAnimationFrame(
-        function () {
-
-          window.scrollTo({
-            top: Number(savedScroll),
-            behavior: 'instant',
-          });
-
-        }
-      );
-
-    }
-  );
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | PAGINATION
-  |--------------------------------------------------------------------------
-  */
-
-  document.addEventListener(
-    'click',
-    function (event) {
-
-      const paginationLink =
-        event.target.closest(
-          '.table-pagination a'
-        );
-
-      if (!paginationLink) {
-        return;
-      }
-
-      sessionStorage.removeItem(
-        commentScrollKey
-      );
-
-    }
-  );
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | EDIT COMMENT
-  |--------------------------------------------------------------------------
-  */
-
-  function openEditComment(
-    id,
-    comment,
-    action
-  ) {
-
-    const modal =
-      document.getElementById(
-        'editCommentModal'
-      );
-
-    const form =
-      document.getElementById(
-        'editCommentForm'
-      );
-
-    const textarea =
-      document.getElementById(
-        'editCommentTextarea'
-      );
-
-    const error =
-      document.getElementById(
-        'editCommentError'
-      );
-
-    if (
-      !modal ||
-      !form ||
-      !textarea ||
-      !error
-    ) {
-      return;
-    }
-
-    textarea.value =
-      comment;
-
-    form.action =
-      action;
-
-    error.textContent =
-      '';
-
-    error.classList.add(
-      'hidden'
-    );
-
-    modal.classList.remove(
-      'hidden'
-    );
-
-    modal.classList.add(
-      'flex'
-    );
+  // Scroll ke komentar dari notifikasi
+  document.addEventListener('DOMContentLoaded', function () {
+    const hash = window.location.hash;
+    if (!hash || !hash.startsWith('#comment-')) return;
 
     setTimeout(function () {
+      const comment = document.querySelector(hash);
+      if (!comment) return;
 
-      textarea.focus();
+      comment.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
 
-    }, 100);
+      comment.classList.add(
+        'bg-yellow-50',
+        'rounded-xl',
+        'transition-colors',
+        'duration-500'
+      );
 
+      setTimeout(function () {
+        comment.classList.remove('bg-yellow-50');
+      }, 2500);
+    }, 300);
+  });
+
+
+  // Scroll restoration
+  const commentScrollKey = 'tipscoding-comment-scroll';
+
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
   }
 
+  // Simpan scroll sebelum form di kirim
+  document.addEventListener('submit', function (event) {
+    const form = event.target;
 
-  /*
-  |--------------------------------------------------------------------------
-  | CLOSE EDIT
-  |--------------------------------------------------------------------------
-  */
+    if (form.action && form.action.includes('/comments')) {
+      sessionStorage.setItem(commentScrollKey, String(window.scrollY));
+    }
+  });
 
-  function closeEditComment() {
-
-    const modal =
-      document.getElementById(
-        'editCommentModal'
-      );
-
-    const textarea =
-      document.getElementById(
-        'editCommentTextarea'
-      );
-
-    if (!modal) {
+  // kembalikan scroll
+  window.addEventListener('load', function () {
+    if (window.location.hash && window.location.hash.startsWith(
+      '#comment-'
+    )) {
+      sessionStorage.removeItem(commentScrollKey);
       return;
     }
 
-    modal.classList.add(
-      'hidden'
+    const savedScroll = sessionStorage.getItem(commentScrollKey);
+
+    if (savedScroll === null) return;
+    sessionStorage.removeItem(commentScrollKey);
+
+    requestAnimationFrame(function () {
+      window.scrollTo({
+        top: Number(savedScroll),
+        behavior: 'instant',
+      });
+    });
+  });
+
+  // Pagination
+  document.addEventListener('click', function (event) {
+    const paginationLink = event.target.closest(
+      '.table-pagination a'
     );
 
-    modal.classList.remove(
-      'flex'
-    );
+    if (!paginationLink) return;
+
+    sessionStorage.removeItem(commentScrollKey);
+  });
+
+  // Edit comment
+  function openEditComment(id, comment, action) {
+    const modal = document.getElementById('editCommentModal');
+    const form = document.getElementById('editCommentForm');
+    const textarea = document.getElementById('editCommentTextarea');
+    const error = document.getElementById('editCommentError');
+
+    if (!modal || !form || !textarea || !error) return;
+
+    textarea.value = comment;
+    form.action = action;
+    error.textContent = '';
+
+    error.classList.add('hidden');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    setTimeout(function () {
+      textarea.focus();
+    }, 100);
+  }
+
+  // Close edit
+  function closeEditComment() {
+    const modal = document.getElementById('editCommentModal');
+    const textarea = document.getElementById('editCommentTextarea');
+
+    if (!modal) return;
+
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 
     if (textarea) {
-
-      textarea.value =
-        '';
-
+      textarea.value = '';
     }
-
   }
 
+  // Reply comment
+  let replyMentionPrefix = '';
 
-  /*
-  |--------------------------------------------------------------------------
-  | REPLY COMMENT
-  |--------------------------------------------------------------------------
-  */
+  // Open reply
+  function openReplyComment(id, username) {
+    const modal = document.getElementById('replyCommentModal');
+    const parentId = document.getElementById('replyParentId');
+    const textarea = document.getElementById('replyCommentTextarea');
+    const user = document.getElementById('replyCommentUser');
 
-  let replyMentionPrefix =
-    '';
+    if (!modal || !parentId || !textarea || !user) return;
 
+    // Open reply . id comment yg di balas
+    parentId.value = id;
 
-  /*
-  |--------------------------------------------------------------------------
-  | OPEN REPLY
-  |--------------------------------------------------------------------------
-  */
+    // Open reply . mention
+    replyMentionPrefix = `@${username} `;
 
-  function openReplyComment(
-    id,
-    username
-  ) {
-
-    const modal =
-      document.getElementById(
-        'replyCommentModal'
-      );
-
-    const parentId =
-      document.getElementById(
-        'replyParentId'
-      );
-
-    const textarea =
-      document.getElementById(
-        'replyCommentTextarea'
-      );
-
-    const user =
-      document.getElementById(
-        'replyCommentUser'
-      );
-
-    if (
-      !modal ||
-      !parentId ||
-      !textarea ||
-      !user
-    ) {
-      return;
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | ID KOMENTAR YANG DIBALAS
-    |--------------------------------------------------------------------------
-    */
-
-    parentId.value =
-      id;
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | MENTION
-    |--------------------------------------------------------------------------
-    */
-
-    replyMentionPrefix =
-      `@${username} `;
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | INFORMASI USER
-    |--------------------------------------------------------------------------
-    */
-
+    // Open reply . informasi user
     user.innerHTML = `
       Membalas
       <span class="font-medium text-blue-600">
@@ -1809,526 +195,185 @@
       </span>
     `;
 
+    // Open reply . isi textarea
+    textarea.value = replyMentionPrefix;
 
-    /*
-    |--------------------------------------------------------------------------
-    | ISI TEXTAREA
-    |--------------------------------------------------------------------------
-    */
+    // Open reply . tampilkan modal
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 
-    textarea.value =
-      replyMentionPrefix;
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | TAMPILKAN MODAL
-    |--------------------------------------------------------------------------
-    */
-
-    modal.classList.remove(
-      'hidden'
-    );
-
-    modal.classList.add(
-      'flex'
-    );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | FOKUS
-    |--------------------------------------------------------------------------
-    */
-
+    // Open reply . fokus
     setTimeout(function () {
-
       textarea.focus();
-
       textarea.setSelectionRange(
         textarea.value.length,
         textarea.value.length
       );
-
     }, 100);
-
   }
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | PROTEKSI MENTION
-  |--------------------------------------------------------------------------
-  */
-
-  const replyTextarea =
-    document.getElementById(
-      'replyCommentTextarea'
-    );
-
+  // Proteksi mention
+  const replyTextarea = document.getElementById('replyCommentTextarea');
 
   if (replyTextarea) {
+    // Proteksi mention . keydown
+    replyTextarea.addEventListener('keydown', function (event) {
+      if (!replyMentionPrefix) return;
 
+      const prefixLength = replyMentionPrefix.length;
+      const selectionStart = this.selectionStart;
 
-    /*
-    |--------------------------------------------------------------------------
-    | KEYDOWN
-    |--------------------------------------------------------------------------
-    */
+      // Proteksi mention . keydown . ctrl + a & cmd + a
+      if ((
+        event.ctrlKey || event.metaKey
+      ) && event.key.toLowerCase() === 'a') {
+        event.preventDefault();
+        this.setSelectionRange(prefixLength, this.value.length);
 
-    replyTextarea.addEventListener(
-      'keydown',
-      function (event) {
-
-        if (!replyMentionPrefix) {
-          return;
-        }
-
-        const prefixLength =
-          replyMentionPrefix.length;
-
-        const selectionStart =
-          this.selectionStart;
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | CTRL + A / CMD + A
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-          (event.ctrlKey || event.metaKey) &&
-          event.key.toLowerCase() === 'a'
-        ) {
-
-          event.preventDefault();
-
-          this.setSelectionRange(
-            prefixLength,
-            this.value.length
-          );
-
-          return;
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | BACKSPACE
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-          event.key === 'Backspace' &&
-          selectionStart <= prefixLength
-        ) {
-
-          event.preventDefault();
-
-          this.setSelectionRange(
-            prefixLength,
-            prefixLength
-          );
-
-          return;
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | DELETE
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-          event.key === 'Delete' &&
-          selectionStart < prefixLength
-        ) {
-
-          event.preventDefault();
-
-          this.setSelectionRange(
-            prefixLength,
-            prefixLength
-          );
-
-          return;
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | HOME
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-          event.key === 'Home' &&
-          !event.shiftKey
-        ) {
-
-          event.preventDefault();
-
-          this.setSelectionRange(
-            prefixLength,
-            prefixLength
-          );
-
-          return;
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | SHIFT + HOME
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-          event.key === 'Home' &&
-          event.shiftKey
-        ) {
-
-          event.preventDefault();
-
-          this.setSelectionRange(
-            prefixLength,
-            selectionStart
-          );
-
-          return;
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | ARROW LEFT
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-          event.key === 'ArrowLeft' &&
-          selectionStart <= prefixLength
-        ) {
-
-          event.preventDefault();
-
-          this.setSelectionRange(
-            prefixLength,
-            prefixLength
-          );
-
-          return;
-        }
-
+        return;
       }
-    );
 
+      // Proteksi mention . keydown . backspace
+      if (event.key === 'Backspace' &&selectionStart <= prefixLength) {
+        event.preventDefault();
+        this.setSelectionRange(prefixLength, prefixLength);
 
-    /*
-    |--------------------------------------------------------------------------
-    | INPUT
-    |--------------------------------------------------------------------------
-    */
+        return;
+      }
 
-    replyTextarea.addEventListener(
-      'input',
-      function () {
+      // Proteksi mention . keydown . delete
+      if (event.key === 'Delete' && selectionStart < prefixLength) {
+        event.preventDefault();
+        this.setSelectionRange(prefixLength, prefixLength);
 
-        if (!replyMentionPrefix) {
-          return;
+        return;
+      }
+
+      // Proteksi mention . keydown . home
+      if (event.key === 'Home' && !event.shiftKey) {
+        event.preventDefault();
+        this.setSelectionRange(prefixLength, prefixLength);
+
+        return;
+      }
+
+      // Proteksi mention . keydown . shift + home
+      if (event.key === 'Home' && event.shiftKey) {
+        event.preventDefault();
+        this.setSelectionRange(prefixLength, selectionStart);
+
+        return;
+      }
+
+      // Proteksi mention . keydown . arrow left
+      if (event.key === 'ArrowLeft' && selectionStart <= prefixLength) {
+        event.preventDefault();
+        this.setSelectionRange(prefixLength, prefixLength);
+
+        return;
+      }
+    });
+
+    // Proteksi mention . input
+    replyTextarea.addEventListener('input', function () {
+      if (!replyMentionPrefix) return;
+
+      // Proteksi mention . input . mention masih utuh
+      if (this.value.startsWith(replyMentionPrefix)) return;
+
+      const currentValue = this.value;
+      const mentionText = replyMentionPrefix.trim();
+      let content = currentValue;
+
+      // Proteksi mention . input . cari mention lama
+      if (currentValue.startsWith('@')) {
+        const firstSpace = currentValue.indexOf(' ');
+
+        if (firstSpace !== -1) {
+          content = currentValue.substring(firstSpace + 1);
         }
+      }
 
+      // Proteksi mention . input . pasang kembali mention
+      this.value = `${mentionText} ${content}`;
 
-        /*
-        |--------------------------------------------------------------------------
-        | MENTION MASIH UTUH
-        |--------------------------------------------------------------------------
-        */
+      // Proteksi mention . input . cursor
+      this.setSelectionRange(this.value.length, this.value.length);
+    });
 
-        if (
-          this.value.startsWith(
-            replyMentionPrefix
-          )
-        ) {
-
-          return;
-        }
-
-
-        const currentValue =
-          this.value;
-
-        const mentionText =
-          replyMentionPrefix.trim();
-
-        let content =
-          currentValue;
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | CARI MENTION LAMA
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-          currentValue.startsWith('@')
-        ) {
-
-          const firstSpace =
-            currentValue.indexOf(' ');
-
-          if (firstSpace !== -1) {
-
-            content =
-              currentValue.substring(
-                firstSpace + 1
-              );
-
-          }
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | PASANG KEMBALI MENTION
-        |--------------------------------------------------------------------------
-        */
-
-        this.value =
-          `${mentionText} ${content}`;
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | CURSOR
-        |--------------------------------------------------------------------------
-        */
-
+    // Proteksi mention . click
+    replyTextarea.addEventListener('click', function () {
+      if (this.selectionStart < replyMentionPrefix.length) {
         this.setSelectionRange(
-          this.value.length,
-          this.value.length
+          replyMentionPrefix.length,
+          replyMentionPrefix.length
         );
-
       }
-    );
+    });
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | CLICK
-    |--------------------------------------------------------------------------
-    */
-
-    replyTextarea.addEventListener(
-      'click',
-      function () {
-
-        if (
-          this.selectionStart <
+    // Proteksi mention . focus
+    replyTextarea.addEventListener('focus', function () {
+      if (this.selectionStart < replyMentionPrefix.length) {
+        this.setSelectionRange(
+          replyMentionPrefix.length,
           replyMentionPrefix.length
-        ) {
-
-          this.setSelectionRange(
-            replyMentionPrefix.length,
-            replyMentionPrefix.length
-          );
-
-        }
-
+        );
       }
-    );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | FOCUS
-    |--------------------------------------------------------------------------
-    */
-
-    replyTextarea.addEventListener(
-      'focus',
-      function () {
-
-        if (
-          this.selectionStart <
-          replyMentionPrefix.length
-        ) {
-
-          this.setSelectionRange(
-            replyMentionPrefix.length,
-            replyMentionPrefix.length
-          );
-
-        }
-
-      }
-    );
-
+    });
   }
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | CLOSE REPLY
-  |--------------------------------------------------------------------------
-  */
-
+  // Close reply
   function closeReplyComment() {
+    const modal = document.getElementById('replyCommentModal');
+    const parentId = document.getElementById('replyParentId');
+    const textarea = document.getElementById('replyCommentTextarea');
 
-    const modal =
-      document.getElementById(
-        'replyCommentModal'
-      );
+    if (!modal) return;
 
-    const parentId =
-      document.getElementById(
-        'replyParentId'
-      );
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 
-    const textarea =
-      document.getElementById(
-        'replyCommentTextarea'
-      );
+    if (parentId) { parentId.value = ''; }
+    if (textarea) { textarea.value = ''; }
 
-    if (!modal) {
-      return;
-    }
-
-    modal.classList.add(
-      'hidden'
-    );
-
-    modal.classList.remove(
-      'flex'
-    );
-
-
-    if (parentId) {
-
-      parentId.value =
-        '';
-
-    }
-
-
-    if (textarea) {
-
-      textarea.value =
-        '';
-
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | RESET MENTION
-    |--------------------------------------------------------------------------
-    */
-
-    replyMentionPrefix =
-      '';
-
+    // Close reply . reset mention
+    replyMentionPrefix = '';
   }
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | BACKDROP EDIT
-  |--------------------------------------------------------------------------
-  */
-
-  const editCommentModal =
-    document.getElementById(
-      'editCommentModal'
-    );
+  // Backdrop edit
+  const editCommentModal = document.getElementById('editCommentModal');
 
   if (editCommentModal) {
-
-    editCommentModal.addEventListener(
-      'click',
-      function (event) {
-
-        if (
-          event.target === this
-        ) {
-
-          closeEditComment();
-
-        }
-
-      }
-    );
-
-  }
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | BACKDROP REPLY
-  |--------------------------------------------------------------------------
-  */
-
-  const replyCommentModal =
-    document.getElementById(
-      'replyCommentModal'
-    );
-
-  if (replyCommentModal) {
-
-    replyCommentModal.addEventListener(
-      'click',
-      function (event) {
-
-        if (
-          event.target === this
-        ) {
-
-          closeReplyComment();
-
-        }
-
-      }
-    );
-
-  }
-
-
-  /*
-  |--------------------------------------------------------------------------
-  | ESC
-  |--------------------------------------------------------------------------
-  */
-
-  document.addEventListener(
-    'keydown',
-    function (event) {
-
-      if (
-        event.key === 'Escape'
-      ) {
-
+    editCommentModal.addEventListener('click', function (event) {
+      if (event.target === this) {
         closeEditComment();
-
-        closeReplyComment();
-
-        closeReportComment();
-
       }
+    });
+  }
 
-    }
+  // Backdrop reply
+  const replyCommentModal = document.getElementById(
+    'replyCommentModal'
   );
 
+  if (replyCommentModal) {
+    replyCommentModal.addEventListener('click', function (event) {
+      if (event.target === this) {
+        closeReplyComment();
+      }
+    });
+  }
 
-  /*
-  |--------------------------------------------------------------------------
-  | LIKE / DISLIKE
-  |--------------------------------------------------------------------------
-  */
+  // Esc
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      closeEditComment();
+      closeReplyComment();
+      closeReportComment();
+    }
+  });
 
+  // Like & dislike INI LAGI YA
   document.addEventListener(
     'click',
     async function (event) {
@@ -2351,7 +396,6 @@
         return;
       }
 
-
       const commentId =
         button.dataset.commentId;
 
@@ -2362,7 +406,6 @@
         document.querySelectorAll(
           `[data-reaction-button][data-comment-id="${commentId}"]`
         );
-
 
       try {
 
@@ -2380,12 +423,10 @@
 
         });
 
-
         const csrfToken =
           document.querySelector(
             'meta[name="csrf-token"]'
           );
-
 
         if (!csrfToken) {
 
@@ -2394,7 +435,6 @@
           );
 
         }
-
 
         const response =
           await fetch(
@@ -2420,7 +460,6 @@
             }
           );
 
-
         if (!response.ok) {
 
           throw new Error(
@@ -2429,16 +468,13 @@
 
         }
 
-
         const data =
           await response.json();
-
 
         updateReactionButtons(
           buttons,
           data
         );
-
 
       } catch (error) {
 
@@ -2450,7 +486,6 @@
         alert(
           'Terjadi kesalahan saat memproses reaction.'
         );
-
 
       } finally {
 
@@ -2473,18 +508,8 @@
     }
   );
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | UPDATE REACTION BUTTONS
-  |--------------------------------------------------------------------------
-  */
-
-  function updateReactionButtons(
-    buttons,
-    data
-  ) {
-
+  // Update reaction buttons
+  function updateReactionButtons(buttons, data) {
     buttons.forEach(function (button) {
 
       const type =
@@ -2500,15 +525,12 @@
           '.reaction-count'
         );
 
-
       if (!icon || !count) {
         return;
       }
 
-
       const active =
         data.reaction === type;
-
 
       /*
       |--------------------------------------------------------------------------
@@ -2523,14 +545,12 @@
 
       }
 
-
       if (type === 'dislike') {
 
         count.textContent =
           data.dislikes_count;
 
       }
-
 
       /*
       |--------------------------------------------------------------------------
@@ -2551,7 +571,6 @@
         'hover:bg-indigo-100'
       );
 
-
       /*
       |--------------------------------------------------------------------------
       | RESET ICON
@@ -2568,7 +587,6 @@
         'text-red-700',
         'text-red-800'
       );
-
 
       /*
       |--------------------------------------------------------------------------
@@ -2608,7 +626,6 @@
         }
 
       }
-
 
       /*
       |--------------------------------------------------------------------------
@@ -2653,13 +670,7 @@
 
   }
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | REPORT COMMENT
-  |--------------------------------------------------------------------------
-  */
-
+  // Report comment
   document.addEventListener(
     'click',
     function (event) {
@@ -2675,7 +686,6 @@
 
       event.preventDefault();
 
-
       const modal =
         document.getElementById(
           'reportCommentModal'
@@ -2686,29 +696,23 @@
           'reportCommentForm'
         );
 
-
       if (!modal || !form) {
         return;
       }
 
-
       const commentId =
         button.dataset.commentId;
 
-
       form.action =
         `{{ url('/ec/tipscodings/category/' . $category->slug . '/tips/' . $tipscoding->slug . '/comments') }}/${commentId}/report`;
-
 
       form.querySelector(
         '[name="reason"]'
       ).value = '';
 
-
       form.querySelector(
         '[name="description"]'
       ).value = '';
-
 
       modal.classList.remove(
         'hidden'
@@ -2718,7 +722,6 @@
         'flex'
       );
 
-
       document.body.classList.add(
         'overflow-hidden'
       );
@@ -2726,13 +729,7 @@
     }
   );
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | CLOSE REPORT
-  |--------------------------------------------------------------------------
-  */
-
+  // Close report
   function closeReportComment() {
 
     const modal =
@@ -2745,11 +742,9 @@
         'reportCommentForm'
       );
 
-
     if (!modal || !form) {
       return;
     }
-
 
     modal.classList.add(
       'hidden'
@@ -2759,16 +754,13 @@
       'flex'
     );
 
-
     document.body.classList.remove(
       'overflow-hidden'
     );
 
-
     form.querySelector(
       '[name="reason"]'
     ).value = '';
-
 
     form.querySelector(
       '[name="description"]'
@@ -2776,18 +768,11 @@
 
   }
 
-
-  /*
-  |--------------------------------------------------------------------------
-  | REPORT BACKDROP
-  |--------------------------------------------------------------------------
-  */
-
+  // Report backdrop
   const reportModal =
     document.getElementById(
       'reportCommentModal'
     );
-
 
   if (reportModal) {
 
@@ -2807,5 +792,4 @@
     );
 
   }
-
 </script>
